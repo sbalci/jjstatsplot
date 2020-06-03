@@ -1,5 +1,7 @@
 # jjstatsplot
 
-wrapper functions to use ggstatsplot functions as a module in jamovi
+wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) functions as a module in jamovi
 
-See https://github.com/sbalci/ClinicoPathJamoviModule
+See https://indrajeetpatil.github.io/ggstatsplot/
+
+See https://sbalci.github.io/ClinicoPathJamoviModule/
