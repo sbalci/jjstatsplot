@@ -1,0 +1,21 @@
+---
+title: Wrapper Functions to Use ggstatsplot Functions as a Module in jamovi
+name: jjstatsplot
+version: 0.0.0.0001
+jms: '1.0'
+Authors@R:
+    person(given = "Serdar",
+           family = "Balci",
+           role = c("aut", "cre"),
+           email = "drserdarbalci@gmail.com",
+           comment = c(ORCID = "0000-0002-7852-3851"))
+Maintainer: Serdar Balci <drserdarbalci@gmail.com>
+date: '2020-06-03'
+type: R
+Description: Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/)
+    functions as a module in [jamovi](https://www.jamovi.org)
+analyses: []
+usesNative: true
+minApp: 1.0.8
+
+...
