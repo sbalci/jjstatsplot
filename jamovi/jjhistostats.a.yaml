@@ -1,17 +1,18 @@
 ---
-name:  jjbetweenstats
-title: Violin Plots to Compare Between Groups
+name:  jjhistostats
+title: Histogram
 menuGroup: JJStatsPlot
-menuSubgroup: 'Categorical vs Numeric'
-menuSubtitle: 'Independent Samples'
+menuSubgroup: Continious
+menuSubtitle: Histogram
 version: '1.0.0'
 jas: '1.2'
 
 
+
 description:
     main: |
-        'Wrapper Function for ggstatsplot::ggbarstats and
-        ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
+        'Wrapper Function for ggstatsplot::gghistostats and
+        ggstatsplot::grouped_gghistostats to generate Bar Charts.'
     R:
         dontrun: true
         usage: |
@@ -30,12 +31,6 @@ options:
       type: Variable
       suggested: [ continuous ]
       permitted: [ numeric ]
-
-    - name: group
-      title: Grouping Variable
-      type: Variable
-      suggested: [ ordinal, nominal ]
-      permitted: [ factor ]
 
     - name: grvar
       title: 'Split by: (Optional)'

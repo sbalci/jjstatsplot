@@ -1,0 +1,51 @@
+---
+name:  jjwithinstats
+title: Violin Plots to Compare Between Groups
+jrs:   '1.1'
+
+items:
+
+    - name:  todo
+      title: To Do
+      type:  Html
+      clearWith:
+          - dep
+          - group
+          - grvar
+          - direction
+
+
+
+
+    - name: plot2
+      title: '`Violin Plot ${group} - {dep} by {grvar}`'
+      type: Image
+      width:  800
+      height: 600
+      renderFun: .plot2
+      requiresData: true
+      clearWith:
+          - dep
+          - group
+          - grvar
+          - direction
+      visible: (grvar)
+
+    - name: plot
+      title: '`Violin Plot ${group} - {dep}`'
+      type: Image
+      width:  800
+      height: 600
+      renderFun: .plot
+      requiresData: true
+      clearWith:
+          - dep
+          - group
+          - grvar
+          - direction
+
+refs:
+    - ggplot2
+    - ggstatsplot
+
+...

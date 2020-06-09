@@ -1,11 +1,12 @@
 ---
-name:  jjbetweenstats
+name:  jjwithinstats
 title: Violin Plots to Compare Between Groups
 menuGroup: JJStatsPlot
-menuSubgroup: 'Categorical vs Numeric'
-menuSubtitle: 'Independent Samples'
+menuSubgroup: Categorical vs Numeric
+menuSubtitle: ggstatsplot::jjwithinstats
 version: '1.0.0'
 jas: '1.2'
+
 
 
 description:

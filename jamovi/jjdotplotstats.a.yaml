@@ -1,17 +1,18 @@
 ---
-name:  jjbetweenstats
-title: Violin Plots to Compare Between Groups
+name:  jjdotplotstats
+title: Dot Chart
 menuGroup: JJStatsPlot
-menuSubgroup: 'Categorical vs Numeric'
-menuSubtitle: 'Independent Samples'
+menuSubgroup: Categorical vs Numeric
+menuSubtitle: Dot Chart
 version: '1.0.0'
 jas: '1.2'
 
 
+
 description:
     main: |
-        'Wrapper Function for ggstatsplot::ggbarstats and
-        ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
+        'Wrapper Function for ggstatsplot::ggdotplotstats and
+        ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
     R:
         dontrun: true
         usage: |
@@ -30,6 +31,7 @@ options:
       type: Variable
       suggested: [ continuous ]
       permitted: [ numeric ]
+
 
     - name: group
       title: Grouping Variable

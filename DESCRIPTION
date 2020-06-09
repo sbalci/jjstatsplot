@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper Functions to Use ggstatsplot Functions as a Module in jamovi
-Version: 0.0.0.0001
-Date: 2020-06-01
+Version: 0.0.1
+Date: 2020-06-09
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -10,8 +10,7 @@ Authors@R:
            email = "drserdarbalci@gmail.com",
            comment = c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <drserdarbalci@gmail.com>
-Description: Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) 
-    functions as a module in [jamovi](https://www.jamovi.org)
+Description: Wrapper functions to use ggstatsplot functions as a module in jamovi.
 License: GPL-3
 URL: https://github.com/sbalci/ClinicoPathJamoviModule/,
     https://github.com/sbalci/jjstatsplot/,
@@ -25,7 +24,9 @@ Imports:
     R6,
     magrittr,
     ggplot2,
-    ggstatsplot
+    ggstatsplot,
+    ggalluvial,
+    easyalluvial
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

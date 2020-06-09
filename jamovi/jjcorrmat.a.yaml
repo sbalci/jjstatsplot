@@ -1,11 +1,12 @@
 ---
-name:  jjbetweenstats
-title: Violin Plots to Compare Between Groups
+name:  jjcorrmat
+title: Correlation Matrix
 menuGroup: JJStatsPlot
-menuSubgroup: 'Categorical vs Numeric'
-menuSubtitle: 'Independent Samples'
+menuSubgroup: Continious vs Continious
+menuSubtitle: Correlation Matrix
 version: '1.0.0'
 jas: '1.2'
+
 
 
 description:
@@ -27,15 +28,9 @@ options:
 
     - name: dep
       title: Dependent Variable
-      type: Variable
+      type: Variables
       suggested: [ continuous ]
       permitted: [ numeric ]
-
-    - name: group
-      title: Grouping Variable
-      type: Variable
-      suggested: [ ordinal, nominal ]
-      permitted: [ factor ]
 
     - name: grvar
       title: 'Split by: (Optional)'
@@ -64,4 +59,5 @@ options:
       default: true
 
 ...
+
 
