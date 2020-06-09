@@ -9,9 +9,9 @@ jas: '1.2'
 
 
 description:
-    main: |
-        'Wrapper Function for ggstatsplot::ggbarstats and
-        ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
+    # main: |
+    #     'Wrapper Function for ggstatsplot::ggbetweenstats and
+    #     ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
     R:
         dontrun: true
         usage: |

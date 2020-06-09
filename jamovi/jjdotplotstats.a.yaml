@@ -10,9 +10,9 @@ jas: '1.2'
 
 
 description:
-    main: |
-        'Wrapper Function for ggstatsplot::ggdotplotstats and
-        ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
+    # main: |
+    #     'Wrapper Function for ggstatsplot::ggdotplotstats and
+    #     ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
     R:
         dontrun: true
         usage: |

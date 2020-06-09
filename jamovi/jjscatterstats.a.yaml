@@ -10,9 +10,9 @@ jas: '1.2'
 
 
 description:
-    main: |
-        'Wrapper Function for ggstatsplot::ggscatterstats and
-        ggstatsplot::grouped_ggscatterstats to generate Bar Charts.'
+    # main: |
+    #     'Wrapper Function for ggstatsplot::ggscatterstats and
+    #     ggstatsplot::grouped_ggscatterstats to generate Scatter Plot.'
     R:
         dontrun: true
         usage: |

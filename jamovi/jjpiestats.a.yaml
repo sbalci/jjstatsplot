@@ -10,9 +10,9 @@ jas: '1.2'
 
 
 description:
-    main: |
-        'Wrapper Function for ggstatsplot::ggpiestats and
-        ggstatsplot::grouped_ggpiestats to generate Bar Charts.'
+    # main: |
+    #     'Wrapper Function for ggstatsplot::ggpiestats and
+    #     ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
     R:
         dontrun: true
         usage: |

@@ -30,8 +30,7 @@ A results object containing:
 }
 }
 \description{
-'Wrapper Function for ggstatsplot::ggpiestats and
-ggstatsplot::grouped_ggpiestats to generate Bar Charts.'
+Pie Charts
 }
 \examples{
 \dontrun{

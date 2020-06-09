@@ -10,9 +10,9 @@ jas: '1.2'
 
 
 description:
-    main: |
-        'Wrapper Function for ggstatsplot::gghistostats and
-        ggstatsplot::grouped_gghistostats to generate Bar Charts.'
+    # main: |
+    #     'Wrapper Function for ggstatsplot::gghistostats and
+    #     ggstatsplot::grouped_gghistostats to generate Histogram.'
     R:
         dontrun: true
         usage: |
