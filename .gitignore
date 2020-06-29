@@ -29,4 +29,4 @@ vignettes/*.pdf
 .Rprofile
 jjstatsplot.Rproj
 build
-jjstatsplot_0.0.1.jmo
+*.jmo

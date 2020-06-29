@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.1
+version: 0.0.1.0001
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2020-06-09'
+date: '2020-06-28'
 type: R
 description: >-
   Wrapper for ggstatsplot jjstatsplot help researchers to generate plots based
@@ -78,13 +78,6 @@ analyses:
     menuSubgroup: Variable Type Based Graphs and Plots
     menuTitle: Graphs and Plots
     description: Function for Generating Plots and Graphs Based on Variable Types.
-  - title: Summary of Continuous Variables
-    name: summarydata
-    ns: jjstatsplot
-    menuGroup: Exploration
-    menuSubgroup: ClinicoPath Descriptives
-    menuTitle: Summary of Continuous Variables
-    description: Function for Generating Summaries for Continuous Variables.
 datasets:
   - name: histopathology including analysis
     path: histopathologyanalysis.omv

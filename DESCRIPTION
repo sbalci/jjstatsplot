@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.1
-Date: 2020-06-09
+Version: 0.0.1.0001
+Date: 2020-06-28
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -25,9 +25,10 @@ Imports:
     ggalluvial,
     ggplot2,
     ggstatsplot,
+    easyalluvial,
     jmvcore,
     R6
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.0.9000
