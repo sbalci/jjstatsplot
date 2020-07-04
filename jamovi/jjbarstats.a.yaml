@@ -37,17 +37,17 @@ options:
       suggested: [ ordinal, nominal ]
       permitted: [ factor ]
 
-    - name: grvar
-      title: 'Split by: (Optional)'
-      type: Variable
-      suggested: [ ordinal, nominal ]
-      permitted: [ factor ]
+    # - name: grvar
+    #   title: 'Split by: (Optional)'
+    #   type: Variable
+    #   suggested: [ ordinal, nominal ]
+    #   permitted: [ factor ]
 
-    - name: counts
-      title: 'Counts: (Optional)'
-      type: Variable
-      suggested: [ continuous ]
-      permitted: [ numeric ]
+    # - name: counts
+    #   title: 'Counts: (Optional)'
+    #   type: Variable
+    #   suggested: [ continuous ]
+    #   permitted: [ numeric ]
 
 
     # - name: direction

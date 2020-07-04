@@ -8,8 +8,6 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         initialize = function(
             dep = NULL,
             group = NULL,
-            grvar = NULL,
-            counts = NULL,
             excl = TRUE, ...) {
 
             super$initialize(
@@ -34,21 +32,6 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "nominal"),
                 permitted=list(
                     "factor"))
-            private$..grvar <- jmvcore::OptionVariable$new(
-                "grvar",
-                grvar,
-                suggested=list(
-                    "ordinal",
-                    "nominal"),
-                permitted=list(
-                    "factor"))
-            private$..counts <- jmvcore::OptionVariable$new(
-                "counts",
-                counts,
-                suggested=list(
-                    "continuous"),
-                permitted=list(
-                    "numeric"))
             private$..excl <- jmvcore::OptionBool$new(
                 "excl",
                 excl,
@@ -56,21 +39,15 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
-            self$.addOption(private$..grvar)
-            self$.addOption(private$..counts)
             self$.addOption(private$..excl)
         }),
     active = list(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
-        grvar = function() private$..grvar$value,
-        counts = function() private$..counts$value,
         excl = function() private$..excl$value),
     private = list(
         ..dep = NA,
         ..group = NA,
-        ..grvar = NA,
-        ..counts = NA,
         ..excl = NA)
 )
 
@@ -145,8 +122,6 @@ jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param data The data as a data frame.
 #' @param dep .
 #' @param group .
-#' @param grvar .
-#' @param counts .
 #' @param excl .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -159,8 +134,6 @@ jjbarstats <- function(
     data,
     dep,
     group,
-    grvar,
-    counts,
     excl = TRUE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -168,25 +141,18 @@ jjbarstats <- function(
 
     if ( ! missing(dep)) dep <- jmvcore::resolveQuo(jmvcore::enquo(dep))
     if ( ! missing(group)) group <- jmvcore::resolveQuo(jmvcore::enquo(group))
-    if ( ! missing(grvar)) grvar <- jmvcore::resolveQuo(jmvcore::enquo(grvar))
-    if ( ! missing(counts)) counts <- jmvcore::resolveQuo(jmvcore::enquo(counts))
     if (missing(data))
         data <- jmvcore::marshalData(
             parent.frame(),
             `if`( ! missing(dep), dep, NULL),
-            `if`( ! missing(group), group, NULL),
-            `if`( ! missing(grvar), grvar, NULL),
-            `if`( ! missing(counts), counts, NULL))
+            `if`( ! missing(group), group, NULL))
 
     for (v in dep) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in group) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
-    for (v in grvar) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- jjbarstatsOptions$new(
         dep = dep,
         group = group,
-        grvar = grvar,
-        counts = counts,
         excl = excl)
 
     analysis <- jjbarstatsClass$new(

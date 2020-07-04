@@ -74,7 +74,7 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             super$initialize(
                 options=options,
                 name="",
-                title="Violin Plots to Compare Between Groups",
+                title="Violin Plots to Compare Within Groups",
                 refs=list(
                     "ggplot2",
                     "ggstatsplot"))
@@ -135,7 +135,7 @@ jjwithinstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
                 requiresMissings = FALSE)
         }))
 
-#' Violin Plots to Compare Between Groups
+#' Violin Plots to Compare Within Groups
 #'
 #' 
 #'

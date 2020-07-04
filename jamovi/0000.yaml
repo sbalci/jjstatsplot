@@ -64,13 +64,13 @@ analyses:
     menuSubgroup: Continious vs Continious
     menuTitle: Scatter Plot
     menuSubtitle: Scatter Plot
-  - title: Violin Plots to Compare Between Groups
+  - title: Violin Plots to Compare Within Groups
     name: jjwithinstats
     ns: jjstatsplot
     menuGroup: JJStatsPlot
     menuSubgroup: Categorical vs Numeric
-    menuTitle: Violin Plots to Compare Between Groups
-    menuSubtitle: Categorical vs Numeric
+    menuTitle: Violin Plots to Compare Within Groups
+    menuSubtitle: Repeated Measurements
   - title: Graphs and Plots
     name: statsplot2
     ns: jjstatsplot

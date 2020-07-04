@@ -21,20 +21,6 @@ children:
             name: group
             maxItemCount: 1
             isTarget: true
-      - type: TargetLayoutBox
-        label: 'Split by: (Optional)'
-        children:
-          - type: VariablesListBox
-            name: grvar
-            maxItemCount: 1
-            isTarget: true
-      - type: TargetLayoutBox
-        label: 'Counts: (Optional)'
-        children:
-          - type: VariablesListBox
-            name: counts
-            maxItemCount: 1
-            isTarget: true
   - type: LayoutBox
     margin: large
     children:

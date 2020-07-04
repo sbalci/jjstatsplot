@@ -21,7 +21,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 todo <- glue::glue(
                 "<br>Welcome to ClinicoPath
                 <br><br>
-                This tool will help you generate Bar Charts.
+                This tool will help you generate Violin Plots for repeated measurements.
                 <br><br>
                 This function uses ggplot2 and ggstatsplot packages. See documentations <a href = 'https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html' target='_blank'>ggwithinstats</a> and <a href = 'https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggwithinstats.html' target='_blank'>grouped_ggwithinstats</a>.
                 <br>
