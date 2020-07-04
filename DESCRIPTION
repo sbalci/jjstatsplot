@@ -14,8 +14,8 @@ Description: Wrapper for ggstatsplot
     jjstatsplot help researchers to generate plots based on ggstatsplot
     package.
 License: GPL-3
-URL: https://github.com/sbalci/ClinicoPathJamoviModule/,
-    https://github.com/sbalci/ClinicoPath/,
+URL: https://github.com/sbalci/ClinicoPathJamoviModule/, 
+    https://github.com/sbalci/jjstatsplot, 
     https://sbalci.github.io/ClinicoPathJamoviModule/
 BugReports: 
     https://github.com/sbalci/ClinicoPathJamoviModule/issues/

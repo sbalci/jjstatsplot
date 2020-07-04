@@ -80,40 +80,17 @@ analyses:
     description: Function for Generating Plots and Graphs Based on Variable Types.
 datasets:
   - name: histopathology including analysis
-    path: histopathologyanalysis.omv
-    description: >-
-      Fake histopathology research data for ClinicoPath module, includes
-      analysis
+    path: histopathologyGraphsPlots.omv
+    description: Examples for Graphs and Plots
     tags:
-      - Table One
-      - Data Summary
-      - Survival
-      - Natural Language
-  - name: histopathology data only
-    path: histopathology.omv
-    description: Fake histopathology research data for ClinicoPath module
-    tags:
-      - Table One
-      - Data Summary
-      - Survival
-  - name: melanoma
-    path: melanoma.csv
-    description: 'melanoma dataset obtained from {boot}.'
-    tags:
-      - Data Summary
-      - Survival
-      - Competing risks regression
-  - name: colon
-    path: colon.csv
-    description: 'colon cancer dataset, obtained from {survival}.'
-    tags:
-      - Data Summary
-      - Survival
-  - name: BreastCancer
-    path: BreastCancer.csv
-    description: 'Wisconsin Breast Cancer Database dataset, obtained from {mlbench}.'
-    tags:
-      - Classification
+      - GGStatsPlot
+      - Histogram
+      - Violin Plots
+      - Bar Charts
+      - Pie Charts
+      - Dot Charts
+      - Scatter Plots
+      - Correlation Matrix
 usesNative: true
 minApp: 1.2.19
 
