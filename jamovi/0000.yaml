@@ -70,7 +70,7 @@ analyses:
     menuGroup: JJStatsPlot
     menuSubgroup: Categorical vs Numeric
     menuTitle: Violin Plots to Compare Between Groups
-    menuSubtitle: 'ggstatsplot::jjwithinstats'
+    menuSubtitle: Categorical vs Numeric
   - title: Graphs and Plots
     name: statsplot2
     ns: jjstatsplot

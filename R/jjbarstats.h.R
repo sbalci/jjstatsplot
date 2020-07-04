@@ -10,23 +10,10 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             group = NULL,
             grvar = NULL,
             counts = NULL,
-            direction = "independent",
-            excl = TRUE,
-            ratio = "",
-            sample.size.label = TRUE,
-            label = "percentage",
-            perc.k = 0,
-            bf.message = TRUE,
-            sampling.plan = "indepMulti",
-            fixed.margin = "rows",
-            title = "",
-            results.subtitle = TRUE,
-            subtitle = "",
-            caption = "",
-            conf.level = 0.95, ...) {
+            excl = TRUE, ...) {
 
             super$initialize(
-                package='ClinicoPath',
+                package='jjstatsplot',
                 name='jjbarstats',
                 requiresData=TRUE,
                 ...)
@@ -62,137 +49,29 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "continuous"),
                 permitted=list(
                     "numeric"))
-            private$..direction <- jmvcore::OptionList$new(
-                "direction",
-                direction,
-                options=list(
-                    "repeated",
-                    "independent"),
-                default="independent")
             private$..excl <- jmvcore::OptionBool$new(
                 "excl",
                 excl,
                 default=TRUE)
-            private$..ratio <- jmvcore::OptionString$new(
-                "ratio",
-                ratio,
-                default="")
-            private$..sample.size.label <- jmvcore::OptionBool$new(
-                "sample.size.label",
-                sample.size.label,
-                default=TRUE)
-            private$..label <- jmvcore::OptionList$new(
-                "label",
-                label,
-                options=list(
-                    "percentage",
-                    "counts",
-                    "both"),
-                default="percentage")
-            private$..perc.k <- jmvcore::OptionInteger$new(
-                "perc.k",
-                perc.k,
-                default=0)
-            private$..bf.message <- jmvcore::OptionBool$new(
-                "bf.message",
-                bf.message,
-                default=TRUE)
-            private$..sampling.plan <- jmvcore::OptionList$new(
-                "sampling.plan",
-                sampling.plan,
-                options=list(
-                    "indepMulti",
-                    "poisson",
-                    "jointMulti",
-                    "hypergeom"),
-                default="indepMulti")
-            private$..fixed.margin <- jmvcore::OptionList$new(
-                "fixed.margin",
-                fixed.margin,
-                options=list(
-                    "rows",
-                    "cols"),
-                default="rows")
-            private$..title <- jmvcore::OptionString$new(
-                "title",
-                title,
-                default="")
-            private$..results.subtitle <- jmvcore::OptionBool$new(
-                "results.subtitle",
-                results.subtitle,
-                default=TRUE)
-            private$..subtitle <- jmvcore::OptionString$new(
-                "subtitle",
-                subtitle,
-                default="")
-            private$..caption <- jmvcore::OptionString$new(
-                "caption",
-                caption,
-                default="")
-            private$..conf.level <- jmvcore::OptionNumber$new(
-                "conf.level",
-                conf.level,
-                default=0.95,
-                min=0,
-                max=1)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
             self$.addOption(private$..counts)
-            self$.addOption(private$..direction)
             self$.addOption(private$..excl)
-            self$.addOption(private$..ratio)
-            self$.addOption(private$..sample.size.label)
-            self$.addOption(private$..label)
-            self$.addOption(private$..perc.k)
-            self$.addOption(private$..bf.message)
-            self$.addOption(private$..sampling.plan)
-            self$.addOption(private$..fixed.margin)
-            self$.addOption(private$..title)
-            self$.addOption(private$..results.subtitle)
-            self$.addOption(private$..subtitle)
-            self$.addOption(private$..caption)
-            self$.addOption(private$..conf.level)
         }),
     active = list(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
         counts = function() private$..counts$value,
-        direction = function() private$..direction$value,
-        excl = function() private$..excl$value,
-        ratio = function() private$..ratio$value,
-        sample.size.label = function() private$..sample.size.label$value,
-        label = function() private$..label$value,
-        perc.k = function() private$..perc.k$value,
-        bf.message = function() private$..bf.message$value,
-        sampling.plan = function() private$..sampling.plan$value,
-        fixed.margin = function() private$..fixed.margin$value,
-        title = function() private$..title$value,
-        results.subtitle = function() private$..results.subtitle$value,
-        subtitle = function() private$..subtitle$value,
-        caption = function() private$..caption$value,
-        conf.level = function() private$..conf.level$value),
+        excl = function() private$..excl$value),
     private = list(
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
         ..counts = NA,
-        ..direction = NA,
-        ..excl = NA,
-        ..ratio = NA,
-        ..sample.size.label = NA,
-        ..label = NA,
-        ..perc.k = NA,
-        ..bf.message = NA,
-        ..sampling.plan = NA,
-        ..fixed.margin = NA,
-        ..title = NA,
-        ..results.subtitle = NA,
-        ..subtitle = NA,
-        ..caption = NA,
-        ..conf.level = NA)
+        ..excl = NA)
 )
 
 jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -239,7 +118,7 @@ jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     public = list(
         initialize = function(options, data=NULL, datasetId="", analysisId="", revision=0) {
             super$initialize(
-                package = 'ClinicoPath',
+                package = 'jjstatsplot',
                 name = 'jjbarstats',
                 version = c(1,0,0),
                 options = options,
@@ -268,20 +147,7 @@ jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param group .
 #' @param grvar .
 #' @param counts .
-#' @param direction select measurement type (repeated or independent)
 #' @param excl .
-#' @param ratio .
-#' @param sample.size.label .
-#' @param label label
-#' @param perc.k .
-#' @param bf.message .
-#' @param sampling.plan sampling.plan
-#' @param fixed.margin fixed.margin
-#' @param title .
-#' @param results.subtitle .
-#' @param subtitle .
-#' @param caption .
-#' @param conf.level .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -295,20 +161,7 @@ jjbarstats <- function(
     group,
     grvar,
     counts,
-    direction = "independent",
-    excl = TRUE,
-    ratio = "",
-    sample.size.label = TRUE,
-    label = "percentage",
-    perc.k = 0,
-    bf.message = TRUE,
-    sampling.plan = "indepMulti",
-    fixed.margin = "rows",
-    title = "",
-    results.subtitle = TRUE,
-    subtitle = "",
-    caption = "",
-    conf.level = 0.95) {
+    excl = TRUE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('jjbarstats requires jmvcore to be installed (restart may be required)')
@@ -334,20 +187,7 @@ jjbarstats <- function(
         group = group,
         grvar = grvar,
         counts = counts,
-        direction = direction,
-        excl = excl,
-        ratio = ratio,
-        sample.size.label = sample.size.label,
-        label = label,
-        perc.k = perc.k,
-        bf.message = bf.message,
-        sampling.plan = sampling.plan,
-        fixed.margin = fixed.margin,
-        title = title,
-        results.subtitle = results.subtitle,
-        subtitle = subtitle,
-        caption = caption,
-        conf.level = conf.level)
+        excl = excl)
 
     analysis <- jjbarstatsClass$new(
         options = options,
