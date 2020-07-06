@@ -12,7 +12,7 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             excl = TRUE, ...) {
 
             super$initialize(
-                package='ClinicoPath',
+                package='jjstatsplot',
                 name='jjdotplotstats',
                 requiresData=TRUE,
                 ...)
@@ -121,7 +121,7 @@ jjdotplotstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     public = list(
         initialize = function(options, data=NULL, datasetId="", analysisId="", revision=0) {
             super$initialize(
-                package = 'ClinicoPath',
+                package = 'jjstatsplot',
                 name = 'jjdotplotstats',
                 version = c(1,0,0),
                 options = options,
