@@ -93,9 +93,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             dep <- self$options$dep
 
-            mydata[[dep]] <- jmvcore::toNumeric(mydata[[dep]])
-
-
             # Exclude NA ----
 
             excl <- self$options$excl
@@ -147,7 +144,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ggtheme = ggtheme,
 
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = self$options$originaltheme,
+                    ggstatsplot.layer = originaltheme,
                     bar.fill = "grey50",
                     results.subtitle = TRUE,
                     test.k = 0,
@@ -192,10 +189,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
             vars <- self$options$dep
-
-
-            for (var in vars)
-                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
 
             # direction, paired ----
 

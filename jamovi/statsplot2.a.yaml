@@ -78,6 +78,11 @@ options:
       type: Bool
       default: true
 
+    - name: originaltheme
+      title: Add GGStatsPlot Layer
+      type: Bool
+      default: false
+
 
     # - name: pairw
     #   title: Pairwise Comparison
