@@ -51,7 +51,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 ,
-            .plot = function(image, ...) {
+            .plot = function(image, ggtheme, theme, ...) {
                 # the plot function ----
                 # Error messages ----
 
@@ -150,7 +150,9 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ylab = NULL,
                     k = 2,
                     proportion.test = TRUE,
-                    ggtheme = ggplot2::theme_bw(),
+                    ggtheme = ggtheme,
+
+                    # ggtheme = ggplot2::theme_bw(),
                     ggstatsplot.layer = TRUE,
                     package = "RColorBrewer",
                     palette = "Dark2",
@@ -230,7 +232,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
 
 #
-# ,             .plot2 = function(image, ...) {
+# ,             .plot2 = function(image, ggtheme, theme, ...) {
 #     # the plot function ----
 #     # Error messages ----
 #
@@ -297,6 +299,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 #             grouping.var = !!grvar,
 #
 #             paired = paired,
+#             ggtheme = ggtheme,
 #
 #
 #             counts = NULL,

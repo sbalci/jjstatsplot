@@ -50,7 +50,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot = function(image, ...) {
+        .plot = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -117,7 +117,9 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 package = "RColorBrewer",
                 palette = "Dark2",
                 colors = c("#E69F00", "white", "#009E73"),
-                ggtheme = ggplot2::theme_bw(),
+                ggtheme = ggtheme,
+
+                # ggtheme = ggplot2::theme_bw(),
                 ggstatsplot.layer = TRUE,
                 ggplot.component = NULL,
                 title = NULL,
@@ -137,7 +139,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         ,
 
-        .plot2 = function(image, ...) {
+        .plot2 = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -192,6 +194,8 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption.args = list(size = 10),
                     sub.text = NULL,
                     sub.args = list(size = 12)
+                    , ggtheme = ggtheme
+
                 )
 
 

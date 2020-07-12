@@ -50,7 +50,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot = function(image, ...) {
+        .plot = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -163,8 +163,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     outlier.label.args = list(),
                     outlier.point.args = list(),
                     violin.args = list(width = 0.5, alpha = 0.2),
-                    ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggtheme = ggtheme,
+                    # ggtheme = ggplot2::theme_bw(),
+                    ggstatsplot.layer = FALSE,
                     package = "RColorBrewer",
                     palette = "Dark2",
                     ggplot.component = NULL,
@@ -184,7 +185,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         ,
 
-        .plot2 = function(image, ...) {
+        .plot2 = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -263,6 +264,8 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption.args = list(size = 10),
                     sub.text = NULL,
                     sub.args = list(size = 12)
+                    , ggtheme = ggtheme
+
                 )
 
 

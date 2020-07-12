@@ -53,7 +53,7 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot = function(image, ...) {
+        .plot = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -164,7 +164,8 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption = NULL,
                     beta = 0.1,
                     k = 2L,
-                    ggtheme = ggplot2::theme_bw(),
+                    ggtheme = ggtheme,
+                    # ggtheme = ggplot2::theme_bw(),
                     ggstatsplot.layer = TRUE,
                     ggplot.component = NULL,
                     output = "plot",
@@ -182,7 +183,7 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot2 = function(image, ...) {
+        .plot2 = function(image, ggtheme, theme, ...) {
             # the plot function ----
             # Error messages ----
 
@@ -262,6 +263,8 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption.args = list(size = 10),
                     sub.text = NULL,
                     sub.args = list(size = 12)
+                    , ggtheme = ggtheme
+
                 )
             }
 

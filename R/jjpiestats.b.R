@@ -53,7 +53,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot1 = function(image, ...) {
+        .plot1 = function(image, ggtheme, theme, ...) {
 
             # Error messages ----
 
@@ -146,7 +146,9 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     legend.title = NULL,
                     k = 2,
                     proportion.test = TRUE,
-                    ggtheme = ggplot2::theme_bw(),
+                    ggtheme = ggtheme,
+
+                    # ggtheme = ggplot2::theme_bw(),
                     ggstatsplot.layer = TRUE,
                     package = "RColorBrewer",
                     palette = "Dark2",
@@ -170,7 +172,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # the plot2 function ----
 
 
-        , .plot2 = function(image, ...) {
+        , .plot2 = function(image, ggtheme, theme, ...) {
 
             # Error messages ----
 
@@ -257,7 +259,9 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     legend.title = NULL,
                     k = 2,
                     proportion.test = TRUE,
-                    ggtheme = ggplot2::theme_bw(),
+                    ggtheme = ggtheme,
+
+                    # ggtheme = ggplot2::theme_bw(),
                     ggstatsplot.layer = TRUE,
                     package = "RColorBrewer",
                     palette = "Dark2",
@@ -280,7 +284,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 
-        , .plot3 = function(image, ...) {
+        , .plot3 = function(image, ggtheme, theme, ...) {
 
             # Error messages ----
 
@@ -357,6 +361,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption.args = list(size = 10),
                     sub.text = NULL,
                     sub.args = list(size = 12)
+                    , ggtheme = ggtheme
+
                 )
 }
 
@@ -373,7 +379,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 
-        , .plot4 = function(image, ...) {
+        , .plot4 = function(image, ggtheme, theme, ...) {
 
             # Error messages ----
 
@@ -448,6 +454,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     caption.args = list(size = 10),
                     sub.text = NULL,
                     sub.args = list(size = 12)
+                    , ggtheme = ggtheme
+
                 )
             }
 
