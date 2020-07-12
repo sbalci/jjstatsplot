@@ -65,7 +65,7 @@ options:
       default: true
 
     - name: originaltheme
-      title: Use GGStatsPlot Theme
+      title: Add GGStatsPlot Layer
       type: Bool
       default: false
 

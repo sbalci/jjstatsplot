@@ -94,7 +94,8 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "dep",
                     "group",
                     "grvar",
-                    "direction")))
+                    "direction",
+                    "originaltheme")))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
@@ -107,7 +108,8 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "dep",
                     "group",
                     "grvar",
-                    "direction"),
+                    "direction",
+                    "originaltheme"),
                 visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
@@ -121,7 +123,8 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "dep",
                     "group",
                     "grvar",
-                    "direction")))}))
+                    "direction",
+                    "originaltheme")))}))
 
 jjwithinstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjwithinstatsBase",

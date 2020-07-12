@@ -13,6 +13,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
 
 
 
@@ -29,6 +30,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (grvar)
 
     - name: plot
@@ -43,6 +45,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
 
 refs:
     - ggplot2
