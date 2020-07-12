@@ -92,6 +92,8 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             myvars <- unlist(myvars)
 
+            originaltheme <- self$options$originaltheme
+
 
             # ggcorrmat ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/ggcorrmat.html
@@ -120,7 +122,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 ggtheme = ggtheme,
 
                 # ggtheme = ggplot2::theme_bw(),
-                ggstatsplot.layer = TRUE,
+                ggstatsplot.layer = originaltheme,
                 ggplot.component = NULL,
                 title = NULL,
                 subtitle = NULL,
@@ -169,6 +171,8 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             myvars <- jmvcore::decomposeFormula(formula = myvars)
 
             myvars <- unlist(myvars)
+
+            originaltheme <- self$options$originaltheme
 
 
             # grouped_ggcorrmat ----

@@ -123,6 +123,8 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
+            originaltheme <- self$options$originaltheme
+
 
             dep <- jmvcore::composeTerm(components = dep)
 
@@ -222,6 +224,8 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- self$options$dep
 
             group <- self$options$group
+
+            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)

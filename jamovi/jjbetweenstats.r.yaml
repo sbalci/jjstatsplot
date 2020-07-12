@@ -12,6 +12,8 @@ items:
           - dep
           - group
           - grvar
+          - originaltheme
+
 
 
 
@@ -28,6 +30,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (grvar)
 
     - name: plot
@@ -42,6 +45,8 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
+
 
 
 refs:

@@ -114,6 +114,8 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
+            originaltheme <- self$options$originaltheme
+
 
             dep <- jmvcore::composeTerm(components = dep)
 
@@ -166,7 +168,7 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     k = 2L,
                     ggtheme = ggtheme,
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggstatsplot.layer = originaltheme,
                     ggplot.component = NULL,
                     output = "plot",
                     messages = TRUE
@@ -229,6 +231,8 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- self$options$dep
 
             group <- self$options$group
+
+            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)

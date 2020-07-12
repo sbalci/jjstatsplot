@@ -107,6 +107,8 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
+            originaltheme <- self$options$originaltheme
+
 
             dep <- jmvcore::composeTerm(components = dep)
 
@@ -149,7 +151,7 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ggplot.component = NULL,
                     ggtheme = ggtheme,
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggstatsplot.layer = originaltheme,
                     output = "plot",
                     messages = TRUE
                 )
@@ -215,6 +217,9 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- self$options$dep
 
             group <- self$options$group
+
+
+            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)

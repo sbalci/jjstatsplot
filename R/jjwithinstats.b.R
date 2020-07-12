@@ -118,8 +118,6 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- jmvcore::composeTerm(components = group)
 
-            group <- trimws(group)
-
             # ggwithinstats ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html
 
@@ -232,9 +230,12 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 
+
             dep <- self$options$dep
 
             group <- self$options$group
+
+            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)

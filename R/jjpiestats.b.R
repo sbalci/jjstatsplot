@@ -114,6 +114,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # group <- jmvcore::composeTerm(components = group)
 
 
+            originaltheme <- self$options$originaltheme
+
 
 
 
@@ -149,7 +151,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ggtheme = ggtheme,
 
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggstatsplot.layer = originaltheme,
                     package = "RColorBrewer",
                     palette = "Dark2",
                     ggplot.component = NULL,
@@ -226,6 +228,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
+            originaltheme <- self$options$originaltheme
+
 
             dep <- jmvcore::composeTerm(components = dep)
 
@@ -262,7 +266,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ggtheme = ggtheme,
 
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggstatsplot.layer = originaltheme,
                     package = "RColorBrewer",
                     palette = "Dark2",
                     ggplot.component = NULL,
@@ -331,6 +335,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # group <- jmvcore::composeTerm(components = group)
 
 
+
+            originaltheme <- self$options$originaltheme
 
 
             # grouped_ggpiestats ----
@@ -420,6 +426,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- self$options$dep
 
             group <- self$options$group
+
+            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)

@@ -14,6 +14,8 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
+
 
 
 
@@ -29,6 +31,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (grvar)
       # visible: (dep && group && grvar)
 
@@ -46,6 +49,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (grvar)
 
 
@@ -61,6 +65,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (group)
       # visible: (dep && group)
 
@@ -78,6 +83,7 @@ items:
           - group
           - grvar
           - direction
+          - originaltheme
       visible: (dep)
 
 
