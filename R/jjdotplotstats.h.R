@@ -90,7 +90,7 @@ jjdotplotstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`Dot Chart ${group} - {dep} by {grvar}`",
+                title="`${group} - {dep} by {grvar}`",
                 width=800,
                 height=600,
                 renderFun=".plot2",
@@ -104,7 +104,7 @@ jjdotplotstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
-                title="`Dot Chart ${group} - {dep}`",
+                title="`${group} - {dep}`",
                 width=800,
                 height=600,
                 renderFun=".plot",

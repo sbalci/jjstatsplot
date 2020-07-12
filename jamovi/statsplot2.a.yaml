@@ -32,7 +32,7 @@ options:
 
 
     - name: grvar
-      title: 'Split by: (Optional)'
+      title: 'Split By (Optional)'
       type: Variable
 
 

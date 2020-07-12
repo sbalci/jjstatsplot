@@ -19,7 +19,7 @@ items:
 
 
     - name: plot2
-      title: '`Scatter Plot ${group} - {dep} by {grvar}`'
+      title: '`${group} - {dep} by {grvar}`'
       type: Image
       width:  800
       height: 600
@@ -33,7 +33,7 @@ items:
       visible: (grvar)
 
     - name: plot
-      title: '`Scatter Plot ${group} - {dep}`'
+      title: '`${group} - {dep}`'
       type: Image
       width:  800
       height: 600

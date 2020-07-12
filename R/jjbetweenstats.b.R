@@ -103,6 +103,13 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
 
+            vars <- self$options$dep
+
+
+            for (var in vars)
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
+
+
             # Exclude NA ----
 
             excl <- self$options$excl
@@ -120,7 +127,6 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- jmvcore::composeTerm(components = dep)
 
             group <- jmvcore::composeTerm(components = group)
-
 
             # ggbetweenstats ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html
@@ -196,6 +202,13 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
 
+            vars <- self$options$dep
+
+
+            for (var in vars)
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
+
+
             # Exclude NA ----
 
             excl <- self$options$excl
@@ -213,6 +226,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep <- jmvcore::composeTerm(components = dep)
 
             group <- jmvcore::composeTerm(components = group)
+
 
 
 

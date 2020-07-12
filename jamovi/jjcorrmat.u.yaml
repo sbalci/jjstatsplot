@@ -15,7 +15,7 @@ children:
             name: dep
             isTarget: true
       - type: TargetLayoutBox
-        label: 'Split by: (Optional)'
+        label: Split By (Optional)
         children:
           - type: VariablesListBox
             name: grvar

@@ -88,6 +88,13 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
 
+            vars <- self$options$dep
+
+
+            for (var in vars)
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
+
+
             # Exclude NA ----
 
             excl <- self$options$excl
@@ -192,6 +199,12 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             mydata <- self$data
 
+
+            vars <- self$options$dep
+
+
+            for (var in vars)
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
 
             # # direction, paired ----
             #

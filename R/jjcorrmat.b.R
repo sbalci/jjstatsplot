@@ -67,11 +67,21 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
 
+
+
+
+
             # Exclude NA ----
 
             excl <- self$options$excl
 
             if (excl) {mydata <- jmvcore::naOmit(mydata)}
+
+
+
+
+
+
 
 
             # define main arguments ----

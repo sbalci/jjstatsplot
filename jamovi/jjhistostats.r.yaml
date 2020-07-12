@@ -19,7 +19,7 @@ items:
 
 
     - name: plot2
-      title: '`Histogram ${dep} by {grvar}`'
+      title: '`${dep} by {grvar}`'
       type: Image
       width:  800
       height: 600
@@ -33,7 +33,7 @@ items:
       visible: (grvar)
 
     - name: plot
-      title: '`Histogram ${dep}`'
+      title: '`${dep}`'
       type: Image
       width:  800
       height: 600

@@ -93,7 +93,7 @@ jjpiestatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot4",
-                title="`Pie Chart ${group} - {dep} by {grvar}`",
+                title="`${group} - {dep} by {grvar}`",
                 width=800,
                 height=600,
                 renderFun=".plot4",
@@ -107,7 +107,7 @@ jjpiestatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot3",
-                title="`Pie Chart ${dep} by {grvar}`",
+                title="`${dep} by {grvar}`",
                 width=800,
                 height=600,
                 renderFun=".plot3",
@@ -121,7 +121,7 @@ jjpiestatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`Pie Chart ${group} - {dep}`",
+                title="`${group} - {dep}`",
                 width=800,
                 height=600,
                 renderFun=".plot2",
@@ -135,7 +135,7 @@ jjpiestatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot1",
-                title="`Pie Chart ${dep}`",
+                title="`${dep}`",
                 width=800,
                 height=600,
                 renderFun=".plot1",

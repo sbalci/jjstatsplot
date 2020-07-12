@@ -78,7 +78,7 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`Histogram ${dep} by {grvar}`",
+                title="`${dep} by {grvar}`",
                 width=800,
                 height=600,
                 renderFun=".plot2",
@@ -92,7 +92,7 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
-                title="`Histogram ${dep}`",
+                title="`${dep}`",
                 width=800,
                 height=600,
                 renderFun=".plot",

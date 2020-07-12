@@ -40,7 +40,7 @@ options:
       permitted: [ factor ]
 
     - name: grvar
-      title: 'Split by: (Optional)'
+      title: 'Split By (Optional)'
       type: Variable
       suggested: [ ordinal, nominal ]
       permitted: [ factor ]
