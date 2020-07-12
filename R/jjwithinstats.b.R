@@ -112,6 +112,8 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             group <- self$options$group
 
 
+            originaltheme <- self$options$originaltheme
+
             dep <- jmvcore::composeTerm(components = dep)
 
             group <- jmvcore::composeTerm(components = group)
@@ -165,7 +167,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     violin.args = list(width = 0.5, alpha = 0.2),
                     ggtheme = ggtheme,
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = TRUE,
+                    ggstatsplot.layer = originaltheme,
                     package = "RColorBrewer",
                     palette = "Dark2",
                     ggplot.component = NULL,

@@ -64,5 +64,10 @@ options:
       type: Bool
       default: true
 
+    - name: originaltheme
+      title: Use GGStatsPlot Theme
+      type: Bool
+      default: false
+
 ...
 
