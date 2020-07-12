@@ -125,8 +125,8 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plot <-
                 ggstatsplot::ggwithinstats(
                     data = mydata,
-                    x = group,
-                    y = dep,
+                    x = !!group,
+                    y = !!dep,
                     type = "parametric",
                     pairwise.comparisons = FALSE,
                     pairwise.display = "significant",
