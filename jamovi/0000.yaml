@@ -12,6 +12,48 @@ description: >-
   Wrapper for ggstatsplot jjstatsplot help researchers to generate plots based
   on ggstatsplot package.
 analyses:
+  - title: Histogram
+    name: jjhistostats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Continious
+    menuTitle: Histogram
+    menuSubtitle: Histogram
+  - title: Scatter Plot
+    name: jjscatterstats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Continious vs Continious
+    menuTitle: Scatter Plot
+    menuSubtitle: Scatter Plot
+  - title: Correlation Matrix
+    name: jjcorrmat
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Continious vs Continious
+    menuTitle: Correlation Matrix
+    menuSubtitle: Correlation Matrix
+  - title: Violin Plots to Compare Between Groups
+    name: jjbetweenstats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Numeric
+    menuTitle: Violin Plots to Compare Between Groups
+    menuSubtitle: Independent Samples
+  - title: Violin Plots to Compare Within Groups
+    name: jjwithinstats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Numeric
+    menuTitle: Violin Plots to Compare Within Groups
+    menuSubtitle: Repeated Measurements
+  - title: Dot Chart
+    name: jjdotplotstats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Numeric
+    menuTitle: Dot Chart
+    menuSubtitle: Dot Chart
   - title: Bar Charts
     name: jjbarstats
     ns: jjstatsplot
@@ -22,34 +64,6 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggbarstats and
       ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
-  - title: Violin Plots to Compare Between Groups
-    name: jjbetweenstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Numeric
-    menuTitle: Violin Plots to Compare Between Groups
-    menuSubtitle: Independent Samples
-  - title: Correlation Matrix
-    name: jjcorrmat
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Continious vs Continious
-    menuTitle: Correlation Matrix
-    menuSubtitle: Correlation Matrix
-  - title: Dot Chart
-    name: jjdotplotstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Numeric
-    menuTitle: Dot Chart
-    menuSubtitle: Dot Chart
-  - title: Histogram
-    name: jjhistostats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Continious
-    menuTitle: Histogram
-    menuSubtitle: Histogram
   - title: Pie Charts
     name: jjpiestats
     ns: jjstatsplot
@@ -57,20 +71,6 @@ analyses:
     menuSubgroup: Categorical vs Categorical
     menuTitle: Pie Charts
     menuSubtitle: Pie Charts
-  - title: Scatter Plot
-    name: jjscatterstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Continious vs Continious
-    menuTitle: Scatter Plot
-    menuSubtitle: Scatter Plot
-  - title: Violin Plots to Compare Within Groups
-    name: jjwithinstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Numeric
-    menuTitle: Violin Plots to Compare Within Groups
-    menuSubtitle: Repeated Measurements
   - title: Graphs and Plots
     name: statsplot2
     ns: jjstatsplot
