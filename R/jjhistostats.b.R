@@ -115,11 +115,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # group <- jmvcore::composeTerm(components = group)
 
 
-            addtheme <- FALSE
-
-            if(self$options$originaltheme) {addtheme <- TRUE}
-
-
             # gghistostats ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html
 
@@ -146,7 +141,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ggtheme = ggtheme,
 
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = FALSE,
+                    ggstatsplot.layer = TRUE,
                     bar.fill = "grey50",
                     results.subtitle = TRUE,
                     test.k = 0,
