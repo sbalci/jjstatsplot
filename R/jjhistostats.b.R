@@ -87,13 +87,14 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # pairw <- self$options$pairw
 
 
+            # read data ----
+
             mydata <- self$data
 
-            vars <- self$options$dep
+            dep <- self$options$dep
 
+            mydata[[dep]] <- jmvcore::toNumeric(mydata[[dep]])
 
-            for (var in vars)
-                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
 
             # Exclude NA ----
 
