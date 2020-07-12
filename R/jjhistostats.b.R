@@ -96,7 +96,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
             for (var in vars)
-                data[[var]] <- jmvcore::toNumeric(data[[var]])
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
 
 
 
@@ -200,7 +200,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
             for (var in vars)
-                data[[var]] <- jmvcore::toNumeric(data[[var]])
+                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
 
 
 
