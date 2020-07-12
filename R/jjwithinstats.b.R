@@ -125,8 +125,8 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plot <-
                 ggstatsplot::ggwithinstats(
                     data = mydata,
-                    x = !!group,
-                    y = !!dep,
+                    x = group,
+                    y = dep,
                     type = "parametric",
                     pairwise.comparisons = FALSE,
                     pairwise.display = "significant",
@@ -165,7 +165,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     violin.args = list(width = 0.5, alpha = 0.2),
                     ggtheme = ggtheme,
                     # ggtheme = ggplot2::theme_bw(),
-                    ggstatsplot.layer = FALSE,
+                    ggstatsplot.layer = TRUE,
                     package = "RColorBrewer",
                     palette = "Dark2",
                     ggplot.component = NULL,
