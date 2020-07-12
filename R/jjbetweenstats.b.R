@@ -51,7 +51,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot = function(image, ...) {
+        .plot = function(image, ggtheme, theme, ...) {
 
             # the plot function ----
             # Error messages ----
@@ -138,6 +138,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 y = !!dep
                 # ,
                 # type = distribution
+                , ggtheme = ggtheme
             )
 
 
@@ -150,7 +151,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
         ,
-        .plot2 = function(image, ...) {
+        .plot2 = function(image, ggtheme, theme, ...) {
 
             # the plot function ----
             # Error messages ----
@@ -230,7 +231,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 
-            # grouped_ggbetweenstats
+            # grouped_ggbetweenstats ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggbetweenstats.html
 
 
@@ -242,7 +243,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     data = mydata,
                     x = !!group,
                     y = !! dep,
-                    grouping.var = !!grvar)
+                    grouping.var = !!grvar
+                    , ggtheme = ggtheme
+                )
 
             }
 
