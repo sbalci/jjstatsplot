@@ -141,6 +141,8 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 # ,
                 # type = distribution
                 , ggtheme = ggtheme
+                , ggstatsplot.layer = originaltheme
+
             )
 
 
@@ -249,6 +251,8 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     y = !! dep,
                     grouping.var = !!grvar
                     , ggtheme = ggtheme
+                    , ggstatsplot.layer = originaltheme
+
                 )
 
             }
