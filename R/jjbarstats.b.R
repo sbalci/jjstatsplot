@@ -183,7 +183,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             data = mydata,
                             condition = !!group,
 
-                            paired = paired
+                            paired = paired,
 
                             # ,
                             # counts = NULL,
@@ -207,7 +207,10 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             # ylab = NULL,
                             # k = 2,
                             # proportion.test = TRUE,
+                            ggtheme = ggtheme,
+
                             # ggtheme = ggplot2::theme_bw(),
+                            ggstatsplot.layer = originaltheme
                             # ggstatsplot.layer = originaltheme,
                             # package = "RColorBrewer",
                             # palette = "Dark2",
@@ -316,7 +319,9 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 #             caption.text = NULL,
 #             caption.args = list(size = 10),
 #             sub.text = NULL,
-#             sub.args = list(size = 12)
+#             sub.args = list(size = 12),
+#             ggtheme = ggtheme,
+#             ggstatsplot.layer = originaltheme
 #         )
 #
 #     }
@@ -354,7 +359,9 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 #                 caption.text = NULL,
 #                 caption.args = list(size = 10),
 #                 sub.text = NULL,
-#                 sub.args = list(size = 12)
+#                 sub.args = list(size = 12),
+#             ggtheme = ggtheme,
+#             ggstatsplot.layer = originaltheme
 #             )
 #
 #         plot2 <- ggstatsplot::combine_plots(
