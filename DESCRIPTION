@@ -10,9 +10,8 @@ Authors@R:
            email = "drserdarbalci@gmail.com",
            comment = c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <drserdarbalci@gmail.com>
-Description: Wrapper for ggstatsplot
-    jjstatsplot help researchers to generate plots based on ggstatsplot
-    package.
+Description: A wrapper for ggstatsplot: jjstatsplot help researchers to 
+    generate plots in jamovi based on ggstatsplot package.
 License: GPL-3
 URL: https://github.com/sbalci/ClinicoPathJamoviModule/, 
     https://github.com/sbalci/jjstatsplot, 

@@ -9,8 +9,8 @@ maintainer: Serdar Balci <drserdarbalci@gmail.com>
 date: '2020-06-28'
 type: R
 description: >-
-  Wrapper for ggstatsplot jjstatsplot help researchers to generate plots based
-  on ggstatsplot package.
+  A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
+  jamovi based on ggstatsplot package.
 analyses:
   - title: Histogram
     name: jjhistostats
