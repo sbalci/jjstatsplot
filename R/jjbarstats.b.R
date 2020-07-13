@@ -184,7 +184,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             data = mydata,
                             condition = !!group,
 
-                            paired = paired,
+                            # paired = paired,
+                            paired = FALSE,
 
                             # ,
                             # counts = NULL,
