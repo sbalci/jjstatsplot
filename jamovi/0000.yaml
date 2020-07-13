@@ -16,23 +16,32 @@ analyses:
     name: jjhistostats
     ns: jjstatsplot
     menuGroup: JJStatsPlot
-    menuSubgroup: Continious
+    menuSubgroup: Continuous
     menuTitle: Histogram
     menuSubtitle: Histogram
+    description: |
+      'Wrapper Function for ggstatsplot::gghistostats and
+      ggstatsplot::grouped_gghistostats to generate Histogram.'
   - title: Scatter Plot
     name: jjscatterstats
     ns: jjstatsplot
     menuGroup: JJStatsPlot
-    menuSubgroup: Continious vs Continious
+    menuSubgroup: Continuous vs Continuous
     menuTitle: Scatter Plot
     menuSubtitle: Scatter Plot
+    description: |
+      'Wrapper Function for ggstatsplot::ggscatterstats and
+      ggstatsplot::grouped_ggscatterstats to generate Scatter Plot.'
   - title: Correlation Matrix
     name: jjcorrmat
     ns: jjstatsplot
     menuGroup: JJStatsPlot
-    menuSubgroup: Continious vs Continious
+    menuSubgroup: Continuous vs Continuous
     menuTitle: Correlation Matrix
     menuSubtitle: Correlation Matrix
+    description: |
+      'Wrapper Function for ggstatsplot::ggcorrmat and
+      ggstatsplot::grouped_ggcorrmat to generate Correlation Matrix.'
   - title: Violin Plots to Compare Between Groups
     name: jjbetweenstats
     ns: jjstatsplot
@@ -40,6 +49,9 @@ analyses:
     menuSubgroup: Categorical vs Numeric
     menuTitle: Violin Plots to Compare Between Groups
     menuSubtitle: Independent Samples
+    description: |
+      'Wrapper Function for ggstatsplot::ggbetweenstats and
+      ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
   - title: Violin Plots to Compare Within Groups
     name: jjwithinstats
     ns: jjstatsplot
@@ -47,6 +59,9 @@ analyses:
     menuSubgroup: Categorical vs Numeric
     menuTitle: Violin Plots to Compare Within Groups
     menuSubtitle: Repeated Measurements
+    description: |
+      'Wrapper Function for ggstatsplot::ggwithinstats and
+      ggstatsplot::grouped_ggwithinstats to generate Violin Plots.'
   - title: Dot Chart
     name: jjdotplotstats
     ns: jjstatsplot
@@ -54,6 +69,9 @@ analyses:
     menuSubgroup: Categorical vs Numeric
     menuTitle: Dot Chart
     menuSubtitle: Dot Chart
+    description: |
+      'Wrapper Function for ggstatsplot::ggdotplotstats and
+      ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
   - title: Bar Charts
     name: jjbarstats
     ns: jjstatsplot
@@ -71,6 +89,9 @@ analyses:
     menuSubgroup: Categorical vs Categorical
     menuTitle: Pie Charts
     menuSubtitle: Pie Charts
+    description: |
+      'Wrapper Function for ggstatsplot::ggpiestats and
+      ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
   - title: Graphs and Plots
     name: statsplot2
     ns: jjstatsplot
