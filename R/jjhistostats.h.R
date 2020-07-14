@@ -8,7 +8,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         initialize = function(
             dep = NULL,
             grvar = NULL,
-            excl = TRUE, ...) {
+            excl = TRUE,
+            originaltheme = FALSE, ...) {
 
             super$initialize(
                 package='jjstatsplot',
@@ -35,19 +36,26 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "excl",
                 excl,
                 default=TRUE)
+            private$..originaltheme <- jmvcore::OptionBool$new(
+                "originaltheme",
+                originaltheme,
+                default=FALSE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
+            self$.addOption(private$..originaltheme)
         }),
     active = list(
         dep = function() private$..dep$value,
         grvar = function() private$..grvar$value,
-        excl = function() private$..excl$value),
+        excl = function() private$..excl$value,
+        originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
         ..grvar = NA,
-        ..excl = NA)
+        ..excl = NA,
+        ..originaltheme = NA)
 )
 
 jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -138,6 +146,7 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param dep .
 #' @param grvar .
 #' @param excl .
+#' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -150,7 +159,8 @@ jjhistostats <- function(
     data,
     dep,
     grvar,
-    excl = TRUE) {
+    excl = TRUE,
+    originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('jjhistostats requires jmvcore to be installed (restart may be required)')
@@ -168,7 +178,8 @@ jjhistostats <- function(
     options <- jjhistostatsOptions$new(
         dep = dep,
         grvar = grvar,
-        excl = excl)
+        excl = excl,
+        originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(
         options = options,
