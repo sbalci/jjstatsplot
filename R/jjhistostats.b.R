@@ -174,14 +174,12 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             #     )
 
 
-            # plot <- ggstatsplot::gghistostats(iris,
-            #                                   x = Sepal.Length ,
-            #                                   ggtheme = NULL,
-            #                                   ggstatsplot.layer = FALSE
-            # )
+            plot <- ggstatsplot::gghistostats(iris,
+                                              x = Sepal.Length ,
+                                              ggtheme = NULL,
+                                              ggstatsplot.layer = FALSE
+            )
 
-
-            plot <- hist(iris$Sepal.Length)
 
             # Print Plot ----
 
