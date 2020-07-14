@@ -20,7 +20,10 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 # TODO ----
 
                 todo <- glue::glue(
-                    "<br>Welcome to ClinicoPath
+                    "<br>
+                    update 17:53<br>
+
+                    Welcome to ClinicoPath
                 <br><br>
                 This tool will help you generate Bar Charts.
                 <br><br>
@@ -171,13 +174,14 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             #     )
 
 
-            plot <- ggstatsplot::gghistostats(iris,
-                                              x = Sepal.Length ,
-                                              ggtheme = NULL,
-                                              ggstatsplot.layer = FALSE
-            )
+            # plot <- ggstatsplot::gghistostats(iris,
+            #                                   x = Sepal.Length ,
+            #                                   ggtheme = NULL,
+            #                                   ggstatsplot.layer = FALSE
+            # )
 
 
+            plot <- hist(iris$Sepal.Length)
 
             # Print Plot ----
 
