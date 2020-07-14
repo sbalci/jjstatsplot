@@ -21,7 +21,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 todo <- glue::glue(
                     "<br>
-                    update 17:53<br>
+                    update 18:03<br>
 
                     Welcome to ClinicoPath
                 <br><br>
@@ -183,7 +183,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Print Plot ----
 
-            # plot <- plot + ggtheme
+            plot <- plot + ggtheme
 
             print(plot)
             TRUE
