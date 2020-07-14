@@ -59,10 +59,10 @@ options:
       default: true
 
 
-    - name: originaltheme
-      title: Add GGStatsPlot Layer
-      type: Bool
-      default: false
+    # - name: originaltheme
+    #   title: Add GGStatsPlot Layer
+    #   type: Bool
+    #   default: false
 
 
 
