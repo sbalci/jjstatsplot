@@ -340,4 +340,19 @@
         `year`=2020, 
         `title`="epiR: Tools for the Analysis of Epidemiological Data.", 
         `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=epiR", 
-        `url`="https://CRAN.R-project.org/package=epiR"))
+        `url`="https://CRAN.R-project.org/package=epiR"), 
+    `KMunicate`=list(
+        `type`="software", 
+        `author`="Alessandro Gasparini", 
+        `year`=2020, 
+        `title`="KMunicate: KMunicate-Style Kaplan\u2013Meier Plots", 
+        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=KMunicate", 
+        `url`="https://CRAN.R-project.org/package=KMunicate"), 
+    `KMunicate2`=list(
+        `type`="article", 
+        `author`="Morris TP, Jarvis CI, Cragg W, et al", 
+        `title`="Proposals on Kaplan\u2013Meier plots in medical research and a survey of stakeholder views: KMunicate", 
+        `year`=2019, 
+        `publisher`="BMJ Open 2019;9:e030215.", 
+        `doi`="10.1136/bmjopen-2019-030215", 
+        `url`="https://bmjopen.bmj.com/content/9/9/e030215"))
