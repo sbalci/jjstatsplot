@@ -12,6 +12,26 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jjbarstatsBase,
     private = list(
 
+
+        .init = function() {
+
+
+            if ( length(self$options$dep) == 1 ) {
+
+            self$results$plot$setSize(400, 300)
+
+            } else if ( length(self$options$dep) > 1 ) {
+
+                self$results$plot$setSize(400, 600)
+
+            }
+
+
+
+        }
+        ,
+
+
         .run = function() {
 
                 # Initial Message ----
@@ -122,9 +142,6 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 if ( length(self$options$dep) == 1 ) {
 
-                self$results$plot$setSize(800, 600)
-
-
                 plot <-
                     ggstatsplot::ggbarstats(
                     data = mydata,
@@ -173,10 +190,6 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
                 if ( length(self$options$dep) > 1 ) {
-
-
-                    self$results$plot$setSize(800, 1200)
-
 
                     dep2 <- as.list(self$options$dep)
 
