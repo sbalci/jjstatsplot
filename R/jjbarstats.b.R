@@ -235,7 +235,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                     plot <- ggstatsplot::combine_plots(
                         plotlist = plotlist,
-                        nrow = 2)
+                        nrow = length(self$options$dep))
 
 
 
