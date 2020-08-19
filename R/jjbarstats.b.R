@@ -15,22 +15,12 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         .init = function() {
 
+            deplen <- length(self$options$dep)
 
-            if ( length(self$options$dep) == 1 ) {
-
-            self$results$plot$setSize(400, 300)
-
-            } else if ( length(self$options$dep) > 1 ) {
-
-                self$results$plot$setSize(400, 600)
-
-            }
-
-
+            self$results$plot$setSize(400, deplen*300)
 
         }
         ,
-
 
         .run = function() {
 
