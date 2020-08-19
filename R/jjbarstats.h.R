@@ -88,8 +88,6 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 options=options,
                 name="plot",
                 title="Bar Chart",
-                width=800,
-                height=600,
                 renderFun=".plot",
                 requiresData=TRUE,
                 clearWith=list(

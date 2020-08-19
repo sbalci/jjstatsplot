@@ -39,8 +39,8 @@ items:
     - name: plot
       title: Bar Chart
       type: Image
-      width:  800
-      height: 600
+      # width:  800
+      # height: 600
       renderFun: .plot
       requiresData: true
       clearWith:
