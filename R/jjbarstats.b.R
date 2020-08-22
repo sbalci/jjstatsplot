@@ -292,7 +292,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
     group <- self$options$group
 
-    originaltheme <- self$options$originaltheme
+    # originaltheme <- self$options$originaltheme
 
     dep1 <- jmvcore::composeTerm(components = dep)
 
@@ -332,9 +332,10 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             caption.text = NULL,
             caption.args = list(size = 10),
             sub.text = NULL,
-            sub.args = list(size = 12),
-            ggtheme = ggtheme,
-            ggstatsplot.layer = originaltheme
+            sub.args = list(size = 12)
+            # ,
+            # ggtheme = ggtheme,
+            # ggstatsplot.layer = originaltheme
         )
 
     }
@@ -372,9 +373,10 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 caption.text = NULL,
                 caption.args = list(size = 10),
                 sub.text = NULL,
-                sub.args = list(size = 12),
-            ggtheme = ggtheme,
-            ggstatsplot.layer = originaltheme
+                sub.args = list(size = 12)
+                # ,
+            # ggtheme = ggtheme,
+            # ggstatsplot.layer = originaltheme
             )
 
         plot2 <- ggstatsplot::combine_plots(
