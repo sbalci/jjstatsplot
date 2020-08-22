@@ -251,6 +251,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 .plot2 = function(image, ggtheme, theme, ...) {
     # the plot function ----
+
     # Error messages ----
 
     if ( is.null(self$options$dep) || is.null(self$options$group) || is.null(self$options$grvar))

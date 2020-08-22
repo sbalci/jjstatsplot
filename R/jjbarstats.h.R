@@ -8,6 +8,7 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         initialize = function(
             dep = NULL,
             group = NULL,
+            grvar = NULL,
             excl = TRUE,
             originaltheme = FALSE, ...) {
 
@@ -33,6 +34,14 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "nominal"),
                 permitted=list(
                     "factor"))
+            private$..grvar <- jmvcore::OptionVariable$new(
+                "grvar",
+                grvar,
+                suggested=list(
+                    "ordinal",
+                    "nominal"),
+                permitted=list(
+                    "factor"))
             private$..excl <- jmvcore::OptionBool$new(
                 "excl",
                 excl,
@@ -44,17 +53,20 @@ jjbarstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
+            self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
+        grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
         ..group = NA,
+        ..grvar = NA,
         ..excl = NA,
         ..originaltheme = NA)
 )
@@ -146,6 +158,7 @@ jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param data The data as a data frame.
 #' @param dep .
 #' @param group .
+#' @param grvar .
 #' @param excl .
 #' @param originaltheme .
 #' @return A results object containing:
@@ -160,6 +173,7 @@ jjbarstats <- function(
     data,
     dep,
     group,
+    grvar,
     excl = TRUE,
     originaltheme = FALSE) {
 
@@ -168,18 +182,22 @@ jjbarstats <- function(
 
     if ( ! missing(dep)) dep <- jmvcore::resolveQuo(jmvcore::enquo(dep))
     if ( ! missing(group)) group <- jmvcore::resolveQuo(jmvcore::enquo(group))
+    if ( ! missing(grvar)) grvar <- jmvcore::resolveQuo(jmvcore::enquo(grvar))
     if (missing(data))
         data <- jmvcore::marshalData(
             parent.frame(),
             `if`( ! missing(dep), dep, NULL),
-            `if`( ! missing(group), group, NULL))
+            `if`( ! missing(group), group, NULL),
+            `if`( ! missing(grvar), grvar, NULL))
 
     for (v in dep) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in group) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
+    for (v in grvar) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- jjbarstatsOptions$new(
         dep = dep,
         group = group,
+        grvar = grvar,
         excl = excl,
         originaltheme = originaltheme)
 
