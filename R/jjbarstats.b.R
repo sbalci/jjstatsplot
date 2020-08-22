@@ -345,6 +345,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 # dep > 1 ----
 
+                if (length(self$options$dep) > 1) {
+                    dep2 <- as.list(self$options$dep)
 
                     plotlist <-
                         purrr::pmap(
@@ -380,6 +382,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                     plot2 <- ggstatsplot::combine_plots(plotlist = plotlist,
                                                         ncol = 1)
 
+                    }
 
                 # Print Plot ----
 
