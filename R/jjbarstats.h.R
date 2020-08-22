@@ -63,6 +63,7 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
+        plot2 = function() private$.items[["plot2"]],
         plot = function() private$.items[["plot"]]),
     private = list(),
     public=list(
@@ -84,6 +85,21 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "grvar",
                     "direction",
                     "originaltheme")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="plot2",
+                title="Bar Chart Splitted",
+                width=800,
+                height=600,
+                renderFun=".plot2",
+                requiresData=TRUE,
+                clearWith=list(
+                    "dep",
+                    "group",
+                    "grvar",
+                    "direction",
+                    "originaltheme"),
+                visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
@@ -135,6 +151,7 @@ jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
