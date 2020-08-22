@@ -129,6 +129,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                 # https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html
 
 
+                # dep == 1 ----
+
                 if (length(self$options$dep) == 1) {
                     plot <-
                         ggstatsplot::ggbarstats(
@@ -176,6 +178,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 }
 
+
+                # dep > 1 ----
 
                 if (length(self$options$dep) > 1) {
                     dep2 <- as.list(self$options$dep)
@@ -306,6 +310,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 grvar <- self$options$grvar
 
+                # dep = 1 ----
 
                 if (length(self$options$dep) == 1) {
                     plot2 <- ggstatsplot::grouped_ggbarstats(
@@ -338,8 +343,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                 }
 
 
-                if (length(self$options$dep) > 1) {
-                    dep2 <- as.list(self$options$dep)
+                # dep > 1 ----
+
 
                     plotlist <-
                         purrr::pmap(
@@ -347,6 +352,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                                       # title = list(dep),
                                       messages = FALSE),
                             .f = ggstatsplot::grouped_ggbarstats,
+                            data = mydata,
 
                             condition = !!group,
                             grouping.var = !!grvar,
@@ -373,8 +379,6 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                     plot2 <- ggstatsplot::combine_plots(plotlist = plotlist,
                                                         ncol = 1)
-
-                }
 
 
                 # Print Plot ----
