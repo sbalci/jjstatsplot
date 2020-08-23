@@ -248,6 +248,11 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             ggplot.component = NULL,
                             output = "plot")
 
+                plot <- ggstatsplot::combine_plots(plotlist = plotlist,
+                                                   nrow = length(self$options$dep))
+
+
+
                         }
 
 
@@ -328,8 +333,10 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
 
-            if ( !is.null(self$options$grvar) ) {
                 grvar <- self$options$grvar
+            # dep = 1 ----
+
+            if (length(self$options$dep) == 1) {
 
                 plot2 <- ggstatsplot::grouped_ggwithinstats(
                     data = mydata,
@@ -351,8 +358,46 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 )
 
+            }
+
+
+            # dep > 1 ----
+
+            if (length(self$options$dep) > 1) {
+                dep2 <- as.list(self$options$dep)
+
+                plotlist <-
+                    purrr::pmap(
+                        .l = list(y = dep2,
+                                  # title = list(dep),
+                                  messages = FALSE),
+                        .f = ggstatsplot::grouped_ggwithinstats,
+                        data = mydata,
+                        x = !!group,
+                        grouping.var = !!grvar,
+                        outlier.label = NULL,
+                        title.prefix = NULL,
+                        output = "plot",
+                        plotgrid.args = list(),
+                        title.text = NULL,
+                        title.args = list(size = 16, fontface = "bold"),
+                        caption.text = NULL,
+                        caption.args = list(size = 10),
+                        sub.text = NULL,
+                        sub.args = list(size = 12)
+                        , ggtheme = ggtheme
+                        , ggstatsplot.layer = originaltheme
+
+                    )
+
+                plot2 <- ggstatsplot::combine_plots(plotlist = plotlist,
+                                                    ncol = 1)
 
             }
+
+
+
+
 
             # Print Plot ----
 
