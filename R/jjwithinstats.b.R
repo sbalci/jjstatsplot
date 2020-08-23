@@ -11,6 +11,18 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jjwithinstatsBase,
     private = list(
 
+        # init ----
+
+        .init = function() {
+            deplen <- length(self$options$dep)
+
+            self$results$plot$setSize(400, deplen * 300)
+
+            self$results$plot2$setSize(800, deplen * 300)
+
+        }
+        ,
+
         .run = function() {
 
             # Initial Message ----
@@ -122,7 +134,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html
 
 
+            # dep == 1 ----
 
+            if (length(self$options$dep) == 1) {
             plot <-
                 ggstatsplot::ggwithinstats(
                     data = mydata,
@@ -173,6 +187,70 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     output = "plot",
                     messages = TRUE
                 )
+
+            }
+
+
+            # dep > 1 ----
+
+            if (length(self$options$dep) > 1) {
+                dep2 <- as.list(self$options$dep)
+
+                plotlist <-
+                    purrr::pmap(
+                        .l = list(y = dep2,
+                                  # title = list(dep),
+                                  messages = FALSE),
+                        .f = ggstatsplot::ggwithinstats,
+                        data = mydata,
+                            x = !!group,
+                            type = "parametric",
+                            pairwise.comparisons = FALSE,
+                            pairwise.display = "significant",
+                            p.adjust.method = "holm",
+                            effsize.type = "unbiased",
+                            partial = TRUE,
+                            bf.prior = 0.707,
+                            bf.message = TRUE,
+                            sphericity.correction = TRUE,
+                            results.subtitle = TRUE,
+                            xlab = NULL,
+                            ylab = NULL,
+                            caption = NULL,
+                            title = NULL,
+                            subtitle = NULL,
+                            sample.size.label = TRUE,
+                            k = 2,
+                            conf.level = 0.95,
+                            nboot = 100,
+                            tr = 0.1,
+                            mean.plotting = TRUE,
+                            mean.ci = FALSE,
+                            mean.point.args = list(size = 5, color = "darkred"),
+                            mean.label.args = list(size = 3),
+                            point.path = TRUE,
+                            point.path.args = list(alpha = 0.5, linetype = "dashed"),
+                            mean.path = TRUE,
+                            mean.path.args = list(color = "red", size = 1, alpha = 0.5),
+                            notch = FALSE,
+                            notchwidth = 0.5,
+                            outlier.tagging = FALSE,
+                            outlier.label = NULL,
+                            outlier.coef = 1.5,
+                            outlier.label.args = list(),
+                            outlier.point.args = list(),
+                            violin.args = list(width = 0.5, alpha = 0.2),
+                            ggtheme = ggtheme,
+                            # ggtheme = ggplot2::theme_bw(),
+                            ggstatsplot.layer = originaltheme,
+                            package = "RColorBrewer",
+                            palette = "Dark2",
+                            ggplot.component = NULL,
+                            output = "plot")
+
+                        }
+
+
 
 
 
