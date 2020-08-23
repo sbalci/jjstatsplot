@@ -7,8 +7,6 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
     public = list(
         initialize = function(
             pairs = NULL,
-            group = NULL,
-            grvar = NULL,
             excl = TRUE,
             originaltheme = FALSE, ...) {
 
@@ -25,22 +23,6 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "continuous"),
                 permitted=list(
                     "numeric"))
-            private$..group <- jmvcore::OptionVariable$new(
-                "group",
-                group,
-                suggested=list(
-                    "ordinal",
-                    "nominal"),
-                permitted=list(
-                    "factor"))
-            private$..grvar <- jmvcore::OptionVariable$new(
-                "grvar",
-                grvar,
-                suggested=list(
-                    "ordinal",
-                    "nominal"),
-                permitted=list(
-                    "factor"))
             private$..excl <- jmvcore::OptionBool$new(
                 "excl",
                 excl,
@@ -51,21 +33,15 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
                 default=FALSE)
 
             self$.addOption(private$..pairs)
-            self$.addOption(private$..group)
-            self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
         pairs = function() private$..pairs$value,
-        group = function() private$..group$value,
-        grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..pairs = NA,
-        ..group = NA,
-        ..grvar = NA,
         ..excl = NA,
         ..originaltheme = NA)
 )
@@ -74,7 +50,6 @@ jjwithinstats2Results <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
-        plot2 = function() private$.items[["plot2"]],
         plot = function() private$.items[["plot"]]),
     private = list(),
     public=list(
@@ -98,15 +73,10 @@ jjwithinstats2Results <- if (requireNamespace('jmvcore')) R6::R6Class(
                 title="To Do"))
             self$add(jmvcore::Image$new(
                 options=options,
-                name="plot2",
-                title="`Violin Plots by ${grvar}`",
-                renderFun=".plot2",
-                requiresData=TRUE,
-                visible="(grvar)"))
-            self$add(jmvcore::Image$new(
-                options=options,
                 name="plot",
                 title="Violin Plots",
+                width=800,
+                height=600,
                 renderFun=".plot",
                 requiresData=TRUE))}))
 
@@ -140,14 +110,11 @@ jjwithinstats2Base <- if (requireNamespace('jmvcore')) R6::R6Class(
 #'}
 #' @param data The data as a data frame.
 #' @param pairs .
-#' @param group .
-#' @param grvar .
 #' @param excl .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
-#'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
@@ -155,29 +122,19 @@ jjwithinstats2Base <- if (requireNamespace('jmvcore')) R6::R6Class(
 jjwithinstats2 <- function(
     data,
     pairs,
-    group,
-    grvar,
     excl = TRUE,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('jjwithinstats2 requires jmvcore to be installed (restart may be required)')
 
-    if ( ! missing(group)) group <- jmvcore::resolveQuo(jmvcore::enquo(group))
-    if ( ! missing(grvar)) grvar <- jmvcore::resolveQuo(jmvcore::enquo(grvar))
     if (missing(data))
         data <- jmvcore::marshalData(
-            parent.frame(),
-            `if`( ! missing(group), group, NULL),
-            `if`( ! missing(grvar), grvar, NULL))
+            parent.frame())
 
-    for (v in group) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
-    for (v in grvar) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- jjwithinstats2Options$new(
         pairs = pairs,
-        group = group,
-        grvar = grvar,
         excl = excl,
         originaltheme = originaltheme)
 

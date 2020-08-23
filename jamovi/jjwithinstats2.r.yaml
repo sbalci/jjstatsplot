@@ -18,22 +18,22 @@ items:
       type:  Html
 
 
-    - name: plot2
-      title: '`Violin Plots by ${grvar}`'
-      # title: '`${group} - {dep} by {grvar}`'
-      type: Image
-      # width:  800
-      # height: 600
-      renderFun: .plot2
-      requiresData: true
-      visible: (grvar)
+    # - name: plot2
+    #   title: '`Violin Plots by ${grvar}`'
+    #   # title: '`${group} - {dep} by {grvar}`'
+    #   type: Image
+    #   # width:  800
+    #   # height: 600
+    #   renderFun: .plot2
+    #   requiresData: true
+    #   visible: (grvar)
 
     - name: plot
       # title: '`${group} - {dep}`'
       title: 'Violin Plots'
       type: Image
-      # width:  800
-      # height: 600
+      width:  800
+      height: 600
       renderFun: .plot
       requiresData: true
 

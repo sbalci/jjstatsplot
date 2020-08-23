@@ -9,7 +9,7 @@ children:
     stretchFactor: 1
     children:
       - type: TargetLayoutBox
-        label: Pared Variables
+        label: Paired Variables
         children:
           - type: VariablesListBox
             name: pairs
@@ -24,20 +24,6 @@ children:
                 stretchFactor: 1
                 template:
                   type: VariableLabel
-      - type: TargetLayoutBox
-        label: Grouping Variable
-        children:
-          - type: VariablesListBox
-            name: group
-            maxItemCount: 1
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Split By (Optional)
-        children:
-          - type: VariablesListBox
-            name: grvar
-            maxItemCount: 1
-            isTarget: true
   - type: LayoutBox
     margin: large
     children:

@@ -4,16 +4,12 @@
 \alias{jjwithinstats2}
 \title{Violin Plots to Compare Within Groups}
 \usage{
-jjwithinstats2(data, pairs, group, grvar, excl = TRUE, originaltheme = FALSE)
+jjwithinstats2(data, pairs, excl = TRUE, originaltheme = FALSE)
 }
 \arguments{
 \item{data}{The data as a data frame.}
 
 \item{pairs}{.}
-
-\item{group}{.}
-
-\item{grvar}{.}
 
 \item{excl}{.}
 
@@ -23,7 +19,6 @@ jjwithinstats2(data, pairs, group, grvar, excl = TRUE, originaltheme = FALSE)
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
-\code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 }
 }
