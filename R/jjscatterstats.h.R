@@ -98,7 +98,7 @@ jjscatterstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`${group} - {dep} by {grvar}`",
+                title="`${group} vs {dep} by {grvar}`",
                 width=1600,
                 height=600,
                 renderFun=".plot2",
@@ -113,7 +113,7 @@ jjscatterstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
-                title="`${group} - {dep}`",
+                title="`${group} vs {dep}`",
                 width=800,
                 height=600,
                 renderFun=".plot",
