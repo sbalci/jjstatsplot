@@ -23,8 +23,8 @@ items:
     - name: plot2
       title: Bar Chart Splitted
       type: Image
-      width:  800
-      height: 600
+      # width:  800
+      # height: 600
       renderFun: .plot2
       requiresData: true
       visible: (grvar)

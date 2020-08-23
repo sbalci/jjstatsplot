@@ -101,8 +101,6 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 options=options,
                 name="plot2",
                 title="Bar Chart Splitted",
-                width=800,
-                height=600,
                 renderFun=".plot2",
                 requiresData=TRUE,
                 visible="(grvar)"))
