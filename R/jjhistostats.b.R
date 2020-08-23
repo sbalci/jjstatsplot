@@ -10,6 +10,16 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jjhistostatsBase,
     private = list(
 
+        # init ----
+
+        .init = function() {
+            deplen <- length(self$options$dep)
+
+            self$results$plot$setSize(400, deplen * 300)
+
+        }
+        ,
+
         .run = function() {
 
             # Initial Message ----
