@@ -19,8 +19,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 todo <- glue::glue(
                     "<br>
-                    update 18:03<br>
-
                     Welcome to ClinicoPath
                 <br><br>
                 This tool will help you generate Bar Charts.
@@ -130,7 +128,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html
 
 
+            # dep == 1 ----
 
+            if (length(self$options$dep) == 1) {
             plot <-
                 ggstatsplot::gghistostats(
                     data = mydata,
@@ -171,13 +171,63 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     # messages = TRUE
                 )
 
+            }
 
-            # plot <- ggstatsplot::gghistostats(iris,
-            #                                   x = Sepal.Length ,
-            #                                   ggtheme = NULL,
-            #                                   ggstatsplot.layer = FALSE
-            # )
 
+            # dep > 1 ----
+
+            if (length(self$options$dep) > 1) {
+                dep2 <- as.list(self$options$dep)
+
+                plotlist <-
+                    purrr::pmap(
+                        .l = list(main = dep2,
+                                  # title = list(dep),
+                                  messages = FALSE),
+                        .f = ggstatsplot::gghistostats,
+                        data = mydata,
+
+                            # binwidth = NULL,
+                            # bar.measure = "count",
+                            # xlab = NULL,
+                            # title = NULL,
+                            # subtitle = NULL,
+                            # caption = NULL,
+                            # type = "parametric",
+                            # test.value = 0,
+                            # bf.prior = 0.707,
+                            # bf.message = TRUE,
+                            # effsize.type = "g",
+                            # conf.level = 0.95,
+                            # nboot = 100,
+                            # k = 2L,
+                            # ggtheme = NULL,
+                            ggtheme = ggplot2::theme_bw(),
+                            # ggstatsplot.layer = FALSE,
+                            ggstatsplot.layer = TRUE,
+                            # ggstatsplot.layer = originaltheme,
+                            # bar.fill = "grey50",
+                            # results.subtitle = TRUE,
+                            # test.k = 0,
+                            # test.value.line = FALSE,
+                            # test.value.line.args = list(size = 1),
+                            # test.value.label.args = list(size = 3),
+                            # centrality.parameter = "mean",
+                            # centrality.k = 2,
+                            # centrality.line.args = list(size = 1, color = "blue"),
+                            # centrality.label.args = list(color = "blue", size = 3),
+                            # normal.curve = FALSE,
+                            # normal.curve.args = list(size = 3),
+                            # ggplot.component = NULL,
+                            # output = "plot",
+                            # messages = TRUE
+                        )
+
+                plot <- ggstatsplot::combine_plots(plotlist = plotlist,
+                                                   nrow = length(self$options$dep))
+
+
+                }
 
             # Print Plot ----
 
