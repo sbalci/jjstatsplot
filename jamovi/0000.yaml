@@ -62,6 +62,13 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggwithinstats and
       ggstatsplot::grouped_ggwithinstats to generate Violin Plots.'
+  - title: Violin Plots to Compare Within Groups
+    name: jjwithinstats2
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Violin Plots to Compare Within Groups
+    menuSubtitle: Paired Measurements
   - title: Dot Chart
     name: jjdotplotstats
     ns: jjstatsplot
@@ -99,13 +106,6 @@ analyses:
     menuSubgroup: Variable Type Based Graphs and Plots
     menuTitle: Graphs and Plots
     description: Function for Generating Plots and Graphs Based on Variable Types.
-  - title: Violin Plots to Compare Within Groups
-    name: jjwithinstats2
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Continuous
-    menuTitle: Violin Plots to Compare Within Groups
-    menuSubtitle: Paired Measurements
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

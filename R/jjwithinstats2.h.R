@@ -6,7 +6,7 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Options,
     public = list(
         initialize = function(
-            dep = NULL,
+            pairs = NULL,
             group = NULL,
             grvar = NULL,
             excl = TRUE,
@@ -18,9 +18,9 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
                 requiresData=TRUE,
                 ...)
 
-            private$..dep <- jmvcore::OptionVariables$new(
-                "dep",
-                dep,
+            private$..pairs <- jmvcore::OptionPairs$new(
+                "pairs",
+                pairs,
                 suggested=list(
                     "continuous"),
                 permitted=list(
@@ -50,20 +50,20 @@ jjwithinstats2Options <- if (requireNamespace('jmvcore')) R6::R6Class(
                 originaltheme,
                 default=FALSE)
 
-            self$.addOption(private$..dep)
+            self$.addOption(private$..pairs)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
-        dep = function() private$..dep$value,
+        pairs = function() private$..pairs$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
-        ..dep = NA,
+        ..pairs = NA,
         ..group = NA,
         ..grvar = NA,
         ..excl = NA,
@@ -139,7 +139,7 @@ jjwithinstats2Base <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' # example will be added
 #'}
 #' @param data The data as a data frame.
-#' @param dep .
+#' @param pairs .
 #' @param group .
 #' @param grvar .
 #' @param excl .
@@ -154,7 +154,7 @@ jjwithinstats2Base <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @export
 jjwithinstats2 <- function(
     data,
-    dep,
+    pairs,
     group,
     grvar,
     excl = TRUE,
@@ -163,13 +163,11 @@ jjwithinstats2 <- function(
     if ( ! requireNamespace('jmvcore'))
         stop('jjwithinstats2 requires jmvcore to be installed (restart may be required)')
 
-    if ( ! missing(dep)) dep <- jmvcore::resolveQuo(jmvcore::enquo(dep))
     if ( ! missing(group)) group <- jmvcore::resolveQuo(jmvcore::enquo(group))
     if ( ! missing(grvar)) grvar <- jmvcore::resolveQuo(jmvcore::enquo(grvar))
     if (missing(data))
         data <- jmvcore::marshalData(
             parent.frame(),
-            `if`( ! missing(dep), dep, NULL),
             `if`( ! missing(group), group, NULL),
             `if`( ! missing(grvar), grvar, NULL))
 
@@ -177,7 +175,7 @@ jjwithinstats2 <- function(
     for (v in grvar) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- jjwithinstats2Options$new(
-        dep = dep,
+        pairs = pairs,
         group = group,
         grvar = grvar,
         excl = excl,

@@ -26,9 +26,9 @@ options:
             The data as a data frame.
 
 
-    - name: dep
-      title: Dependent Variables
-      type: Variables
+    - name: pairs
+      title: Pared Variables
+      type: Pairs
       suggested: [ continuous ]
       permitted: [ numeric ]
 

@@ -9,11 +9,21 @@ children:
     stretchFactor: 1
     children:
       - type: TargetLayoutBox
-        label: Dependent Variables
+        label: Pared Variables
         children:
           - type: VariablesListBox
-            name: dep
+            name: pairs
+            fullRowSelect: true
             isTarget: true
+            columns:
+              - name: i1
+                stretchFactor: 1
+                template:
+                  type: VariableLabel
+              - name: i2
+                stretchFactor: 1
+                template:
+                  type: VariableLabel
       - type: TargetLayoutBox
         label: Grouping Variable
         children:

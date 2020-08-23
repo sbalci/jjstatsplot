@@ -4,12 +4,12 @@
 \alias{jjwithinstats2}
 \title{Violin Plots to Compare Within Groups}
 \usage{
-jjwithinstats2(data, dep, group, grvar, excl = TRUE, originaltheme = FALSE)
+jjwithinstats2(data, pairs, group, grvar, excl = TRUE, originaltheme = FALSE)
 }
 \arguments{
 \item{data}{The data as a data frame.}
 
-\item{dep}{.}
+\item{pairs}{.}
 
 \item{group}{.}
 
