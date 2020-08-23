@@ -23,7 +23,7 @@ items:
     - name: plot2
       title: '`${group} - {dep} by {grvar}`'
       type: Image
-      width:  800
+      width:  1600
       height: 600
       renderFun: .plot2
       requiresData: true

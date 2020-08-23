@@ -1,5 +1,5 @@
-title: Correlation Matrix
-name: jjcorrmat
+title: Violin Plots to Compare Within Groups
+name: jjwithinstats2
 jus: '3.0'
 stage: 0
 compilerMode: aggressive
@@ -13,6 +13,13 @@ children:
         children:
           - type: VariablesListBox
             name: dep
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Grouping Variable
+        children:
+          - type: VariablesListBox
+            name: group
+            maxItemCount: 1
             isTarget: true
       - type: TargetLayoutBox
         label: Split By (Optional)

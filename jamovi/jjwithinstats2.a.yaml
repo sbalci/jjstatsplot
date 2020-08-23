@@ -1,9 +1,9 @@
 ---
-name:  jjcorrmat
-title: Correlation Matrix
+name:  jjwithinstats2
+title: Violin Plots to Compare Within Groups
 menuGroup: JJStatsPlot
-menuSubgroup: Continuous vs Continuous
-# menuSubtitle: Correlation Matrix
+menuSubgroup: Categorical vs Continuous
+menuSubtitle: Paired Measurements
 version: '1.0.0'
 jas: '1.2'
 
@@ -11,8 +11,8 @@ jas: '1.2'
 
 description:
     # main: |
-    #     'Wrapper Function for ggstatsplot::ggcorrmat and
-    #     ggstatsplot::grouped_ggcorrmat to generate Correlation Matrix.'
+    #     'Wrapper Function for ggstatsplot::ggwithinstats and
+    #     ggstatsplot::grouped_ggwithinstats to generate Violin Plots.'
     R:
         dontrun: true
         usage: |
@@ -31,6 +31,12 @@ options:
       type: Variables
       suggested: [ continuous ]
       permitted: [ numeric ]
+
+    - name: group
+      title: Grouping Variable
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
 
     - name: grvar
       title: 'Split By (Optional)'
@@ -58,16 +64,10 @@ options:
       type: Bool
       default: true
 
-
     - name: originaltheme
       title: Add GGStatsPlot Layer
       type: Bool
       default: false
 
-
-
-
-
 ...
-
 
