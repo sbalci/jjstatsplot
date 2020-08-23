@@ -176,7 +176,6 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                                   messages = FALSE),
                         .f = ggstatsplot::ggbetweenstats,
                         data = mydata,
-                        data = mydata,
                         x = !!group,
                         # ,
                         # type = distribution
