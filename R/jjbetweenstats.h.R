@@ -18,7 +18,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 requiresData=TRUE,
                 ...)
 
-            private$..dep <- jmvcore::OptionVariable$new(
+            private$..dep <- jmvcore::OptionVariables$new(
                 "dep",
                 dep,
                 suggested=list(
@@ -85,45 +85,29 @@ jjbetweenstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 title="Violin Plots to Compare Between Groups",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"))
+                    "ggstatsplot"),
+                clearWith=list(
+                    "dep",
+                    "group",
+                    "grvar",
+                    "originaltheme"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
-                title="To Do",
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "originaltheme")))
+                title="To Do"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`${group} - {dep} by {grvar}`",
-                width=800,
-                height=600,
+                title="`Violin Plot by ${grvar}`",
                 renderFun=".plot2",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
-                title="`${group} - {dep}`",
-                width=800,
-                height=600,
+                title="Violin Plot",
                 renderFun=".plot",
-                requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme")))}))
+                requiresData=TRUE))}))
 
 jjbetweenstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjbetweenstatsBase",

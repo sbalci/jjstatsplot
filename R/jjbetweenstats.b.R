@@ -13,6 +13,19 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jjbetweenstatsBase,
     private = list(
 
+        # init ----
+
+        .init = function() {
+            deplen <- length(self$options$dep)
+
+            self$results$plot$setSize(400, deplen * 300)
+
+            self$results$plot2$setSize(800, deplen * 300)
+
+        }
+        ,
+
+
         .run = function() {
 
             # Initial Message ----
@@ -133,7 +146,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # ggbetweenstats ----
             # https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html
 
+            # dep == 1 ----
 
+            if (length(self$options$dep) == 1) {
             plot <- ggstatsplot::ggbetweenstats(
                 data = mydata,
                 x = !!group,
@@ -144,6 +159,40 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 , ggstatsplot.layer = originaltheme
 
             )
+
+            }
+
+
+
+            # dep > 1 ----
+
+            if (length(self$options$dep) > 1) {
+                dep2 <- as.list(self$options$dep)
+
+                plotlist <-
+                    purrr::pmap(
+                        .l = list(y = dep2,
+                                  # title = list(dep),
+                                  messages = FALSE),
+                        .f = ggstatsplot::ggbetweenstats,
+                        data = mydata,
+                        data = mydata,
+                        x = !!group,
+                        # ,
+                        # type = distribution
+                        , ggtheme = ggtheme
+                        , ggstatsplot.layer = originaltheme
+
+                    )
+
+                plot <- ggstatsplot::combine_plots(plotlist = plotlist,
+                                                   nrow = length(self$options$dep))
+
+
+
+            }
+
+
 
 
             # Print Plot ----
