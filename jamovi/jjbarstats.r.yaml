@@ -3,17 +3,19 @@ name:  jjbarstats
 title: Bar Charts
 jrs:   '1.1'
 
+clearWith:
+    - dep
+    - group
+    - grvar
+    - direction
+    - originaltheme
+
+
 items:
 
     - name:  todo
       title: To Do
       type:  Html
-      clearWith:
-          - dep
-          - group
-          - grvar
-          - direction
-          - originaltheme
 
 
       # title: '`Bar Chart ${group} - {dep} by {grvar}`'
@@ -25,12 +27,6 @@ items:
       height: 600
       renderFun: .plot2
       requiresData: true
-      clearWith:
-          - dep
-          - group
-          - grvar
-          - direction
-          - originaltheme
       visible: (grvar)
 
       # title: '`Bar Chart ${group} - {dep}`'
@@ -43,12 +39,6 @@ items:
       # height: 600
       renderFun: .plot
       requiresData: true
-      clearWith:
-          - dep
-          - group
-          - grvar
-          - direction
-          - originaltheme
 
 
 refs:

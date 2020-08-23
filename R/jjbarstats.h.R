@@ -86,17 +86,17 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 title="Bar Charts",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"))
-            self$add(jmvcore::Html$new(
-                options=options,
-                name="todo",
-                title="To Do",
+                    "ggstatsplot"),
                 clearWith=list(
                     "dep",
                     "group",
                     "grvar",
                     "direction",
-                    "originaltheme")))
+                    "originaltheme"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="todo",
+                title="To Do"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
@@ -105,25 +105,13 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 height=600,
                 renderFun=".plot2",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
                 title="Bar Chart",
                 renderFun=".plot",
-                requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme")))}))
+                requiresData=TRUE))}))
 
 jjbarstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjbarstatsBase",

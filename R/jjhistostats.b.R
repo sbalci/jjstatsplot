@@ -1,10 +1,8 @@
 #' @title Histogram
 #'
-#'
 #' @importFrom R6 R6Class
 #' @import jmvcore
 #' @import ggplot2
-#'
 
 
 jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
