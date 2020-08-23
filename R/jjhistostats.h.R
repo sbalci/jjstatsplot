@@ -79,7 +79,7 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="Histogram Splitted",
+                title="`Histogram Splitted by {grvar}`",
                 width=800,
                 height=600,
                 renderFun=".plot2",

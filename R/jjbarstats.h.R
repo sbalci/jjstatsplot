@@ -100,7 +100,7 @@ jjbarstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="Bar Chart Splitted",
+                title="`Bar Chart Splitted by {grvar}`",
                 renderFun=".plot2",
                 requiresData=TRUE,
                 visible="(grvar)"))

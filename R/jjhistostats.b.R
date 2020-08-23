@@ -17,7 +17,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                 self$results$plot$setSize(400, deplen * 300)
 
-                self$results$plot2$setSize(400, deplen * 300)
+                self$results$plot2$setSize(800, deplen * 300)
 
             }
             ,
