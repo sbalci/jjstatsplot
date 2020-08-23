@@ -357,7 +357,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             .l = list(x = dep2,
                                       # title = list(dep),
                                       messages = FALSE),
-                            .f = ggstatsplot::grouped_ggbarstats,
+                            .f = ggstatsplot::grouped_gghistostats,
                             data = mydata,
                             grouping.var = !!grvar,
                             binwidth = NULL,
