@@ -181,7 +181,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 plotlist <-
                     purrr::pmap(
-                        .l = list(main = dep2,
+                        .l = list(x = dep2,
                                   # title = list(dep),
                                   messages = FALSE),
                         .f = ggstatsplot::gghistostats,
