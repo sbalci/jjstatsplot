@@ -149,7 +149,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     x = !!group,
                     y = !!dep,
                     type = "parametric",
-                    pairwise.comparisons = FALSE,
+                    pairwise.comparisons = TRUE,
                     pairwise.display = "significant",
                     p.adjust.method = "holm",
                     effsize.type = "unbiased",
@@ -164,9 +164,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     title = NULL,
                     subtitle = NULL,
                     sample.size.label = TRUE,
-                    k = 2,
+                    k = 2L,
                     conf.level = 0.95,
-                    nboot = 100,
+                    nboot = 100L,
                     tr = 0.1,
                     mean.plotting = TRUE,
                     mean.ci = FALSE,
@@ -184,6 +184,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     outlier.label.args = list(),
                     outlier.point.args = list(),
                     violin.args = list(width = 0.5, alpha = 0.2),
+                    ggsignif.args = list(textsize = 3, tip_length = 0.01),
                     ggtheme = ggtheme,
                     # ggtheme = ggplot2::theme_bw(),
                     ggstatsplot.layer = originaltheme,
@@ -193,6 +194,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     output = "plot",
                     messages = TRUE
                 )
+
 
             }
 
