@@ -32,7 +32,7 @@ Remotes:
     easystats/parameters,
     easystats/performance,
     easystats/effectsize,
-    IndrajeetPatil/
+    IndrajeetPatil/ipmisc,
     IndrajeetPatil/broomExtra,
     IndrajeetPatil/ggstatsplot
 Encoding: UTF-8
