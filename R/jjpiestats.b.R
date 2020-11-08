@@ -127,8 +127,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plot1 <-
                 ggstatsplot::ggpiestats(
                     data = mydata,
-                    main = !!dep,
-                    condition = NULL,
+                    x = !!dep,
+                    y = NULL,
                     counts = NULL,
                     ratio = NULL,
                     paired = FALSE,
@@ -242,8 +242,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plot2 <-
                 ggstatsplot::ggpiestats(
                     data = mydata,
-                    main = !!dep,
-                    condition = !!group,
+                    x = !!dep,
+                    y = !!group,
                     counts = NULL,
                     ratio = NULL,
                     paired = FALSE,
@@ -352,8 +352,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 plot3 <- ggstatsplot::grouped_ggpiestats(
                     data = mydata,
-                    main = !!dep,
-                    condition = NULL,
+                    x = !!dep,
+                    y = NULL,
                     counts = NULL,
                     grouping.var = !!grvar,
                     title.prefix = NULL,
@@ -448,8 +448,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 plot4 <- ggstatsplot::grouped_ggpiestats(
                     data = mydata,
-                    main = !!dep,
-                    condition = !!group,
+                    x = !!dep,
+                    y = !!group,
                     counts = NULL,
                     grouping.var = !!grvar,
                     title.prefix = NULL,
