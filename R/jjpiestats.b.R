@@ -156,9 +156,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     palette = "Dark2",
                     ggplot.component = NULL,
                     output = "plot",
-                    messages = TRUE,
-                    x = NULL,
-                    y = NULL
+                    messages = TRUE
                     )
 
 
@@ -271,9 +269,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     palette = "Dark2",
                     ggplot.component = NULL,
                     output = "plot",
-                    messages = TRUE,
-                    x = NULL,
-                    y = NULL
+                    messages = TRUE
                 )
 
 
@@ -358,8 +354,6 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     grouping.var = !!grvar,
                     title.prefix = NULL,
                     output = "plot",
-                    x = NULL,
-                    y = NULL,
                     plotgrid.args = list(),
                     title.text = NULL,
                     title.args = list(size = 16, fontface = "bold"),
@@ -454,8 +448,6 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     grouping.var = !!grvar,
                     title.prefix = NULL,
                     output = "plot",
-                    x = NULL,
-                    y = NULL,
                     plotgrid.args = list(),
                     title.text = NULL,
                     title.args = list(size = 16, fontface = "bold"),
