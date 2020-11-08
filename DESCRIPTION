@@ -34,8 +34,8 @@ Remotes:
     easystats/effectsize,
     IndrajeetPatil/ipmisc,
     IndrajeetPatil/broomExtra,
-    IndrajeetPatil/pairwiseComparisons,
     cran/PMCMRplus,
+    IndrajeetPatil/pairwiseComparisons,
     IndrajeetPatil/ggstatsplot
 Encoding: UTF-8
 LazyData: true
