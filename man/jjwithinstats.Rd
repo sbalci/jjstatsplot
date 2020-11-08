@@ -4,16 +4,7 @@
 \alias{jjwithinstats}
 \title{Violin Plots to Compare Within Groups}
 \usage{
-jjwithinstats(
-  data,
-  dep,
-  group,
-  grvar,
-  excl = TRUE,
-  originaltheme = FALSE,
-  pointpath = TRUE,
-  meanpath = TRUE
-)
+jjwithinstats(data, dep, group, grvar, excl = TRUE, originaltheme = FALSE)
 }
 \arguments{
 \item{data}{The data as a data frame.}
@@ -27,10 +18,6 @@ jjwithinstats(
 \item{excl}{.}
 
 \item{originaltheme}{.}
-
-\item{pointpath}{.}
-
-\item{meanpath}{.}
 }
 \value{
 A results object containing:

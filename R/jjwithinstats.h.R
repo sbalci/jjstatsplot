@@ -10,9 +10,7 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             group = NULL,
             grvar = NULL,
             excl = TRUE,
-            originaltheme = FALSE,
-            pointpath = TRUE,
-            meanpath = TRUE, ...) {
+            originaltheme = FALSE, ...) {
 
             super$initialize(
                 package='jjstatsplot',
@@ -51,39 +49,25 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "originaltheme",
                 originaltheme,
                 default=FALSE)
-            private$..pointpath <- jmvcore::OptionBool$new(
-                "pointpath",
-                pointpath,
-                default=TRUE)
-            private$..meanpath <- jmvcore::OptionBool$new(
-                "meanpath",
-                meanpath,
-                default=TRUE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..originaltheme)
-            self$.addOption(private$..pointpath)
-            self$.addOption(private$..meanpath)
         }),
     active = list(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
-        originaltheme = function() private$..originaltheme$value,
-        pointpath = function() private$..pointpath$value,
-        meanpath = function() private$..meanpath$value),
+        originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
         ..excl = NA,
-        ..originaltheme = NA,
-        ..pointpath = NA,
-        ..meanpath = NA)
+        ..originaltheme = NA)
 )
 
 jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -160,8 +144,6 @@ jjwithinstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param grvar .
 #' @param excl .
 #' @param originaltheme .
-#' @param pointpath .
-#' @param meanpath .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -176,9 +158,7 @@ jjwithinstats <- function(
     group,
     grvar,
     excl = TRUE,
-    originaltheme = FALSE,
-    pointpath = TRUE,
-    meanpath = TRUE) {
+    originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('jjwithinstats requires jmvcore to be installed (restart may be required)')
@@ -201,9 +181,7 @@ jjwithinstats <- function(
         group = group,
         grvar = grvar,
         excl = excl,
-        originaltheme = originaltheme,
-        pointpath = pointpath,
-        meanpath = meanpath)
+        originaltheme = originaltheme)
 
     analysis <- jjwithinstatsClass$new(
         options = options,
