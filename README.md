@@ -5,3 +5,4 @@ Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsp
 See https://indrajeetpatil.github.io/ggstatsplot/
 
 See https://sbalci.github.io/ClinicoPathJamoviModule/
+
