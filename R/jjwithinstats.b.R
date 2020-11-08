@@ -130,9 +130,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- jmvcore::composeTerm(components = group)
 
-            pointpath <- self$options$pointpath
+            # pointpath <- self$options$pointpath
 
-            meanpath <- self$options$meanpath
+            # meanpath <- self$options$meanpath
 
 
 
@@ -290,9 +290,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             mydata <- self$data
 
-            pointpath <- self$options$pointpath
+            # pointpath <- self$options$pointpath
 
-            meanpath <- self$options$meanpath
+            # meanpath <- self$options$meanpath
 
 
             vars <- self$options$dep
