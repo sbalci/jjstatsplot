@@ -9,6 +9,7 @@ clearWith:
     - grvar
     - direction
     - originaltheme
+    - excl
 
 
 items:

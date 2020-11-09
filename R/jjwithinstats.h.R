@@ -107,7 +107,8 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "group",
                     "grvar",
                     "direction",
-                    "originaltheme"))
+                    "originaltheme",
+                    "excl"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
