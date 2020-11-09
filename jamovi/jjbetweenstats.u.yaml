@@ -60,6 +60,10 @@ children:
                 name: typestatistics
               - type: CheckBox
                 name: pairwisecomparisons
+                children:
+                  - type: ComboBox
+                    name: pairwisedisplay
+                    enable: (pairwisecomparisons)
 
 
   - type: CollapseBox

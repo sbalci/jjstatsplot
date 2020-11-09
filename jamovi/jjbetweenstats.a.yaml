@@ -85,6 +85,17 @@ options:
       type: Bool
       default: true
 
+    - name: pairwisedisplay
+      title: 'Pairwise Display'
+      type: List
+      options:
+        - title: significant
+          name: significant
+        - title: non-significant
+          name: non-significant
+        - title: everything
+          name: everything
+      default: significant
 
 
     - name: plottype

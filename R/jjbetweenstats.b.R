@@ -110,12 +110,12 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plottype <-
                 jmvcore::constructFormula(terms = self$options$plottype)
 
-
-
             originaltheme <- self$options$originaltheme
 
             pairwisecomparisons <- self$options$pairwisecomparisons
 
+            pairwisedisplay <-
+                jmvcore::constructFormula(terms = self$options$pairwisedisplay)
 
             # ADD HERE ----
 
@@ -169,12 +169,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 , ggstatsplot.layer = originaltheme
                 , plot.type = plottype
                 , pairwise.comparisons = pairwisecomparisons
-
+                , pairwise.display = pairwisedisplay
 
                 ,
-
-
-                pairwise.display = "significant",
                 p.adjust.method = "holm",
                 effsize.type = "unbiased",
                 bf.prior = 0.707,
@@ -243,7 +240,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , ggstatsplot.layer = originaltheme
                         , plot.type = plottype
                         , pairwise.comparisons = pairwisecomparisons
-
+                        , pairwise.display = pairwisedisplay
                     )
 
                 plot <- ggstatsplot::combine_plots(plotlist = plotlist,
@@ -314,6 +311,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             pairwisecomparisons <- self$options$pairwisecomparisons
 
+            pairwisedisplay <-
+                jmvcore::constructFormula(terms = self$options$pairwisedisplay)
+
 
             # ADD HERE ----
 
@@ -373,7 +373,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     , ggstatsplot.layer = originaltheme
                     , plot.type = plottype
                     , pairwise.comparisons = pairwisecomparisons
-
+                    , pairwise.display = pairwisedisplay
                 )
 
             }
@@ -398,7 +398,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , ggstatsplot.layer = originaltheme
                         , plot.type = plottype
                         , pairwise.comparisons = pairwisecomparisons
-
+                        , pairwise.display = pairwisedisplay
                     )
 
                 plot2 <- ggstatsplot::combine_plots(plotlist = plotlist,
