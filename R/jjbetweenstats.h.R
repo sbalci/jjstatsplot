@@ -104,7 +104,9 @@ jjbetweenstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "dep",
                     "group",
                     "grvar",
-                    "originaltheme"))
+                    "originaltheme",
+                    "typestatistics",
+                    "excl"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",

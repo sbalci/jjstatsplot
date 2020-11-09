@@ -86,16 +86,17 @@ jjcorrmatResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 title="Correlation Matrix",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"))
-            self$add(jmvcore::Html$new(
-                options=options,
-                name="todo",
-                title="To Do",
+                    "ggstatsplot"),
                 clearWith=list(
                     "dep",
                     "grvar",
-                    "direction",
-                    "originaltheme")))
+                    "excl",
+                    "originaltheme",
+                    "typestatistics"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="todo",
+                title="To Do"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
@@ -104,11 +105,6 @@ jjcorrmatResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 height=600,
                 renderFun=".plot2",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
@@ -117,12 +113,7 @@ jjcorrmatResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 width=800,
                 height=600,
                 renderFun=".plot",
-                requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "grvar",
-                    "direction",
-                    "originaltheme")))}))
+                requiresData=TRUE))}))
 
 jjcorrmatBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjcorrmatBase",

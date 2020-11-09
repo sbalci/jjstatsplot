@@ -111,7 +111,7 @@ jjwithinstatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "dep",
                     "group",
                     "grvar",
-                    "direction",
+                    "typestatistics",
                     "originaltheme",
                     "excl"))
             self$add(jmvcore::Html$new(
