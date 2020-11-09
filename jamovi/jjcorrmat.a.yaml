@@ -75,9 +75,6 @@ options:
       default: parametric
 
 
-
-
-
     - name: originaltheme
       title: Add GGStatsPlot Layer
       type: Bool
