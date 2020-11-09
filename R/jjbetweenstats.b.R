@@ -18,9 +18,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .init = function() {
             deplen <- length(self$options$dep)
 
-            self$results$plot$setSize(400, deplen * 300)
+            self$results$plot$setSize(600, deplen * 450)
 
-            self$results$plot2$setSize(800, deplen * 300)
+            self$results$plot2$setSize(1200, deplen * 450)
 
         }
         ,
