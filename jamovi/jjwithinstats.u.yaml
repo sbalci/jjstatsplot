@@ -31,6 +31,11 @@ children:
   - type: LayoutBox
     margin: large
     children:
+      - type: ComboBox
+        name: typestatistics
+  - type: LayoutBox
+    margin: large
+    children:
       - type: CheckBox
         name: originaltheme
       - type: CheckBox

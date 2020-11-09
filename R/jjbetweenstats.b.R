@@ -100,11 +100,11 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # pairw <- self$options$pairw
 
 
-            # distribution ----
+            # type of statistics ----
 
 
-            # distribution <-
-            #     jmvcore::constructFormula(terms = self$options$distribution)
+            typestatistics <-
+                jmvcore::constructFormula(terms = self$options$typestatistics)
 
             # pairw <- self$options$pairw
 
@@ -153,8 +153,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 data = mydata,
                 x = !!group,
                 y = !!dep
-                # ,
-                # type = distribution
+                , type = typestatistics
                 , ggtheme = ggtheme
                 , ggstatsplot.layer = originaltheme
 
@@ -177,8 +176,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         .f = ggstatsplot::ggbetweenstats,
                         data = mydata,
                         x = !!group,
-                        # ,
-                        # type = distribution
+                        , type = typestatistics
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
 
@@ -233,22 +231,14 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             #
             # }
 
-            # distribution <-
-            #     jmvcore::constructFormula(terms = self$options$distribution)
-
             # pairw <- self$options$pairw
 
 
-            # distribution ----
+            # type of statistics ----
 
 
-            # distribution <-
-            #     jmvcore::constructFormula(terms = self$options$distribution)
-
-            # pairw <- self$options$pairw
-
-
-
+            typestatistics <-
+                jmvcore::constructFormula(terms = self$options$typestatistics)
 
             # read data ----
 
@@ -300,6 +290,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     x = !!group,
                     y = !! dep,
                     grouping.var = !!grvar
+                    , type = typestatistics
                     , ggtheme = ggtheme
                     , ggstatsplot.layer = originaltheme
 
@@ -322,6 +313,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         data = mydata,
                         x = !!group,
                         grouping.var = !!grvar
+                        , type = typestatistics
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
 

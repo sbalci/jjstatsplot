@@ -45,6 +45,7 @@ options:
       default: NULL
 
 
+
     # - name: direction
     #   title: 'Measurement Type'
     #   type: List
@@ -63,6 +64,25 @@ options:
       title: Exclude Missing (NA)
       type: Bool
       default: true
+
+
+
+
+
+    - name: typestatistics
+      title: 'Type of Statistic'
+      type: List
+      options:
+        - title: Parametric
+          name: parametric
+        - title: Nonparametric
+          name: nonparametric
+        - title: Robust
+          name: robust
+        - title: Bayes
+          name: bayes
+      default: parametric
+
 
 
     - name: originaltheme
