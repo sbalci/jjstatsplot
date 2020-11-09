@@ -9,7 +9,6 @@ jjwithinstats(
   dep,
   group,
   grvar,
-  excl = TRUE,
   originaltheme = FALSE,
   pointpath = TRUE,
   meanpath = TRUE
@@ -23,8 +22,6 @@ jjwithinstats(
 \item{group}{.}
 
 \item{grvar}{.}
-
-\item{excl}{.}
 
 \item{originaltheme}{.}
 

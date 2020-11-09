@@ -32,8 +32,6 @@ children:
     margin: large
     children:
       - type: CheckBox
-        name: excl
-      - type: CheckBox
         name: originaltheme
       - type: CheckBox
         name: pointpath

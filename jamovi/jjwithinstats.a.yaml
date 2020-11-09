@@ -59,10 +59,10 @@ options:
     #       R: select measurement type (repeated or independent)
 
 
-    - name: excl
-      title: Exclude Missing (NA)
-      type: Bool
-      default: true
+    # - name: excl
+    #   title: Exclude Missing (NA)
+    #   type: Bool
+    #   default: true
 
     - name: originaltheme
       title: Add GGStatsPlot Layer

@@ -9,7 +9,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep = NULL,
             group = NULL,
             grvar = NULL,
-            excl = TRUE,
             originaltheme = FALSE,
             pointpath = TRUE,
             meanpath = TRUE, ...) {
@@ -43,10 +42,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "nominal"),
                 permitted=list(
                     "factor"))
-            private$..excl <- jmvcore::OptionBool$new(
-                "excl",
-                excl,
-                default=TRUE)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -63,7 +58,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
-            self$.addOption(private$..excl)
             self$.addOption(private$..originaltheme)
             self$.addOption(private$..pointpath)
             self$.addOption(private$..meanpath)
@@ -72,7 +66,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
-        excl = function() private$..excl$value,
         originaltheme = function() private$..originaltheme$value,
         pointpath = function() private$..pointpath$value,
         meanpath = function() private$..meanpath$value),
@@ -80,7 +73,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
-        ..excl = NA,
         ..originaltheme = NA,
         ..pointpath = NA,
         ..meanpath = NA)
@@ -159,7 +151,6 @@ jjwithinstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param dep .
 #' @param group .
 #' @param grvar .
-#' @param excl .
 #' @param originaltheme .
 #' @param pointpath .
 #' @param meanpath .
@@ -176,7 +167,6 @@ jjwithinstats <- function(
     dep,
     group,
     grvar,
-    excl = TRUE,
     originaltheme = FALSE,
     pointpath = TRUE,
     meanpath = TRUE) {
@@ -201,7 +191,6 @@ jjwithinstats <- function(
         dep = dep,
         group = group,
         grvar = grvar,
-        excl = excl,
         originaltheme = originaltheme,
         pointpath = pointpath,
         meanpath = meanpath)
