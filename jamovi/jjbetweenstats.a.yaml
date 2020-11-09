@@ -84,6 +84,20 @@ options:
       default: parametric
 
 
+    - name: plottype
+      title: 'Plot Type'
+      type: List
+      options:
+        - title: box
+          name: box
+        - title: violin
+          name: violin
+        - title: boxviolin
+          name: boxviolin
+      default: boxviolin
+
+
+
 
     - name: originaltheme
       title: Add GGStatsPlot Layer

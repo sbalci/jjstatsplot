@@ -41,7 +41,6 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 typestatistics,
                 options=list(
                     "parametric",
-                    "np",
                     "robust",
                     "bayes"),
                 default="parametric")

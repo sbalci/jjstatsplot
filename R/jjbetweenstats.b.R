@@ -106,8 +106,12 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             typestatistics <-
                 jmvcore::constructFormula(terms = self$options$typestatistics)
 
-            # pairw <- self$options$pairw
 
+            plottype <-
+                jmvcore::constructFormula(terms = self$options$plottype)
+
+
+            # ADD HERE ----
 
 
 
@@ -138,7 +142,6 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             originaltheme <- self$options$originaltheme
 
-
             dep <- jmvcore::composeTerm(components = dep)
 
             group <- jmvcore::composeTerm(components = group)
@@ -156,8 +159,58 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 , type = typestatistics
                 , ggtheme = ggtheme
                 , ggstatsplot.layer = originaltheme
+                , plot.type = plottype
 
+                ,
+
+
+                pairwise.comparisons = TRUE,
+                pairwise.display = "significant",
+                p.adjust.method = "holm",
+                effsize.type = "unbiased",
+                bf.prior = 0.707,
+                bf.message = TRUE,
+                results.subtitle = TRUE,
+                xlab = NULL,
+                ylab = NULL,
+                caption = NULL,
+                title = NULL,
+                subtitle = NULL,
+                sample.size.label = TRUE,
+                k = 2L,
+                var.equal = FALSE,
+                conf.level = 0.95,
+                nboot = 100L,
+                tr = 0.1,
+                mean.plotting = TRUE,
+                mean.ci = FALSE,
+                mean.point.args = list(size = 5, color = "darkred"),
+                mean.label.args = list(size = 3),
+                notch = FALSE,
+                notchwidth = 0.5,
+                outlier.tagging = FALSE,
+                outlier.label = NULL,
+                outlier.coef = 1.5,
+                outlier.shape = 19,
+                outlier.color = "black",
+                outlier.label.args = list(size = 3),
+                outlier.point.args = list(),
+                point.args = list(position = ggplot2::position_jitterdodge(dodge.width = 0.6), alpha
+                                  = 0.4, size = 3, stroke = 0),
+                violin.args = list(width = 0.5, alpha = 0.2),
+                ggsignif.args = list(textsize = 3, tip_length = 0.01),
+
+                package = "RColorBrewer",
+                palette = "Dark2",
+                ggplot.component = NULL,
+                output = "plot"
             )
+
+
+
+
+
+
 
             }
 
@@ -179,6 +232,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , type = typestatistics
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
+                        , plot.type = plottype
 
                     )
 
@@ -240,6 +294,16 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             typestatistics <-
                 jmvcore::constructFormula(terms = self$options$typestatistics)
 
+
+
+            plottype <-
+                jmvcore::constructFormula(terms = self$options$plottype)
+
+
+            # ADD HERE ----
+
+
+
             # read data ----
 
             mydata <- self$data
@@ -293,6 +357,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     , type = typestatistics
                     , ggtheme = ggtheme
                     , ggstatsplot.layer = originaltheme
+                    , plot.type = plottype
 
                 )
 
@@ -316,6 +381,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , type = typestatistics
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
+                        , plot.type = plottype
 
                     )
 

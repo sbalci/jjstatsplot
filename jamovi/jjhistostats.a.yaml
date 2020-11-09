@@ -65,8 +65,8 @@ options:
       options:
         - title: Parametric
           name: parametric
-        - title: Nonparametric
-          name: np
+        # - title: Nonparametric
+        #   name: np
         - title: Robust
           name: robust
         - title: Bayes

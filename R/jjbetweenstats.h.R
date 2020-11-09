@@ -11,6 +11,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             grvar = NULL,
             excl = TRUE,
             typestatistics = "parametric",
+            plottype = "boxviolin",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -56,6 +57,14 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "robust",
                     "bayes"),
                 default="parametric")
+            private$..plottype <- jmvcore::OptionList$new(
+                "plottype",
+                plottype,
+                options=list(
+                    "box",
+                    "violin",
+                    "boxviolin"),
+                default="boxviolin")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -66,6 +75,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
+            self$.addOption(private$..plottype)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -74,6 +84,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         typestatistics = function() private$..typestatistics$value,
+        plottype = function() private$..plottype$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -81,6 +92,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..grvar = NA,
         ..excl = NA,
         ..typestatistics = NA,
+        ..plottype = NA,
         ..originaltheme = NA)
 )
 
@@ -159,6 +171,7 @@ jjbetweenstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param grvar .
 #' @param excl .
 #' @param typestatistics .
+#' @param plottype .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -175,6 +188,7 @@ jjbetweenstats <- function(
     grvar = NULL,
     excl = TRUE,
     typestatistics = "parametric",
+    plottype = "boxviolin",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -199,6 +213,7 @@ jjbetweenstats <- function(
         grvar = grvar,
         excl = excl,
         typestatistics = typestatistics,
+        plottype = plottype,
         originaltheme = originaltheme)
 
     analysis <- jjbetweenstatsClass$new(
