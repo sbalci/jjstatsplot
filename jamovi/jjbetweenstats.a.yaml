@@ -66,9 +66,6 @@ options:
       default: true
 
 
-
-
-
     - name: typestatistics
       title: 'Type of Statistic'
       type: List
@@ -82,6 +79,12 @@ options:
         - title: Bayes
           name: bayes
       default: parametric
+
+    - name: pairwisecomparisons
+      title: Pairwise Comparisons
+      type: Bool
+      default: true
+
 
 
     - name: plottype

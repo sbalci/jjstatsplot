@@ -11,6 +11,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             grvar = NULL,
             excl = TRUE,
             typestatistics = "parametric",
+            pairwisecomparisons = TRUE,
             plottype = "boxviolin",
             originaltheme = FALSE, ...) {
 
@@ -57,6 +58,10 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "robust",
                     "bayes"),
                 default="parametric")
+            private$..pairwisecomparisons <- jmvcore::OptionBool$new(
+                "pairwisecomparisons",
+                pairwisecomparisons,
+                default=TRUE)
             private$..plottype <- jmvcore::OptionList$new(
                 "plottype",
                 plottype,
@@ -75,6 +80,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
+            self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..plottype)
             self$.addOption(private$..originaltheme)
         }),
@@ -84,6 +90,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         typestatistics = function() private$..typestatistics$value,
+        pairwisecomparisons = function() private$..pairwisecomparisons$value,
         plottype = function() private$..plottype$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
@@ -92,6 +99,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..grvar = NA,
         ..excl = NA,
         ..typestatistics = NA,
+        ..pairwisecomparisons = NA,
         ..plottype = NA,
         ..originaltheme = NA)
 )
@@ -171,6 +179,7 @@ jjbetweenstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param grvar .
 #' @param excl .
 #' @param typestatistics .
+#' @param pairwisecomparisons .
 #' @param plottype .
 #' @param originaltheme .
 #' @return A results object containing:
@@ -188,6 +197,7 @@ jjbetweenstats <- function(
     grvar = NULL,
     excl = TRUE,
     typestatistics = "parametric",
+    pairwisecomparisons = TRUE,
     plottype = "boxviolin",
     originaltheme = FALSE) {
 
@@ -213,6 +223,7 @@ jjbetweenstats <- function(
         grvar = grvar,
         excl = excl,
         typestatistics = typestatistics,
+        pairwisecomparisons = pairwisecomparisons,
         plottype = plottype,
         originaltheme = originaltheme)
 

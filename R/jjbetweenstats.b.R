@@ -111,6 +111,12 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 jmvcore::constructFormula(terms = self$options$plottype)
 
 
+
+            originaltheme <- self$options$originaltheme
+
+            pairwisecomparisons <- self$options$pairwisecomparisons
+
+
             # ADD HERE ----
 
 
@@ -140,7 +146,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
-            originaltheme <- self$options$originaltheme
+
+
+
 
             dep <- jmvcore::composeTerm(components = dep)
 
@@ -160,11 +168,12 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 , ggtheme = ggtheme
                 , ggstatsplot.layer = originaltheme
                 , plot.type = plottype
+                , pairwise.comparisons = pairwisecomparisons
+
 
                 ,
 
 
-                pairwise.comparisons = TRUE,
                 pairwise.display = "significant",
                 p.adjust.method = "holm",
                 effsize.type = "unbiased",
@@ -233,6 +242,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
                         , plot.type = plottype
+                        , pairwise.comparisons = pairwisecomparisons
 
                     )
 
@@ -300,6 +310,11 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 jmvcore::constructFormula(terms = self$options$plottype)
 
 
+            originaltheme <- self$options$originaltheme
+
+            pairwisecomparisons <- self$options$pairwisecomparisons
+
+
             # ADD HERE ----
 
 
@@ -329,7 +344,6 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             group <- self$options$group
 
-            originaltheme <- self$options$originaltheme
 
 
             dep <- jmvcore::composeTerm(components = dep)
@@ -358,6 +372,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     , ggtheme = ggtheme
                     , ggstatsplot.layer = originaltheme
                     , plot.type = plottype
+                    , pairwise.comparisons = pairwisecomparisons
 
                 )
 
@@ -382,6 +397,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , ggtheme = ggtheme
                         , ggstatsplot.layer = originaltheme
                         , plot.type = plottype
+                        , pairwise.comparisons = pairwisecomparisons
 
                     )
 

@@ -58,6 +58,8 @@ children:
             children:
               - type: ComboBox
                 name: typestatistics
+              - type: CheckBox
+                name: pairwisecomparisons
 
 
   - type: CollapseBox
