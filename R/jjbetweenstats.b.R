@@ -117,6 +117,10 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             pairwisedisplay <-
                 jmvcore::constructFormula(terms = self$options$pairwisedisplay)
 
+            padjustmethod <-
+                jmvcore::constructFormula(terms = self$options$padjustmethod)
+
+
             # ADD HERE ----
 
 
@@ -170,9 +174,9 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 , plot.type = plottype
                 , pairwise.comparisons = pairwisecomparisons
                 , pairwise.display = pairwisedisplay
+                , p.adjust.method = padjustmethod
 
                 ,
-                p.adjust.method = "holm",
                 effsize.type = "unbiased",
                 bf.prior = 0.707,
                 bf.message = TRUE,
@@ -241,6 +245,13 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , plot.type = plottype
                         , pairwise.comparisons = pairwisecomparisons
                         , pairwise.display = pairwisedisplay
+                        , p.adjust.method = padjustmethod
+
+
+
+
+
+
                     )
 
                 plot <- ggstatsplot::combine_plots(plotlist = plotlist,
@@ -314,6 +325,8 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             pairwisedisplay <-
                 jmvcore::constructFormula(terms = self$options$pairwisedisplay)
 
+            padjustmethod <-
+                jmvcore::constructFormula(terms = self$options$padjustmethod)
 
             # ADD HERE ----
 
@@ -374,6 +387,11 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     , plot.type = plottype
                     , pairwise.comparisons = pairwisecomparisons
                     , pairwise.display = pairwisedisplay
+                    , p.adjust.method = padjustmethod
+
+
+
+
                 )
 
             }
@@ -399,6 +417,17 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         , plot.type = plottype
                         , pairwise.comparisons = pairwisecomparisons
                         , pairwise.display = pairwisedisplay
+                        , p.adjust.method = padjustmethod
+
+
+
+
+
+
+
+
+
+
                     )
 
                 plot2 <- ggstatsplot::combine_plots(plotlist = plotlist,

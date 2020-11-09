@@ -64,6 +64,10 @@ children:
                   - type: ComboBox
                     name: pairwisedisplay
                     enable: (pairwisecomparisons)
+                  - type: ComboBox
+                    name: padjustmethod
+                    enable: (pairwisecomparisons)
+
 
 
   - type: CollapseBox

@@ -97,6 +97,29 @@ options:
           name: everything
       default: significant
 
+    - name: padjustmethod
+      title: 'Adjustment Method'
+      type: List
+      options:
+        - title: holm
+          name: holm
+        - title: hochberg
+          name: hochberg
+        - title: hommel
+          name: hommel
+        - title: bonferroni
+          name: bonferroni
+        - title: BH
+          name: BH
+        - title: BY
+          name: BY
+        - title: fdr
+          name: fdr
+        - title: none
+          name: none
+      default: holm
+
+
 
     - name: plottype
       title: 'Plot Type'

@@ -13,6 +13,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             typestatistics = "parametric",
             pairwisecomparisons = TRUE,
             pairwisedisplay = "significant",
+            padjustmethod = "holm",
             plottype = "boxviolin",
             originaltheme = FALSE, ...) {
 
@@ -71,6 +72,19 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "non-significant",
                     "everything"),
                 default="significant")
+            private$..padjustmethod <- jmvcore::OptionList$new(
+                "padjustmethod",
+                padjustmethod,
+                options=list(
+                    "holm",
+                    "hochberg",
+                    "hommel",
+                    "bonferroni",
+                    "BH",
+                    "BY",
+                    "fdr",
+                    "none"),
+                default="holm")
             private$..plottype <- jmvcore::OptionList$new(
                 "plottype",
                 plottype,
@@ -91,6 +105,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..typestatistics)
             self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..pairwisedisplay)
+            self$.addOption(private$..padjustmethod)
             self$.addOption(private$..plottype)
             self$.addOption(private$..originaltheme)
         }),
@@ -102,6 +117,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         typestatistics = function() private$..typestatistics$value,
         pairwisecomparisons = function() private$..pairwisecomparisons$value,
         pairwisedisplay = function() private$..pairwisedisplay$value,
+        padjustmethod = function() private$..padjustmethod$value,
         plottype = function() private$..plottype$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
@@ -112,6 +128,7 @@ jjbetweenstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..typestatistics = NA,
         ..pairwisecomparisons = NA,
         ..pairwisedisplay = NA,
+        ..padjustmethod = NA,
         ..plottype = NA,
         ..originaltheme = NA)
 )
@@ -193,6 +210,7 @@ jjbetweenstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param typestatistics .
 #' @param pairwisecomparisons .
 #' @param pairwisedisplay .
+#' @param padjustmethod .
 #' @param plottype .
 #' @param originaltheme .
 #' @return A results object containing:
@@ -212,6 +230,7 @@ jjbetweenstats <- function(
     typestatistics = "parametric",
     pairwisecomparisons = TRUE,
     pairwisedisplay = "significant",
+    padjustmethod = "holm",
     plottype = "boxviolin",
     originaltheme = FALSE) {
 
@@ -239,6 +258,7 @@ jjbetweenstats <- function(
         typestatistics = typestatistics,
         pairwisecomparisons = pairwisecomparisons,
         pairwisedisplay = pairwisedisplay,
+        padjustmethod = padjustmethod,
         plottype = plottype,
         originaltheme = originaltheme)
 
