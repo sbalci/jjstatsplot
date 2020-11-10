@@ -47,6 +47,8 @@ children:
             children:
               - type: ComboBox
                 name: typestatistics
+              - type: ComboBox
+                name: centralityparameter
   - type: CollapseBox
     label: Plot
     collapsed: false

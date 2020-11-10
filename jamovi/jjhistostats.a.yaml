@@ -8,11 +8,10 @@ version: '1.0.0'
 jas: '1.2'
 
 
-
 description:
-    # main: |
-    #     'Wrapper Function for ggstatsplot::gghistostats and
-    #     ggstatsplot::grouped_gghistostats to generate Histogram.'
+    main: |
+        'Wrapper Function for ggstatsplot::gghistostats and
+        ggstatsplot::grouped_gghistostats to generate Histogram.'
     R:
         dontrun: true
         usage: |
@@ -25,7 +24,6 @@ options:
           R: >
             The data as a data frame.
 
-
     - name: dep
       title: Variables
       type: Variables
@@ -37,21 +35,6 @@ options:
       type: Variable
       suggested: [ ordinal, nominal ]
       permitted: [ factor ]
-
-
-    # - name: direction
-    #   title: 'Measurement Type'
-    #   type: List
-    #   options:
-    #     - title: Repeated (within groups)
-    #       name: repeated
-    #     - title: Independent (between groups)
-    #       name: independent
-    #   default: independent
-    #   description:
-    #       ui: options for measurement type
-    #       R: select measurement type (repeated or independent)
-
 
 # Data
 
@@ -79,8 +62,18 @@ options:
           name: bayes
       default: parametric
 
-# centrality.parameter
-# Decides which measure of central tendency ("mean" or "median") is to be displayed as a vertical line. To not show any parameter, set this to "none".
+
+    - name: centralityparameter
+      title: 'Measure'
+      type: List
+      options:
+        - title: mean
+          name: mean
+        - title: median
+          name: median
+        - title: none
+          name: none
+      default: mean
 
 
 # results.subtitle
