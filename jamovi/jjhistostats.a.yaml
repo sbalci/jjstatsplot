@@ -90,6 +90,7 @@ options:
     - name: binwidth
       title: Bin Width (Default is max(x) - min(x) / sqrt(N))
       type: Integer
+      default:
 
 
     - name: originaltheme
