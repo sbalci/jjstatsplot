@@ -10,10 +10,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             grvar = NULL,
             excl = TRUE,
             typestatistics = "parametric",
-            pairwisecomparisons = TRUE,
-            pairwisedisplay = "significant",
-            padjustmethod = "holm",
-            plottype = "boxviolin",
+            changebinwidth = FALSE,
+            binwidth = NULL,
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -49,39 +47,13 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "robust",
                     "bayes"),
                 default="parametric")
-            private$..pairwisecomparisons <- jmvcore::OptionBool$new(
-                "pairwisecomparisons",
-                pairwisecomparisons,
-                default=TRUE)
-            private$..pairwisedisplay <- jmvcore::OptionList$new(
-                "pairwisedisplay",
-                pairwisedisplay,
-                options=list(
-                    "significant",
-                    "non-significant",
-                    "everything"),
-                default="significant")
-            private$..padjustmethod <- jmvcore::OptionList$new(
-                "padjustmethod",
-                padjustmethod,
-                options=list(
-                    "holm",
-                    "hochberg",
-                    "hommel",
-                    "bonferroni",
-                    "BH",
-                    "BY",
-                    "fdr",
-                    "none"),
-                default="holm")
-            private$..plottype <- jmvcore::OptionList$new(
-                "plottype",
-                plottype,
-                options=list(
-                    "box",
-                    "violin",
-                    "boxviolin"),
-                default="boxviolin")
+            private$..changebinwidth <- jmvcore::OptionBool$new(
+                "changebinwidth",
+                changebinwidth,
+                default=FALSE)
+            private$..binwidth <- jmvcore::OptionInteger$new(
+                "binwidth",
+                binwidth)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -91,10 +63,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
-            self$.addOption(private$..pairwisecomparisons)
-            self$.addOption(private$..pairwisedisplay)
-            self$.addOption(private$..padjustmethod)
-            self$.addOption(private$..plottype)
+            self$.addOption(private$..changebinwidth)
+            self$.addOption(private$..binwidth)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -102,20 +72,16 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         typestatistics = function() private$..typestatistics$value,
-        pairwisecomparisons = function() private$..pairwisecomparisons$value,
-        pairwisedisplay = function() private$..pairwisedisplay$value,
-        padjustmethod = function() private$..padjustmethod$value,
-        plottype = function() private$..plottype$value,
+        changebinwidth = function() private$..changebinwidth$value,
+        binwidth = function() private$..binwidth$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
         ..grvar = NA,
         ..excl = NA,
         ..typestatistics = NA,
-        ..pairwisecomparisons = NA,
-        ..pairwisedisplay = NA,
-        ..padjustmethod = NA,
-        ..plottype = NA,
+        ..changebinwidth = NA,
+        ..binwidth = NA,
         ..originaltheme = NA)
 )
 
@@ -195,10 +161,8 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param grvar .
 #' @param excl .
 #' @param typestatistics .
-#' @param pairwisecomparisons .
-#' @param pairwisedisplay .
-#' @param padjustmethod .
-#' @param plottype .
+#' @param changebinwidth .
+#' @param binwidth .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -214,10 +178,8 @@ jjhistostats <- function(
     grvar,
     excl = TRUE,
     typestatistics = "parametric",
-    pairwisecomparisons = TRUE,
-    pairwisedisplay = "significant",
-    padjustmethod = "holm",
-    plottype = "boxviolin",
+    changebinwidth = FALSE,
+    binwidth,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -238,10 +200,8 @@ jjhistostats <- function(
         grvar = grvar,
         excl = excl,
         typestatistics = typestatistics,
-        pairwisecomparisons = pairwisecomparisons,
-        pairwisedisplay = pairwisedisplay,
-        padjustmethod = padjustmethod,
-        plottype = plottype,
+        changebinwidth = changebinwidth,
+        binwidth = binwidth,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(

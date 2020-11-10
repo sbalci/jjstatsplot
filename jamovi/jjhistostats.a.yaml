@@ -82,11 +82,14 @@ options:
 
 # Plot
 
+    - name: changebinwidth
+      title: Change Bin Width
+      type: Bool
+      default: false
 
     - name: binwidth
       title: Bin Width (Default is max(x) - min(x) / sqrt(N))
       type: Integer
-      default: NULL
 
 
     - name: originaltheme

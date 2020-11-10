@@ -21,7 +21,6 @@ children:
             name: grvar
             maxItemCount: 1
             isTarget: true
-
   - type: CollapseBox
     label: Data
     collapsed: false
@@ -35,7 +34,6 @@ children:
             children:
               - type: CheckBox
                 name: excl
-
   - type: CollapseBox
     label: Analysis
     collapsed: false
@@ -49,18 +47,6 @@ children:
             children:
               - type: ComboBox
                 name: typestatistics
-              - type: CheckBox
-                name: pairwisecomparisons
-                children:
-                  - type: ComboBox
-                    name: pairwisedisplay
-                    enable: (pairwisecomparisons)
-                  - type: ComboBox
-                    name: padjustmethod
-                    enable: (pairwisecomparisons)
-
-
-
   - type: CollapseBox
     label: Plot
     collapsed: false
@@ -72,10 +58,17 @@ children:
           - type: LayoutBox
             margin: large
             children:
-              - type: TextBox
-                name: pinwidth
-                format: number
+              - type: CheckBox
+                name: changebinwidth
+                children: []
+          - type: LayoutBox
+            margin: large
+            children:
               - type: CheckBox
                 name: originaltheme
-              - type: ComboBox
-                name: plottype
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: TextBox
+        name: binwidth
+        format: number
