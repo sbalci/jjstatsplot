@@ -122,13 +122,5 @@ children:
                     format: string
                     width: large
                     enable: (useplotcaption)
-          - type: resultssubtitle
-            margin: large
-            children:
               - type: CheckBox
-                name: originaltheme
-
-
-
-
-
+                name: resultssubtitle
