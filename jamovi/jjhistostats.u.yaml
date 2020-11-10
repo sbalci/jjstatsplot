@@ -103,6 +103,5 @@ children:
                     name: title
                     format: string
                     enable: (usetitle)
-                    ghostText: ghost
 
 
