@@ -11,7 +11,6 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             grvar = NULL,
             excl = TRUE,
             typestatistics = "parametric",
-            typestatistics = "parametric",
             pairwisecomparisons = TRUE,
             pairwisedisplay = "significant",
             padjustmethod = "holm",
@@ -51,15 +50,6 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "excl",
                 excl,
                 default=TRUE)
-            private$..typestatistics <- jmvcore::OptionList$new(
-                "typestatistics",
-                typestatistics,
-                options=list(
-                    "parametric",
-                    "nonparametric",
-                    "robust",
-                    "bayes"),
-                default="parametric")
             private$..typestatistics <- jmvcore::OptionList$new(
                 "typestatistics",
                 typestatistics,
@@ -112,7 +102,6 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..grvar)
             self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
-            self$.addOption(private$..typestatistics)
             self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..pairwisedisplay)
             self$.addOption(private$..padjustmethod)
@@ -125,7 +114,6 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         grvar = function() private$..grvar$value,
         excl = function() private$..excl$value,
         typestatistics = function() private$..typestatistics$value,
-        typestatistics = function() private$..typestatistics$value,
         pairwisecomparisons = function() private$..pairwisecomparisons$value,
         pairwisedisplay = function() private$..pairwisedisplay$value,
         padjustmethod = function() private$..padjustmethod$value,
@@ -136,7 +124,6 @@ jjdotplotstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..group = NA,
         ..grvar = NA,
         ..excl = NA,
-        ..typestatistics = NA,
         ..typestatistics = NA,
         ..pairwisecomparisons = NA,
         ..pairwisedisplay = NA,
@@ -224,7 +211,6 @@ jjdotplotstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param grvar .
 #' @param excl .
 #' @param typestatistics .
-#' @param typestatistics .
 #' @param pairwisecomparisons .
 #' @param pairwisedisplay .
 #' @param padjustmethod .
@@ -244,7 +230,6 @@ jjdotplotstats <- function(
     group,
     grvar,
     excl = TRUE,
-    typestatistics = "parametric",
     typestatistics = "parametric",
     pairwisecomparisons = TRUE,
     pairwisedisplay = "significant",
@@ -273,7 +258,6 @@ jjdotplotstats <- function(
         group = group,
         grvar = grvar,
         excl = excl,
-        typestatistics = typestatistics,
         typestatistics = typestatistics,
         pairwisecomparisons = pairwisecomparisons,
         pairwisedisplay = pairwisedisplay,

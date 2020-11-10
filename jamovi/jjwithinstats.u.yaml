@@ -28,9 +28,6 @@ children:
             name: grvar
             maxItemCount: 1
             isTarget: true
-
-
-
   - type: CollapseBox
     label: Data
     collapsed: false
@@ -38,13 +35,14 @@ children:
       - type: Label
         label: Data
         fitToGrid: true
-        children:
-          - type: LayoutBox
-            margin: large
-            children:
-              - type: CheckBox
-                name: excl
-
+        children: []
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: CheckBox
+        name: pointpath
+      - type: CheckBox
+        name: meanpath
   - type: CollapseBox
     label: Analysis
     collapsed: false
@@ -67,9 +65,6 @@ children:
                   - type: ComboBox
                     name: padjustmethod
                     enable: (pairwisecomparisons)
-
-
-
   - type: CollapseBox
     label: Plot
     collapsed: false

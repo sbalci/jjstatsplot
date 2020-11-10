@@ -9,7 +9,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep = NULL,
             group = NULL,
             grvar = NULL,
-            typestatistics = "parametric",
             pointpath = TRUE,
             meanpath = TRUE,
             typestatistics = "parametric",
@@ -48,15 +47,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "nominal"),
                 permitted=list(
                     "factor"))
-            private$..typestatistics <- jmvcore::OptionList$new(
-                "typestatistics",
-                typestatistics,
-                options=list(
-                    "parametric",
-                    "nonparametric",
-                    "robust",
-                    "bayes"),
-                default="parametric")
             private$..pointpath <- jmvcore::OptionBool$new(
                 "pointpath",
                 pointpath,
@@ -115,7 +105,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
-            self$.addOption(private$..typestatistics)
             self$.addOption(private$..pointpath)
             self$.addOption(private$..meanpath)
             self$.addOption(private$..typestatistics)
@@ -129,7 +118,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
-        typestatistics = function() private$..typestatistics$value,
         pointpath = function() private$..pointpath$value,
         meanpath = function() private$..meanpath$value,
         typestatistics = function() private$..typestatistics$value,
@@ -142,7 +130,6 @@ jjwithinstatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
-        ..typestatistics = NA,
         ..pointpath = NA,
         ..meanpath = NA,
         ..typestatistics = NA,
@@ -226,7 +213,6 @@ jjwithinstatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param dep .
 #' @param group .
 #' @param grvar .
-#' @param typestatistics .
 #' @param pointpath .
 #' @param meanpath .
 #' @param typestatistics .
@@ -248,7 +234,6 @@ jjwithinstats <- function(
     dep,
     group,
     grvar,
-    typestatistics = "parametric",
     pointpath = TRUE,
     meanpath = TRUE,
     typestatistics = "parametric",
@@ -278,7 +263,6 @@ jjwithinstats <- function(
         dep = dep,
         group = group,
         grvar = grvar,
-        typestatistics = typestatistics,
         pointpath = pointpath,
         meanpath = meanpath,
         typestatistics = typestatistics,
