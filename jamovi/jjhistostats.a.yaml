@@ -136,9 +136,6 @@ options:
           name: mix
       default: count
 
-# bar.fill
-# Character input that decides which color will uniformly fill all the bars in the histogram (Default: "grey50").
-
 
     - name: usexlab
       title: Change x-label

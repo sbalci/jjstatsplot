@@ -156,7 +156,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 # group <- jmvcore::composeTerm(components = group)
 
 
-                # originaltheme <- self$options$originaltheme
+                originaltheme <- self$options$originaltheme
 
 
                 # gghistostats ----
@@ -188,12 +188,16 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # conf.level = 0.95,
                             # nboot = 100,
                             # k = 2L,
-                            # ggtheme = NULL,
-                            ggtheme = ggplot2::theme_bw(),
-                            # ggstatsplot.layer = FALSE,
-                            ggstatsplot.layer = TRUE,
-                            # ggstatsplot.layer = originaltheme,
-                            # bar.fill = "grey50",
+
+
+                            ggtheme = ggtheme,
+
+                            # ggtheme = ggplot2::theme_bw(),
+                            ggstatsplot.layer = originaltheme,
+
+
+
+                            bar.fill = "grey50",
                             results.subtitle = self$options$resultssubtitle,
                             # test.k = 0,
                             # test.value.line = FALSE,
@@ -260,7 +264,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # ggstatsplot.layer = FALSE,
                             ggstatsplot.layer = TRUE,
                             # ggstatsplot.layer = originaltheme,
-                            # bar.fill = "grey50",
+                            bar.fill = "grey50",
                             results.subtitle = self$options$resultssubtitle,
 
                             # test.k = 0,
