@@ -10,6 +10,7 @@ clearWith:
     - excl
     - originaltheme
     - typestatistics
+    - binwidth
 
 
 items:
