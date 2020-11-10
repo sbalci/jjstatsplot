@@ -112,4 +112,17 @@ children:
                     format: string
                     width: large
                     enable: (usesubtitle)
+              - type: CheckBox
+                name: useplotcaption
+                children:
+                  - type: TextBox
+                    name: plotcaption
+                    format: string
+                    width: large
+                    enable: (useplotcaption)
+
+
+
+
+
 

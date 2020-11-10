@@ -21,6 +21,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             title = "",
             usesubtitle = FALSE,
             subtitle = "",
+            useplotcaption = FALSE,
+            plotcaption = "",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -105,6 +107,14 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "subtitle",
                 subtitle,
                 default="")
+            private$..useplotcaption <- jmvcore::OptionBool$new(
+                "useplotcaption",
+                useplotcaption,
+                default=FALSE)
+            private$..plotcaption <- jmvcore::OptionString$new(
+                "plotcaption",
+                plotcaption,
+                default="")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -125,6 +135,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..title)
             self$.addOption(private$..usesubtitle)
             self$.addOption(private$..subtitle)
+            self$.addOption(private$..useplotcaption)
+            self$.addOption(private$..plotcaption)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -143,6 +155,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         title = function() private$..title$value,
         usesubtitle = function() private$..usesubtitle$value,
         subtitle = function() private$..subtitle$value,
+        useplotcaption = function() private$..useplotcaption$value,
+        plotcaption = function() private$..plotcaption$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -160,6 +174,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..title = NA,
         ..usesubtitle = NA,
         ..subtitle = NA,
+        ..useplotcaption = NA,
+        ..plotcaption = NA,
         ..originaltheme = NA)
 )
 
@@ -253,6 +269,8 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param title .
 #' @param usesubtitle .
 #' @param subtitle .
+#' @param useplotcaption .
+#' @param plotcaption .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -279,6 +297,8 @@ jjhistostats <- function(
     title = "",
     usesubtitle = FALSE,
     subtitle = "",
+    useplotcaption = FALSE,
+    plotcaption = "",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -310,6 +330,8 @@ jjhistostats <- function(
         title = title,
         usesubtitle = usesubtitle,
         subtitle = subtitle,
+        useplotcaption = useplotcaption,
+        plotcaption = plotcaption,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(
