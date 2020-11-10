@@ -116,6 +116,7 @@ options:
     - name: xlab
       title: ''
       type: String
+      default: ''
 
     - name: useylab
       title: Change y-label
@@ -125,6 +126,8 @@ options:
     - name: ylab
       title: ''
       type: String
+      default: ''
+
 
     - name: usetitle
       title: Change Title
@@ -134,7 +137,18 @@ options:
     - name: title
       title: ''
       type: String
+      default: ''
 
+
+    - name: usesubtitle
+      title: Change Subtitle
+      type: Bool
+      default: false
+
+    - name: subtitle
+      title: ''
+      type: String
+      default: ''
 
 
 

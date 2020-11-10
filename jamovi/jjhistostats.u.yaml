@@ -55,13 +55,11 @@ children:
         label: Plot
         fitToGrid: true
         children:
-
           - type: LayoutBox
             margin: large
             children:
               - type: CheckBox
                 name: originaltheme
-
           - type: LayoutBox
             margin: large
             children:
@@ -88,6 +86,7 @@ children:
                   - type: TextBox
                     name: xlab
                     format: string
+                    width: large
                     enable: (usexlab)
               - type: CheckBox
                 name: useylab
@@ -95,6 +94,7 @@ children:
                   - type: TextBox
                     name: ylab
                     format: string
+                    width: large
                     enable: (useylab)
               - type: CheckBox
                 name: usetitle
@@ -102,6 +102,14 @@ children:
                   - type: TextBox
                     name: title
                     format: string
+                    width: large
                     enable: (usetitle)
-
+              - type: CheckBox
+                name: usesubtitle
+                children:
+                  - type: TextBox
+                    name: subtitle
+                    format: string
+                    width: large
+                    enable: (usesubtitle)
 

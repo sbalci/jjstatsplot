@@ -14,11 +14,13 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             binwidth = 1.1,
             barmeasure = "count",
             usexlab = FALSE,
-            xlab = NULL,
+            xlab = "",
             useylab = FALSE,
-            ylab = NULL,
+            ylab = "",
             usetitle = FALSE,
-            title = NULL,
+            title = "",
+            usesubtitle = FALSE,
+            subtitle = "",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -77,21 +79,32 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 default=FALSE)
             private$..xlab <- jmvcore::OptionString$new(
                 "xlab",
-                xlab)
+                xlab,
+                default="")
             private$..useylab <- jmvcore::OptionBool$new(
                 "useylab",
                 useylab,
                 default=FALSE)
             private$..ylab <- jmvcore::OptionString$new(
                 "ylab",
-                ylab)
+                ylab,
+                default="")
             private$..usetitle <- jmvcore::OptionBool$new(
                 "usetitle",
                 usetitle,
                 default=FALSE)
             private$..title <- jmvcore::OptionString$new(
                 "title",
-                title)
+                title,
+                default="")
+            private$..usesubtitle <- jmvcore::OptionBool$new(
+                "usesubtitle",
+                usesubtitle,
+                default=FALSE)
+            private$..subtitle <- jmvcore::OptionString$new(
+                "subtitle",
+                subtitle,
+                default="")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -110,6 +123,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..ylab)
             self$.addOption(private$..usetitle)
             self$.addOption(private$..title)
+            self$.addOption(private$..usesubtitle)
+            self$.addOption(private$..subtitle)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -126,6 +141,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ylab = function() private$..ylab$value,
         usetitle = function() private$..usetitle$value,
         title = function() private$..title$value,
+        usesubtitle = function() private$..usesubtitle$value,
+        subtitle = function() private$..subtitle$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -141,6 +158,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..ylab = NA,
         ..usetitle = NA,
         ..title = NA,
+        ..usesubtitle = NA,
+        ..subtitle = NA,
         ..originaltheme = NA)
 )
 
@@ -232,6 +251,8 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param ylab .
 #' @param usetitle .
 #' @param title .
+#' @param usesubtitle .
+#' @param subtitle .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -251,11 +272,13 @@ jjhistostats <- function(
     binwidth = 1.1,
     barmeasure = "count",
     usexlab = FALSE,
-    xlab,
+    xlab = "",
     useylab = FALSE,
-    ylab,
+    ylab = "",
     usetitle = FALSE,
-    title,
+    title = "",
+    usesubtitle = FALSE,
+    subtitle = "",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -285,6 +308,8 @@ jjhistostats <- function(
         ylab = ylab,
         usetitle = usetitle,
         title = title,
+        usesubtitle = usesubtitle,
+        subtitle = subtitle,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(
