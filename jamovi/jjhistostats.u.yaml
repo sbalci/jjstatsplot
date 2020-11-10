@@ -62,6 +62,8 @@ children:
             children:
               - type: CheckBox
                 name: originaltheme
+              - type: CheckBox
+                name: resultssubtitle
           - type: LayoutBox
             margin: large
             children:
@@ -122,5 +124,3 @@ children:
                     format: string
                     width: large
                     enable: (useplotcaption)
-              - type: CheckBox
-                name: resultssubtitle
