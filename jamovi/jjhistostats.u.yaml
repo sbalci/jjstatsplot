@@ -60,15 +60,15 @@ children:
             children:
               - type: CheckBox
                 name: changebinwidth
-                children: []
+                children:
+                  - type: TextBox
+                    name: binwidth
+                    format: number
+                    ghostText: enter a number, (Default is max(x) - min(x) / sqrt(N))
+
           - type: LayoutBox
             margin: large
             children:
               - type: CheckBox
                 name: originaltheme
-  - type: LayoutBox
-    margin: large
-    children:
-      - type: TextBox
-        name: binwidth
-        format: number
+

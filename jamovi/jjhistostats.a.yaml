@@ -88,7 +88,7 @@ options:
       default: false
 
     - name: binwidth
-      title: Bin Width (Default is max(x) - min(x) / sqrt(N))
+      title: Bin Width
       type: Integer
 
 
