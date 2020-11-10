@@ -125,6 +125,16 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                 # arguments ----
 
+
+                binwidth <- NULL
+
+                if(changebinwidth) {
+                    binwidth <- self$options$binwidth
+                }
+
+
+
+
                 # mydep <- mydata[[self$options$dep]]
                 # mygroup <- mydata[[self$options$group]]
 
@@ -153,7 +163,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         ggstatsplot::gghistostats(
                             data = mydata,
                             x = !!dep,
-                            # binwidth = NULL,
+
+                            binwidth = binwidth,
                             # bar.measure = "count",
                             # xlab = NULL,
                             # title = NULL,
@@ -191,7 +202,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # output = "plot",
                             # messages = TRUE
 
-                        binwidth = NULL,
                         bar.measure = "count",
                         xlab = NULL,
                         title = NULL,
@@ -252,7 +262,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             .f = ggstatsplot::gghistostats,
                             data = mydata,
 
-                            # binwidth = NULL,
+                            binwidth = binwidth,
                             # bar.measure = "count",
                             # xlab = NULL,
                             # title = NULL,
@@ -358,8 +368,10 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 }
 
 
-                # type of statistics ----
 
+
+
+                # type of statistics ----
 
                 typestatistics <-
                     jmvcore::constructFormula(terms = self$options$typestatistics)
@@ -373,6 +385,15 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 dep <- jmvcore::composeTerm(components = dep)
 
                 # group <- jmvcore::composeTerm(components = group)
+
+
+                # arguments ----
+
+                binwidth <- NULL
+
+                if(changebinwidth) {
+                    binwidth <- self$options$binwidth
+                }
 
 
 
@@ -390,7 +411,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         data = mydata,
                         x = !!dep,
                         grouping.var = !!grvar,
-                        binwidth = NULL,
+                        binwidth = binwidth,
                         title.prefix = NULL,
                         output = "plot",
                         plotgrid.args = list(),
@@ -424,7 +445,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             .f = ggstatsplot::grouped_gghistostats,
                             data = mydata,
                             grouping.var = !!grvar,
-                            binwidth = NULL,
+                            binwidth = binwidth,
                             title.prefix = NULL,
                             output = "plot",
                             plotgrid.args = list(),
