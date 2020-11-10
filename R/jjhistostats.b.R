@@ -392,7 +392,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 binwidth <- NULL
 
                 if(self$options$changebinwidth) {
+
                     binwidth <- self$options$binwidth
+
                 }
 
 

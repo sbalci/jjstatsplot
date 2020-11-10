@@ -11,7 +11,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             excl = TRUE,
             typestatistics = "parametric",
             changebinwidth = FALSE,
-            binwidth = NULL,
+            binwidth = 1.1,
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -51,9 +51,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "changebinwidth",
                 changebinwidth,
                 default=FALSE)
-            private$..binwidth <- jmvcore::OptionInteger$new(
+            private$..binwidth <- jmvcore::OptionNumber$new(
                 "binwidth",
-                binwidth)
+                binwidth,
+                default=1.1)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -179,7 +180,7 @@ jjhistostats <- function(
     excl = TRUE,
     typestatistics = "parametric",
     changebinwidth = FALSE,
-    binwidth,
+    binwidth = 1.1,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
