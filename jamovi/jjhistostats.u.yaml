@@ -61,10 +61,11 @@ children:
               - type: CheckBox
                 name: changebinwidth
                 children:
+                  - type: Label
+                    label: Change Bin Width (Default is max(x) - min(x) / sqrt(N))
                   - type: TextBox
                     name: binwidth
                     format: number
-                    ghostText: enter a number, (Default is max(x) - min(x) / sqrt(N))
 
           - type: LayoutBox
             margin: large
