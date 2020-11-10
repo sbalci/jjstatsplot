@@ -202,9 +202,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             centrality.k = 2,
                             centrality.line.args = list(size = 1, color = "blue"),
                             centrality.label.args = list(color = "blue", size = 3),
-                            # normal.curve = FALSE,
-                            # normal.curve.args = list(size = 3),
-                            # ggplot.component = NULL,
+                            normal.curve = self$options$normalcurve,
+                            normal.curve.args = list(size = 3),
+                            ggplot.component = NULL
                             # output = "plot",
                             # messages = TRUE
                     )
@@ -269,9 +269,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             centrality.k = 2,
                             centrality.line.args = list(size = 1, color = "blue"),
                             centrality.label.args = list(color = "blue", size = 3),
-                            # normal.curve = FALSE,
-                            # normal.curve.args = list(size = 3),
-                            # ggplot.component = NULL,
+                            normal.curve = self$options$normalcurve,
+                            normal.curve.args = list(size = 3),
+                            ggplot.component = NULL,
                             # output = "plot",
                             # messages = TRUE
                         )
@@ -409,6 +409,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         , bar.measure = barmeasure
                         , centrality.parameter = centralityparameter
                         , results.subtitle = self$options$resultssubtitle
+                        , normal.curve = self$options$normalcurve
+
 
                     )
 
@@ -445,6 +447,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             , bar.measure = barmeasure
                             , centrality.parameter = centralityparameter
                             , results.subtitle = self$options$resultssubtitle
+                            , normal.curve = self$options$normalcurve
+
 
                         )
 

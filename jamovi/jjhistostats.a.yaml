@@ -185,8 +185,12 @@ options:
       type: Bool
       default: true
 
+    - name: normalcurve
+      title: Statistical Results
+      type: Bool
+      default: false
 
-# normal.curve
+#
 # A logical value that decides whether to super-impose a normal curve using stats::dnorm(mean(x), sd(x)). Default is FALSE.
 
 

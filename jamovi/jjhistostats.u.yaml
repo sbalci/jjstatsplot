@@ -62,6 +62,8 @@ children:
             children:
               - type: CheckBox
                 name: resultssubtitle
+              - type: CheckBox
+                name: normalcurve
           - type: LayoutBox
             margin: large
             children:

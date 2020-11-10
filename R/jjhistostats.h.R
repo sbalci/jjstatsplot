@@ -24,7 +24,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             subtitle = "",
             useplotcaption = FALSE,
             plotcaption = "",
-            resultssubtitle = TRUE, ...) {
+            resultssubtitle = TRUE,
+            normalcurve = FALSE, ...) {
 
             super$initialize(
                 package='jjstatsplot',
@@ -128,6 +129,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "resultssubtitle",
                 resultssubtitle,
                 default=TRUE)
+            private$..normalcurve <- jmvcore::OptionBool$new(
+                "normalcurve",
+                normalcurve,
+                default=FALSE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..grvar)
@@ -148,6 +153,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..useplotcaption)
             self$.addOption(private$..plotcaption)
             self$.addOption(private$..resultssubtitle)
+            self$.addOption(private$..normalcurve)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -168,7 +174,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         subtitle = function() private$..subtitle$value,
         useplotcaption = function() private$..useplotcaption$value,
         plotcaption = function() private$..plotcaption$value,
-        resultssubtitle = function() private$..resultssubtitle$value),
+        resultssubtitle = function() private$..resultssubtitle$value,
+        normalcurve = function() private$..normalcurve$value),
     private = list(
         ..dep = NA,
         ..grvar = NA,
@@ -188,7 +195,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..subtitle = NA,
         ..useplotcaption = NA,
         ..plotcaption = NA,
-        ..resultssubtitle = NA)
+        ..resultssubtitle = NA,
+        ..normalcurve = NA)
 )
 
 jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -288,6 +296,7 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param useplotcaption .
 #' @param plotcaption .
 #' @param resultssubtitle .
+#' @param normalcurve .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -316,7 +325,8 @@ jjhistostats <- function(
     subtitle = "",
     useplotcaption = FALSE,
     plotcaption = "",
-    resultssubtitle = TRUE) {
+    resultssubtitle = TRUE,
+    normalcurve = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('jjhistostats requires jmvcore to be installed (restart may be required)')
@@ -350,7 +360,8 @@ jjhistostats <- function(
         subtitle = subtitle,
         useplotcaption = useplotcaption,
         plotcaption = plotcaption,
-        resultssubtitle = resultssubtitle)
+        resultssubtitle = resultssubtitle,
+        normalcurve = normalcurve)
 
     analysis <- jjhistostatsClass$new(
         options = options,
