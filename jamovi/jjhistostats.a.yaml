@@ -36,7 +36,7 @@ options:
       suggested: [ ordinal, nominal ]
       permitted: [ factor ]
 
-# Data
+# Data ----
 
     - name: excl
       title: Exclude Missing (NA)
@@ -45,7 +45,7 @@ options:
 
 
 
-# Analysis
+# Analysis ----
 
 
     - name: typestatistics
@@ -78,34 +78,24 @@ options:
 
 # test.value
 # A number specifying the value of the null hypothesis (Default: 0).
-#
+
 # bf.prior
 # A number between 0.5 and 2 (default 0.707), the prior width to use in calculating Bayes factors.
-#
+
 # bf.message
 # Logical that decides whether to display Bayes Factor in favor of the null hypothesis. This argument is relevant only for parametric test (Default: TRUE).
-#
+
 # effsize.type
 # Type of effect size needed for parametric tests. The argument can be "d" (for Cohen's d) or "g" (for Hedge's g).
-#
+
 # conf.level
 # Scalar between 0 and 1. If unspecified, the defaults return 95% confidence/credible intervals (0.95).
-#
+
 # nboot
 # Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
-#
-# k
-# Number of digits after decimal point (should be an integer) (Default: k = 2L).
-#
-
-# test.k
-# Integer denoting the number of decimal places expected for test.value label. (Default: 0 ).
 
 
-
-
-
-# Plot
+# Plot ----
 
 
 # test.value.line
@@ -196,17 +186,9 @@ options:
       default: true
 
 
-    - name: originaltheme
-      title: Add GGStatsPlot Layer
-      type: Bool
-      default: false
-
 # normal.curve
 # A logical value that decides whether to super-impose a normal curve using stats::dnorm(mean(x), sd(x)). Default is FALSE.
 
-
-# ggtheme
-# A function, ggplot2 theme name. Default value is ggplot2::theme_bw(). Any of the ggplot2 themes, or themes from extension packages are allowed (e.g., ggthemes::theme_fivethirtyeight(), hrbrthemes::theme_ipsum_ps(), etc.).
 
 # output
 # If "expression", will return expression with statistical details, while "dataframe" will return a dataframe containing the results.
@@ -215,33 +197,19 @@ options:
 
 
 # grouped_gghistostats(
-#   data,
-#   x,
-#   grouping.var,
-#   binwidth = NULL,
+
 #   title.prefix = NULL,
 #   output = "plot",
-#   ...,
+
 #   plotgrid.args = list(),
 #   title.text = NULL,
 #   title.args = list(size = 16, fontface = "bold"),
 #   caption.text = NULL,
 #   caption.args = list(size = 10),
 #   sub.text = NULL,
-#   sub.args = list(size = 12)
-# )
-# Arguments
-# data
-# A dataframe (or a tibble) from which variables specified are to be taken. A matrix or tables will not be accepted.
-#
-# x
-# A numeric variable from the dataframe data.
-#
-# grouping.var
-# A single grouping variable (can be entered either as a bare name x or as a string "x").
-#
-# binwidth
-# The width of the histogram bins. Can be specified as a numeric value, or a function that calculates width from x. The default is to use the max(x) - min(x) / sqrt(N). You should always check this value and explore multiple widths to find the best to illustrate the stories in your data.
+
+
+
 #
 # title.prefix
 # Character string specifying the prefix text for the fixed plot title (name of each factor level) (Default: NULL). If NULL, the variable name entered for grouping.var will be used.
@@ -249,9 +217,7 @@ options:
 # output
 # If "expression", will return expression with statistical details, while "dataframe" will return a dataframe containing the results.
 #
-# ...
-# Arguments passed on to gghistostats
-#
+
 # bar.measure
 # Character describing what value needs to be represented as height in the bar chart. This can either be "count", which shows number of points in bin, or "density", which density of points in bin, scaled to integrate to 1, or "proportion", which shows relative frequencies of observations in each bin, or "mix", which shows both count and proportion in the same plot.
 #
@@ -281,13 +247,7 @@ options:
 #
 # nboot
 # Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
-#
-# k
-# Number of digits after decimal point (should be an integer) (Default: k = 2L).
-#
-# test.k
-# Integer denoting the number of decimal places expected for test.value label. (Default: 0 ).
-#
+
 # test.value.line
 # Logical that decides whether a line corresponding to the test.value should be superimposed on the plot.
 #
@@ -308,25 +268,10 @@ options:
 #
 # centrality.label.args
 # A list of additional aesthetic arguments to be passed to the geom_label used to display the label corresponding to the centrality parameter and test value.
-#
-# xlab
-# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
-#
-# subtitle
-# The text for the plot subtitle. Will work only if results.subtitle = FALSE.
-#
-# caption
-# The text for the plot caption.
-#
+
 # bf.message
 # Logical that decides whether to display Bayes Factor in favor of the null hypothesis. This argument is relevant only for parametric test (Default: TRUE).
-#
-# ggtheme
-# A function, ggplot2 theme name. Default value is ggplot2::theme_bw(). Any of the ggplot2 themes, or themes from extension packages are allowed (e.g., ggthemes::theme_fivethirtyeight(), hrbrthemes::theme_ipsum_ps(), etc.).
-#
-# ggstatsplot.layer
-# Logical that decides whether theme_ggstatsplot theme elements are to be displayed along with the selected ggtheme (Default: TRUE). theme_ggstatsplot is an opinionated theme layer that override some aspects of the selected ggtheme.
-#
+
 # results.subtitle
 # Decides whether the results of statistical tests are to be displayed as a subtitle (Default: TRUE). If set to FALSE, only the plot will be returned.
 #

@@ -156,9 +156,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 # group <- jmvcore::composeTerm(components = group)
 
 
-                originaltheme <- self$options$originaltheme
-
-
                 # gghistostats ----
                 # https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html
 
@@ -189,11 +186,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # nboot = 100,
                             # k = 2L,
 
-
-                            ggtheme = ggtheme,
-
-                            # ggtheme = ggplot2::theme_bw(),
-                            ggstatsplot.layer = originaltheme,
+                            ggtheme = ggplot2::theme_bw(),
+                            ggstatsplot.layer = TRUE,
 
 
 
@@ -259,11 +253,11 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # conf.level = 0.95,
                             # nboot = 100,
                             # k = 2L,
-                            # ggtheme = NULL,
+
                             ggtheme = ggplot2::theme_bw(),
-                            # ggstatsplot.layer = FALSE,
                             ggstatsplot.layer = TRUE,
-                            # ggstatsplot.layer = originaltheme,
+
+
                             bar.fill = "grey50",
                             results.subtitle = self$options$resultssubtitle,
 
@@ -290,8 +284,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 }
 
                 # Print Plot ----
-
-                # plot <- plot + ggtheme
 
                 print(plot)
                 TRUE
@@ -412,7 +404,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         caption.args = list(size = 10),
                         sub.text = NULL,
                         sub.args = list(size = 12)
-                        , ggtheme = ggtheme
+
                         , type = typestatistics
                         , bar.measure = barmeasure
                         , centrality.parameter = centralityparameter
@@ -448,7 +440,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             caption.args = list(size = 10),
                             sub.text = NULL,
                             sub.args = list(size = 12)
-                            , ggtheme = ggtheme
+
                             , type = typestatistics
                             , bar.measure = barmeasure
                             , centrality.parameter = centralityparameter
