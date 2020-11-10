@@ -15,6 +15,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             barmeasure = "count",
             usexlab = FALSE,
             xlab = NULL,
+            useylab = FALSE,
+            ylab = NULL,
+            usetitle = FALSE,
+            title = NULL,
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -74,6 +78,20 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             private$..xlab <- jmvcore::OptionString$new(
                 "xlab",
                 xlab)
+            private$..useylab <- jmvcore::OptionBool$new(
+                "useylab",
+                useylab,
+                default=FALSE)
+            private$..ylab <- jmvcore::OptionString$new(
+                "ylab",
+                ylab)
+            private$..usetitle <- jmvcore::OptionBool$new(
+                "usetitle",
+                usetitle,
+                default=FALSE)
+            private$..title <- jmvcore::OptionString$new(
+                "title",
+                title)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -88,6 +106,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..barmeasure)
             self$.addOption(private$..usexlab)
             self$.addOption(private$..xlab)
+            self$.addOption(private$..useylab)
+            self$.addOption(private$..ylab)
+            self$.addOption(private$..usetitle)
+            self$.addOption(private$..title)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -100,6 +122,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         barmeasure = function() private$..barmeasure$value,
         usexlab = function() private$..usexlab$value,
         xlab = function() private$..xlab$value,
+        useylab = function() private$..useylab$value,
+        ylab = function() private$..ylab$value,
+        usetitle = function() private$..usetitle$value,
+        title = function() private$..title$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -111,6 +137,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..barmeasure = NA,
         ..usexlab = NA,
         ..xlab = NA,
+        ..useylab = NA,
+        ..ylab = NA,
+        ..usetitle = NA,
+        ..title = NA,
         ..originaltheme = NA)
 )
 
@@ -198,6 +228,10 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param barmeasure .
 #' @param usexlab .
 #' @param xlab .
+#' @param useylab .
+#' @param ylab .
+#' @param usetitle .
+#' @param title .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -218,6 +252,10 @@ jjhistostats <- function(
     barmeasure = "count",
     usexlab = FALSE,
     xlab,
+    useylab = FALSE,
+    ylab,
+    usetitle = FALSE,
+    title,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -243,6 +281,10 @@ jjhistostats <- function(
         barmeasure = barmeasure,
         usexlab = usexlab,
         xlab = xlab,
+        useylab = useylab,
+        ylab = ylab,
+        usetitle = usetitle,
+        title = title,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(

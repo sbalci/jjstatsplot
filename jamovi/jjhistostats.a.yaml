@@ -117,7 +117,23 @@ options:
       title: ''
       type: String
 
+    - name: useylab
+      title: Change y-label
+      type: Bool
+      default: false
 
+    - name: ylab
+      title: ''
+      type: String
+
+    - name: usetitle
+      title: Change Title
+      type: Bool
+      default: false
+
+    - name: title
+      title: ''
+      type: String
 
 
 
