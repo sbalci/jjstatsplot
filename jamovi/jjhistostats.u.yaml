@@ -72,6 +72,9 @@ children:
           - type: LayoutBox
             margin: large
             children:
+              - type: TextBox
+                name: pinwidth
+                format: number
               - type: CheckBox
                 name: originaltheme
               - type: ComboBox

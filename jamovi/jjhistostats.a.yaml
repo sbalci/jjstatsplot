@@ -53,10 +53,16 @@ options:
     #       R: select measurement type (repeated or independent)
 
 
+# Data
+
     - name: excl
       title: Exclude Missing (NA)
       type: Bool
       default: true
+
+
+
+# Analysis
 
 
     - name: typestatistics
@@ -74,65 +80,13 @@ options:
       default: parametric
 
 
-    # - name: originaltheme
-    #   title: Add GGStatsPlot Layer
-    #   type: Bool
-    #   default: false
-
-    - name: pairwisecomparisons
-      title: Pairwise Comparisons
-      type: Bool
-      default: true
-
-    - name: pairwisedisplay
-      title: 'Pairwise Display'
-      type: List
-      options:
-        - title: significant
-          name: significant
-        - title: non-significant
-          name: non-significant
-        - title: everything
-          name: everything
-      default: significant
-
-    - name: padjustmethod
-      title: 'Adjustment Method'
-      type: List
-      options:
-        - title: holm
-          name: holm
-        - title: hochberg
-          name: hochberg
-        - title: hommel
-          name: hommel
-        - title: bonferroni
-          name: bonferroni
-        - title: BH
-          name: BH
-        - title: BY
-          name: BY
-        - title: fdr
-          name: fdr
-        - title: none
-          name: none
-      default: holm
+# Plot
 
 
-
-    - name: plottype
-      title: 'Plot Type'
-      type: List
-      options:
-        - title: box
-          name: box
-        - title: violin
-          name: violin
-        - title: boxviolin
-          name: boxviolin
-      default: boxviolin
-
-
+    - name: binwidth
+      title: Bin Width (Default is max(x) - min(x) / sqrt(N))
+      type: Integer
+      default: NULL
 
 
     - name: originaltheme
