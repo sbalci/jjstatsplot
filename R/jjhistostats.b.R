@@ -193,10 +193,10 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                             bar.fill = "grey50",
                             results.subtitle = self$options$resultssubtitle,
-                            # test.k = 0,
-                            # test.value.line = FALSE,
-                            # test.value.line.args = list(size = 1),
-                            # test.value.label.args = list(size = 3),
+                            test.k = 0,
+                            test.value.line = FALSE,
+                            test.value.line.args = list(size = 1),
+                            test.value.label.args = list(size = 3),
 
                             centrality.parameter = centralityparameter,
                             centrality.k = 2,
@@ -204,8 +204,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             centrality.label.args = list(color = "blue", size = 3),
                             normal.curve = self$options$normalcurve,
                             normal.curve.args = list(size = 3),
-                            ggplot.component = NULL
-                            # output = "plot",
+                            ggplot.component = NULL,
+                            output = "expression"
                             # messages = TRUE
                     )
 
