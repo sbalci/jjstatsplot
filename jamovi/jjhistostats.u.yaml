@@ -70,9 +70,22 @@ children:
             children:
               - type: ComboBox
                 name: barmeasure
+          - type: Label
+            label: Change Label and Titles
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: CheckBox
+                name: usexlab
+                children: []
           - type: LayoutBox
             margin: large
             children:
               - type: CheckBox
                 name: originaltheme
-
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: TextBox
+        name: xlab
+        format: string

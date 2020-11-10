@@ -92,10 +92,6 @@ options:
       type: Number
       default: 1.1
 
-
-
-
-
     - name: barmeasure
       title: 'Values on Bars'
       type: List
@@ -109,6 +105,21 @@ options:
         - title: mix
           name: mix
       default: count
+
+
+
+    - name: usexlab
+      title: Change x-label
+      type: Bool
+      default: false
+
+    - name: xlab
+      title: ''
+      type: String
+
+
+
+
 
 
 

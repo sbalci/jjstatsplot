@@ -13,6 +13,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             changebinwidth = FALSE,
             binwidth = 1.1,
             barmeasure = "count",
+            usexlab = FALSE,
+            xlab = NULL,
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -65,6 +67,13 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "proportion",
                     "mix"),
                 default="count")
+            private$..usexlab <- jmvcore::OptionBool$new(
+                "usexlab",
+                usexlab,
+                default=FALSE)
+            private$..xlab <- jmvcore::OptionString$new(
+                "xlab",
+                xlab)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -77,6 +86,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..changebinwidth)
             self$.addOption(private$..binwidth)
             self$.addOption(private$..barmeasure)
+            self$.addOption(private$..usexlab)
+            self$.addOption(private$..xlab)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -87,6 +98,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         changebinwidth = function() private$..changebinwidth$value,
         binwidth = function() private$..binwidth$value,
         barmeasure = function() private$..barmeasure$value,
+        usexlab = function() private$..usexlab$value,
+        xlab = function() private$..xlab$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -96,6 +109,8 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..changebinwidth = NA,
         ..binwidth = NA,
         ..barmeasure = NA,
+        ..usexlab = NA,
+        ..xlab = NA,
         ..originaltheme = NA)
 )
 
@@ -181,6 +196,8 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param changebinwidth .
 #' @param binwidth .
 #' @param barmeasure .
+#' @param usexlab .
+#' @param xlab .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -199,6 +216,8 @@ jjhistostats <- function(
     changebinwidth = FALSE,
     binwidth = 1.1,
     barmeasure = "count",
+    usexlab = FALSE,
+    xlab,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -222,6 +241,8 @@ jjhistostats <- function(
         changebinwidth = changebinwidth,
         binwidth = binwidth,
         barmeasure = barmeasure,
+        usexlab = usexlab,
+        xlab = xlab,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(
