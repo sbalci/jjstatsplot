@@ -12,6 +12,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             typestatistics = "parametric",
             changebinwidth = FALSE,
             binwidth = 1.1,
+            barmeasure = "count",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -55,6 +56,15 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "binwidth",
                 binwidth,
                 default=1.1)
+            private$..barmeasure <- jmvcore::OptionList$new(
+                "barmeasure",
+                barmeasure,
+                options=list(
+                    "count",
+                    "density",
+                    "proportion",
+                    "mix"),
+                default="count")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -66,6 +76,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..typestatistics)
             self$.addOption(private$..changebinwidth)
             self$.addOption(private$..binwidth)
+            self$.addOption(private$..barmeasure)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -75,6 +86,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         typestatistics = function() private$..typestatistics$value,
         changebinwidth = function() private$..changebinwidth$value,
         binwidth = function() private$..binwidth$value,
+        barmeasure = function() private$..barmeasure$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -83,6 +95,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..typestatistics = NA,
         ..changebinwidth = NA,
         ..binwidth = NA,
+        ..barmeasure = NA,
         ..originaltheme = NA)
 )
 
@@ -109,7 +122,9 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "excl",
                     "originaltheme",
                     "typestatistics",
-                    "binwidth"))
+                    "changebinwidth",
+                    "binwidth",
+                    "barmeasure"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
@@ -165,6 +180,7 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param typestatistics .
 #' @param changebinwidth .
 #' @param binwidth .
+#' @param barmeasure .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -182,6 +198,7 @@ jjhistostats <- function(
     typestatistics = "parametric",
     changebinwidth = FALSE,
     binwidth = 1.1,
+    barmeasure = "count",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -204,6 +221,7 @@ jjhistostats <- function(
         typestatistics = typestatistics,
         changebinwidth = changebinwidth,
         binwidth = binwidth,
+        barmeasure = barmeasure,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(

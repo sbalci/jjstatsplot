@@ -93,6 +93,26 @@ options:
       default: 1.1
 
 
+
+
+
+    - name: barmeasure
+      title: 'Values on Bars'
+      type: List
+      options:
+        - title: count
+          name: count
+        - title: density
+          name: density
+        - title: proportion
+          name: proportion
+        - title: mix
+          name: mix
+      default: count
+
+
+
+
     - name: originaltheme
       title: Add GGStatsPlot Layer
       type: Bool

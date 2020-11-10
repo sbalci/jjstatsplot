@@ -123,6 +123,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
 
 
+                # ADD HERE ----
                 # arguments ----
 
 
@@ -132,6 +133,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     binwidth <- self$options$binwidth
                 }
 
+
+                barmeasure <-
+                    jmvcore::constructFormula(terms = self$options$barmeasure)
 
 
 
@@ -165,7 +169,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             x = !!dep,
 
                             binwidth = binwidth,
-                            # bar.measure = "count",
+                            bar.measure = barmeasure,
                             # xlab = NULL,
                             # title = NULL,
                             # subtitle = NULL,
@@ -201,37 +205,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # ggplot.component = NULL,
                             # output = "plot",
                             # messages = TRUE
-
-                        # bar.measure = "count",
-                        # xlab = NULL,
-                        # title = NULL,
-                        # subtitle = NULL,
-                        # caption = NULL,
-                        # type = "parametric",
-                        # test.value = 0,
-                        # bf.prior = 0.707,
-                        # bf.message = TRUE,
-                        # effsize.type = "g",
-                        # conf.level = 0.95,
-                        # nboot = 100,
-                        # k = 2L,
-                        # ggtheme = ggplot2::theme_bw(),
-                        # ggstatsplot.layer = TRUE,
-                        # bar.fill = "grey50",
-                        # results.subtitle = TRUE,
-                        # test.k = 0,
-                        # test.value.line = FALSE,
-                        # test.value.line.args = list(size = 1),
-                        # test.value.label.args = list(size = 3),
-                        # centrality.parameter = "mean",
-                        # centrality.k = 2,
-                        # centrality.line.args = list(size = 1, color = "blue"),
-                        # centrality.label.args = list(color = "blue", size = 3),
-                        # normal.curve = FALSE,
-                        # normal.curve.args = list(size = 3),
-                        # ggplot.component = NULL,
-                        # output = "plot",
-                        # ...
                     )
 
 
@@ -263,7 +236,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             data = mydata,
 
                             binwidth = binwidth,
-                            # bar.measure = "count",
+                            bar.measure = barmeasure,
                             # xlab = NULL,
                             # title = NULL,
                             # subtitle = NULL,
@@ -386,7 +359,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                 # group <- jmvcore::composeTerm(components = group)
 
-
+                # ADD HERE ----
                 # arguments ----
 
                 binwidth <- NULL
@@ -397,6 +370,10 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                 }
 
+
+
+                barmeasure <-
+                    jmvcore::constructFormula(terms = self$options$barmeasure)
 
 
 
@@ -425,6 +402,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         sub.args = list(size = 12)
                         , ggtheme = ggtheme
                         , type = typestatistics
+                        , bar.measure = barmeasure
 
 
                     )
@@ -459,6 +437,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             sub.args = list(size = 12)
                             , ggtheme = ggtheme
                             , type = typestatistics
+                            , bar.measure = barmeasure
 
 
                         )

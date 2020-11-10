@@ -10,7 +10,9 @@ clearWith:
     - excl
     - originaltheme
     - typestatistics
+    - changebinwidth
     - binwidth
+    - barmeasure
 
 
 items:

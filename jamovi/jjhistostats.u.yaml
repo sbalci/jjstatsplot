@@ -65,7 +65,11 @@ children:
                     name: binwidth
                     format: number
                     enable: (changebinwidth)
-
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: ComboBox
+                name: barmeasure
           - type: LayoutBox
             margin: large
             children:
