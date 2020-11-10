@@ -76,10 +76,6 @@ options:
       default: mean
 
 
-# results.subtitle
-# Decides whether the results of statistical tests are to be displayed as a subtitle (Default: TRUE). If set to FALSE, only the plot will be returned.
-
-
 # test.value
 # A number specifying the value of the null hypothesis (Default: 0).
 #
@@ -196,6 +192,11 @@ options:
       title: ''
       type: String
       default: ''
+
+    - name: resultssubtitle
+      title: Statistical Results
+      type: Bool
+      default: true
 
 
     - name: originaltheme

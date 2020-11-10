@@ -24,6 +24,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             subtitle = "",
             useplotcaption = FALSE,
             plotcaption = "",
+            resultssubtitle = TRUE,
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -124,6 +125,10 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "plotcaption",
                 plotcaption,
                 default="")
+            private$..resultssubtitle <- jmvcore::OptionBool$new(
+                "resultssubtitle",
+                resultssubtitle,
+                default=TRUE)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -147,6 +152,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..subtitle)
             self$.addOption(private$..useplotcaption)
             self$.addOption(private$..plotcaption)
+            self$.addOption(private$..resultssubtitle)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -168,6 +174,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         subtitle = function() private$..subtitle$value,
         useplotcaption = function() private$..useplotcaption$value,
         plotcaption = function() private$..plotcaption$value,
+        resultssubtitle = function() private$..resultssubtitle$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -188,6 +195,7 @@ jjhistostatsOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..subtitle = NA,
         ..useplotcaption = NA,
         ..plotcaption = NA,
+        ..resultssubtitle = NA,
         ..originaltheme = NA)
 )
 
@@ -216,7 +224,8 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "typestatistics",
                     "changebinwidth",
                     "binwidth",
-                    "barmeasure"))
+                    "barmeasure",
+                    "centralityparameter"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
@@ -286,6 +295,7 @@ jjhistostatsBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param subtitle .
 #' @param useplotcaption .
 #' @param plotcaption .
+#' @param resultssubtitle .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -315,6 +325,7 @@ jjhistostats <- function(
     subtitle = "",
     useplotcaption = FALSE,
     plotcaption = "",
+    resultssubtitle = TRUE,
     originaltheme = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
@@ -349,6 +360,7 @@ jjhistostats <- function(
         subtitle = subtitle,
         useplotcaption = useplotcaption,
         plotcaption = plotcaption,
+        resultssubtitle = resultssubtitle,
         originaltheme = originaltheme)
 
     analysis <- jjhistostatsClass$new(
