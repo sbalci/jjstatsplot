@@ -186,7 +186,7 @@ options:
       default: true
 
     - name: normalcurve
-      title: Statistical Results
+      title: Normal Curve
       type: Bool
       default: false
 
