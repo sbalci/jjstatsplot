@@ -137,6 +137,8 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 barmeasure <-
                     jmvcore::constructFormula(terms = self$options$barmeasure)
 
+                centralityparameter <-
+                    jmvcore::constructFormula(terms = self$options$centralityparameter)
 
 
                 # mydep <- mydata[[self$options$dep]]
@@ -196,10 +198,11 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # test.value.line = FALSE,
                             # test.value.line.args = list(size = 1),
                             # test.value.label.args = list(size = 3),
-                            # centrality.parameter = "mean",
-                            # centrality.k = 2,
-                            # centrality.line.args = list(size = 1, color = "blue"),
-                            # centrality.label.args = list(color = "blue", size = 3),
+
+                            centrality.parameter = centralityparameter,
+                            centrality.k = 2,
+                            centrality.line.args = list(size = 1, color = "blue"),
+                            centrality.label.args = list(color = "blue", size = 3),
                             # normal.curve = FALSE,
                             # normal.curve.args = list(size = 3),
                             # ggplot.component = NULL,
@@ -262,10 +265,10 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # test.value.line = FALSE,
                             # test.value.line.args = list(size = 1),
                             # test.value.label.args = list(size = 3),
-                            # centrality.parameter = "mean",
-                            # centrality.k = 2,
-                            # centrality.line.args = list(size = 1, color = "blue"),
-                            # centrality.label.args = list(color = "blue", size = 3),
+                            centrality.parameter = centralityparameter,
+                            centrality.k = 2,
+                            centrality.line.args = list(size = 1, color = "blue"),
+                            centrality.label.args = list(color = "blue", size = 3),
                             # normal.curve = FALSE,
                             # normal.curve.args = list(size = 3),
                             # ggplot.component = NULL,
@@ -376,6 +379,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     jmvcore::constructFormula(terms = self$options$barmeasure)
 
 
+                centralityparameter <-
+                    jmvcore::constructFormula(terms = self$options$centralityparameter)
+
 
                 # grouped_gghistostats ----
                 # https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_gghistostats.html
@@ -403,7 +409,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         , ggtheme = ggtheme
                         , type = typestatistics
                         , bar.measure = barmeasure
-
+                        , centrality.parameter = centralityparameter
 
                     )
 
@@ -438,7 +444,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             , ggtheme = ggtheme
                             , type = typestatistics
                             , bar.measure = barmeasure
-
+                            , centrality.parameter = centralityparameter
 
                         )
 
