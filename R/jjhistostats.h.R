@@ -214,18 +214,7 @@ jjhistostatsResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 title="Histogram",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"),
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "excl",
-                    "originaltheme",
-                    "typestatistics",
-                    "changebinwidth",
-                    "binwidth",
-                    "barmeasure",
-                    "centralityparameter"))
+                    "ggstatsplot"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
