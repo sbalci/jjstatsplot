@@ -15,7 +15,7 @@ jrs:   '1.1'
 #     - barmeasure
 #     - centralityparameter
 
-clearWith: `*`
+clearWith: '*'
 
 
 items:
