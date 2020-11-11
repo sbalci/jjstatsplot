@@ -16,7 +16,8 @@ jrs:   '1.1'
 #     - centralityparameter
 
 
-clearWith: *
+clearWith:
+    - *
 
 
 items:
