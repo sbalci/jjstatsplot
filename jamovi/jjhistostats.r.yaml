@@ -3,17 +3,20 @@ name:  jjhistostats
 title: Histogram
 jrs:   '1.1'
 
-clearWith:
-    - dep
-    - group
-    - grvar
-    - excl
-    - originaltheme
-    - typestatistics
-    - changebinwidth
-    - binwidth
-    - barmeasure
-    - centralityparameter
+# clearWith:
+#     - dep
+#     - group
+#     - grvar
+#     - excl
+#     - originaltheme
+#     - typestatistics
+#     - changebinwidth
+#     - binwidth
+#     - barmeasure
+#     - centralityparameter
+
+
+clearWith: *
 
 
 items:

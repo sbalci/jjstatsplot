@@ -191,10 +191,6 @@ options:
       default: false
 
 
-
-# output
-# If "expression", will return expression with statistical details, while "dataframe" will return a dataframe containing the results.
-
 ...
 
 

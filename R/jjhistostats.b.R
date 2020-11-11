@@ -205,8 +205,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             normal.curve = self$options$normalcurve,
                             normal.curve.args = list(size = 3),
                             ggplot.component = NULL,
-                            output = "expression"
-                            # messages = TRUE
+                            output = "plot"
                     )
 
 
