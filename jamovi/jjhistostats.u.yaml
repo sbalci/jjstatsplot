@@ -64,6 +64,8 @@ children:
                 name: resultssubtitle
               - type: CheckBox
                 name: normalcurve
+              - type: CheckBox
+                name: testvalueline
           - type: LayoutBox
             margin: large
             children:
@@ -79,6 +81,7 @@ children:
             children:
               - type: ComboBox
                 name: barmeasure
+
       - type: Label
         label: Change Label and Titles
       - type: LayoutBox
@@ -124,3 +127,13 @@ children:
                 format: string
                 width: large
                 enable: (useplotcaption)
+
+          - type: CheckBox
+            name: usetitleprefix
+            enable: (grvar)
+            children:
+              - type: TextBox
+                name: titleprefix
+                format: string
+                width: large
+                enable: (grvar && usetitleprefix)

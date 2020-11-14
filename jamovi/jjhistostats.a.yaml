@@ -76,14 +76,17 @@ options:
       default: mean
 
 
+
+
 # test.value
 # A number specifying the value of the null hypothesis (Default: 0).
 
-# bf.prior
-# A number between 0.5 and 2 (default 0.707), the prior width to use in calculating Bayes factors.
-
 # bf.message
 # Logical that decides whether to display Bayes Factor in favor of the null hypothesis. This argument is relevant only for parametric test (Default: TRUE).
+
+
+# bf.prior
+# A number between 0.5 and 2 (default 0.707), the prior width to use in calculating Bayes factors.
 
 # effsize.type
 # Type of effect size needed for parametric tests. The argument can be "d" (for Cohen's d) or "g" (for Hedge's g).
@@ -95,11 +98,11 @@ options:
 # Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
 
 
+
+
+
+
 # Plot ----
-
-
-# test.value.line
-# Logical that decides whether a line corresponding to the test.value should be superimposed on the plot.
 
 
     - name: changebinwidth
@@ -180,6 +183,21 @@ options:
       type: String
       default: ''
 
+    - name: usetitleprefix
+      title: Plot Caption
+      type: Bool
+      default: false
+
+    - name: titleprefix
+      title: ''
+      type: String
+      default: ''
+
+
+
+
+
+
     - name: resultssubtitle
       title: Statistical Results
       type: Bool
@@ -191,108 +209,12 @@ options:
       default: false
 
 
+    - name: testvalueline
+      title: Test Value
+      type: Bool
+      default: false
+
+
+
 ...
 
-
-# grouped_gghistostats(
-
-#   title.prefix = NULL,
-#   output = "plot",
-
-#   plotgrid.args = list(),
-#   title.text = NULL,
-#   title.args = list(size = 16, fontface = "bold"),
-#   caption.text = NULL,
-#   caption.args = list(size = 10),
-#   sub.text = NULL,
-
-
-
-#
-# title.prefix
-# Character string specifying the prefix text for the fixed plot title (name of each factor level) (Default: NULL). If NULL, the variable name entered for grouping.var will be used.
-#
-# output
-# If "expression", will return expression with statistical details, while "dataframe" will return a dataframe containing the results.
-#
-
-# bar.measure
-# Character describing what value needs to be represented as height in the bar chart. This can either be "count", which shows number of points in bin, or "density", which density of points in bin, scaled to integrate to 1, or "proportion", which shows relative frequencies of observations in each bin, or "mix", which shows both count and proportion in the same plot.
-#
-# normal.curve
-# A logical value that decides whether to super-impose a normal curve using stats::dnorm(mean(x), sd(x)). Default is FALSE.
-#
-# normal.curve.args
-# A list of additional aesthetic arguments to be passed to the normal curve.
-#
-# bar.fill
-# Character input that decides which color will uniformly fill all the bars in the histogram (Default: "grey50").
-#
-# type
-# Type of statistic expected ("parametric" or "nonparametric" or "robust" or "bayes").Corresponding abbreviations are also accepted: "p" (for parametric), "np" (nonparametric), "r" (robust), or "bf"resp.
-#
-# test.value
-# A number specifying the value of the null hypothesis (Default: 0).
-#
-# bf.prior
-# A number between 0.5 and 2 (default 0.707), the prior width to use in calculating Bayes factors.
-#
-# effsize.type
-# Type of effect size needed for parametric tests. The argument can be "d" (for Cohen's d) or "g" (for Hedge's g).
-#
-# conf.level
-# Scalar between 0 and 1. If unspecified, the defaults return 95% confidence/credible intervals (0.95).
-#
-# nboot
-# Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
-
-# test.value.line
-# Logical that decides whether a line corresponding to the test.value should be superimposed on the plot.
-#
-# test.value.line.args
-# A list of additional aesthetic arguments to be passed to the geom_line used to display the lines corresponding to the centrality parameter and test value.
-#
-# test.value.label.args
-# A list of additional aesthetic arguments to be passed to the geom_label used to display the label corresponding to the centrality parameter and test value.
-#
-# centrality.parameter
-# Decides which measure of central tendency ("mean" or "median") is to be displayed as a vertical line. To not show any parameter, set this to "none".
-#
-# centrality.k
-# Integer denoting the number of decimal places expected for centrality parameter label. (Default: 2).
-#
-# centrality.line.args
-# A list of additional aesthetic arguments to be passed to the geom_line used to display the lines corresponding to the centrality parameter and test value.
-#
-# centrality.label.args
-# A list of additional aesthetic arguments to be passed to the geom_label used to display the label corresponding to the centrality parameter and test value.
-
-# bf.message
-# Logical that decides whether to display Bayes Factor in favor of the null hypothesis. This argument is relevant only for parametric test (Default: TRUE).
-
-# results.subtitle
-# Decides whether the results of statistical tests are to be displayed as a subtitle (Default: TRUE). If set to FALSE, only the plot will be returned.
-#
-# ggplot.component
-# A ggplot component to be added to the plot prepared by ggstatsplot. This argument is primarily helpful for grouped_ variant of the current function. Default is NULL. The argument should be entered as a function.
-#
-# plotgrid.args
-# A list of additional arguments to cowplot::plot_grid.
-#
-# title.text
-# String or plotmath expression to be drawn as title for the combined plot.
-#
-# title.args
-# A list of additional arguments provided to title, caption and sub, resp.
-#
-# caption.text
-# String or plotmath expression to be drawn as the caption for the combined plot.
-#
-# caption.args
-# A list of additional arguments provided to title, caption and sub, resp.
-#
-# sub.text
-# The label with which the combined plot should be annotated. Can be a plotmath expression.
-#
-# sub.args
-# A list of additional arguments provided to title, caption and sub, resp.
