@@ -4,7 +4,32 @@
 \alias{jjhistostats}
 \title{Histogram}
 \usage{
-jjhistostats(data, dep, grvar, excl = TRUE)
+jjhistostats(
+  data,
+  dep,
+  grvar,
+  excl = TRUE,
+  typestatistics = "parametric",
+  centralityparameter = "mean",
+  changebinwidth = FALSE,
+  binwidth = 1.1,
+  barmeasure = "count",
+  usexlab = FALSE,
+  xlab = "",
+  useylab = FALSE,
+  ylab = "",
+  usetitle = FALSE,
+  title = "",
+  usesubtitle = FALSE,
+  subtitle = "",
+  useplotcaption = FALSE,
+  plotcaption = "",
+  usetitleprefix = FALSE,
+  titleprefix = "",
+  resultssubtitle = TRUE,
+  normalcurve = FALSE,
+  testvalueline = FALSE
+)
 }
 \arguments{
 \item{data}{The data as a data frame.}
@@ -14,6 +39,46 @@ jjhistostats(data, dep, grvar, excl = TRUE)
 \item{grvar}{.}
 
 \item{excl}{.}
+
+\item{typestatistics}{.}
+
+\item{centralityparameter}{.}
+
+\item{changebinwidth}{.}
+
+\item{binwidth}{.}
+
+\item{barmeasure}{.}
+
+\item{usexlab}{.}
+
+\item{xlab}{.}
+
+\item{useylab}{.}
+
+\item{ylab}{.}
+
+\item{usetitle}{.}
+
+\item{title}{.}
+
+\item{usesubtitle}{.}
+
+\item{subtitle}{.}
+
+\item{useplotcaption}{.}
+
+\item{plotcaption}{.}
+
+\item{usetitleprefix}{.}
+
+\item{titleprefix}{.}
+
+\item{resultssubtitle}{.}
+
+\item{normalcurve}{.}
+
+\item{testvalueline}{.}
 }
 \value{
 A results object containing:
@@ -24,7 +89,8 @@ A results object containing:
 }
 }
 \description{
-Histogram
+'Wrapper Function for ggstatsplot::gghistostats and
+ggstatsplot::grouped_gghistostats to generate Histogram.'
 }
 \examples{
 \dontrun{

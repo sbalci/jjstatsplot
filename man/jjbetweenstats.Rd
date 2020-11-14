@@ -2,7 +2,7 @@
 % Please edit documentation in R/jjbetweenstats.h.R
 \name{jjbetweenstats}
 \alias{jjbetweenstats}
-\title{Violin Plots to Compare Between Groups}
+\title{Box-Violin Plots to Compare Between Groups}
 \usage{
 jjbetweenstats(
   data,
@@ -10,6 +10,11 @@ jjbetweenstats(
   group,
   grvar = NULL,
   excl = TRUE,
+  typestatistics = "parametric",
+  pairwisecomparisons = TRUE,
+  pairwisedisplay = "significant",
+  padjustmethod = "holm",
+  plottype = "boxviolin",
   originaltheme = FALSE
 )
 }
@@ -24,6 +29,16 @@ jjbetweenstats(
 
 \item{excl}{.}
 
+\item{typestatistics}{.}
+
+\item{pairwisecomparisons}{.}
+
+\item{pairwisedisplay}{.}
+
+\item{padjustmethod}{.}
+
+\item{plottype}{.}
+
 \item{originaltheme}{.}
 }
 \value{
@@ -35,7 +50,7 @@ A results object containing:
 }
 }
 \description{
-Violin Plots to Compare Between Groups
+Box-Violin Plots to Compare Between Groups
 }
 \examples{
 \dontrun{

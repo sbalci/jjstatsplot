@@ -4,7 +4,18 @@
 \alias{jjcorrmat}
 \title{Correlation Matrix}
 \usage{
-jjcorrmat(data, dep, grvar, excl = TRUE, originaltheme = FALSE)
+jjcorrmat(
+  data,
+  dep,
+  grvar,
+  excl = TRUE,
+  typestatistics = "parametric",
+  pairwisecomparisons = TRUE,
+  pairwisedisplay = "significant",
+  padjustmethod = "holm",
+  plottype = "boxviolin",
+  originaltheme = FALSE
+)
 }
 \arguments{
 \item{data}{The data as a data frame.}
@@ -14,6 +25,16 @@ jjcorrmat(data, dep, grvar, excl = TRUE, originaltheme = FALSE)
 \item{grvar}{.}
 
 \item{excl}{.}
+
+\item{typestatistics}{.}
+
+\item{pairwisecomparisons}{.}
+
+\item{pairwisedisplay}{.}
+
+\item{padjustmethod}{.}
+
+\item{plottype}{.}
 
 \item{originaltheme}{.}
 }
