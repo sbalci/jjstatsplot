@@ -30,3 +30,4 @@ vignettes/*.pdf
 jjstatsplot.Rproj
 build
 *.jmo
+.DS_Store
