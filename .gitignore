@@ -27,6 +27,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 .Rprofile
-jjstatsplot.Rproj
 build
 *.jmo
+.DS_Store

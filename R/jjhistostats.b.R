@@ -168,14 +168,14 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             data = mydata,
                             x = !!dep,
 
-                            binwidth = binwidth,
-                            bar.measure = barmeasure,
+                            # binwidth = binwidth,
+                            # bar.measure = barmeasure,
                             # xlab = NULL,
                             # title = NULL,
                             # subtitle = NULL,
                             # caption = NULL,
 
-                            type = typestatistics,
+                            # type = typestatistics,
 
 
                             # test.value = 0,
@@ -186,27 +186,27 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                             # nboot = 100,
                             # k = 2L,
 
-                            ggtheme = ggplot2::theme_bw(),
-                            ggstatsplot.layer = TRUE,
+                            # ggtheme = ggplot2::theme_bw(),
+                            # ggstatsplot.layer = TRUE,
 
 
 
-                            bar.fill = "grey50",
-                            results.subtitle = self$options$resultssubtitle,
-                            test.k = 0,
-                            test.value.line = FALSE,
-                            test.value.line.args = list(size = 1),
-                            test.value.label.args = list(size = 3),
+                            # bar.fill = "grey50",
+                            # results.subtitle = self$options$resultssubtitle,
+                            # test.k = 0,
+                            # test.value.line = FALSE,
+                            # test.value.line.args = list(size = 1),
+                            # test.value.label.args = list(size = 3),
 
-                            centrality.parameter = centralityparameter,
-                            centrality.k = 2,
-                            centrality.line.args = list(size = 1, color = "blue"),
-                            centrality.label.args = list(color = "blue", size = 3),
-                            normal.curve = self$options$normalcurve,
-                            normal.curve.args = list(size = 3),
-                            ggplot.component = NULL,
-                            output = "plot"
-                    )
+                            # centrality.parameter = centralityparameter,
+                            # centrality.k = 2,
+                            # centrality.line.args = list(size = 1, color = "blue"),
+                            # centrality.label.args = list(color = "blue", size = 3),
+                            # normal.curve = self$options$normalcurve,
+                            # normal.curve.args = list(size = 3),
+                            # ggplot.component = NULL,
+                            # output = "plot"
+                        )
 
 
 
