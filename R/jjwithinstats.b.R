@@ -109,9 +109,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Exclude NA ----
 
-            # excl <- self$options$excl
-            #
-            # if (excl) {mydata <- jmvcore::naOmit(mydata)}
+            excl <- self$options$excl
+
+            if (excl) {mydata <- jmvcore::naOmit(mydata)}
 
 
 
@@ -331,9 +331,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Exclude NA ----
 
 
-            # excl <- self$options$excl
-            #
-            # if (excl) {mydata <- jmvcore::naOmit(mydata)}
+            excl <- self$options$excl
+
+            if (excl) {mydata <- jmvcore::naOmit(mydata)}
 
 
             # type of statistics ----

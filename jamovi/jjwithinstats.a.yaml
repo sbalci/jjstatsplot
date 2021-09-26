@@ -59,10 +59,10 @@ options:
     #       R: select measurement type (repeated or independent)
 
 
-    # - name: excl
-    #   title: Exclude Missing (NA)
-    #   type: Bool
-    #   default: true
+    - name: excl
+      title: Exclude Missing (NA)
+      type: Bool
+      default: true
 
 
     - name: pointpath
@@ -129,20 +129,6 @@ options:
         - title: none
           name: none
       default: holm
-
-
-
-    - name: plottype
-      title: 'Plot Type'
-      type: List
-      options:
-        - title: box
-          name: box
-        - title: violin
-          name: violin
-        - title: boxviolin
-          name: boxviolin
-      default: boxviolin
 
 
 

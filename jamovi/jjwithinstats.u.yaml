@@ -40,6 +40,11 @@ children:
     margin: large
     children:
       - type: CheckBox
+        name: excl
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: CheckBox
         name: pointpath
       - type: CheckBox
         name: meanpath

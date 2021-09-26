@@ -9,6 +9,7 @@ jjwithinstats(
   dep,
   group,
   grvar,
+  excl = TRUE,
   pointpath = TRUE,
   meanpath = TRUE,
   typestatistics = "parametric",
@@ -27,6 +28,8 @@ jjwithinstats(
 \item{group}{.}
 
 \item{grvar}{.}
+
+\item{excl}{.}
 
 \item{pointpath}{.}
 

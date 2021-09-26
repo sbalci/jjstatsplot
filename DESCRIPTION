@@ -32,7 +32,6 @@ Imports:
     ggExtra,
     ggrepel,
     ggsignif,
-    groupedstats,
     insight,
     paletteer,
     parameters,

@@ -9,6 +9,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             dep = NULL,
             group = NULL,
             grvar = NULL,
+            excl = TRUE,
             pointpath = TRUE,
             meanpath = TRUE,
             typestatistics = "parametric",
@@ -47,6 +48,10 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                     "nominal"),
                 permitted=list(
                     "factor"))
+            private$..excl <- jmvcore::OptionBool$new(
+                "excl",
+                excl,
+                default=TRUE)
             private$..pointpath <- jmvcore::OptionBool$new(
                 "pointpath",
                 pointpath,
@@ -105,6 +110,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
+            self$.addOption(private$..excl)
             self$.addOption(private$..pointpath)
             self$.addOption(private$..meanpath)
             self$.addOption(private$..typestatistics)
@@ -118,6 +124,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
+        excl = function() private$..excl$value,
         pointpath = function() private$..pointpath$value,
         meanpath = function() private$..meanpath$value,
         typestatistics = function() private$..typestatistics$value,
@@ -130,6 +137,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
+        ..excl = NA,
         ..pointpath = NA,
         ..meanpath = NA,
         ..typestatistics = NA,
@@ -214,6 +222,7 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param dep .
 #' @param group .
 #' @param grvar .
+#' @param excl .
 #' @param pointpath .
 #' @param meanpath .
 #' @param typestatistics .
@@ -235,6 +244,7 @@ jjwithinstats <- function(
     dep,
     group,
     grvar,
+    excl = TRUE,
     pointpath = TRUE,
     meanpath = TRUE,
     typestatistics = "parametric",
@@ -264,6 +274,7 @@ jjwithinstats <- function(
         dep = dep,
         group = group,
         grvar = grvar,
+        excl = excl,
         pointpath = pointpath,
         meanpath = meanpath,
         typestatistics = typestatistics,
