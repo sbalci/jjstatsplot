@@ -14,7 +14,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             pairwisecomparisons = TRUE,
             pairwisedisplay = "significant",
             padjustmethod = "holm",
-            plottype = "boxviolin",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -84,14 +83,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "fdr",
                     "none"),
                 default="holm")
-            private$..plottype <- jmvcore::OptionList$new(
-                "plottype",
-                plottype,
-                options=list(
-                    "box",
-                    "violin",
-                    "boxviolin"),
-                default="boxviolin")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -105,7 +96,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..pairwisedisplay)
             self$.addOption(private$..padjustmethod)
-            self$.addOption(private$..plottype)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -117,7 +107,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         pairwisecomparisons = function() private$..pairwisecomparisons$value,
         pairwisedisplay = function() private$..pairwisedisplay$value,
         padjustmethod = function() private$..padjustmethod$value,
-        plottype = function() private$..plottype$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -128,7 +117,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         ..pairwisecomparisons = NA,
         ..pairwisedisplay = NA,
         ..padjustmethod = NA,
-        ..plottype = NA,
         ..originaltheme = NA)
 )
 
@@ -215,7 +203,6 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #' @param pairwisecomparisons .
 #' @param pairwisedisplay .
 #' @param padjustmethod .
-#' @param plottype .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -235,7 +222,6 @@ jjdotplotstats <- function(
     pairwisecomparisons = TRUE,
     pairwisedisplay = "significant",
     padjustmethod = "holm",
-    plottype = "boxviolin",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
@@ -263,7 +249,6 @@ jjdotplotstats <- function(
         pairwisecomparisons = pairwisecomparisons,
         pairwisedisplay = pairwisedisplay,
         padjustmethod = padjustmethod,
-        plottype = plottype,
         originaltheme = originaltheme)
 
     analysis <- jjdotplotstatsClass$new(

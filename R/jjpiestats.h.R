@@ -14,7 +14,6 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             pairwisecomparisons = TRUE,
             pairwisedisplay = "significant",
             padjustmethod = "holm",
-            plottype = "boxviolin",
             originaltheme = FALSE, ...) {
 
             super$initialize(
@@ -85,14 +84,6 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "fdr",
                     "none"),
                 default="holm")
-            private$..plottype <- jmvcore::OptionList$new(
-                "plottype",
-                plottype,
-                options=list(
-                    "box",
-                    "violin",
-                    "boxviolin"),
-                default="boxviolin")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -106,7 +97,6 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..pairwisedisplay)
             self$.addOption(private$..padjustmethod)
-            self$.addOption(private$..plottype)
             self$.addOption(private$..originaltheme)
         }),
     active = list(
@@ -118,7 +108,6 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         pairwisecomparisons = function() private$..pairwisecomparisons$value,
         pairwisedisplay = function() private$..pairwisedisplay$value,
         padjustmethod = function() private$..padjustmethod$value,
-        plottype = function() private$..plottype$value,
         originaltheme = function() private$..originaltheme$value),
     private = list(
         ..dep = NA,
@@ -129,7 +118,6 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..pairwisecomparisons = NA,
         ..pairwisedisplay = NA,
         ..padjustmethod = NA,
-        ..plottype = NA,
         ..originaltheme = NA)
 )
 
@@ -260,7 +248,6 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param pairwisecomparisons .
 #' @param pairwisedisplay .
 #' @param padjustmethod .
-#' @param plottype .
 #' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
@@ -282,7 +269,6 @@ jjpiestats <- function(
     pairwisecomparisons = TRUE,
     pairwisedisplay = "significant",
     padjustmethod = "holm",
-    plottype = "boxviolin",
     originaltheme = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
@@ -311,7 +297,6 @@ jjpiestats <- function(
         pairwisecomparisons = pairwisecomparisons,
         pairwisedisplay = pairwisedisplay,
         padjustmethod = padjustmethod,
-        plottype = plottype,
         originaltheme = originaltheme)
 
     analysis <- jjpiestatsClass$new(
