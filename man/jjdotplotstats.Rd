@@ -14,7 +14,6 @@ jjdotplotstats(
   pairwisecomparisons = TRUE,
   pairwisedisplay = "significant",
   padjustmethod = "holm",
-  plottype = "boxviolin",
   originaltheme = FALSE
 )
 }
@@ -36,8 +35,6 @@ jjdotplotstats(
 \item{pairwisedisplay}{.}
 
 \item{padjustmethod}{.}
-
-\item{plottype}{.}
 
 \item{originaltheme}{.}
 }

@@ -14,7 +14,6 @@ jjbarstats(
   pairwisecomparisons = TRUE,
   pairwisedisplay = "significant",
   padjustmethod = "holm",
-  plottype = "boxviolin",
   originaltheme = FALSE
 )
 }
@@ -36,8 +35,6 @@ jjbarstats(
 \item{pairwisedisplay}{.}
 
 \item{padjustmethod}{.}
-
-\item{plottype}{.}
 
 \item{originaltheme}{.}
 }
