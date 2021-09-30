@@ -43,7 +43,10 @@ Imports:
     rcompanion,
     WRS2,
     metaBMA,
-    PMCMRplus
+    PMCMRplus,
+    broom.mixed,
+    performance,
+    groupedstats
 Remotes:
     IndrajeetPatil/ipmisc@9528292b59ff773bc03d009b4d7a143434862b60,
     IndrajeetPatil/tidyBF@02ec0b87d7ea0960868728e6f1cf84315e5c60a8,
