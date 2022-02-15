@@ -139,7 +139,8 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 title="Pie Charts",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"))
+                    "ggstatsplot",
+                    "ClinicoPathJamoviModule"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",

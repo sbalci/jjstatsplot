@@ -119,3 +119,4 @@ R/utils-pipe.R
 ^\.github$
 ^clang-.*
 ^gfortran.*
+DESCRIPTIONold.txt

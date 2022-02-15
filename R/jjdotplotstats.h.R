@@ -136,7 +136,8 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 title="Dot Chart",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"),
+                    "ggstatsplot",
+                    "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep",
                     "group",

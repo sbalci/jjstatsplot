@@ -31,7 +31,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         "<br>
                     Welcome to ClinicoPath
                 <br><br>
-                This tool will help you generate Bar Charts.
+                This tool will help you generate Histograms.
                 <br><br>
                 This function uses ggplot2 and ggstatsplot packages. See documentations <a href = 'https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html' target='_blank'>gghistostats</a> and <a href = 'https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_gghistostats.html' target='_blank'>grouped_gghistostats</a>.
                 <br>

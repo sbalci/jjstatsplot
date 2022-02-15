@@ -137,7 +137,8 @@ jjbarstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 title="Bar Charts",
                 refs=list(
                     "ggplot2",
-                    "ggstatsplot"),
+                    "ggstatsplot",
+                    "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep",
                     "group",
