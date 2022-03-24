@@ -12,13 +12,6 @@ description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
   jamovi based on ggstatsplot package.
 analyses:
-  - title: Graphs and Plots
-    name: statsplot2
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Variable Type Based Graphs and Plots
-    menuTitle: Graphs and Plots
-    description: Function for Generating Plots and Graphs Based on Variable Types.
   - title: Histogram
     name: jjhistostats
     ns: jjstatsplot
