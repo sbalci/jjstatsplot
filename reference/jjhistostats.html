@@ -52,94 +52,143 @@ ggstatsplot::grouped_gghistostats to generate Histogram.'</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">jjhistostats</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">dep</span>,
-  <span class="va">grvar</span>,
-  excl <span class="op">=</span> <span class="cn">TRUE</span>,
-  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,
-  centralityparameter <span class="op">=</span> <span class="st">"mean"</span>,
-  changebinwidth <span class="op">=</span> <span class="cn">FALSE</span>,
-  binwidth <span class="op">=</span> <span class="fl">1.1</span>,
-  barmeasure <span class="op">=</span> <span class="st">"count"</span>,
-  usexlab <span class="op">=</span> <span class="cn">FALSE</span>,
-  xlab <span class="op">=</span> <span class="st">""</span>,
-  useylab <span class="op">=</span> <span class="cn">FALSE</span>,
-  ylab <span class="op">=</span> <span class="st">""</span>,
-  usetitle <span class="op">=</span> <span class="cn">FALSE</span>,
-  title <span class="op">=</span> <span class="st">""</span>,
-  usesubtitle <span class="op">=</span> <span class="cn">FALSE</span>,
-  subtitle <span class="op">=</span> <span class="st">""</span>,
-  useplotcaption <span class="op">=</span> <span class="cn">FALSE</span>,
-  plotcaption <span class="op">=</span> <span class="st">""</span>,
-  usetitleprefix <span class="op">=</span> <span class="cn">FALSE</span>,
-  titleprefix <span class="op">=</span> <span class="st">""</span>,
-  resultssubtitle <span class="op">=</span> <span class="cn">TRUE</span>,
-  normalcurve <span class="op">=</span> <span class="cn">FALSE</span>,
-  testvalueline <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">jjhistostats</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">dep</span>,</span>
+<span>  <span class="va">grvar</span>,</span>
+<span>  excl <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  centralityparameter <span class="op">=</span> <span class="st">"mean"</span>,</span>
+<span>  changebinwidth <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  binwidth <span class="op">=</span> <span class="fl">1.1</span>,</span>
+<span>  barmeasure <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>  usexlab <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  useylab <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  usetitle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  usesubtitle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  useplotcaption <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plotcaption <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  usetitleprefix <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  titleprefix <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  resultssubtitle <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  normalcurve <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  testvalueline <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>The data as a data frame.</p></dd>
+
+
 <dt>dep</dt>
 <dd><p>.</p></dd>
+
+
 <dt>grvar</dt>
 <dd><p>.</p></dd>
+
+
 <dt>excl</dt>
 <dd><p>.</p></dd>
+
+
 <dt>typestatistics</dt>
 <dd><p>.</p></dd>
+
+
 <dt>centralityparameter</dt>
 <dd><p>.</p></dd>
+
+
 <dt>changebinwidth</dt>
 <dd><p>.</p></dd>
+
+
 <dt>binwidth</dt>
 <dd><p>.</p></dd>
+
+
 <dt>barmeasure</dt>
 <dd><p>.</p></dd>
+
+
 <dt>usexlab</dt>
 <dd><p>.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>.</p></dd>
+
+
 <dt>useylab</dt>
 <dd><p>.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>.</p></dd>
+
+
 <dt>usetitle</dt>
 <dd><p>.</p></dd>
+
+
 <dt>title</dt>
 <dd><p>.</p></dd>
+
+
 <dt>usesubtitle</dt>
 <dd><p>.</p></dd>
+
+
 <dt>subtitle</dt>
 <dd><p>.</p></dd>
+
+
 <dt>useplotcaption</dt>
 <dd><p>.</p></dd>
+
+
 <dt>plotcaption</dt>
 <dd><p>.</p></dd>
+
+
 <dt>usetitleprefix</dt>
 <dd><p>.</p></dd>
+
+
 <dt>titleprefix</dt>
 <dd><p>.</p></dd>
+
+
 <dt>resultssubtitle</dt>
 <dd><p>.</p></dd>
+
+
 <dt>normalcurve</dt>
 <dd><p>.</p></dd>
+
+
 <dt>testvalueline</dt>
 <dd><p>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A results object containing:</p><table class="table table"><tr><td><code>results$todo</code></td><td></td><td></td><td></td><td></td><td>a html</td></tr><tr><td><code>results$plot2</code></td><td></td><td></td><td></td><td></td><td>an image</td></tr><tr><td><code>results$plot</code></td><td></td><td></td><td></td><td></td><td>an image</td></tr></table></div>
+    
+
+<p>A results object containing:</p><table class="table table"><tr><td><code>results$todo</code></td><td></td><td></td><td></td><td></td><td>a html</td></tr><tr><td><code>results$plot2</code></td><td></td><td></td><td></td><td></td><td>an image</td></tr><tr><td><code>results$plot</code></td><td></td><td></td><td></td><td></td><td>an image</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># example will be added</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># example will be added</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -154,7 +203,7 @@ ggstatsplot::grouped_gghistostats to generate Histogram.'</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
