@@ -2,7 +2,7 @@ Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
 Version: 0.0.2.04
-Date: 2022-04-03
+Date: 2022-09-20
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
