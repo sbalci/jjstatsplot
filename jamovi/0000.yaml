@@ -6,7 +6,7 @@ jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2023-06-01'
+date: '2023-07-09'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
