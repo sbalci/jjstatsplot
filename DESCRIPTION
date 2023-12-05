@@ -28,7 +28,8 @@ Imports:
     easyalluvial,
     ggstatsplot,
     ggside,
-    ggcorrplot
+    ggcorrplot,
+    PMCMRplus
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
