@@ -26,13 +26,21 @@ items:
       type:  Html
 
 
+    # - name:  mydataview
+    #   title: mydataview
+    #   type:  Preformatted
+
+    # - name:  mydataview2
+    #   title: mydataview2
+    #   type:  Preformatted
+
       # title: '` ${group} - {dep} by {grvar}`'
 
     - name: plot2
       title: '`Histogram Splitted by {grvar}`'
       type: Image
-      width:  800
-      height: 600
+      # width:  800
+      # height: 600
       renderFun: .plot2
       requiresData: true
       visible: (grvar)
@@ -48,6 +56,17 @@ items:
       renderFun: .plot
       requiresData: true
 
+    - name:  e_stats
+      title: e_stats
+      type:  Preformatted
+
+    - name:  e_subtitle
+      title: e_subtitle
+      type:  Preformatted
+
+    - name:  e_caption
+      title: e_caption
+      type:  Preformatted
 
 refs:
     - ggplot2

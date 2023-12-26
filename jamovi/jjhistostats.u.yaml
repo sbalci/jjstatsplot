@@ -34,6 +34,7 @@ children:
             children:
               - type: CheckBox
                 name: excl
+
   - type: CollapseBox
     label: Analysis
     collapsed: true
@@ -66,6 +67,9 @@ children:
                 name: normalcurve
               - type: CheckBox
                 name: testvalueline
+              - type: CheckBox
+                name: centralityline
+
           - type: LayoutBox
             margin: large
             children:
@@ -81,7 +85,6 @@ children:
             children:
               - type: ComboBox
                 name: barmeasure
-
       - type: Label
         label: Change Label and Titles
       - type: LayoutBox
@@ -127,7 +130,6 @@ children:
                 format: string
                 width: large
                 enable: (useplotcaption)
-
           - type: CheckBox
             name: usetitleprefix
             enable: (grvar)
@@ -137,3 +139,4 @@ children:
                 format: string
                 width: large
                 enable: (grvar && usetitleprefix)
+
