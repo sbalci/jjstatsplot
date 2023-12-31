@@ -1,0 +1,57 @@
+---
+name:  jjwithinstats
+title: Violin Plots to Compare Within Groups
+jrs:   '1.1'
+
+clearWith:
+    - dep1
+    - dep2
+    - dep3
+    - dep4
+    - typestatistics
+    - originaltheme
+    - excl
+
+
+items:
+
+    - name:  todo
+      title: To Do
+      type:  Html
+
+
+    - name: plot
+      title: 'Violin Plots'
+      type: Image
+      renderFun: .plot
+      requiresData: true
+
+
+    - name:  e_stats
+      title: e_stats
+      type:  Preformatted
+
+    - name:  e_subtitle
+      title: e_subtitle
+      type:  Preformatted
+
+    - name:  e_caption
+      title: e_caption
+      type:  Preformatted
+
+
+    - name:  e_plot
+      title: e_plot
+      type:  Preformatted
+
+    - name:  mydataview
+      title: mydataview
+      type:  Preformatted
+
+
+refs:
+    - ggplot2
+    - ggstatsplot
+    - ClinicoPathJamoviModule
+
+...

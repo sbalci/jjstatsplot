@@ -1,17 +1,18 @@
 ---
-name:  jjbetweenstats
-title: Box-Violin Plots to Compare Between Groups
+name:  jjwithinstats
+title: Box-Violin Plots to Compare Within Groups
 menuGroup: JJStatsPlot
 menuSubgroup: 'Categorical vs Continuous'
-menuSubtitle: 'Independent Samples'
+menuSubtitle: Repeated Continuous Measurements
 version: '1.0.0'
 jas: '1.2'
 
 
+
 description:
     # main: |
-    #     'Wrapper Function for ggstatsplot::ggbetweenstats and
-    #     ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
+    #     'Wrapper Function for ggstatsplot::ggwithinstats and
+    #     ggstatsplot::grouped_ggwithinstats to generate Violin Plots.'
     R:
         dontrun: true
         usage: |
@@ -24,46 +25,42 @@ options:
           R: >
             The data as a data frame.
 
-
-    - name: dep
-      title: Dependent Variables
-      type: Variables
+    - name: dep1
+      title: First Measurement
+      type: Variable
       suggested: [ continuous ]
       permitted: [ numeric ]
 
-    - name: group
-      title: Grouping Variable
+    - name: dep2
+      title: Second Measurement
       type: Variable
-      suggested: [ ordinal, nominal ]
-      permitted: [ factor ]
+      suggested: [ continuous ]
+      permitted: [ numeric ]
 
-    - name: grvar
-      title: 'Split By (Optional)'
+    - name: dep3
+      title: Third Measurement (Optional)
       type: Variable
-      suggested: [ ordinal, nominal ]
-      permitted: [ factor ]
-      default: NULL
+      suggested: [ continuous ]
+      permitted: [ numeric ]
 
 
-
-    # - name: direction
-    #   title: 'Measurement Type'
-    #   type: List
-    #   options:
-    #     - title: Repeated (within groups)
-    #       name: repeated
-    #     - title: Independent (between groups)
-    #       name: independent
-    #   default: independent
-    #   description:
-    #       ui: options for measurement type
-    #       R: select measurement type (repeated or independent)
+    - name: dep4
+      title: Fourth Measurement (Optional)
+      type: Variable
+      suggested: [ continuous ]
+      permitted: [ numeric ]
 
 
-    - name: excl
-      title: Exclude Missing (NA)
+    - name: pointpath
+      title: Show Point Path
       type: Bool
-      default: false
+      default: true
+
+    - name: meanpath
+      title: Show Mean Path
+      type: Bool
+      default: true
+
 
 
     - name: typestatistics
@@ -120,7 +117,6 @@ options:
       default: holm
 
 
-
     - name: plottype
       title: 'Plot Type'
       type: List
@@ -135,7 +131,6 @@ options:
 
 
 
-
     - name: originaltheme
       title: Add GGStatsPlot Layer
       type: Bool
@@ -144,13 +139,17 @@ options:
 
 
 
+
+
+
+
+
 ...
 
-# ggbetweenstats(
+# ggwithinstats(
 #   data,
 #   x,
 #   y,
-#   plot.type = "boxviolin",
 #   type = "parametric",
 #   pairwise.comparisons = TRUE,
 #   pairwise.display = "significant",
@@ -166,7 +165,6 @@ options:
 #   subtitle = NULL,
 #   sample.size.label = TRUE,
 #   k = 2L,
-#   var.equal = FALSE,
 #   conf.level = 0.95,
 #   nboot = 100L,
 #   tr = 0.1,
@@ -174,17 +172,17 @@ options:
 #   mean.ci = FALSE,
 #   mean.point.args = list(size = 5, color = "darkred"),
 #   mean.label.args = list(size = 3),
+#   point.path = TRUE,
+#   point.path.args = list(alpha = 0.5, linetype = "dashed"),
+#   mean.path = TRUE,
+#   mean.path.args = list(color = "red", size = 1, alpha = 0.5),
 #   notch = FALSE,
 #   notchwidth = 0.5,
 #   outlier.tagging = FALSE,
 #   outlier.label = NULL,
 #   outlier.coef = 1.5,
-#   outlier.shape = 19,
-#   outlier.color = "black",
-#   outlier.label.args = list(size = 3),
+#   outlier.label.args = list(),
 #   outlier.point.args = list(),
-#   point.args = list(position = ggplot2::position_jitterdodge(dodge.width = 0.6), alpha
-#     = 0.4, size = 3, stroke = 0),
 #   violin.args = list(width = 0.5, alpha = 0.2),
 #   ggsignif.args = list(textsize = 3, tip_length = 0.01),
 #   ggtheme = ggplot2::theme_bw(),
@@ -204,9 +202,6 @@ options:
 #
 # y
 # The response (a.k.a. outcome or dependent) variable from the dataframe data.
-#
-# plot.type
-# Character describing the type of plot. Currently supported plots are "box" (for pure boxplots), "violin" (for pure violin plots), and "boxviolin" (for a combination of box and violin plots; default).
 #
 # type
 # Type of statistic expected ("parametric" or "nonparametric" or "robust" or "bayes").Corresponding abbreviations are also accepted: "p" (for parametric), "np" (nonparametric), "r" (robust), or "bf"resp.
@@ -232,7 +227,10 @@ options:
 # results.subtitle
 # Decides whether the results of statistical tests are to be displayed as a subtitle (Default: TRUE). If set to FALSE, only the plot will be returned.
 #
-# xlab, ylab
+# xlab
+# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
+#
+# ylab
 # Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
 #
 # caption
@@ -250,9 +248,6 @@ options:
 # k
 # Number of digits after decimal point (should be an integer) (Default: k = 2L).
 #
-# var.equal
-# a logical variable indicating whether to treat the variances in the samples as equal. If TRUE, then a simple F test for the equality of means in a one-way analysis of variance is performed. If FALSE, an approximate method of Welch (1951) is used, which generalizes the commonly known 2-sample Welch test to the case of arbitrarily many samples.
-#
 # conf.level
 # Scalar between 0 and 1. If unspecified, the defaults return 95% confidence/credible intervals (0.95).
 #
@@ -268,8 +263,17 @@ options:
 # mean.ci
 # Logical that decides whether 95% confidence interval for mean is to be displayed (Default: FALSE).
 #
-# mean.point.args, mean.label.args
+# mean.point.args
 # A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved mean value plotting.
+#
+# mean.label.args
+# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved mean value plotting.
+#
+# point.path, mean.path
+# Logical that decides whether individual data points and means, respectively, should be connected using geom_path. Both default to TRUE. Note that point.path argument is relevant only when there are two groups (i.e., in case of a t-test). In case of large number of data points, it is advisable to set point.path = FALSE as these lines can overwhelm the plot.
+#
+# mean.path.args, point.path.args
+# A list of additional aesthetic arguments passed on to geom_path connecting raw data points and mean points.
 #
 # notch
 # A logical. If FALSE (default), a standard box plot will be displayed. If TRUE, a notched box plot will be used. Notches are used to compare groups; if the notches of two boxes do not overlap, this suggests that the medians are significantly different. In a notched box plot, the notches extend 1.58 * IQR / sqrt(n). This gives a roughly 95% confidence interval for comparing medians. IQR: Inter-Quartile Range.
@@ -286,17 +290,11 @@ options:
 # outlier.coef
 # Coefficient for outlier detection using Tukey's method. With Tukey's method, outliers are below (1st Quartile) or above (3rd Quartile) outlier.coef times the Inter-Quartile Range (IQR) (Default: 1.5).
 #
-# outlier.shape
-# Hiding the outliers can be achieved by setting outlier.shape = NA. Importantly, this does not remove the outliers, it only hides them, so the range calculated for the y-axis will be the same with outliers shown and outliers hidden.
-#
-# outlier.color
-# Default aesthetics for outliers (Default: "black").
-#
-# outlier.point.args, outlier.label.args
+# outlier.label.args
 # A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
 #
-# point.args
-# A list of additional aesthetic arguments to be passed to the geom_point displaying the raw data.
+# outlier.point.args
+# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
 #
 # violin.args
 # A list of additional aesthetic arguments to be passed to the geom_violin.
@@ -310,7 +308,10 @@ options:
 # ggstatsplot.layer
 # Logical that decides whether theme_ggstatsplot theme elements are to be displayed along with the selected ggtheme (Default: TRUE). theme_ggstatsplot is an opinionated theme layer that override some aspects of the selected ggtheme.
 #
-# package, palette
+# package
+# Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
+#
+# palette
 # Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
 #
 # ggplot.component
@@ -321,7 +322,7 @@ options:
 #
 #
 #
-# grouped_ggbetweenstats(
+# grouped_ggwithinstats(
 #   data,
 #   x,
 #   y,
@@ -361,25 +362,34 @@ options:
 # Character that describes what is to be returned: can be "plot" (default) or "subtitle" or "caption". Setting this to "subtitle" will return the expression containing statistical results. If you have set results.subtitle = FALSE, then this will return a NULL. Setting this to "caption" will return the expression containing details about Bayes Factor analysis, but valid only when type = "parametric" and bf.message = TRUE, otherwise this will return a NULL. For functions ggpiestats and ggbarstats, setting output = "proptest" will return a dataframe containing results from proportion tests.
 #
 # ...
-# Arguments passed on to ggbetweenstats
+# Arguments passed on to ggwithinstats
 #
-# plot.type
-# Character describing the type of plot. Currently supported plots are "box" (for pure boxplots), "violin" (for pure violin plots), and "boxviolin" (for a combination of box and violin plots; default).
+# point.path
+# Logical that decides whether individual data points and means, respectively, should be connected using geom_path. Both default to TRUE. Note that point.path argument is relevant only when there are two groups (i.e., in case of a t-test). In case of large number of data points, it is advisable to set point.path = FALSE as these lines can overwhelm the plot.
 #
-# xlab
-# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
+# mean.path
+# Logical that decides whether individual data points and means, respectively, should be connected using geom_path. Both default to TRUE. Note that point.path argument is relevant only when there are two groups (i.e., in case of a t-test). In case of large number of data points, it is advisable to set point.path = FALSE as these lines can overwhelm the plot.
 #
-# ylab
-# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
+# mean.path.args
+# A list of additional aesthetic arguments passed on to geom_path connecting raw data points and mean points.
+#
+# point.path.args
+# A list of additional aesthetic arguments passed on to geom_path connecting raw data points and mean points.
+#
+# type
+# Type of statistic expected ("parametric" or "nonparametric" or "robust" or "bayes").Corresponding abbreviations are also accepted: "p" (for parametric), "np" (nonparametric), "r" (robust), or "bf"resp.
 #
 # pairwise.comparisons
 # Logical that decides whether pairwise comparisons are to be displayed (default: TRUE). Please note that only significant comparisons will be shown by default. To change this behavior, select appropriate option with pairwise.display argument. The pairwise comparison dataframes are prepared using the pairwiseComparisons::pairwise_comparisons function. For more details about pairwise comparisons, see the documentation for that function.
 #
+# pairwise.display
+# Decides which pairwise comparisons to display. Available options are "significant" (abbreviation accepted: "s") or "non-significant" (abbreviation accepted: "ns") or "everything"/"all". The default is "significant". You can use this argument to make sure that your plot is not uber-cluttered when you have multiple groups being compared and scores of pairwise comparisons being displayed.
+#
 # p.adjust.method
 # Adjustment method for p-values for multiple comparisons. Possible methods are: "holm" (default), "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
 #
-# pairwise.display
-# Decides which pairwise comparisons to display. Available options are "significant" (abbreviation accepted: "s") or "non-significant" (abbreviation accepted: "ns") or "everything"/"all". The default is "significant". You can use this argument to make sure that your plot is not uber-cluttered when you have multiple groups being compared and scores of pairwise comparisons being displayed.
+# effsize.type
+# Type of effect size needed for parametric tests. The argument can be "biased" (equivalent to "d" for Cohen's d for t-test; "eta" for partial eta-squared for anova) or "unbiased" (equivalent to "g" Hedge's g for t-test; "omega" for partial omega-squared for anova)).
 #
 # bf.prior
 # A number between 0.5 and 2 (default 0.707), the prior width to use in calculating Bayes factors.
@@ -390,38 +400,32 @@ options:
 # results.subtitle
 # Decides whether the results of statistical tests are to be displayed as a subtitle (Default: TRUE). If set to FALSE, only the plot will be returned.
 #
-# subtitle
-# The text for the plot subtitle. Will work only if results.subtitle = FALSE.
+# xlab
+# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
+#
+# ylab
+# Labels for x and y axis variables. If NULL (default), variable names for x and y will be used.
 #
 # caption
 # The text for the plot caption.
 #
+# subtitle
+# The text for the plot subtitle. Will work only if results.subtitle = FALSE.
+#
 # sample.size.label
 # Logical that decides whether sample size information should be displayed for each level of the grouping variable x (Default: TRUE).
 #
-# notch
-# A logical. If FALSE (default), a standard box plot will be displayed. If TRUE, a notched box plot will be used. Notches are used to compare groups; if the notches of two boxes do not overlap, this suggests that the medians are significantly different. In a notched box plot, the notches extend 1.58 * IQR / sqrt(n). This gives a roughly 95% confidence interval for comparing medians. IQR: Inter-Quartile Range.
+# k
+# Number of digits after decimal point (should be an integer) (Default: k = 2L).
 #
-# notchwidth
-# For a notched box plot, width of the notch relative to the body (default 0.5).
+# conf.level
+# Scalar between 0 and 1. If unspecified, the defaults return 95% confidence/credible intervals (0.95).
 #
-# outlier.color
-# Default aesthetics for outliers (Default: "black").
+# nboot
+# Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
 #
-# outlier.tagging
-# Decides whether outliers should be tagged (Default: FALSE).
-#
-# outlier.shape
-# Hiding the outliers can be achieved by setting outlier.shape = NA. Importantly, this does not remove the outliers, it only hides them, so the range calculated for the y-axis will be the same with outliers shown and outliers hidden.
-#
-# outlier.point.args
-# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
-#
-# outlier.label.args
-# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
-#
-# outlier.coef
-# Coefficient for outlier detection using Tukey's method. With Tukey's method, outliers are below (1st Quartile) or above (3rd Quartile) outlier.coef times the Inter-Quartile Range (IQR) (Default: 1.5).
+# tr
+# Trim level for the mean when carrying out robust tests. If you get error stating "Standard error cannot be computed because of Winsorized variance of 0 (e.g., due to ties). Try to decrease the trimming level.", try to play around with the value of tr, which is by default set to 0.1. Lowering the value might help.
 #
 # mean.plotting
 # Logical that decides whether mean is to be highlighted and its value to be displayed (Default: TRUE).
@@ -429,26 +433,32 @@ options:
 # mean.ci
 # Logical that decides whether 95% confidence interval for mean is to be displayed (Default: FALSE).
 #
-# point.args
-# A list of additional aesthetic arguments to be passed to the geom_point displaying the raw data.
-#
-# violin.args
-# A list of additional aesthetic arguments to be passed to the geom_violin.
-#
-# ggplot.component
-# A ggplot component to be added to the plot prepared by ggstatsplot. This argument is primarily helpful for grouped_ variant of the current function. Default is NULL. The argument should be entered as a function.
-#
-# package
-# Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
-#
-# palette
-# Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
-#
 # mean.point.args
 # A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved mean value plotting.
 #
 # mean.label.args
 # A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved mean value plotting.
+#
+# notch
+# A logical. If FALSE (default), a standard box plot will be displayed. If TRUE, a notched box plot will be used. Notches are used to compare groups; if the notches of two boxes do not overlap, this suggests that the medians are significantly different. In a notched box plot, the notches extend 1.58 * IQR / sqrt(n). This gives a roughly 95% confidence interval for comparing medians. IQR: Inter-Quartile Range.
+#
+# notchwidth
+# For a notched box plot, width of the notch relative to the body (default 0.5).
+#
+# outlier.tagging
+# Decides whether outliers should be tagged (Default: FALSE).
+#
+# outlier.coef
+# Coefficient for outlier detection using Tukey's method. With Tukey's method, outliers are below (1st Quartile) or above (3rd Quartile) outlier.coef times the Inter-Quartile Range (IQR) (Default: 1.5).
+#
+# outlier.label.args
+# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
+#
+# outlier.point.args
+# A list of additional aesthetic arguments to be passed to ggplot2::geom_point and ggrepel::geom_label_repel geoms involved outlier value plotting.
+#
+# violin.args
+# A list of additional aesthetic arguments to be passed to the geom_violin.
 #
 # ggsignif.args
 # A list of additional aesthetic arguments to be passed to ggsignif::geom_signif.
@@ -459,26 +469,14 @@ options:
 # ggstatsplot.layer
 # Logical that decides whether theme_ggstatsplot theme elements are to be displayed along with the selected ggtheme (Default: TRUE). theme_ggstatsplot is an opinionated theme layer that override some aspects of the selected ggtheme.
 #
-# effsize.type
-# Type of effect size needed for parametric tests. The argument can be "biased" (equivalent to "d" for Cohen's d for t-test; "eta" for partial eta-squared for anova) or "unbiased" (equivalent to "g" Hedge's g for t-test; "omega" for partial omega-squared for anova)).
+# package
+# Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
 #
-# k
-# Number of digits after decimal point (should be an integer) (Default: k = 2L).
+# palette
+# Name of the package from which the given palette is to be extracted. The available palettes and packages can be checked by running View(paletteer::palettes_d_names).
 #
-# var.equal
-# a logical variable indicating whether to treat the variances in the samples as equal. If TRUE, then a simple F test for the equality of means in a one-way analysis of variance is performed. If FALSE, an approximate method of Welch (1951) is used, which generalizes the commonly known 2-sample Welch test to the case of arbitrarily many samples.
-#
-# conf.level
-# Scalar between 0 and 1. If unspecified, the defaults return 95% confidence/credible intervals (0.95).
-#
-# type
-# Type of statistic expected ("parametric" or "nonparametric" or "robust" or "bayes").Corresponding abbreviations are also accepted: "p" (for parametric), "np" (nonparametric), "r" (robust), or "bf"resp.
-#
-# nboot
-# Number of bootstrap samples for computing confidence interval for the effect size (Default: 100).
-#
-# tr
-# Trim level for the mean when carrying out robust tests. If you get error stating "Standard error cannot be computed because of Winsorized variance of 0 (e.g., due to ties). Try to decrease the trimming level.", try to play around with the value of tr, which is by default set to 0.1. Lowering the value might help.
+# ggplot.component
+# A ggplot component to be added to the plot prepared by ggstatsplot. This argument is primarily helpful for grouped_ variant of the current function. Default is NULL. The argument should be entered as a function.
 #
 # plotgrid.args
 # A list of additional arguments to cowplot::plot_grid.
