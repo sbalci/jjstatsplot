@@ -131,7 +131,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 group <- self$options$group
 
-                originaltheme <- self$options$originaltheme
+                # originaltheme <- self$options$originaltheme
 
 
                 # dep1 <- jmvcore::composeTerms(listOfComponents = dep)
@@ -180,10 +180,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                             ylab = NULL,
                             k = 2,
                             proportion.test = TRUE,
-                            ggtheme = ggtheme,
-
-                            # ggtheme = ggplot2::theme_bw(),
-                            ggstatsplot.layer = originaltheme,
+                            
                             package = "RColorBrewer",
                             palette = "Dark2",
                             ggplot.component = NULL,
@@ -240,11 +237,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                             # ylab = NULL,
                             # k = 2,
                             # proportion.test = TRUE,
-                            ggtheme = ggtheme,
-
-                            # ggtheme = ggplot2::theme_bw(),
-                            ggstatsplot.layer = originaltheme
-                            # ggstatsplot.layer = originaltheme,
+                            
                             # package = "RColorBrewer",
                             # palette = "Dark2",
                             # ggplot.component = NULL,
@@ -264,6 +257,15 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
 
                 }
+
+                originaltheme <- self$options$originaltheme
+
+            if (!originaltheme) {
+                plot <- plot + ggtheme
+            } else {
+                plot <- plot + ggstatsplot::theme_ggstatsplot()
+                # ggplot2::theme_bw()
+            }
 
                 # Print Plot ----
 
@@ -348,8 +350,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                         # paired = paired,
                         paired = FALSE,
-                        ggtheme = ggtheme,
-
+                        
+                        
 
                         counts = NULL,
                         title.prefix = NULL,
@@ -363,10 +365,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                         caption.args = list(size = 10),
                         sub.text = NULL,
                         sub.args = list(size = 12)
-                        # ,
-                        # ggtheme = ggtheme,
-                        # ggstatsplot.layer = originaltheme
-                    )
+                        
+                        )
 
                 }
 
@@ -410,10 +410,8 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                             caption.args = list(size = 10),
                             sub.text = NULL,
                             sub.args = list(size = 12)
-                            # ,
-                            # ggtheme = ggtheme,
-                            # ggstatsplot.layer = originaltheme
-                        )
+                            
+                            )
                             }
                         )
 
@@ -423,6 +421,17 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                             )
 
                     }
+
+
+                    originaltheme <- self$options$originaltheme
+
+            if (!originaltheme) {
+                plot <- plot + ggtheme
+            } else {
+                plot <- plot + ggstatsplot::theme_ggstatsplot()
+                # ggplot2::theme_bw()
+            }
+            
 
                 # Print Plot ----
 
