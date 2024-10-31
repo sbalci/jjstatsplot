@@ -9,12 +9,15 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             dep = NULL,
             group = NULL,
             grvar = NULL,
-            excl = TRUE,
             typestatistics = "parametric",
-            pairwisecomparisons = TRUE,
-            pairwisedisplay = "significant",
-            padjustmethod = "holm",
-            originaltheme = FALSE, ...) {
+            effsizetype = "biased",
+            centralityplotting = FALSE,
+            centralitytype = "parameteric",
+            mytitle = "",
+            xtitle = "",
+            ytitle = "",
+            originaltheme = FALSE,
+            resultssubtitle = TRUE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -45,10 +48,6 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "nominal"),
                 permitted=list(
                     "factor"))
-            private$..excl <- jmvcore::OptionBool$new(
-                "excl",
-                excl,
-                default=TRUE)
             private$..typestatistics <- jmvcore::OptionList$new(
                 "typestatistics",
                 typestatistics,
@@ -58,66 +57,88 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "robust",
                     "bayes"),
                 default="parametric")
-            private$..pairwisecomparisons <- jmvcore::OptionBool$new(
-                "pairwisecomparisons",
-                pairwisecomparisons,
-                default=TRUE)
-            private$..pairwisedisplay <- jmvcore::OptionList$new(
-                "pairwisedisplay",
-                pairwisedisplay,
+            private$..effsizetype <- jmvcore::OptionList$new(
+                "effsizetype",
+                effsizetype,
                 options=list(
-                    "significant",
-                    "non-significant",
-                    "everything"),
-                default="significant")
-            private$..padjustmethod <- jmvcore::OptionList$new(
-                "padjustmethod",
-                padjustmethod,
+                    "biased",
+                    "unbiased",
+                    "eta",
+                    "omega"),
+                default="biased")
+            private$..centralityplotting <- jmvcore::OptionBool$new(
+                "centralityplotting",
+                centralityplotting,
+                default=FALSE)
+            private$..centralitytype <- jmvcore::OptionList$new(
+                "centralitytype",
+                centralitytype,
                 options=list(
-                    "holm",
-                    "hochberg",
-                    "hommel",
-                    "bonferroni",
-                    "BH",
-                    "BY",
-                    "fdr",
-                    "none"),
-                default="holm")
+                    "parameteric",
+                    "nonparametric",
+                    "robust",
+                    "bayes"),
+                default="parameteric")
+            private$..mytitle <- jmvcore::OptionString$new(
+                "mytitle",
+                mytitle,
+                default="")
+            private$..xtitle <- jmvcore::OptionString$new(
+                "xtitle",
+                xtitle,
+                default="")
+            private$..ytitle <- jmvcore::OptionString$new(
+                "ytitle",
+                ytitle,
+                default="")
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
                 default=FALSE)
+            private$..resultssubtitle <- jmvcore::OptionBool$new(
+                "resultssubtitle",
+                resultssubtitle,
+                default=TRUE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
             self$.addOption(private$..grvar)
-            self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
-            self$.addOption(private$..pairwisecomparisons)
-            self$.addOption(private$..pairwisedisplay)
-            self$.addOption(private$..padjustmethod)
+            self$.addOption(private$..effsizetype)
+            self$.addOption(private$..centralityplotting)
+            self$.addOption(private$..centralitytype)
+            self$.addOption(private$..mytitle)
+            self$.addOption(private$..xtitle)
+            self$.addOption(private$..ytitle)
             self$.addOption(private$..originaltheme)
+            self$.addOption(private$..resultssubtitle)
         }),
     active = list(
         dep = function() private$..dep$value,
         group = function() private$..group$value,
         grvar = function() private$..grvar$value,
-        excl = function() private$..excl$value,
         typestatistics = function() private$..typestatistics$value,
-        pairwisecomparisons = function() private$..pairwisecomparisons$value,
-        pairwisedisplay = function() private$..pairwisedisplay$value,
-        padjustmethod = function() private$..padjustmethod$value,
-        originaltheme = function() private$..originaltheme$value),
+        effsizetype = function() private$..effsizetype$value,
+        centralityplotting = function() private$..centralityplotting$value,
+        centralitytype = function() private$..centralitytype$value,
+        mytitle = function() private$..mytitle$value,
+        xtitle = function() private$..xtitle$value,
+        ytitle = function() private$..ytitle$value,
+        originaltheme = function() private$..originaltheme$value,
+        resultssubtitle = function() private$..resultssubtitle$value),
     private = list(
         ..dep = NA,
         ..group = NA,
         ..grvar = NA,
-        ..excl = NA,
         ..typestatistics = NA,
-        ..pairwisecomparisons = NA,
-        ..pairwisedisplay = NA,
-        ..padjustmethod = NA,
-        ..originaltheme = NA)
+        ..effsizetype = NA,
+        ..centralityplotting = NA,
+        ..centralitytype = NA,
+        ..mytitle = NA,
+        ..xtitle = NA,
+        ..ytitle = NA,
+        ..originaltheme = NA,
+        ..resultssubtitle = NA)
 )
 
 jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -193,19 +214,22 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #' 
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # example will be added
 #'}
 #' @param data The data as a data frame.
 #' @param dep .
 #' @param group .
 #' @param grvar .
-#' @param excl .
 #' @param typestatistics .
-#' @param pairwisecomparisons .
-#' @param pairwisedisplay .
-#' @param padjustmethod .
+#' @param effsizetype .
+#' @param centralityplotting .
+#' @param centralitytype .
+#' @param mytitle .
+#' @param xtitle .
+#' @param ytitle .
 #' @param originaltheme .
+#' @param resultssubtitle .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -219,12 +243,15 @@ jjdotplotstats <- function(
     dep,
     group,
     grvar,
-    excl = TRUE,
     typestatistics = "parametric",
-    pairwisecomparisons = TRUE,
-    pairwisedisplay = "significant",
-    padjustmethod = "holm",
-    originaltheme = FALSE) {
+    effsizetype = "biased",
+    centralityplotting = FALSE,
+    centralitytype = "parameteric",
+    mytitle = "",
+    xtitle = "",
+    ytitle = "",
+    originaltheme = FALSE,
+    resultssubtitle = TRUE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjdotplotstats requires jmvcore to be installed (restart may be required)")
@@ -246,12 +273,15 @@ jjdotplotstats <- function(
         dep = dep,
         group = group,
         grvar = grvar,
-        excl = excl,
         typestatistics = typestatistics,
-        pairwisecomparisons = pairwisecomparisons,
-        pairwisedisplay = pairwisedisplay,
-        padjustmethod = padjustmethod,
-        originaltheme = originaltheme)
+        effsizetype = effsizetype,
+        centralityplotting = centralityplotting,
+        centralitytype = centralitytype,
+        mytitle = mytitle,
+        xtitle = xtitle,
+        ytitle = ytitle,
+        originaltheme = originaltheme,
+        resultssubtitle = resultssubtitle)
 
     analysis <- jjdotplotstatsClass$new(
         options = options,

@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.2.26
+version: 0.0.2.27
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2024-01-19'
+date: '2024-10-31'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
@@ -68,7 +68,7 @@ analyses:
     menuGroup: JJStatsPlot
     menuSubgroup: Categorical vs Categorical
     menuTitle: Bar Charts
-    menuSubtitle: 'Bar Charts, Grouped Bar Charts'
+    menuSubtitle: Bar Charts, Grouped Bar Charts
     description: |
       'Wrapper Function for ggstatsplot::ggbarstats and
       ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
@@ -82,6 +82,13 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggpiestats and
       ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
+  - title: Box-Violin Plots to Compare Within Groups
+    name: jjwithinstats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Box-Violin Plots to Compare Within Groups
+    menuSubtitle: Repeated Continuous Measurements
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

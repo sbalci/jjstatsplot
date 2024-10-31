@@ -9,12 +9,12 @@ jjbarstats(
   dep,
   group,
   grvar,
-  excl = TRUE,
-  typestatistics = "parametric",
-  pairwisecomparisons = TRUE,
-  pairwisedisplay = "significant",
-  padjustmethod = "holm",
-  originaltheme = FALSE
+  direction = "independent",
+  mytitle = "",
+  xtitle = "",
+  ytitle = "",
+  originaltheme = FALSE,
+  resultssubtitle = TRUE
 )
 }
 \arguments{
@@ -26,17 +26,17 @@ jjbarstats(
 
 \item{grvar}{.}
 
-\item{excl}{.}
+\item{direction}{select measurement type (repeated or independent)}
 
-\item{typestatistics}{.}
+\item{mytitle}{.}
 
-\item{pairwisecomparisons}{.}
+\item{xtitle}{.}
 
-\item{pairwisedisplay}{.}
-
-\item{padjustmethod}{.}
+\item{ytitle}{.}
 
 \item{originaltheme}{.}
+
+\item{resultssubtitle}{.}
 }
 \value{
 A results object containing:
@@ -51,7 +51,7 @@ A results object containing:
 ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
 }
 \examples{
-\dontrun{
+\donttest{
 # example will be added
 }
 }

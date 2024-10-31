@@ -4,18 +4,7 @@
 \alias{jjcorrmat}
 \title{Correlation Matrix}
 \usage{
-jjcorrmat(
-  data,
-  dep,
-  grvar,
-  excl = TRUE,
-  typestatistics = "parametric",
-  pairwisecomparisons = TRUE,
-  pairwisedisplay = "significant",
-  padjustmethod = "holm",
-  plottype = "boxviolin",
-  originaltheme = FALSE
-)
+jjcorrmat(data, dep, grvar, typestatistics = "parametric")
 }
 \arguments{
 \item{data}{The data as a data frame.}
@@ -24,19 +13,7 @@ jjcorrmat(
 
 \item{grvar}{.}
 
-\item{excl}{.}
-
 \item{typestatistics}{.}
-
-\item{pairwisecomparisons}{.}
-
-\item{pairwisedisplay}{.}
-
-\item{padjustmethod}{.}
-
-\item{plottype}{.}
-
-\item{originaltheme}{.}
 }
 \value{
 A results object containing:
@@ -50,7 +27,7 @@ A results object containing:
 Correlation Matrix
 }
 \examples{
-\dontrun{
+\donttest{
 # example will be added
 }
 }

@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.2.26
-Date: 2024-01-19
+Version: 0.0.2.27
+Date: 2024-10-31
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -37,4 +37,4 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

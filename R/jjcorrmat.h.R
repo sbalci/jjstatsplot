@@ -8,13 +8,7 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         initialize = function(
             dep = NULL,
             grvar = NULL,
-            excl = TRUE,
-            typestatistics = "parametric",
-            pairwisecomparisons = TRUE,
-            pairwisedisplay = "significant",
-            padjustmethod = "holm",
-            plottype = "boxviolin",
-            originaltheme = FALSE, ...) {
+            typestatistics = "parametric", ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -37,10 +31,6 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "nominal"),
                 permitted=list(
                     "factor"))
-            private$..excl <- jmvcore::OptionBool$new(
-                "excl",
-                excl,
-                default=TRUE)
             private$..typestatistics <- jmvcore::OptionList$new(
                 "typestatistics",
                 typestatistics,
@@ -50,74 +40,19 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "robust",
                     "bayes"),
                 default="parametric")
-            private$..pairwisecomparisons <- jmvcore::OptionBool$new(
-                "pairwisecomparisons",
-                pairwisecomparisons,
-                default=TRUE)
-            private$..pairwisedisplay <- jmvcore::OptionList$new(
-                "pairwisedisplay",
-                pairwisedisplay,
-                options=list(
-                    "significant",
-                    "non-significant",
-                    "everything"),
-                default="significant")
-            private$..padjustmethod <- jmvcore::OptionList$new(
-                "padjustmethod",
-                padjustmethod,
-                options=list(
-                    "holm",
-                    "hochberg",
-                    "hommel",
-                    "bonferroni",
-                    "BH",
-                    "BY",
-                    "fdr",
-                    "none"),
-                default="holm")
-            private$..plottype <- jmvcore::OptionList$new(
-                "plottype",
-                plottype,
-                options=list(
-                    "box",
-                    "violin",
-                    "boxviolin"),
-                default="boxviolin")
-            private$..originaltheme <- jmvcore::OptionBool$new(
-                "originaltheme",
-                originaltheme,
-                default=FALSE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..grvar)
-            self$.addOption(private$..excl)
             self$.addOption(private$..typestatistics)
-            self$.addOption(private$..pairwisecomparisons)
-            self$.addOption(private$..pairwisedisplay)
-            self$.addOption(private$..padjustmethod)
-            self$.addOption(private$..plottype)
-            self$.addOption(private$..originaltheme)
         }),
     active = list(
         dep = function() private$..dep$value,
         grvar = function() private$..grvar$value,
-        excl = function() private$..excl$value,
-        typestatistics = function() private$..typestatistics$value,
-        pairwisecomparisons = function() private$..pairwisecomparisons$value,
-        pairwisedisplay = function() private$..pairwisedisplay$value,
-        padjustmethod = function() private$..padjustmethod$value,
-        plottype = function() private$..plottype$value,
-        originaltheme = function() private$..originaltheme$value),
+        typestatistics = function() private$..typestatistics$value),
     private = list(
         ..dep = NA,
         ..grvar = NA,
-        ..excl = NA,
-        ..typestatistics = NA,
-        ..pairwisecomparisons = NA,
-        ..pairwisedisplay = NA,
-        ..padjustmethod = NA,
-        ..plottype = NA,
-        ..originaltheme = NA)
+        ..typestatistics = NA)
 )
 
 jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -192,19 +127,13 @@ jjcorrmatBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' 
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # example will be added
 #'}
 #' @param data The data as a data frame.
 #' @param dep .
 #' @param grvar .
-#' @param excl .
 #' @param typestatistics .
-#' @param pairwisecomparisons .
-#' @param pairwisedisplay .
-#' @param padjustmethod .
-#' @param plottype .
-#' @param originaltheme .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -217,13 +146,7 @@ jjcorrmat <- function(
     data,
     dep,
     grvar,
-    excl = TRUE,
-    typestatistics = "parametric",
-    pairwisecomparisons = TRUE,
-    pairwisedisplay = "significant",
-    padjustmethod = "holm",
-    plottype = "boxviolin",
-    originaltheme = FALSE) {
+    typestatistics = "parametric") {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjcorrmat requires jmvcore to be installed (restart may be required)")
@@ -241,13 +164,7 @@ jjcorrmat <- function(
     options <- jjcorrmatOptions$new(
         dep = dep,
         grvar = grvar,
-        excl = excl,
-        typestatistics = typestatistics,
-        pairwisecomparisons = pairwisecomparisons,
-        pairwisedisplay = pairwisedisplay,
-        padjustmethod = padjustmethod,
-        plottype = plottype,
-        originaltheme = originaltheme)
+        typestatistics = typestatistics)
 
     analysis <- jjcorrmatClass$new(
         options = options,

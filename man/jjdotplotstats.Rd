@@ -9,12 +9,15 @@ jjdotplotstats(
   dep,
   group,
   grvar,
-  excl = TRUE,
   typestatistics = "parametric",
-  pairwisecomparisons = TRUE,
-  pairwisedisplay = "significant",
-  padjustmethod = "holm",
-  originaltheme = FALSE
+  effsizetype = "biased",
+  centralityplotting = FALSE,
+  centralitytype = "parameteric",
+  mytitle = "",
+  xtitle = "",
+  ytitle = "",
+  originaltheme = FALSE,
+  resultssubtitle = TRUE
 )
 }
 \arguments{
@@ -26,17 +29,23 @@ jjdotplotstats(
 
 \item{grvar}{.}
 
-\item{excl}{.}
-
 \item{typestatistics}{.}
 
-\item{pairwisecomparisons}{.}
+\item{effsizetype}{.}
 
-\item{pairwisedisplay}{.}
+\item{centralityplotting}{.}
 
-\item{padjustmethod}{.}
+\item{centralitytype}{.}
+
+\item{mytitle}{.}
+
+\item{xtitle}{.}
+
+\item{ytitle}{.}
 
 \item{originaltheme}{.}
+
+\item{resultssubtitle}{.}
 }
 \value{
 A results object containing:
@@ -50,7 +59,7 @@ A results object containing:
 Dot Chart
 }
 \examples{
-\dontrun{
+\donttest{
 # example will be added
 }
 }

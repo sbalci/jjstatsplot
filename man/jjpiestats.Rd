@@ -9,12 +9,9 @@ jjpiestats(
   dep,
   group,
   grvar,
-  excl = TRUE,
   typestatistics = "parametric",
-  pairwisecomparisons = TRUE,
-  pairwisedisplay = "significant",
-  padjustmethod = "holm",
-  originaltheme = FALSE
+  originaltheme = FALSE,
+  resultssubtitle = TRUE
 )
 }
 \arguments{
@@ -26,24 +23,17 @@ jjpiestats(
 
 \item{grvar}{.}
 
-\item{excl}{.}
-
 \item{typestatistics}{.}
 
-\item{pairwisecomparisons}{.}
-
-\item{pairwisedisplay}{.}
-
-\item{padjustmethod}{.}
-
 \item{originaltheme}{.}
+
+\item{resultssubtitle}{.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot4} \tab \tab \tab \tab \tab an image \cr
-\code{results$plot3} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot1} \tab \tab \tab \tab \tab an image \cr
 }
@@ -52,7 +42,7 @@ A results object containing:
 Pie Charts
 }
 \examples{
-\dontrun{
+\donttest{
 # example will be added
 }
 }

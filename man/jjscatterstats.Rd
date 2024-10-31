@@ -9,12 +9,12 @@ jjscatterstats(
   dep,
   group,
   grvar,
-  excl = TRUE,
   typestatistics = "parametric",
-  pairwisecomparisons = TRUE,
-  pairwisedisplay = "significant",
-  padjustmethod = "holm",
-  originaltheme = FALSE
+  mytitle = "",
+  xtitle = "",
+  ytitle = "",
+  originaltheme = FALSE,
+  resultssubtitle = TRUE
 )
 }
 \arguments{
@@ -26,17 +26,17 @@ jjscatterstats(
 
 \item{grvar}{.}
 
-\item{excl}{.}
-
 \item{typestatistics}{.}
 
-\item{pairwisecomparisons}{.}
+\item{mytitle}{.}
 
-\item{pairwisedisplay}{.}
+\item{xtitle}{.}
 
-\item{padjustmethod}{.}
+\item{ytitle}{.}
 
 \item{originaltheme}{.}
+
+\item{resultssubtitle}{.}
 }
 \value{
 A results object containing:
@@ -50,7 +50,7 @@ A results object containing:
 Scatter Plot
 }
 \examples{
-\dontrun{
+\donttest{
 # example will be added
 }
 }
