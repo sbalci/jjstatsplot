@@ -1,57 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjbarstats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjbarstatsClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjbetweenstats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjbetweenstatsClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjcorrmat.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjcorrmatClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjdotplotstats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjdotplotstatsClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjhistostats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjhistostatsClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjpiestats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjpiestatsClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjscatterstats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jjscatterstatsClass.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/jjbarstats.html</loc></url>
+<url><loc>/reference/jjbarstatsClass.html</loc></url>
+<url><loc>/reference/jjbetweenstats.html</loc></url>
+<url><loc>/reference/jjbetweenstatsClass.html</loc></url>
+<url><loc>/reference/jjcorrmat.html</loc></url>
+<url><loc>/reference/jjcorrmatClass.html</loc></url>
+<url><loc>/reference/jjdotplotstats.html</loc></url>
+<url><loc>/reference/jjdotplotstatsClass.html</loc></url>
+<url><loc>/reference/jjhistostats.html</loc></url>
+<url><loc>/reference/jjhistostatsClass.html</loc></url>
+<url><loc>/reference/jjpiestats.html</loc></url>
+<url><loc>/reference/jjpiestatsClass.html</loc></url>
+<url><loc>/reference/jjscatterstats.html</loc></url>
+<url><loc>/reference/jjscatterstatsClass.html</loc></url>
+<url><loc>/reference/jjstatsplot-package.html</loc></url>
+<url><loc>/reference/jjwithinstats.html</loc></url>
+<url><loc>/reference/jjwithinstatsClass.html</loc></url>
 </urlset>
+
