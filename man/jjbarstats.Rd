@@ -9,12 +9,14 @@ jjbarstats(
   dep,
   group,
   grvar,
-  direction = "independent",
-  mytitle = "",
-  xtitle = "",
-  ytitle = "",
+  excl = TRUE,
+  typestatistics = "parametric",
+  pairwisecomparisons = TRUE,
+  pairwisedisplay = "significant",
+  padjustmethod = "holm",
   originaltheme = FALSE,
-  resultssubtitle = TRUE
+  title = "",
+  results.subtitle = TRUE
 )
 }
 \arguments{
@@ -26,17 +28,21 @@ jjbarstats(
 
 \item{grvar}{.}
 
-\item{direction}{select measurement type (repeated or independent)}
+\item{excl}{.}
 
-\item{mytitle}{.}
+\item{typestatistics}{.}
 
-\item{xtitle}{.}
+\item{pairwisecomparisons}{.}
 
-\item{ytitle}{.}
+\item{pairwisedisplay}{.}
+
+\item{padjustmethod}{.}
 
 \item{originaltheme}{.}
 
-\item{resultssubtitle}{.}
+\item{title}{.}
+
+\item{results.subtitle}{.}
 }
 \value{
 A results object containing:
