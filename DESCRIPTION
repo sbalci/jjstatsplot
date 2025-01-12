@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.2.42
-Date: 2025-01-02
+Version: 0.0.2.45
+Date: 2025-01-10
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -10,13 +10,8 @@ Authors@R:
            email = "drserdarbalci@gmail.com",
            comment = c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <drserdarbalci@gmail.com>
-Description: A comprehensive set of interactive statistical data visualization tools built as a wrapper for 
-    'ggstatsplot'. The package provides a graphical user interface in 'jamovi' for creating informative 
-    publication-ready plots that combine statistical analysis results with data visualization. Supports 
-    various plot types including bar charts, violin plots, correlation matrices, scatter plots, dot plots, 
-    histograms and pie charts, with automatic statistical test selection and reporting. Offers features for 
-    both between-group and within-group comparisons, pairwise tests, effect size calculations, and Bayesian 
-    analysis options.
+Description: A wrapper for ggstatsplot: jjstatsplot help researchers to 
+    generate plots in jamovi based on ggstatsplot package.
 License: GPL (>= 2)
 URL: https://github.com/sbalci/ClinicoPathJamoviModule/, 
     https://github.com/sbalci/jjstatsplot, 
