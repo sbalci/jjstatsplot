@@ -1,16 +1,16 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.2.45
+version: 0.0.2.51
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2025-01-10'
+date: '2025-01-17'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
-  jamovi based on ggstatsplot package.
+  jamovi based on ggstatsplot package. Also includes additional plots.
 analyses:
   - title: Histogram
     name: jjhistostats
@@ -89,6 +89,46 @@ analyses:
     menuSubgroup: Categorical vs Continuous
     menuTitle: Box-Violin Plots to Compare Within Groups
     menuSubtitle: Repeated Continuous Measurements
+  - title: Ridgeline Plot
+    name: jjridgestats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuTitle: Ridgeline Plot
+    menuSubgroup: Categorical vs Continuous
+    menuSubtitle: Distribution Comparison
+  - title: Arc Diagram
+    name: jjarcdiagram
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuTitle: Arc Diagram
+    menuSubgroup: Network
+    description: >
+      'Creates arc diagrams for network visualization using the arcdiagram
+      package.'
+  - title: Waffle Charts
+    name: jjwafflestats
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuTitle: Waffle Charts
+    menuSubgroup: Distribution
+    description: |
+      'Creates waffle charts to visualize distributions and proportions'
+  - title: StreamGraphs
+    name: jjstreamgraph
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuTitle: StreamGraphs
+    menuSubgroup: Time Series Visualization
+    description: |
+      'Create interactive StreamGraphs using R streamgraph package.'
+  - title: Treemap
+    name: jjtreemap
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuTitle: Treemap
+    menuSubgroup: Categorical
+    description: |
+      'Creates treemap visualizations for categorical data'
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

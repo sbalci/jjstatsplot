@@ -1,6 +1,6 @@
 # jjstatsplot
 
-Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) functions as a module in [jamovi](https://www.jamovi.org)
+Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) functions as a module in [jamovi](https://www.jamovi.org), also includes additional plots
 
 See https://indrajeetpatil.github.io/ggstatsplot/
 

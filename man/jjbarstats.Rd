@@ -14,9 +14,7 @@ jjbarstats(
   pairwisecomparisons = TRUE,
   pairwisedisplay = "significant",
   padjustmethod = "holm",
-  originaltheme = FALSE,
-  title = "",
-  results.subtitle = TRUE
+  originaltheme = FALSE
 )
 }
 \arguments{
@@ -39,10 +37,6 @@ jjbarstats(
 \item{padjustmethod}{.}
 
 \item{originaltheme}{.}
-
-\item{title}{.}
-
-\item{results.subtitle}{.}
 }
 \value{
 A results object containing:

@@ -21,6 +21,7 @@ Useful links:
   \item \url{https://github.com/sbalci/ClinicoPathJamoviModule/}
   \item \url{https://github.com/sbalci/jjstatsplot}
   \item \url{https://sbalci.github.io/ClinicoPathJamoviModule/}
+  \item \url{https://www.serdarbalci.com/jjstatsplot/}
   \item Report bugs at \url{https://github.com/sbalci/ClinicoPathJamoviModule/issues/}
 }
 
