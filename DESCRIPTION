@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.2.51
-Date: 2025-01-17
+Version: 0.0.2.52
+Date: 2025-01-19
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -43,10 +43,14 @@ Imports:
     xts,
     magrittr,
     ggfittext,
-    treemap
+    treemap,
+    ggbeeswarm,
+    ggpubr,
+    ggrastr
 Remotes:
     gastonstat/arcdiagram,
-    hrbrmstr/streamgraph
+    hrbrmstr/streamgraph,
+    jbengler/tidyplots
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
