@@ -38,15 +38,16 @@ Imports:
     dplyr,
     rlang,
     magrittr,
-    streamgraph,
     RColorBrewer,
     xts,
-    magrittr,
     ggfittext,
     treemap,
     ggbeeswarm,
     ggpubr,
-    ggrastr
+    ggrastr,
+    streamgraph,
+    arcdiagram,
+    tidyplots
 Remotes:
     gastonstat/arcdiagram,
     hrbrmstr/streamgraph,
