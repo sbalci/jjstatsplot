@@ -1,7 +1,7 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.2.71
+version: 0.0.2.72
 jms: '1.0'
 authors:
   - Serdar Balci
