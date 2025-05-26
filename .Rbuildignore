@@ -104,7 +104,6 @@ vignettes/*.pdf
 ^tododata/
 /tododata/
 tododata
-^vignettes/
 ^docs/
 ^temp/
 ^build/
