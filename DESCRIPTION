@@ -13,7 +13,7 @@ Maintainer: Serdar Balci <drserdarbalci@gmail.com>
 Description: A wrapper for ggstatsplot: jjstatsplot help researchers to 
     generate plots in jamovi based on ggstatsplot package. Also includes additional plots.
 License: GPL (>= 2)
-URL: https://github.com/sbalci/ClinicoPathJamoviModule/, https://github.com/sbalci/jjstatsplot, https://sbalci.github.io/ClinicoPathJamoviModule/, https://www.serdarbalci.com/jjstatsplot/
+URL: https://github.com/sbalci/jjstatsplot
 BugReports: 
     https://github.com/sbalci/ClinicoPathJamoviModule/issues/
 Depends:
@@ -38,20 +38,8 @@ Imports:
     dplyr,
     rlang,
     magrittr,
-    RColorBrewer,
-    xts,
-    ggfittext,
-    treemap,
-    ggbeeswarm,
-    ggpubr,
-    ggrastr,
-    streamgraph,
-    arcdiagram,
-    tidyplots
-Remotes:
-    gastonstat/arcdiagram,
-    hrbrmstr/streamgraph,
-    jbengler/tidyplots
+    glue,
+    scales
 Encoding: UTF-8
 LazyData: true
 Suggests:
