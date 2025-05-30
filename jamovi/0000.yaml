@@ -22,6 +22,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::gghistostats and
       ggstatsplot::grouped_gghistostats to generate Histogram.'
+    ribbon: analyses
   - title: Scatter Plot
     name: jjscatterstats
     ns: jjstatsplot
@@ -32,6 +33,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggscatterstats and
       ggstatsplot::grouped_ggscatterstats to generate Scatter Plot.'
+    ribbon: analyses
   - title: Correlation Matrix
     name: jjcorrmat
     ns: jjstatsplot
@@ -42,6 +44,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggcorrmat and
       ggstatsplot::grouped_ggcorrmat to generate Correlation Matrix.'
+    ribbon: analyses
   - title: Box-Violin Plots to Compare Between Groups
     name: jjbetweenstats
     ns: jjstatsplot
@@ -52,6 +55,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggbetweenstats and
       ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
+    ribbon: analyses
   - title: Dot Chart
     name: jjdotplotstats
     ns: jjstatsplot
@@ -62,6 +66,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggdotplotstats and
       ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
+    ribbon: analyses
   - title: Bar Charts
     name: jjbarstats
     ns: jjstatsplot
@@ -72,6 +77,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggbarstats and
       ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
+    ribbon: analyses
   - title: Pie Charts
     name: jjpiestats
     ns: jjstatsplot
@@ -82,6 +88,7 @@ analyses:
     description: |
       'Wrapper Function for ggstatsplot::ggpiestats and
       ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
+    ribbon: analyses
   - title: Box-Violin Plots to Compare Within Groups
     name: jjwithinstats
     ns: jjstatsplot
@@ -89,6 +96,16 @@ analyses:
     menuSubgroup: Categorical vs Continuous
     menuTitle: Box-Violin Plots to Compare Within Groups
     menuSubtitle: Repeated Continuous Measurements
+    ribbon: analyses
+  - title: Waffle Charts
+    name: waffle
+    ns: jjstatsplot
+    ribbon: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Distribution
+    menuTitle: Waffle Charts
+    description: |
+      'Creates waffle charts to visualize distributions and proportions'
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
