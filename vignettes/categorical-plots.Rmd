@@ -24,7 +24,7 @@ variables. The example below compares the number of cylinders (`cyl`)
 across transmission types (`am`).
 
 ```{r}
-jjbarstats(data = mtcars, dep = cyl, group = am)
+jjbarstats(data = mtcars, group = cyl, grvar = am)
 ```
 
 ## Pie charts with `jjpiestats()`
