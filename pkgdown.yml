@@ -3,10 +3,9 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   categorical-plots: categorical-plots.html
-  continuous-comparisons: continuous-comparisons.html
   correlations-scatterplots: correlations-scatterplots.html
   jjstatsplot-introduction: jjstatsplot-introduction.html
-last_built: 2025-05-31T09:30Z
+last_built: 2025-05-31T14:28Z
 urls:
   reference: https://www.serdarbalci.com/jjstatsplot/reference
   article: https://www.serdarbalci.com/jjstatsplot/articles
