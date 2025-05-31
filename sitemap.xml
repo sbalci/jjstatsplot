@@ -1,6 +1,11 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/404.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/LICENSE.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/categorical-plots.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/continuous-comparisons.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/correlations-scatterplots.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/index.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/jjstatsplot-introduction.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/authors.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/index.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/index.html</loc></url>
@@ -20,5 +25,7 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjscatterstatsClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjstatsplot-package.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjwithinstats.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/waffle.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/waffleClass.html</loc></url>
 </urlset>
 
