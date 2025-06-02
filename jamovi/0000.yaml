@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.3.20
+version: 0.0.3.21
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2024-05-30'
+date: '2024-06-02'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
