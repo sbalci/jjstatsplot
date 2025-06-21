@@ -53,7 +53,8 @@ Explore the distribution of continuous variables with automatic normality testin
 # Single variable distribution
 hist_basic <- jjhistostats(
   data = mtcars_clean,
-  dep = "mpg"
+  dep = "mpg",
+  grvar = NULL  # No grouping variable
 )
 
 hist_basic$plot
@@ -65,7 +66,8 @@ hist_basic$plot
 # Multiple variables
 hist_multi <- jjhistostats(
   data = iris,
-  dep = c("Sepal.Length", "Sepal.Width", "Petal.Length")
+  dep = c("Sepal.Length", "Sepal.Width", "Petal.Length"),
+  grvar = NULL  # No grouping variable
 )
 
 hist_multi$plot
@@ -114,7 +116,8 @@ Examine relationships between two continuous variables with correlation analysis
 scatter_basic <- jjscatterstats(
   data = mtcars_clean,
   dep = "mpg",
-  group = "hp"
+  group = "hp",
+  grvar = NULL  # No grouping variable
 )
 
 scatter_basic$plot
@@ -216,7 +219,8 @@ Visualize correlations among multiple continuous variables simultaneously.
 # Correlation matrix
 corrmat_basic <- jjcorrmat(
   data = mtcars,
-  dep = c("mpg", "hp", "wt", "qsec", "disp")
+  dep = c("mpg", "hp", "wt", "qsec", "disp"),
+  grvar = NULL  # No grouping variable
 )
 
 corrmat_basic$plot
@@ -265,7 +269,8 @@ Display group means with confidence intervals and statistical comparisons.
 dot_basic <- jjdotplotstats(
   data = mtcars_clean,
   dep = "mpg",
-  group = "cyl"
+  group = "cyl",
+  grvar = NULL  # No grouping variable
 )
 
 dot_basic$plot
@@ -277,8 +282,9 @@ dot_basic$plot
 # Multiple dependent variables
 dot_multi <- jjdotplotstats(
   data = iris_clean,
-  dep = c("Sepal.Length", "Petal.Length"),
-  group = "Species"
+  dep = c("Sepal.Length"),
+  group = "Species",
+  grvar = NULL  # No grouping variable
 )
 
 dot_multi$plot
@@ -314,7 +320,9 @@ Analyze categorical variables and their associations with frequency tests.
 # Frequency bar chart
 bar_basic <- jjbarstats(
   data = mtcars_clean,
-  dep = "cyl"
+  dep = "cyl",
+  group = NULL,  # No grouping variable
+  grvar = NULL  # No grouping variable
 )
 
 bar_basic$plot
@@ -327,7 +335,8 @@ bar_basic$plot
 bar_twoway <- jjbarstats(
   data = mtcars_clean,
   dep = "cyl",
-  group = "am"
+  group = "am",
+  grvar = NULL  # No additional grouping variable
 )
 
 bar_twoway$plot
@@ -364,10 +373,12 @@ Display proportional data with statistical testing for categorical variables.
 # Basic pie chart
 pie_basic <- jjpiestats(
   data = mtcars_clean,
-  dep = "cyl"
+  dep = "cyl",
+  group = NULL,  # No grouping variable
+  grvar = NULL  # No grouping variable
 )
 
-pie_basic$plot
+pie_basic$plot1
 ```
 
 ### Grouped Analysis
@@ -377,6 +388,7 @@ pie_basic$plot
 pie_grouped <- jjpiestats(
   data = mtcars_clean,
   dep = "cyl",
+  group = NULL,  # No grouping variable
   grvar = "am"
 )
 
@@ -423,8 +435,11 @@ paired_wide <- paired_data %>%
 
 within_basic <- jjwithinstats(
   data = paired_wide,
-  dep = c("Pre", "Post")
-)
+  dep1 = "Pre",
+  dep2 = "Post",
+  dep3 = NULL,  # No third dependent variable
+  dep4 = NULL,  # No fourth dependent variable
+  )
 
 within_basic$plot
 ```
