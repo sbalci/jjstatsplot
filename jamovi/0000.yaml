@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.3.30
+version: 0.0.3.33
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2024-06-22'
+date: '2024-06-30'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
@@ -101,6 +101,14 @@ analyses:
     name: waffle
     ns: jjstatsplot
     ribbon: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Distribution
+    menuTitle: Waffle Charts
+    description: |
+      'Creates waffle charts to visualize distributions and proportions'
+  - title: Waffle Charts
+    name: jwaffle
+    ns: jjstatsplot
     menuGroup: JJStatsPlot
     menuSubgroup: Distribution
     menuTitle: Waffle Charts
