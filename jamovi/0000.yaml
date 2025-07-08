@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.3.33
+version: 0.0.3.46
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2024-06-30'
+date: '2025-07-08'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
@@ -23,6 +23,7 @@ analyses:
       'Wrapper Function for ggstatsplot::gghistostats and
       ggstatsplot::grouped_gghistostats to generate Histogram.'
     ribbon: analyses
+    category: analyses
   - title: Scatter Plot
     name: jjscatterstats
     ns: jjstatsplot
@@ -34,6 +35,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggscatterstats and
       ggstatsplot::grouped_ggscatterstats to generate Scatter Plot.'
     ribbon: analyses
+    category: analyses
   - title: Correlation Matrix
     name: jjcorrmat
     ns: jjstatsplot
@@ -45,6 +47,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggcorrmat and
       ggstatsplot::grouped_ggcorrmat to generate Correlation Matrix.'
     ribbon: analyses
+    category: analyses
   - title: Box-Violin Plots to Compare Between Groups
     name: jjbetweenstats
     ns: jjstatsplot
@@ -56,6 +59,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggbetweenstats and
       ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
     ribbon: analyses
+    category: analyses
   - title: Dot Chart
     name: jjdotplotstats
     ns: jjstatsplot
@@ -67,6 +71,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggdotplotstats and
       ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
     ribbon: analyses
+    category: analyses
   - title: Bar Charts
     name: jjbarstats
     ns: jjstatsplot
@@ -78,6 +83,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggbarstats and
       ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
     ribbon: analyses
+    category: analyses
   - title: Pie Charts
     name: jjpiestats
     ns: jjstatsplot
@@ -89,6 +95,7 @@ analyses:
       'Wrapper Function for ggstatsplot::ggpiestats and
       ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
     ribbon: analyses
+    category: analyses
   - title: Box-Violin Plots to Compare Within Groups
     name: jjwithinstats
     ns: jjstatsplot
@@ -97,15 +104,7 @@ analyses:
     menuTitle: Box-Violin Plots to Compare Within Groups
     menuSubtitle: Repeated Continuous Measurements
     ribbon: analyses
-  - title: Waffle Charts
-    name: waffle
-    ns: jjstatsplot
-    ribbon: analyses
-    menuGroup: JJStatsPlot
-    menuSubgroup: Distribution
-    menuTitle: Waffle Charts
-    description: |
-      'Creates waffle charts to visualize distributions and proportions'
+    category: analyses
   - title: Waffle Charts
     name: jwaffle
     ns: jjstatsplot
@@ -114,6 +113,7 @@ analyses:
     menuTitle: Waffle Charts
     description: |
       'Creates waffle charts to visualize distributions and proportions'
+    category: analyses
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

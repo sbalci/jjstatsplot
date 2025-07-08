@@ -135,3 +135,7 @@ R/utils-pipe.R
 ^clang-.*
 ^gfortran.*
 DESCRIPTIONold.txt
+CITATION.cff
+CLAUDE.md
+README_badges.md
+.claude

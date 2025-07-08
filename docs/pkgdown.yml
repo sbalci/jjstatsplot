@@ -1,9 +1,0 @@
-pandoc: '3.4'
-pkgdown: 2.1.3
-pkgdown_sha: ~
-articles:
-  jjstatsplot-introduction: jjstatsplot-introduction.html
-last_built: 2025-06-30T19:28Z
-urls:
-  reference: https://www.serdarbalci.com/jjstatsplot/reference
-  article: https://www.serdarbalci.com/jjstatsplot/articles
