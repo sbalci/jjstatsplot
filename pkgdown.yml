@@ -1,11 +1,8 @@
 pandoc: 3.1.11
 pkgdown: 2.1.3
 pkgdown_sha: ~
-articles:
-  categorical-plots: categorical-plots.html
-  correlations-scatterplots: correlations-scatterplots.html
-  jjstatsplot-introduction: jjstatsplot-introduction.html
-last_built: 2025-06-02T08:35Z
+articles: {}
+last_built: 2025-07-10T08:32Z
 urls:
   reference: https://www.serdarbalci.com/jjstatsplot/reference
   article: https://www.serdarbalci.com/jjstatsplot/articles
