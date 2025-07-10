@@ -114,6 +114,7 @@ analyses:
     description: |
       'Creates waffle charts to visualize distributions and proportions'
     category: analyses
+    ribbon: analyses
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
