@@ -4,7 +4,17 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/LICENSE.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/authors.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/index.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/bootstrapIDI.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_auc.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_nlr.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_npv.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_plr.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_ppv.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_sensitivity.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_specificity.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/clinicopath_startup_message.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/index.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/is_in_range.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjbarstats.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjbarstatsClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjbetweenstats.html</loc></url>
@@ -24,5 +34,16 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjwithinstatsClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jwaffle.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jwaffleClass.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/load_required_package.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/na-coalescing.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/not-in-alt.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/not-in.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/null-coalescing.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/pipe.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/print.sensSpecTable.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/prop_to_percent.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/raw_to_prob.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/safe_divide.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/validateROCInputs.html</loc></url>
 </urlset>
 
