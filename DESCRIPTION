@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.3.55
-Date: 2025-07-13
+Version: 0.0.3.59
+Date: 2025-07-15
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
