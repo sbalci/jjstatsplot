@@ -17,21 +17,35 @@ jjdotplotstats(
   xtitle = "",
   ytitle = "",
   originaltheme = FALSE,
-  resultssubtitle = TRUE
+  resultssubtitle = TRUE,
+  testvalue = 0,
+  bfmessage = TRUE,
+  conflevel = 0.95,
+  k = 2,
+  testvalueline = FALSE,
+  centralityparameter = "mean",
+  centralityk = 2
 )
 }
 \arguments{
 \item{data}{The data as a data frame.}
 
-\item{dep}{.}
+\item{dep}{A continuous numeric variable for which the distribution will be
+displayed across different groups using dot plots.}
 
-\item{group}{.}
+\item{group}{A categorical variable that defines the groups for comparison.
+Each level will be displayed as a separate group in the dot plot.}
 
-\item{grvar}{.}
+\item{grvar}{Optional grouping variable to create separate dot plots for
+each level of this variable (grouped analysis).}
 
-\item{typestatistics}{.}
+\item{typestatistics}{Type of statistical test to perform. 'parametric' for
+t-tests, 'nonparametric' for Mann-Whitney U test, 'robust' for robust
+tests, 'bayes' for Bayesian analysis.}
 
-\item{effsizetype}{.}
+\item{effsizetype}{Type of effect size calculation for parametric tests.
+'biased' for Cohen's d, 'unbiased' for Hedge's g, 'eta' for eta-squared,
+'omega' for omega-squared.}
 
 \item{centralityplotting}{.}
 
@@ -46,6 +60,24 @@ jjdotplotstats(
 \item{originaltheme}{.}
 
 \item{resultssubtitle}{.}
+
+\item{testvalue}{A number specifying the value of the null hypothesis for
+one-sample tests.}
+
+\item{bfmessage}{Whether to display Bayes Factor in the subtitle when using
+Bayesian analysis.}
+
+\item{conflevel}{Confidence level for confidence intervals.}
+
+\item{k}{Number of decimal places for displaying statistics in the
+subtitle.}
+
+\item{testvalueline}{Whether to display a vertical line at the test value.}
+
+\item{centralityparameter}{Which measure of central tendency to display as
+a vertical line.}
+
+\item{centralityk}{Number of decimal places for centrality parameter label.}
 }
 \value{
 A results object containing:
@@ -60,6 +92,25 @@ Dot Chart
 }
 \examples{
 \donttest{
-# example will be added
+# Load test data
+data(jjdotplotstats_test_data)
+
+# Basic dot plot
+jjdotplotstats(
+  data = jjdotplotstats_test_data,
+  dep = "crp_level",
+  group = "disease_severity",
+  typestatistics = "parametric"
+)
+
+# Grouped dot plot by treatment center
+jjdotplotstats(
+  data = jjdotplotstats_test_data,
+  dep = "esr_level",
+  group = "disease_severity",
+  grvar = "treatment_center",
+  typestatistics = "nonparametric",
+  centralityplotting = TRUE
+)
 }
 }

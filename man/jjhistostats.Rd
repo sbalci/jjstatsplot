@@ -13,27 +13,90 @@ jjhistostats(
   changebinwidth = FALSE,
   binwidth = 1.1,
   resultssubtitle = TRUE,
-  normalcurve = FALSE
+  test.value = 0,
+  conf.level = 0.95,
+  bf.message = TRUE,
+  digits = 2,
+  xlab = "",
+  title = "",
+  subtitle = "",
+  caption = "",
+  centralitytype = "default",
+  binfill = "skyblue",
+  bincolor = "black",
+  binalpha = 0.7,
+  centralitylinecolor = "blue",
+  centralitylinewidth = 1,
+  centralitylinetype = "dashed"
 )
 }
 \arguments{
 \item{data}{The data as a data frame.}
 
-\item{dep}{.}
+\item{dep}{One or more continuous numeric variables for which histograms
+will be created. Multiple variables will be displayed in separate panels.}
 
-\item{grvar}{.}
+\item{grvar}{Optional grouping variable to create separate histograms for
+each level of this variable (grouped analysis).}
 
-\item{typestatistics}{.}
+\item{typestatistics}{Type of statistical test for normality assessment.
+'parametric' uses Shapiro-Wilk test, 'nonparametric' uses Anderson-Darling
+test, 'robust' uses robust normality tests, 'bayes' provides Bayesian
+analysis.}
 
-\item{centralityline}{.}
+\item{centralityline}{Whether to display a vertical line indicating the
+measure of central tendency (mean for parametric, median for
+nonparametric).}
 
-\item{changebinwidth}{.}
+\item{changebinwidth}{Whether to manually specify the bin width. If FALSE,
+automatic bin width calculation will be used.}
 
-\item{binwidth}{.}
+\item{binwidth}{Manual bin width for histogram. Only used when
+changebinwidth is TRUE. Smaller values create more bins, larger values
+create fewer bins.}
 
-\item{resultssubtitle}{.}
+\item{resultssubtitle}{Whether to display statistical test results as
+subtitle in the plot, including normality test results and descriptive
+statistics.}
 
-\item{normalcurve}{.}
+\item{test.value}{Value to compare the sample against in one-sample test.
+Default is 0.}
+
+\item{conf.level}{Confidence level for confidence intervals (between 0 and
+1).}
+
+\item{bf.message}{Whether to display Bayes Factor in the subtitle when
+using Bayesian analysis.}
+
+\item{digits}{Number of decimal places for displaying statistics in the
+subtitle.}
+
+\item{xlab}{Custom label for the x-axis. If empty, variable name will be
+used.}
+
+\item{title}{Title for the plot.}
+
+\item{subtitle}{Subtitle for the plot (overrides statistical results if
+provided).}
+
+\item{caption}{Caption text to display at the bottom of the plot.}
+
+\item{centralitytype}{Type of central tendency measure to display.
+'Default' uses the appropriate measure based on the statistical test type
+selected.}
+
+\item{binfill}{Fill color for histogram bins.}
+
+\item{bincolor}{Border color for histogram bins.}
+
+\item{binalpha}{Transparency level for histogram bins (0 = fully
+transparent, 1 = opaque).}
+
+\item{centralitylinecolor}{Color of the vertical centrality line.}
+
+\item{centralitylinewidth}{Width of the vertical centrality line.}
+
+\item{centralitylinetype}{Line type for the vertical centrality line.}
 }
 \value{
 A results object containing:
@@ -49,6 +112,32 @@ ggstatsplot::grouped_gghistostats to generate Histogram.'
 }
 \examples{
 \donttest{
-# example will be added
+# Load test data
+data(jjhistostats_test_data)
+
+# Basic histogram
+jjhistostats(
+  data = jjhistostats_test_data,
+  dep = "age_years",
+  typestatistics = "parametric"
+)
+
+# Multiple histograms
+jjhistostats(
+  data = jjhistostats_test_data,
+  dep = c("age_years", "tumor_size_mm", "bmi"),
+  centralityline = TRUE,
+  resultssubtitle = TRUE
+)
+
+# Grouped histogram by disease stage
+jjhistostats(
+  data = jjhistostats_test_data,
+  dep = "psa_level",
+  grvar = "disease_stage",
+  typestatistics = "nonparametric",
+  changebinwidth = TRUE,
+  binwidth = 2.0
+)
 }
 }
