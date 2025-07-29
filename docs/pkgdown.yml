@@ -1,0 +1,58 @@
+pandoc: 3.7.0.2
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  01-introduction: 01-introduction.html
+  01-jamovi-user-guide: 01-jamovi-user-guide.html
+  02-categorical-plots: 02-categorical-plots.html
+  03-continuous-comparisons: 03-continuous-comparisons.html
+  04-continuous-comparisons-alt: 04-continuous-comparisons-alt.html
+  05-correlations-scatterplots: 05-correlations-scatterplots.html
+  06-BBC-style-data-visualization: 06-BBC-style-data-visualization.html
+  06-use-in-r: 06-use-in-r.html
+  07-advancedbarplot: 07-advancedbarplot.html
+  08-advancedraincloud: 08-advancedraincloud.html
+  09-advancedtree: 09-advancedtree.html
+  09-analysis-gallery: 09-analysis-gallery.html
+  09-basegraphics: 09-basegraphics.html
+  12-economistplots: 12-economistplots.html
+  13-quick-reference: 13-quick-reference.html
+  14-clinical-classification-comprehensive: 14-clinical-classification-comprehensive.html
+  14-r-programming-guide: 14-r-programming-guide.html
+  15-grafify-comprehensive: 15-grafify-comprehensive.html
+  15-troubleshooting-faq: 15-troubleshooting-faq.html
+  16-jcomplexupset-comprehensive: 16-jcomplexupset-comprehensive.html
+  17-jextractggstats-comprehensive: 17-jextractggstats-comprehensive.html
+  18-jforester-comprehensive: 18-jforester-comprehensive.html
+  19-jforestmodel-comprehensive: 19-jforestmodel-comprehensive.html
+  20-jggheatmap-comprehensive: 20-jggheatmap-comprehensive.html
+  21-jggridges-comprehensive: 21-jggridges-comprehensive.html
+  22-jggsankeyfier-comprehensive: 22-jggsankeyfier-comprehensive.html
+  23-jggstats-comprehensive: 23-jggstats-comprehensive.html
+  23-jjbarstats-comprehensive: 23-jjbarstats-comprehensive.html
+  24-jjarcdiagram-comprehensive: 24-jjarcdiagram-comprehensive.html
+  24-jjbetweenstats-comprehensive: 24-jjbetweenstats-comprehensive.html
+  25-jjcorrmat-comprehensive: 25-jjcorrmat-comprehensive.html
+  26-jjdotplotstats-comprehensive: 26-jjdotplotstats-comprehensive.html
+  27-jjhistostats-comprehensive: 27-jjhistostats-comprehensive.html
+  28-jjpiestats-comprehensive: 28-jjpiestats-comprehensive.html
+  29-jjridgestats-comprehensive: 29-jjridgestats-comprehensive.html
+  30-jjriverplot-comprehensive: 30-jjriverplot-comprehensive.html
+  30-linechart-comprehensive: 30-linechart-comprehensive.html
+  31-jjscatterstats-comprehensive: 31-jjscatterstats-comprehensive.html
+  31-jpps-comprehensive: 31-jpps-comprehensive.html
+  31-jscattermore-comprehensive: 31-jscattermore-comprehensive.html
+  31-lollipop-comprehensive: 31-lollipop-comprehensive.html
+  32-jjstreamgraph-comprehensive: 32-jjstreamgraph-comprehensive.html
+  32-jsjplot-comprehensive: 32-jsjplot-comprehensive.html
+  33-jjtreemap-comprehensive: 33-jjtreemap-comprehensive.html
+  33-jsummarytools-comprehensive: 33-jsummarytools-comprehensive.html
+  34-jjwithinstats-comprehensive: 34-jjwithinstats-comprehensive.html
+  34-jviolin-comprehensive: 34-jviolin-comprehensive.html
+  35-jvisr-comprehensive: 35-jvisr-comprehensive.html
+  36-jwaffle-comprehensive: 36-jwaffle-comprehensive.html
+  use-jjstatsplot-in-R: use-jjstatsplot-in-R.html
+last_built: 2025-07-29T10:14Z
+urls:
+  reference: https://www.serdarbalci.com/jjstatsplot/reference
+  article: https://www.serdarbalci.com/jjstatsplot/articles

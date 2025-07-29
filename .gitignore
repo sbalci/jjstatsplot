@@ -30,4 +30,4 @@ vignettes/*.pdf
 build
 *.jmo
 .DS_Store
-docs
+# docs
