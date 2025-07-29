@@ -6,6 +6,8 @@ author: "ClinicoPath"
 output: html_document
 ---
 
+
+
 ```{r setup, include=FALSE}
 # Set options for better output
 options(digits = 3)
@@ -41,7 +43,6 @@ The `jscattermore` function provides high-performance scatter plot visualization
 library(jjstatsplot)
 library(dplyr)
 library(ggplot2)
-
 
 
 # Check if scattermore is available

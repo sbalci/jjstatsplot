@@ -22,7 +22,6 @@ knitr::opts_chunk$set(
 ```
 
 
-
 # Introduction
 
 The `jviolin` function provides professional violin plots for visualizing the distribution of continuous data across groups. Violin plots combine the best features of box plots and density plots, showing both summary statistics and the shape of the data distribution.
@@ -51,6 +50,7 @@ Violin plots are mirror-symmetric density plots that display:
 library(jjstatsplot)
 library(dplyr)
 library(ggplot2)
+
 
 
 # Check if packages are available

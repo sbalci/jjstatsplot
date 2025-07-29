@@ -8,6 +8,8 @@ output: html_document
 
 
 
+
+
 ```{r setup, include=FALSE}
 # Set options for better output
 options(digits = 3)
@@ -52,6 +54,7 @@ visR is an R package that provides a grammar of graphics implementation focused 
 library(jjstatsplot)
 library(dplyr)
 library(survival)
+
 
 
 # Check if packages are available

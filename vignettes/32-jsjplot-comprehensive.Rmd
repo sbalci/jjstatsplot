@@ -7,7 +7,6 @@ output: html_document
 ---
 
 
-
 ```{r setup, include=FALSE}
 # Set options for better output
 options(digits = 3)

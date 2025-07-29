@@ -22,8 +22,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-
 # Introduction
 
 The `jsummarytools` function provides comprehensive descriptive statistics using the powerful `summarytools` package. This function is designed specifically for clinical researchers, epidemiologists, and data analysts who need professional-quality descriptive statistics with publication-ready output.

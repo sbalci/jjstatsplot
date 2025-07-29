@@ -8,7 +8,6 @@ output: html_document
 
 
 
-
 ```{r setup, include=FALSE}
 # Set options for better output
 options(digits = 3)
@@ -52,6 +51,7 @@ Waffle charts are a powerful alternative to traditional pie charts that offer se
 library(jjstatsplot)
 library(dplyr)
 library(ggplot2)
+
 
 # Check if required packages are available
 if (!requireNamespace("waffle", quietly = TRUE)) {
