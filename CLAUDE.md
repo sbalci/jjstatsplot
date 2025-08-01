@@ -53,6 +53,17 @@ devtools::load_all()
 ```r
 # Run R CMD check (GitHub Actions uses this)
 rcmdcheck::rcmdcheck()
+
+# No formal unit test framework - relies on R CMD check
+```
+
+### Building and Installation
+```r
+# Build package tarball
+devtools::build()
+
+# Build jamovi module (.jmo file)
+jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 ```
 
 ### jamovi Module Development
@@ -85,7 +96,7 @@ rcmdcheck::rcmdcheck()
 6. **jjbarstats** - Bar charts for categorical data
 7. **jjpiestats** - Pie charts
 8. **jjwithinstats** - Within-groups comparisons (repeated measures)
-9. **waffle** - Waffle charts for distributions
+9. **jjwaffle** - Waffle charts for distributions
 
 ## Key Patterns
 
@@ -100,24 +111,73 @@ num_levels <- nlevels(as.factor(mydata[[grvar]]))
 self$results$plot2$setSize(num_levels * 600, deplen * 450)
 ```
 
+### Data Preparation Pattern
+```r
+# Standard data preparation with caching
+.prepareData = function(force_refresh = FALSE) {
+    if (!is.null(private$.processedData) && !force_refresh) {
+        return(private$.processedData)
+    }
+    
+    mydata <- self$data
+    # Convert to numeric
+    vars <- self$options$dep
+    for (var in vars) {
+        mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
+    }
+    # Remove NA values
+    mydata <- jmvcore::naOmit(mydata)
+    
+    private$.processedData <- mydata
+    return(mydata)
+}
+```
+
 ### Error Handling
 - Always check for required variables before running analysis
 - Use `glue::glue()` for user-friendly error messages
 - Return early with helpful guidance when data is missing
+- Wrap ggstatsplot calls in tryCatch blocks
 
 ### Theme Support
 - Supports both jamovi-style themes and original ggstatsplot themes
 - Theme selection handled through jamovi UI options
+- Theme applied via `self$options$theme` parameter
 
 ## File Organization
 
 - **R/** - All R source code
+  - `jj*.b.R` - Backend implementations (9 analyses)
+  - `jj*.h.R` - Auto-generated helpers
+  - `utils.R` - Utility functions
 - **jamovi/** - jamovi analysis definitions and UI
+  - `0000.yaml` - Main module configuration
+  - `jj*.a.yaml` - Analysis definitions
+  - `jj*.u.yaml` - UI definitions
+  - `jj*.r.yaml` - Results definitions
 - **man/** - Generated documentation (roxygen2)
 - **data/** - Example datasets (histopathology.rda)
-- **vignettes/** - Package tutorials
+- **vignettes/** - Package tutorials (40+ files)
 - **inst/i18n/** - Internationalization support
+- **build/** - Build artifacts and jamovi module files
 
 ## Testing Strategy
 
 The package uses GitHub Actions with R-CMD-check on macOS and Windows. Tests automatically skip for commits containing "WIP" in the message.
+
+## Important Implementation Notes
+
+### Progress Feedback
+Each analysis provides user feedback via `self$results$todo$setContent()` during data preparation and analysis phases.
+
+### Result Structure
+- `self$results$plot` - Primary plot output
+- `self$results$plot2` - Secondary grouped plots (when applicable)
+- `self$results$todo` - Progress/status messages
+
+### Common Pitfalls to Avoid
+- Never edit `.h.R` files (regenerated automatically)
+- Always use `jmvcore::toNumeric()` for numeric conversion
+- Use `jmvcore::naOmit()` for NA handling
+- Check for required variables before analysis
+- Set plot sizes dynamically based on data dimensions

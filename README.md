@@ -1,191 +1,168 @@
 # jjstatsplot
 
-Wrapper functions to use [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) functions as a module in [jamovi](https://www.jamovi.org), also includes additional plots
-
-See https://indrajeetpatil.github.io/ggstatsplot/
-
-See https://sbalci.github.io/ClinicoPathJamoviModule/
+## A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in jamovi based on ggstatsplot package. Also includes additional plots
 
 [![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)
-
-
----
-
-
-# README Badges and Widgets for jjstatsplot
-
-## Status Badges
-
-### jamovi Module Badges
-```markdown
 [![jamovi](https://img.shields.io/badge/jamovi-module-blue)](https://www.jamovi.org)
-[![jamovi-version](https://img.shields.io/badge/jamovi-%E2%89%A5%201.2.19-blue)](https://www.jamovi.org)
 [![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://indrajeetpatil.github.io/ggstatsplot/)
-```
-
-### Package Status
-```markdown
-[![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)
-[![CRAN status](https://www.r-pkg.org/badges/version/jjstatsplot)](https://CRAN.R-project.org/package=jjstatsplot)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License: GPL (>= 2)](https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-```
 
-### Usage & Downloads
-```markdown
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/sbalci/jjstatsplot)](https://github.com/sbalci/jjstatsplot/releases)
-[![GitHub all releases](https://img.shields.io/github/downloads/sbalci/jjstatsplot/total)](https://github.com/sbalci/jjstatsplot/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/sbalci/jjstatsplot)](https://github.com/sbalci/jjstatsplot/commits/master)
-```
+## Statistical Visualization Made Simple
 
-### Code Quality
-```markdown
-[![Code size](https://img.shields.io/github/languages/code-size/sbalci/jjstatsplot)](https://github.com/sbalci/jjstatsplot)
-[![R](https://img.shields.io/badge/R-%E2%89%A5%204.0.0-blue)](https://www.r-project.org/)
-[![Dependencies](https://img.shields.io/badge/dependencies-ggstatsplot%20%7C%20jmvcore-green)](https://github.com/sbalci/jjstatsplot/blob/master/DESCRIPTION)
-```
+**jjstatsplot** brings the power of [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code.
 
-## Feature Highlights
+### 🎯 Why jjstatsplot?
 
-### Analysis Types Widget
-```markdown
-## 📊 Available Analyses
+Traditional statistical software often separates visualization from analysis, requiring users to manually annotate plots with statistical results. jjstatsplot integrates these steps, automatically adding appropriate statistical tests, effect sizes, and sample sizes to your visualizations. Whether you're exploring data distributions, comparing groups, examining correlations, or analyzing categorical relationships, jjstatsplot provides the right visualization with the right statistics—all through jamovi's familiar interface.
 
-| Category | Analysis | ggstatsplot Function |
-|----------|----------|---------------------|
-| 📈 **Continuous** | Histogram | `gghistostats` |
-| 🔗 **Continuous vs Continuous** | Scatter Plot | `ggscatterstats` |
-| 🔗 **Continuous vs Continuous** | Correlation Matrix | `ggcorrmat` |
-| 📊 **Categorical vs Continuous** | Box-Violin Plots (Between) | `ggbetweenstats` |
-| 📊 **Categorical vs Continuous** | Dot Charts | `ggdotplotstats` |
-| 📊 **Categorical vs Continuous** | Box-Violin Plots (Within) | `ggwithinstats` |
-| 🍰 **Categorical vs Categorical** | Bar Charts | `ggbarstats` |
-| 🍰 **Categorical vs Categorical** | Pie Charts | `ggpiestats` |
-| 🧇 **Distribution** | Waffle Charts | Custom implementation |
-```
+## ✨ Key Features
 
-### Quick Start Widget
-```markdown
-## 🚀 Quick Start
+### 📊 Comprehensive Analysis Types
+
+| Category                             | Analysis                             | Description                 | Statistical Details                        |
+| ------------------------------------ | ------------------------------------ | --------------------------- | ------------------------------------------ |
+| **Continuous**                 | Histogram (`jjhistostats`)         | Distribution visualization  | Shapiro-Wilk test, robust measures         |
+| **Continuous vs Continuous**   | Scatter Plot (`jjscatterstats`)    | Relationship analysis       | Correlation coefficients, regression lines |
+| **Continuous vs Continuous**   | Correlation Matrix (`jjcorrmat`)   | Multiple correlations       | Significance levels, correlation strength  |
+| **Categorical vs Continuous**  | Box-Violin Plot (`jjbetweenstats`) | Between-groups comparison   | ANOVA, Kruskal-Wallis, post-hoc tests      |
+| **Categorical vs Continuous**  | Box-Violin Plot (`jjwithinstats`)  | Within-subjects comparison  | Repeated measures ANOVA, Friedman test     |
+| **Categorical vs Continuous**  | Dot Chart (`jjdotplotstats`)       | Mean comparisons            | Confidence intervals, effect sizes         |
+| **Categorical vs Categorical** | Bar Chart (`jjbarstats`)           | Frequency analysis          | Chi-square, Fisher's exact test            |
+| **Categorical vs Categorical** | Pie Chart (`jjpiestats`)           | Proportion visualization    | Goodness of fit tests                      |
+| **Distribution**               | Waffle Chart (`jjwaffle`)          | Part-to-whole visualization | Custom proportions display                 |
+
+### 🚀 Advanced Capabilities
+
+- **Dual-Mode Operation**: Analyze single variables or multiple variables simultaneously
+- **Grouped Analysis**: Automatic faceting by grouping variables
+- **Statistical Flexibility**: Choose between parametric, non-parametric, robust, and Bayesian approaches
+- **Customization Options**: Control plot aesthetics, statistical details, and output formatting
+- **Theme Support**: Use jamovi's consistent styling or ggstatsplot's original themes
+- **Dynamic Sizing**: Plots automatically adjust to accommodate your data
+
+## 📦 Installation
 
 ### For jamovi Users
-1. **Install**: Download from [jamovi library](https://library.jamovi.org/) 
-2. **Load**: Open jamovi → Modules → jjstatsplot
-3. **Analyze**: Select your analysis from the `JJStatsPlot` menu
+
+1. Open jamovi
+2. Go to **Modules** → **jamovi library**
+3. Search for "jjstatsplot"
+4. Click **Install**
 
 ### For R Users
+
 ```r
-# Install from GitHub
-devtools::install_github("sbalci/jjstatsplot")
-
-# Load package
-library(jjstatsplot)
-
-# Use functions directly
-jjhistostats(data = mydata, dep = "variable")
-```
-```
-
-### Installation Widget
-```markdown
-## 💾 Installation
-
-### jamovi Installation
-```markdown
-1. Open jamovi
-2. Go to Modules (⊞) in the top menu
-3. Select "jamovi library" 
-4. Search for "jjstatsplot"
-5. Click Install
-```
-
-### R Installation
-```r
-# From GitHub (latest development version)
+# Install from GitHub (latest development version)
 if (!require(devtools)) install.packages("devtools")
 devtools::install_github("sbalci/jjstatsplot")
 
-# From CRAN (stable version - when available)
-install.packages("jjstatsplot")
-```
-```
-
-### Key Features Widget
-```markdown
-## ✨ Key Features
-
-- 🎯 **Point-and-click interface** in jamovi
-- 📊 **9 statistical plot types** with automatic statistics
-- 🔧 **Dual-mode operation**: Single variables or grouped analyses
-- 🎨 **Flexible theming**: jamovi or ggstatsplot themes
-- 📈 **Statistical annotations**: Automatic significance testing
-- 🔄 **Grouped plotting**: Multiple dependent variables support
-- 📋 **Rich customization**: Extensive options through jamovi UI
-- 🔗 **R integration**: Use functions directly in R scripts
+# Load the package
+library(jjstatsplot)
 ```
 
-## Support & Documentation
+## 🏃 Quick Start
 
-### Links Widget
-```markdown
-## 📚 Resources
+### In jamovi
 
-| Resource | Link |
-|----------|------|
-| 📖 **Documentation** | [Package docs](https://sbalci.github.io/jjstatsplot/) |
-| 🎓 **ggstatsplot Guide** | [ggstatsplot docs](https://indrajeetpatil.github.io/ggstatsplot/) |
-| 🏠 **jamovi** | [jamovi.org](https://www.jamovi.org) |
-| 🐛 **Issues** | [Report bugs](https://github.com/sbalci/ClinicoPathJamoviModule/issues/) |
-| 💬 **Discussions** | [GitHub Discussions](https://github.com/sbalci/jjstatsplot/discussions) |
-| 📧 **Contact** | drserdarbalci@gmail.com |
+1. Open your dataset in jamovi
+2. Navigate to the **Analyses** tab
+3. Find **jjstatsplot** in the analysis menu
+4. Select your desired analysis type
+5. Drag and drop variables to the appropriate fields
+6. Customize options as needed
+
+### In R
+
+```r
+# Example: Create a histogram with statistical annotations
+jjhistostats(
+  data = iris,
+  dep = "Sepal.Length",
+  xlab = "Sepal Length (cm)",
+  results.subtitle = TRUE
+)
+
+# Example: Compare groups with box-violin plots
+jjbetweenstats(
+  data = mtcars,
+  dep = "mpg",
+  group = "cyl",
+  type = "nonparametric"
+)
 ```
 
-### Citation Widget
-```markdown
-## 📝 Citation
+## 🔧 Development
+
+### Requirements
+
+- R (≥ 4.0.0)
+- jamovi (≥ 1.2.19)
+- Core dependencies: `jmvcore`, `R6`, `ggstatsplot`
+
+### Building from Source
+
+```r
+# Clone the repository
+git clone https://github.com/sbalci/jjstatsplot.git
+
+# Install development dependencies
+devtools::install_deps()
+
+# Check package
+devtools::check()
+
+# Build jamovi module
+jmvtools::install()
+```
+
+## 📚 Documentation
+
+- **Package Documentation**: [sbalci.github.io/jjstatsplot](https://sbalci.github.io/jjstatsplot/)
+- **ggstatsplot Guide**: [indrajeetpatil.github.io/ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/)
+- **jamovi Resources**: [jamovi.org](https://www.jamovi.org)
+- **Video Tutorials**: [YouTube Channel](https://www.youtube.com/channel/UC7Y8gp8PrBsc48yKVkZGVIg)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Reporting Issues
+
+- **Bug Reports**: [GitHub Issues](https://github.com/sbalci/jjstatsplot/issues)
+- **Feature Requests**: [GitHub Discussions](https://github.com/sbalci/jjstatsplot/discussions)
+- **General Questions**: <drserdarbalci@gmail.com>
+
+## 📄 Citation
 
 If you use jjstatsplot in your research, please cite:
 
 ```bibtex
 @software{jjstatsplot,
   author = {Serdar Balci},
-  title = {jjstatsplot: Wrapper for ggstatsplot in jamovi},
+  title = {jjstatsplot: Statistical Visualizations for jamovi},
   url = {https://github.com/sbalci/jjstatsplot},
-  version = {0.0.3.21},
+  version = {0.0.3.90},
   year = {2024}
 }
 ```
 
-**Also cite the underlying packages:**
-- [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/): Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach. Journal of Open Source Software, 6(61), 3167.
-- [jamovi](https://www.jamovi.org): The jamovi project (2022). jamovi (Version 2.3) [Computer Software].
-```
+Please also cite the underlying packages:
 
-## Complete README Template
+- **ggstatsplot**: Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach. *Journal of Open Source Software*, 6(61), 3167.
+- **jamovi**: The jamovi project (2024). jamovi (Version 2.5) [Computer Software]. Retrieved from <https://www.jamovi.org>
 
-### Suggested README structure using these widgets:
-```markdown
-# jjstatsplot
+## 📝 License
 
-[Status badges section]
+This project is licensed under the GPL (≥ 2) License - see the [LICENSE](LICENSE) file for details.
 
-[Quick description]
+## 🙏 Acknowledgments
 
-[Feature highlights table]
+- [Indrajeet Patil](https://github.com/IndrajeetPatil) for creating ggstatsplot
+- The [jamovi team](https://www.jamovi.org/about.html) for their excellent statistical platform
+- All contributors and users who have helped improve this package
 
-## Installation
-[Installation widget]
+---
 
-## Quick Start  
-[Quick start widget]
-
-## Key Features
-[Key features widget]
-
-## Documentation
-[Links widget]
-
-## Citation
-[Citation widget]
-```
-
+<p align="center">
+Made with ❤️ for the jamovi community
+</p>
