@@ -1,0 +1,99 @@
+---
+name: advancedraincloud
+title: Advanced Raincloud Plot
+jrs: '1.1'
+
+clearWith:
+    - y_var
+    - x_var
+    - fill_var
+    - id_var
+    - cov_var
+    - rain_side
+    - likert_mode
+    - show_longitudinal
+    - point_size
+    - point_alpha
+    - violin_alpha
+    - boxplot_width
+    - color_palette
+    - plot_title
+    - x_label
+    - y_label
+    - clinical_cutoff
+    - reference_range_min
+    - reference_range_max
+    - show_mcid
+    - mcid_value
+    - log_transform
+    - outlier_method
+    - show_cv_bands
+    - cv_band_1
+    - cv_band_2
+    - trial_arms
+    - time_labels
+    - population_type
+    - journal_style
+    - p_value_position
+    - show_statistics
+    - show_comparisons
+    - show_interpretation
+    - show_effect_size
+    - effect_size_type
+    - show_change_scores
+    - baseline_group
+    - responder_threshold
+    - show_sample_size
+    - show_missing_info
+    - generate_report
+    - include_methods
+
+items:
+    - name: todo
+      title: Instructions
+      type: Html
+      visible: (y_var:null || x_var:null)
+
+    - name: plot
+      title: Advanced Raincloud Plot
+      type: Image
+      width: 800
+      height: 600
+      renderFun: .plot
+
+    - name: statistics
+      title: Summary Statistics
+      type: Html
+      visible: (show_statistics)
+
+    - name: comparisons
+      title: Group Comparisons
+      type: Html
+      visible: (show_comparisons)
+
+    - name: interpretation
+      title: Feature Guide
+      type: Html
+      visible: (show_interpretation)
+
+    - name: effect_sizes
+      title: Effect Size Analysis
+      type: Html
+      visible: (show_effect_size)
+
+    - name: change_analysis
+      title: Change Score Analysis
+      type: Html
+      visible: (show_change_scores)
+
+    - name: clinical_report
+      title: Clinical Analysis Report
+      type: Html
+      visible: (generate_report)
+
+    - name: methods_text
+      title: Methods Section
+      type: Html
+      visible: (include_methods)
+
+...

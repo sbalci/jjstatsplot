@@ -11,7 +11,7 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             grvar = NULL,
             typestatistics = "parametric",
             originaltheme = FALSE,
-            resultssubtitle = TRUE, ...) {
+            resultssubtitle = FALSE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -34,7 +34,8 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "ordinal",
                     "nominal"),
                 permitted=list(
-                    "factor"))
+                    "factor"),
+                default=NULL)
             private$..grvar <- jmvcore::OptionVariable$new(
                 "grvar",
                 grvar,
@@ -42,7 +43,8 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "ordinal",
                     "nominal"),
                 permitted=list(
-                    "factor"))
+                    "factor"),
+                default=NULL)
             private$..typestatistics <- jmvcore::OptionList$new(
                 "typestatistics",
                 typestatistics,
@@ -59,7 +61,7 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..resultssubtitle <- jmvcore::OptionBool$new(
                 "resultssubtitle",
                 resultssubtitle,
-                default=TRUE)
+                default=FALSE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
@@ -102,17 +104,18 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 refs=list(
                     "ggplot2",
                     "ggstatsplot",
-                    "ClinicoPathJamoviModule"))
-            self$add(jmvcore::Html$new(
-                options=options,
-                name="todo",
-                title="To Do",
+                    "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep",
                     "group",
                     "grvar",
-                    "direction",
-                    "originaltheme")))
+                    "typestatistics",
+                    "originaltheme",
+                    "resultssubtitle"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="todo",
+                title="To Do"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot4",
@@ -121,12 +124,6 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 height=300,
                 renderFun=".plot4",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
@@ -136,12 +133,6 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 height=300,
                 renderFun=".plot2",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(group)"))
             self$add(jmvcore::Image$new(
                 options=options,
@@ -151,12 +142,6 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 height=300,
                 renderFun=".plot1",
                 requiresData=TRUE,
-                clearWith=list(
-                    "dep",
-                    "group",
-                    "grvar",
-                    "direction",
-                    "originaltheme"),
                 visible="(dep)"))}))
 
 jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -167,7 +152,7 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjpiestats",
-                version = c(0,0,3),
+                version = c(0,0,31),
                 options = options,
                 results = jjpiestatsResults$new(options=options),
                 data = data,
@@ -182,19 +167,61 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 
 #' Pie Charts
 #'
+#' 'Wrapper Function for ggstatsplot::ggpiestats and
+#' ggstatsplot::grouped_ggpiestats to generate Pie Charts with
+#' statistical analysis.'
 #' 
 #'
 #' @examples
 #' \donttest{
-#' # example will be added
+#' # Load test data
+#' data(jjpiestats_test_data)
+#'
+#' # Basic pie chart
+#' jjpiestats(
+#'   data = jjpiestats_test_data,
+#'   dep = "treatment_response",
+#'   typestatistics = "parametric"
+#' )
+#'
+#' # Pie chart with grouping
+#' jjpiestats(
+#'   data = jjpiestats_test_data,
+#'   dep = "treatment_response",
+#'   group = "treatment_arm",
+#'   resultssubtitle = TRUE
+#' )
+#'
+#' # Grouped pie charts by split variable
+#' jjpiestats(
+#'   data = jjpiestats_test_data,
+#'   dep = "disease_severity",
+#'   group = "gender",
+#'   grvar = "hospital_site",
+#'   typestatistics = "nonparametric"
+#' )
 #'}
 #' @param data The data as a data frame.
-#' @param dep .
-#' @param group .
-#' @param grvar .
-#' @param typestatistics .
-#' @param originaltheme .
-#' @param resultssubtitle .
+#' @param dep The categorical variable to display in the pie chart. This
+#'   variable will be used to create pie slices representing the proportion of
+#'   each category. Must be a factor variable.
+#' @param group Optional grouping variable for creating contingency table
+#'   analysis. When specified, creates a 2x2 or 2xN contingency table and
+#'   performs association tests (Chi-square, Fisher's exact test, etc.).
+#' @param grvar Optional variable to create separate pie charts for each level
+#'   of this grouping variable. Creates a panel of pie charts, one for each
+#'   group level (e.g., separate charts by treatment center or study site).
+#' @param typestatistics Type of statistical test for categorical association
+#'   analysis. 'parametric' uses Pearson's Chi-square test, 'nonparametric' uses
+#'   contingency table tests, 'robust' uses robust association measures, 'bayes'
+#'   provides Bayesian analysis with Bayes factors.
+#' @param originaltheme Whether to apply the original ggstatsplot theme layer
+#'   to the plot. If TRUE, uses ggstatsplot's default styling. If FALSE, uses
+#'   jamovi's default ggplot2 theme for consistency with other analyses.
+#' @param resultssubtitle Whether to display statistical test results as
+#'   subtitle in the pie chart. Shows test statistics, p-values, effect sizes,
+#'   and confidence intervals for categorical association tests. Provides
+#'   detailed statistical summary.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -207,11 +234,11 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 jjpiestats <- function(
     data,
     dep,
-    group,
-    grvar,
+    group = NULL,
+    grvar = NULL,
     typestatistics = "parametric",
     originaltheme = FALSE,
-    resultssubtitle = TRUE) {
+    resultssubtitle = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjpiestats requires jmvcore to be installed (restart may be required)")

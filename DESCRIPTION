@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.3.91
-Date: 2025-08-01
+Version: 0.0.31
+Date: 2025-08-10
 Authors@R: 
     person(given = "Serdar",
            family = "Balci",
@@ -39,7 +39,8 @@ Imports:
     rlang,
     magrittr,
     glue,
-    scales
+    scales,
+    ggrain
 Encoding: UTF-8
 LazyData: true
 Suggests:

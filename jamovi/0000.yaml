@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.3.91
+version: 0.0.31
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2025-08-01'
+date: '2025-08-10'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
@@ -58,8 +58,10 @@ analyses:
     menuTitle: Box-Violin Plots to Compare Between Groups
     menuSubtitle: Independent Samples
     description: |
-      'Wrapper Function for ggstatsplot::ggbetweenstats and
-      ggstatsplot::grouped_ggbetweenstats to generate Violin Plots.'
+      Wrapper Function for ggstatsplot::ggbetweenstats and
+      ggstatsplot::grouped_ggbetweenstats to generate Box-Violin Plots
+      for comparing continuous variables between groups with statistical
+      annotations.
     ribbon: analyses
     category: analyses
   - title: Dot Chart
@@ -70,8 +72,10 @@ analyses:
     menuTitle: Dot Chart
     menuSubtitle: Dot Chart
     description: |
-      'Wrapper Function for ggstatsplot::ggdotplotstats and
-      ggstatsplot::grouped_ggdotplotstats to generate Dot Charts.'
+      Wrapper Function for ggstatsplot::ggdotplotstats and
+      ggstatsplot::grouped_ggdotplotstats to generate dot plots
+      comparing continuous variables between groups with statistical
+      annotations and significance testing.
     ribbon: analyses
     category: analyses
   - title: Bar Charts
@@ -95,7 +99,8 @@ analyses:
     menuSubtitle: Pie Charts
     description: |
       'Wrapper Function for ggstatsplot::ggpiestats and
-      ggstatsplot::grouped_ggpiestats to generate Pie Charts.'
+      ggstatsplot::grouped_ggpiestats to generate Pie Charts with
+      statistical analysis.'
     ribbon: analyses
     category: analyses
   - title: Box-Violin Plots to Compare Within Groups
@@ -117,6 +122,30 @@ analyses:
       'Creates waffle charts to visualize distributions and proportions'
     category: analyses
     ribbon: analyses
+  - title: Raincloud Plot
+    name: advancedraincloud
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Raincloud Plot
+    description: >
+      Creates advanced raincloud plots with longitudinal connections using
+      ggrain package.
+
+      This module complements the existing Raincloud Plot module by providing
+      advanced 
+
+      features including longitudinal data connections, Likert scale support,
+      and flexible
+
+      raincloud positioning. Perfect for repeated measures data, survey
+      analysis, and 
+
+      complex distribution visualization in clinical research. Uses the ggrain
+      package
+
+      for enhanced customization and connectivity features.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
