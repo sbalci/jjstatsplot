@@ -1,0 +1,135 @@
+---
+name:  statsplot2
+title: Automatic Plot Selection
+menuGroup: JJStatsPlot
+menuSubgroup: Auto Visualization
+menuSubtitle: Automatic Plot Selection Based on Variable Types
+version: '0.0.31'
+jas: '1.2'
+
+description:
+    main: 'Automatically selects and generates the most appropriate statistical visualization based on variable data types. Features enhanced error messages with contextual guidance, robust data validation, and comprehensive fallback options. Supports both independent and repeated measures designs with various plot types including violin plots, scatter plots, bar charts, and alluvial diagrams.'
+    R:
+        dontrun: false
+        usage: |
+            # Automatic plot selection for factor vs continuous variables
+            statsplot2(
+                data = mtcars,
+                dep = "mpg",
+                group = "cyl",
+                direction = "independent",
+                distribution = "p"
+            )
+            
+            # Repeated measures with alluvial diagram  
+            statsplot2(
+                data = survey_data,
+                dep = "condition_baseline",
+                group = "condition_followup", 
+                direction = "repeated",
+                alluvsty = "t1"
+            )
+            
+            # Enhanced error messages provide contextual guidance:
+            # - Variable names and types in error messages
+            # - Specific data requirement feedback
+            # - Package installation instructions when needed
+            # - Actionable suggestions for unsupported combinations
+
+
+options:
+    - name: data
+      type: Data
+      description:
+          R: >
+            The data as a data frame.
+
+
+    - name: dep
+      title: 'Dependent Variable (y-axis)'
+      type: Variable
+      description:
+          R: >-
+            The dependent variable (y-axis, 1st measurement). Can be continuous or categorical.
+            
+    - name: group
+      title: 'Grouping Variable (x-axis)'
+      type: Variable
+      description:
+          R: >-
+            The grouping variable (x-axis, 2nd measurement). Can be continuous or categorical.
+            
+    - name: grvar
+      title: 'Split By (Optional)'
+      type: Variable
+      default: NULL
+      description:
+          R: >-
+            Optional grouping variable for creating grouped plots across multiple panels.
+
+
+    - name: direction
+      title: Study Design
+      type: List
+      options:
+        - title: Independent (Between-Subjects)
+          name: independent
+        - title: Repeated Measures (Within-Subjects)
+          name: repeated
+      default: independent
+      description:
+          ui: Select whether data represents independent groups or repeated measurements
+          R: >-
+            Measurement design type. "independent" for between-subjects comparisons, 
+            "repeated" for within-subjects/repeated measures comparisons.
+
+
+    - name: distribution
+      title: Statistical Approach
+      type: List
+      options:
+        - title: Parametric (assumes normal distribution)
+          name: p
+        - title: Nonparametric (distribution-free)
+          name: np
+        - title: Robust (resistant to outliers)
+          name: r
+        - title: Bayesian (Bayes Factor)
+          name: bf
+      default: p
+      description:
+          ui: Choose statistical approach based on your data distribution assumptions
+          R: >-
+            Statistical approach: "p" = parametric, "np" = nonparametric, 
+            "r" = robust, "bf" = Bayes factor.
+
+    - name: alluvsty
+      title: Alluvial Plot Style
+      type: List
+      options:
+        - title: ggalluvial (detailed flow diagram)
+          name: t1
+        - title: easyalluvial (simplified flow)
+          name: t2
+      default: t1
+      description:
+          ui: Style for alluvial diagrams when comparing two categorical variables in repeated measures
+          R: >-
+            Style for alluvial diagrams: "t1" = ggalluvial with stratum labels, 
+            "t2" = easyalluvial with automatic variable selection.
+
+
+    - name: excl
+      title: Exclude Missing Values
+      type: Bool
+      default: false
+      description:
+          ui: Remove rows with missing values before analysis
+          R: >-
+            If TRUE, excludes rows with missing values before analysis.
+            
+
+
+
+...
+

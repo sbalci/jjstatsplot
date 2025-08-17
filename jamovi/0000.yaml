@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.31
+version: 0.0.31.06
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2025-08-10'
+date: '2025-08-17'
 type: R
 description: >-
   A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
@@ -146,6 +146,21 @@ analyses:
       package
 
       for enhanced customization and connectivity features.
+  - title: Automatic Plot Selection
+    name: statsplot2
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Auto Visualization
+    menuTitle: Automatic Plot Selection
+    menuSubtitle: Automatic Plot Selection Based on Variable Types
+    description: >-
+      Automatically selects and generates the most appropriate statistical
+      visualization based on variable data types. Features enhanced error
+      messages with contextual guidance, robust data validation, and
+      comprehensive fallback options. Supports both independent and repeated
+      measures designs with various plot types including violin plots, scatter
+      plots, bar charts, and alluvial diagrams.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

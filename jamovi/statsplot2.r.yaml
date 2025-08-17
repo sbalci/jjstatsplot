@@ -1,0 +1,56 @@
+---
+name:  statsplot2
+title: Automatic Plot Selection Based on Variable Types
+jrs:   '1.1'
+
+items:
+
+    - name:  todo
+      title: To Do
+      type:  Html
+      clearWith:
+          - dep
+          - group
+          - direction
+          - distribution
+          - excl
+          - grvar
+
+
+    - name:  ExplanationMessage
+      title: Explanation
+      type:  Preformatted
+      clearWith:
+          - dep
+          - group
+          - direction
+          - distribution
+          - excl
+          - grvar
+
+
+
+    - title: Automatically Selected Plot
+      name: plot
+      type: Image
+      width:  800
+      height: 600
+      renderFun: .plot
+      requiresData: true
+      clearWith:
+          - dep
+          - group
+          - direction
+          - distribution
+          - alluvsty
+          - excl
+          - grvar
+
+
+refs:
+    - ggstatsplot
+    - ggalluvial
+    - easyalluvial
+    - ClinicoPathJamoviModule
+
+...

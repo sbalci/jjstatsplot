@@ -1,51 +1,27 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.31
-Date: 2025-08-10
-Authors@R: 
-    person(given = "Serdar",
-           family = "Balci",
-           role = c("aut", "cre"),
-           email = "drserdarbalci@gmail.com",
-           comment = c(ORCID = "0000-0002-7852-3851"))
+Version: 0.0.31.06
+Date: 2025-08-17
+Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
+        "cre"), email = "drserdarbalci@gmail.com", comment = c(ORCID =
+        "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <drserdarbalci@gmail.com>
-Description: A wrapper for ggstatsplot: jjstatsplot help researchers to 
-    generate plots in jamovi based on ggstatsplot package. Also includes additional plots.
+Description: A wrapper for ggstatsplot: jjstatsplot help researchers to
+        generate plots in jamovi based on ggstatsplot package. Also
+        includes additional plots.
 License: GPL (>= 2)
 URL: https://github.com/sbalci/jjstatsplot
-BugReports: 
-    https://github.com/sbalci/ClinicoPathJamoviModule/issues/
-Depends:
-    R (>= 4.0.0)
-Imports: 
-    jmvcore,
-    R6,
-    ggplot2,
-    ggalluvial,
-    easyalluvial,
-    ggstatsplot,
-    ggside,
-    ggcorrplot,
-    PMCMRplus,
-    WRS2,
-    BayesFactor,
-    effectsize,
-    performance,
-    ggridges,
-    igraph,
-    waffle,
-    dplyr,
-    rlang,
-    magrittr,
-    glue,
-    scales,
-    ggrain
+BugReports: https://github.com/sbalci/ClinicoPathJamoviModule/issues/
+Depends: R (>= 4.0.0)
+Imports: BayesFactor, digest, dplyr, easyalluvial, effectsize,
+        ggalluvial, ggcorrplot, ggplot2, ggrain, ggridges, ggside,
+        ggstatsplot, glue, htmltools, igraph, jmvcore, magrittr,
+        performance, PMCMRplus, purrr, R6, RColorBrewer, rlang, scales,
+        viridis, waffle, WRS2
 Encoding: UTF-8
 LazyData: true
-Suggests:
-    knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
