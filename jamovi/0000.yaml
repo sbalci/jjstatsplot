@@ -9,14 +9,15 @@ maintainer: Serdar Balci <drserdarbalci@gmail.com>
 date: '2025-09-03'
 type: R
 description: >-
-  Comprehensive statistical visualization module for jamovi featuring 17+ analysis
-  types with publication-ready plots and statistical annotations. Wraps ggstatsplot
-  functions for histograms, scatter plots, correlation matrices, between/within-group
-  comparisons, bar/pie/waffle charts, plus advanced visualizations including raincloud
-  plots, ridge plots, arc diagrams, lollipop charts, line charts, and segmented bar
-  charts. Features automatic plot selection, dual-mode operation for single/grouped
-  variables, statistical testing integration, and point-and-click interface for
-  researchers requiring sophisticated data visualization without coding.
+  Comprehensive statistical visualization module for jamovi featuring 17+
+  analysis types with publication-ready plots and statistical annotations. Wraps
+  ggstatsplot functions for histograms, scatter plots, correlation matrices,
+  between/within-group comparisons, bar/pie/waffle charts, plus advanced
+  visualizations including raincloud plots, ridge plots, arc diagrams, lollipop
+  charts, line charts, and segmented bar charts. Features automatic plot
+  selection, dual-mode operation for single/grouped variables, statistical
+  testing integration, and point-and-click interface for researchers requiring
+  sophisticated data visualization without coding.
 analyses:
   - title: Histogram
     name: jjhistostats
