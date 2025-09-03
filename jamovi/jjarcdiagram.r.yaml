@@ -1,0 +1,49 @@
+---
+name: jjarcdiagram
+title: Arc Diagram
+jrs: '1.1'
+
+items:
+    - name: instructions
+      title: Instructions
+      type: Html
+      visible: true
+
+    - name: todo
+      title: Status
+      type: Html
+      clearWith:
+          - source
+          - target
+          - weight
+          - group
+
+    - name: plot
+      title: Arc Diagram
+      type: Image
+      width: 600
+      height: 400
+      renderFun: .plot
+      requiresData: true
+
+    - name: networkStats
+      title: Network Statistics
+      type: Html
+      visible: (showStats)
+
+    - name: assumptions
+      title: Analysis Assumptions & Guidelines
+      type: Html
+
+    - name: reportSentence
+      title: Copy-Ready Summary
+      type: Html
+      visible: (showStats)
+
+refs:
+    - arcdiagram
+    - igraph
+    - RColorBrewer
+    - scales
+
+...

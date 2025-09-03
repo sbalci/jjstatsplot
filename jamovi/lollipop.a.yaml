@@ -1,0 +1,303 @@
+---
+name: lollipop
+title: Lollipop Chart
+menuGroup: JJStatsPlot
+menuSubgroup: Categorical vs Continuous
+menuSubtitle: 'Categorical Data Visualization'
+version: '0.0.31'
+jas: '1.2'
+
+description:
+    main: Creates lollipop charts for categorical data visualization following R Graph Gallery best practices, with emphasis on clinical applications like patient timelines, treatment outcomes, and biomarker comparisons. Uses geom_segment() and geom_point() for optimal visual presentation.
+    R:
+        dontrun: false
+        usage: |
+            # Load clinical lab data
+            clinical_lab_data <- read.csv("clinical_lab_data.csv")
+            # Or load from package: data("clinical_lab_data", package = "ClinicoPath")
+            
+            # Basic lollipop chart - Hemoglobin by treatment group
+            lollipop(
+                data = clinical_lab_data,
+                dep = "hemoglobin",
+                group = "treatment_group",
+                sortBy = "value_desc",
+                title = "Hemoglobin Levels by Treatment"
+            )
+            
+            # Highlighting severe disease cases - Albumin levels
+            lollipop(
+                data = clinical_lab_data,
+                dep = "albumin",
+                group = "disease_severity",
+                useHighlight = TRUE,
+                highlight = "Severe",
+                orientation = "horizontal",
+                showValues = TRUE,
+                colorScheme = "clinical",
+                title = "Albumin Levels by Disease Severity"
+            )
+            
+            # Conditional coloring for abnormal creatinine (>1.2 mg/dL)
+            lollipop(
+                data = clinical_lab_data,
+                dep = "creatinine",
+                group = "age_group",
+                conditionalColor = TRUE,
+                colorThreshold = 1.2,
+                lineType = "dashed",
+                sortBy = "value_asc",
+                title = "Creatinine by Age (Threshold: 1.2 mg/dL)"
+            )
+            
+            # Advanced - Platelet count with clinical baseline
+            lollipop(
+                data = clinical_lab_data,
+                dep = "platelet_count",
+                group = "hospital",
+                baseline = 150,  # Lower normal limit
+                useHighlight = TRUE,
+                highlight = "Hospital A",
+                lineType = "dotted",
+                pointSize = 4,
+                showMean = TRUE,
+                colorScheme = "clinical",
+                title = "Platelet Counts by Hospital (Normal >150)"
+            )
+            
+            # Compare WBC across multiple factors
+            lollipop(
+                data = clinical_lab_data,
+                dep = "white_blood_cells",
+                group = "treatment_group",
+                conditionalColor = TRUE,
+                colorThreshold = 11,  # Upper normal limit
+                orientation = "horizontal",
+                sortBy = "value_desc",
+                lineWidth = 2,
+                title = "WBC Count by Treatment (ULN: 11)"
+            )
+
+options:
+    - name: data
+      type: Data
+      description:
+          R: The data as a data frame.
+
+    - name: dep
+      title: 'Dependent Variable'
+      type: Variable
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+      description:
+          R: >
+            The numeric variable for the values (lollipop heights/lengths).
+
+    - name: group
+      title: 'Grouping Variable'
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+      description:
+          R: >
+            The categorical variable for grouping (lollipop categories).
+
+    - name: useHighlight
+      title: 'Use Highlight'
+      type: Bool
+      default: false
+      description:
+          R: >
+            Enable or disable highlighting of specific levels in the plot.
+
+    - name: highlight
+      title: 'Highlight Level'
+      type: Level
+      variable: (group)
+      description:
+          R: >
+            Specific level to highlight in the plot with different color/style.
+
+    - name: sortBy
+      title: 'Sort Order'
+      type: List
+      options:
+        - title: Original Order
+          name: original
+        - title: Sort by Value (Ascending)
+          name: value_asc
+        - title: Sort by Value (Descending)
+          name: value_desc
+        - title: Sort by Group (Alphabetical)
+          name: group_alpha
+      default: original
+      description:
+          R: >
+            How to sort the lollipops in the chart.
+
+    - name: orientation
+      title: 'Orientation'
+      type: List
+      options:
+        - title: Vertical
+          name: vertical
+        - title: Horizontal
+          name: horizontal
+      default: vertical
+      description:
+          R: >
+            Chart orientation (vertical or horizontal lollipops).
+
+    - name: showValues
+      title: 'Show Values'
+      type: Bool
+      default: false
+      description:
+          R: >
+            Whether to display value labels on the lollipops.
+
+    - name: showMean
+      title: 'Show Mean Line'
+      type: Bool
+      default: false
+      description:
+          R: >
+            Whether to display a reference line at the mean value.
+
+    - name: colorScheme
+      title: 'Color Scheme'
+      type: List
+      options:
+        - title: Default
+          name: default
+        - title: Clinical
+          name: clinical
+        - title: Viridis
+          name: viridis
+        - title: Colorblind Safe
+          name: colorblind
+      default: default
+      description:
+          R: >
+            Color scheme for the lollipops.
+
+    - name: theme
+      title: 'Plot Theme'
+      type: List
+      options:
+        - title: Default
+          name: default
+        - title: Minimal
+          name: minimal
+        - title: Classic
+          name: classic
+        - title: Publication
+          name: publication
+      default: default
+      description:
+          R: >
+            Overall theme/appearance of the plot.
+
+    - name: pointSize
+      title: 'Point Size'
+      type: Number
+      default: 3
+      min: 1
+      max: 10
+      description:
+          R: >
+            Size of the lollipop points.
+
+    - name: lineWidth
+      title: 'Line Width'
+      type: Number
+      default: 1
+      min: 0.5
+      max: 5
+      description:
+          R: >
+            Width of the lollipop stems.
+
+    - name: lineType
+      title: 'Line Type'
+      type: List
+      options:
+        - title: Solid
+          name: solid
+        - title: Dashed
+          name: dashed
+        - title: Dotted
+          name: dotted
+        - title: Dot-Dash
+          name: dotdash
+      default: solid
+      description:
+          R: >
+            Type of line for lollipop stems.
+
+    - name: baseline
+      title: 'Baseline Value'
+      type: Number
+      default: 0
+      description:
+          R: >
+            Starting point for lollipop stems (default is 0).
+
+    - name: conditionalColor
+      title: 'Conditional Coloring'
+      type: Bool
+      default: false
+      description:
+          R: >
+            Enable coloring based on value thresholds.
+
+    - name: colorThreshold
+      title: 'Color Threshold'
+      type: Number
+      default: 0
+      description:
+          R: >
+            Threshold value for conditional coloring (values above/below get different colors).
+
+    - name: xlabel
+      title: 'X-axis Label'
+      type: String
+      description:
+          R: >
+            Custom label for the x-axis.
+
+    - name: ylabel
+      title: 'Y-axis Label'
+      type: String
+      description:
+          R: >
+            Custom label for the y-axis.
+
+    - name: title
+      title: 'Plot Title'
+      type: String
+      description:
+          R: >
+            Custom title for the plot.
+
+    - name: width
+      title: 'Plot Width'
+      type: Integer
+      default: 800
+      min: 300
+      max: 1200
+      description:
+          R: >
+            Width of the plot in pixels.
+
+    - name: height
+      title: 'Plot Height'
+      type: Integer
+      default: 600
+      min: 300
+      max: 1000
+      description:
+          R: >
+            Height of the plot in pixels.
+
+...

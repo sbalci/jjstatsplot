@@ -17,16 +17,18 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             xtitle = "",
             ytitle = "",
             originaltheme = FALSE,
-            resultssubtitle = TRUE,
+            resultssubtitle = FALSE,
             testvalue = 0,
-            bfmessage = TRUE,
+            bfmessage = FALSE,
             conflevel = 0.95,
             k = 2,
             testvalueline = FALSE,
             centralityparameter = "mean",
             centralityk = 2,
             plotwidth = 650,
-            plotheight = 450, ...) {
+            plotheight = 450,
+            guidedMode = FALSE,
+            clinicalPreset = "basic", ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -107,7 +109,7 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             private$..resultssubtitle <- jmvcore::OptionBool$new(
                 "resultssubtitle",
                 resultssubtitle,
-                default=TRUE)
+                default=FALSE)
             private$..testvalue <- jmvcore::OptionNumber$new(
                 "testvalue",
                 testvalue,
@@ -115,7 +117,7 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             private$..bfmessage <- jmvcore::OptionBool$new(
                 "bfmessage",
                 bfmessage,
-                default=TRUE)
+                default=FALSE)
             private$..conflevel <- jmvcore::OptionNumber$new(
                 "conflevel",
                 conflevel,
@@ -158,6 +160,19 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 default=450,
                 min=300,
                 max=800)
+            private$..guidedMode <- jmvcore::OptionBool$new(
+                "guidedMode",
+                guidedMode,
+                default=FALSE)
+            private$..clinicalPreset <- jmvcore::OptionList$new(
+                "clinicalPreset",
+                clinicalPreset,
+                options=list(
+                    "basic",
+                    "publication",
+                    "clinical",
+                    "custom"),
+                default="basic")
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
@@ -180,6 +195,8 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             self$.addOption(private$..centralityk)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
+            self$.addOption(private$..guidedMode)
+            self$.addOption(private$..clinicalPreset)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -202,7 +219,9 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         centralityparameter = function() private$..centralityparameter$value,
         centralityk = function() private$..centralityk$value,
         plotwidth = function() private$..plotwidth$value,
-        plotheight = function() private$..plotheight$value),
+        plotheight = function() private$..plotheight$value,
+        guidedMode = function() private$..guidedMode$value,
+        clinicalPreset = function() private$..clinicalPreset$value),
     private = list(
         ..dep = NA,
         ..group = NA,
@@ -224,7 +243,9 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         ..centralityparameter = NA,
         ..centralityk = NA,
         ..plotwidth = NA,
-        ..plotheight = NA)
+        ..plotheight = NA,
+        ..guidedMode = NA,
+        ..clinicalPreset = NA)
 )
 
 jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -233,7 +254,12 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
     active = list(
         todo = function() private$.items[["todo"]],
         plot2 = function() private$.items[["plot2"]],
-        plot = function() private$.items[["plot"]]),
+        plot = function() private$.items[["plot"]],
+        interpretation = function() private$.items[["interpretation"]],
+        assumptions = function() private$.items[["assumptions"]],
+        reportSentence = function() private$.items[["reportSentence"]],
+        guidedSteps = function() private$.items[["guidedSteps"]],
+        recommendations = function() private$.items[["recommendations"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -266,7 +292,9 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "centralityparameter",
                     "centralityk",
                     "plotwidth",
-                    "plotheight"))
+                    "plotheight",
+                    "guidedMode",
+                    "clinicalPreset"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
@@ -287,7 +315,27 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 width=400,
                 height=300,
                 renderFun=".plot",
-                requiresData=TRUE))}))
+                requiresData=TRUE))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="interpretation",
+                title="Clinical Interpretation"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="assumptions",
+                title="Data Assessment & Recommendations"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="reportSentence",
+                title="Report Template"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="guidedSteps",
+                title="Analysis Steps"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="recommendations",
+                title="Next Steps"))}))
 
 jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjdotplotstatsBase",
@@ -374,37 +422,74 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #'   Each level will be displayed as a separate group in the dot plot.
 #' @param grvar Optional grouping variable to create separate dot plots for
 #'   each level of this variable (grouped analysis).
-#' @param typestatistics Type of statistical test to perform. 'parametric' for
-#'   t-tests, 'nonparametric' for Mann-Whitney U test, 'robust' for robust
-#'   tests, 'bayes' for Bayesian analysis.
-#' @param effsizetype Type of effect size calculation for parametric tests.
-#'   'biased' for Cohen's d, 'unbiased' for Hedge's g, 'eta' for eta-squared,
-#'   'omega' for omega-squared.
-#' @param centralityplotting .
-#' @param centralitytype .
-#' @param mytitle .
-#' @param xtitle .
-#' @param ytitle .
-#' @param originaltheme .
-#' @param resultssubtitle .
-#' @param testvalue A number specifying the value of the null hypothesis for
-#'   one-sample tests.
-#' @param bfmessage Whether to display Bayes Factor in the subtitle when using
-#'   Bayesian analysis.
-#' @param conflevel Confidence level for confidence intervals.
-#' @param k Number of decimal places for displaying statistics in the
-#'   subtitle.
-#' @param testvalueline Whether to display a vertical line at the test value.
-#' @param centralityparameter Which measure of central tendency to display as
-#'   a vertical line.
-#' @param centralityk Number of decimal places for centrality parameter label.
-#' @param plotwidth Width of the plot in pixels. Default is 650.
-#' @param plotheight Height of the plot in pixels. Default is 450.
+#' @param typestatistics Choose the appropriate statistical test: Parametric
+#'   (t-test) assumes normal distribution and equal variances; Nonparametric
+#'   (Mann-Whitney U) makes no distribution assumptions; Robust uses trimmed
+#'   means to handle outliers; Bayesian provides evidence strength via Bayes
+#'   factors.
+#' @param effsizetype Effect size quantifies practical significance: Cohen's d
+#'   shows standardized difference between groups (small=0.2, medium=0.5,
+#'   large=0.8); Hedge's g corrects for small samples; Eta/Omega-squared show
+#'   proportion of variance explained (small=0.01, medium=0.06, large=0.14).
+#' @param centralityplotting Display lines showing the central tendency (mean,
+#'   median, or trimmed mean) for each group. Helps visualize group differences
+#'   at a glance.
+#' @param centralitytype Type of central tendency to display: Mean is the
+#'   average but sensitive to outliers; Median is the middle value and robust to
+#'   outliers; Trimmed mean excludes extreme values; Bayesian provides
+#'   probabilistic estimate.
+#' @param mytitle Main title for the plot. Leave blank for automatic title
+#'   generation based on your variables.
+#' @param xtitle Label for the horizontal axis showing the continuous variable
+#'   values. Leave blank to use variable name.
+#' @param ytitle Label for the vertical axis showing the group categories.
+#'   Leave blank to use variable name.
+#' @param originaltheme Use the original ggstatsplot theme instead of jamovi's
+#'   default theme. The original theme may be more suitable for publications.
+#' @param resultssubtitle Display statistical test results (p-value, effect
+#'   size, confidence interval) as a subtitle below the plot. Recommended for
+#'   most analyses.
+#' @param testvalue Reference value for hypothesis testing (usually 0 for
+#'   group comparisons). Can be changed to test against a specific clinically
+#'   meaningful value.
+#' @param bfmessage Display Bayes Factor interpretation (evidence strength)
+#'   when using Bayesian analysis. BF > 3 indicates moderate evidence, BF > 10
+#'   strong evidence.
+#' @param conflevel Confidence level for intervals (0.95 = 95\% confidence
+#'   interval). This represents the probability that the true population
+#'   parameter lies within the calculated interval. 95\% is standard for most
+#'   analyses.
+#' @param k Number of decimal places for statistical results (p-values, effect
+#'   sizes). More decimal places show greater precision but may not be
+#'   clinically meaningful.
+#' @param testvalueline Display a vertical reference line at the test value.
+#'   Useful for showing clinically significant thresholds or normal reference
+#'   ranges.
+#' @param centralityparameter Which central tendency measure to show as a
+#'   vertical line on the plot. Mean is sensitive to outliers; median is more
+#'   robust for skewed data.
+#' @param centralityk Decimal places for central tendency values displayed on
+#'   the plot. Should match the precision meaningful for your measurement scale.
+#' @param plotwidth Width of the plot in pixels. Larger values provide more
+#'   detail but may not fit well in reports. Default: 650 pixels.
+#' @param plotheight Height of the plot in pixels. Adjust based on number of
+#'   groups to ensure readability. Default: 450 pixels.
+#' @param guidedMode Enable step-by-step guidance for clinical researchers.
+#'   Provides recommendations for test selection and interpretation.
+#' @param clinicalPreset Pre-configured analysis settings optimized for
+#'   different use cases. Basic: Simple comparison with key statistics;
+#'   Publication: Journal-ready formatting; Clinical: Medical report
+#'   optimization; Custom: Full control.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$reportSentence} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$guidedSteps} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$recommendations} \tab \tab \tab \tab \tab a html \cr
 #' }
 #'
 #' @export
@@ -421,16 +506,18 @@ jjdotplotstats <- function(
     xtitle = "",
     ytitle = "",
     originaltheme = FALSE,
-    resultssubtitle = TRUE,
+    resultssubtitle = FALSE,
     testvalue = 0,
-    bfmessage = TRUE,
+    bfmessage = FALSE,
     conflevel = 0.95,
     k = 2,
     testvalueline = FALSE,
     centralityparameter = "mean",
     centralityk = 2,
     plotwidth = 650,
-    plotheight = 450) {
+    plotheight = 450,
+    guidedMode = FALSE,
+    clinicalPreset = "basic") {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjdotplotstats requires jmvcore to be installed (restart may be required)")
@@ -469,7 +556,9 @@ jjdotplotstats <- function(
         centralityparameter = centralityparameter,
         centralityk = centralityk,
         plotwidth = plotwidth,
-        plotheight = plotheight)
+        plotheight = plotheight,
+        guidedMode = guidedMode,
+        clinicalPreset = clinicalPreset)
 
     analysis <- jjdotplotstatsClass$new(
         options = options,

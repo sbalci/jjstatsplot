@@ -8,12 +8,13 @@ jjwithinstats(
   data,
   dep1,
   dep2,
-  dep3,
-  dep4,
+  dep3 = NULL,
+  dep4 = NULL,
   pointpath = FALSE,
   centralitypath = FALSE,
   centralityplotting = FALSE,
   centralitytype = "parametric",
+  clinicalpreset = "custom",
   typestatistics = "parametric",
   pairwisecomparisons = FALSE,
   pairwisedisplay = "significant",
@@ -21,12 +22,17 @@ jjwithinstats(
   effsizetype = "biased",
   violin = TRUE,
   boxplot = TRUE,
-  point = TRUE,
+  point = FALSE,
   mytitle = "Within Group Comparison",
   xtitle = "",
   ytitle = "",
   originaltheme = FALSE,
-  resultssubtitle = TRUE
+  resultssubtitle = FALSE,
+  bfmessage = FALSE,
+  conflevel = 0.95,
+  k = 2,
+  plotwidth = 650,
+  plotheight = 450
 )
 }
 \arguments{
@@ -44,13 +50,24 @@ jjwithinstats(
 
 \item{centralitypath}{.}
 
-\item{centralityplotting}{.}
+\item{centralityplotting}{Display mean/median lines across time points to
+visualize the overall trend.  Helps identify if the group as a whole is
+improving, declining, or stable over time.}
 
 \item{centralitytype}{.}
 
-\item{typestatistics}{.}
+\item{clinicalpreset}{Choose a preset optimized for common clinical
+scenarios, or select Custom for manual configuration.}
 
-\item{pairwisecomparisons}{.}
+\item{typestatistics}{Parametric: Assumes normal distribution, most
+powerful when appropriate.  Nonparametric: No distribution assumptions,
+robust for skewed biomarker data. Robust: Uses trimmed means, reduces
+outlier influence. Bayesian: Provides evidence strength rather than
+p-values.}
+
+\item{pairwisecomparisons}{Enable to see which specific time points differ
+significantly (e.g., baseline vs month 3, month 3 vs month 6).  Useful for
+identifying when changes occur during treatment or disease progression.}
 
 \item{pairwisedisplay}{.}
 
@@ -73,19 +90,106 @@ jjwithinstats(
 \item{originaltheme}{.}
 
 \item{resultssubtitle}{.}
+
+\item{bfmessage}{Whether to display Bayes Factor in the subtitle when using
+Bayesian analysis.}
+
+\item{conflevel}{Confidence level for confidence intervals.}
+
+\item{k}{Number of decimal places for displaying statistics in the
+subtitle.}
+
+\item{plotwidth}{Width of the plot in pixels. Default is 650.}
+
+\item{plotheight}{Height of the plot in pixels. Default is 450.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+\code{results$summary} \tab \tab \tab \tab \tab a html \cr
 }
 }
 \description{
-Box-Violin Plots to Compare Within Groups
+Wrapper Function for ggstatsplot::ggwithinstats and
+ggstatsplot::grouped_ggwithinstats to generate violin plots
+for repeated measurements and within-subjects analysis with
+statistical annotations and significance testing.
 }
 \examples{
-\donttest{
-# example will be added
-}
+# Basic within-subjects analysis with iris dataset (simulated repeated measures)
+data(iris)
+iris_wide <- data.frame(
+    Subject = 1:50,
+    Time1 = iris$Sepal.Length[1:50],
+    Time2 = iris$Sepal.Width[1:50] * 2.5,
+    Time3 = iris$Petal.Length[1:50] * 1.8
+)
+jjwithinstats(
+    data = iris_wide,
+    dep1 = "Time1",
+    dep2 = "Time2",
+    dep3 = "Time3",
+    typestatistics = "parametric"
+)
+
+# Advanced within-subjects analysis with custom settings
+jjwithinstats(
+    data = iris_wide,
+    dep1 = "Time1",
+    dep2 = "Time2",
+    dep3 = "Time3",
+    typestatistics = "nonparametric",
+    pairwisecomparisons = TRUE,
+    pairwisedisplay = "significant",
+    centralityplotting = TRUE,
+    centralitytype = "nonparametric",
+    pointpath = TRUE,
+    mytitle = "Repeated Measurements Over Time",
+    xtitle = "Time Point",
+    ytitle = "Measurement Value"
+)
+
+# Robust analysis with mtcars dataset (horsepower measurements)
+data(mtcars)
+mtcars_wide <- data.frame(
+    Car = rownames(mtcars)[1:20],
+    HP_Stock = mtcars$hp[1:20],
+    HP_Tuned = mtcars$hp[1:20] * 1.15,
+    HP_Racing = mtcars$hp[1:20] * 1.35
+)
+jjwithinstats(
+    data = mtcars_wide,
+    dep1 = "HP_Stock",
+    dep2 = "HP_Tuned",
+    dep3 = "HP_Racing",
+    typestatistics = "robust",
+    centralityplotting = TRUE,
+    centralitytype = "robust",
+    effsizetype = "unbiased",
+    conflevel = 0.99,
+    k = 3
+)
+
+# Bayesian analysis with ToothGrowth dataset (growth measurements)
+data(ToothGrowth)
+tooth_wide <- data.frame(
+    Subject = 1:20,
+    Week1 = ToothGrowth$len[1:20],
+    Week2 = ToothGrowth$len[21:40],
+    Week3 = ToothGrowth$len[41:60]
+)
+jjwithinstats(
+    data = tooth_wide,
+    dep1 = "Week1",
+    dep2 = "Week2",
+    dep3 = "Week3",
+    typestatistics = "bayes",
+    bfmessage = TRUE,
+    centralityplotting = TRUE,
+    mytitle = "Tooth Growth Over Time"
+)
+
 }

@@ -1,0 +1,36 @@
+---
+name: lollipop
+title: Lollipop Chart
+jrs: '1.1'
+
+items:
+    - name: todo
+      title: Instructions
+      type: Html
+      visible: true
+
+    - name: summary
+      title: Data Summary
+      type: Table
+      columns:
+        - name: statistic
+          title: Statistic
+          type: text
+        - name: value
+          title: Value
+          type: text
+
+    - name: plot
+      title: '`Lollipop Chart {dep} vs {group}`'
+      type: Image
+      width: 700
+      height: 500
+      renderFun: .plot
+      requiresData: true
+
+refs:
+    - ClinicoPathJamoviModule
+    - RGraphGallery
+    - ggplot2
+
+...

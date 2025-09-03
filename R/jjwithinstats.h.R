@@ -14,6 +14,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             centralitypath = FALSE,
             centralityplotting = FALSE,
             centralitytype = "parametric",
+            clinicalpreset = "custom",
             typestatistics = "parametric",
             pairwisecomparisons = FALSE,
             pairwisedisplay = "significant",
@@ -21,12 +22,17 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             effsizetype = "biased",
             violin = TRUE,
             boxplot = TRUE,
-            point = TRUE,
+            point = FALSE,
             mytitle = "Within Group Comparison",
             xtitle = "",
             ytitle = "",
             originaltheme = FALSE,
-            resultssubtitle = TRUE, ...) {
+            resultssubtitle = FALSE,
+            bfmessage = FALSE,
+            conflevel = 0.95,
+            k = 2,
+            plotwidth = 650,
+            plotheight = 450, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -54,14 +60,16 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "numeric"))
+                    "numeric"),
+                default=NULL)
             private$..dep4 <- jmvcore::OptionVariable$new(
                 "dep4",
                 dep4,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "numeric"))
+                    "numeric"),
+                default=NULL)
             private$..pointpath <- jmvcore::OptionBool$new(
                 "pointpath",
                 pointpath,
@@ -83,6 +91,15 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                     "robust",
                     "bayes"),
                 default="parametric")
+            private$..clinicalpreset <- jmvcore::OptionList$new(
+                "clinicalpreset",
+                clinicalpreset,
+                options=list(
+                    "custom",
+                    "biomarker",
+                    "treatment",
+                    "laboratory"),
+                default="custom")
             private$..typestatistics <- jmvcore::OptionList$new(
                 "typestatistics",
                 typestatistics,
@@ -137,7 +154,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             private$..point <- jmvcore::OptionBool$new(
                 "point",
                 point,
-                default=TRUE)
+                default=FALSE)
             private$..mytitle <- jmvcore::OptionString$new(
                 "mytitle",
                 mytitle,
@@ -157,7 +174,35 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             private$..resultssubtitle <- jmvcore::OptionBool$new(
                 "resultssubtitle",
                 resultssubtitle,
-                default=TRUE)
+                default=FALSE)
+            private$..bfmessage <- jmvcore::OptionBool$new(
+                "bfmessage",
+                bfmessage,
+                default=FALSE)
+            private$..conflevel <- jmvcore::OptionNumber$new(
+                "conflevel",
+                conflevel,
+                default=0.95,
+                min=0,
+                max=1)
+            private$..k <- jmvcore::OptionInteger$new(
+                "k",
+                k,
+                default=2,
+                min=0,
+                max=5)
+            private$..plotwidth <- jmvcore::OptionInteger$new(
+                "plotwidth",
+                plotwidth,
+                default=650,
+                min=300,
+                max=1200)
+            private$..plotheight <- jmvcore::OptionInteger$new(
+                "plotheight",
+                plotheight,
+                default=450,
+                min=300,
+                max=800)
 
             self$.addOption(private$..dep1)
             self$.addOption(private$..dep2)
@@ -167,6 +212,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             self$.addOption(private$..centralitypath)
             self$.addOption(private$..centralityplotting)
             self$.addOption(private$..centralitytype)
+            self$.addOption(private$..clinicalpreset)
             self$.addOption(private$..typestatistics)
             self$.addOption(private$..pairwisecomparisons)
             self$.addOption(private$..pairwisedisplay)
@@ -180,6 +226,11 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             self$.addOption(private$..ytitle)
             self$.addOption(private$..originaltheme)
             self$.addOption(private$..resultssubtitle)
+            self$.addOption(private$..bfmessage)
+            self$.addOption(private$..conflevel)
+            self$.addOption(private$..k)
+            self$.addOption(private$..plotwidth)
+            self$.addOption(private$..plotheight)
         }),
     active = list(
         dep1 = function() private$..dep1$value,
@@ -190,6 +241,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         centralitypath = function() private$..centralitypath$value,
         centralityplotting = function() private$..centralityplotting$value,
         centralitytype = function() private$..centralitytype$value,
+        clinicalpreset = function() private$..clinicalpreset$value,
         typestatistics = function() private$..typestatistics$value,
         pairwisecomparisons = function() private$..pairwisecomparisons$value,
         pairwisedisplay = function() private$..pairwisedisplay$value,
@@ -202,7 +254,12 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         xtitle = function() private$..xtitle$value,
         ytitle = function() private$..ytitle$value,
         originaltheme = function() private$..originaltheme$value,
-        resultssubtitle = function() private$..resultssubtitle$value),
+        resultssubtitle = function() private$..resultssubtitle$value,
+        bfmessage = function() private$..bfmessage$value,
+        conflevel = function() private$..conflevel$value,
+        k = function() private$..k$value,
+        plotwidth = function() private$..plotwidth$value,
+        plotheight = function() private$..plotheight$value),
     private = list(
         ..dep1 = NA,
         ..dep2 = NA,
@@ -212,6 +269,7 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         ..centralitypath = NA,
         ..centralityplotting = NA,
         ..centralitytype = NA,
+        ..clinicalpreset = NA,
         ..typestatistics = NA,
         ..pairwisecomparisons = NA,
         ..pairwisedisplay = NA,
@@ -224,7 +282,12 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         ..xtitle = NA,
         ..ytitle = NA,
         ..originaltheme = NA,
-        ..resultssubtitle = NA)
+        ..resultssubtitle = NA,
+        ..bfmessage = NA,
+        ..conflevel = NA,
+        ..k = NA,
+        ..plotwidth = NA,
+        ..plotheight = NA)
 )
 
 jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -232,7 +295,9 @@ jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
-        plot = function() private$.items[["plot"]]),
+        interpretation = function() private$.items[["interpretation"]],
+        plot = function() private$.items[["plot"]],
+        summary = function() private$.items[["summary"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -249,19 +314,47 @@ jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                     "dep2",
                     "dep3",
                     "dep4",
+                    "clinicalpreset",
                     "typestatistics",
+                    "pairwisecomparisons",
+                    "pairwisedisplay",
+                    "padjustmethod",
+                    "effsizetype",
+                    "pointpath",
+                    "centralityplotting",
+                    "centralitytype",
+                    "centralitypath",
+                    "violin",
+                    "boxplot",
+                    "point",
+                    "mytitle",
+                    "xtitle",
+                    "ytitle",
                     "originaltheme",
-                    "excl"))
+                    "resultssubtitle",
+                    "bfmessage",
+                    "conflevel",
+                    "k",
+                    "plotwidth",
+                    "plotheight"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
-                title="To Do"))
+                title="Analysis Guide"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="interpretation",
+                title="Clinical Interpretation"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
                 title="Violin Plots",
                 renderFun=".plot",
-                requiresData=TRUE))}))
+                requiresData=TRUE))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="summary",
+                title="Analysis Summary"))}))
 
 jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjwithinstatsBase",
@@ -271,7 +364,7 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjwithinstats",
-                version = c(0,0,3),
+                version = c(0,0,31),
                 options = options,
                 results = jjwithinstatsResults$new(options=options),
                 data = data,
@@ -286,12 +379,86 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 
 #' Box-Violin Plots to Compare Within Groups
 #'
+#' Wrapper Function for ggstatsplot::ggwithinstats and
+#' ggstatsplot::grouped_ggwithinstats to generate violin plots
+#' for repeated measurements and within-subjects analysis with
+#' statistical annotations and significance testing.
 #' 
 #'
 #' @examples
-#' \donttest{
-#' # example will be added
-#'}
+#' # Basic within-subjects analysis with iris dataset (simulated repeated measures)
+#' data(iris)
+#' iris_wide <- data.frame(
+#'     Subject = 1:50,
+#'     Time1 = iris$Sepal.Length[1:50],
+#'     Time2 = iris$Sepal.Width[1:50] * 2.5,
+#'     Time3 = iris$Petal.Length[1:50] * 1.8
+#' )
+#' jjwithinstats(
+#'     data = iris_wide,
+#'     dep1 = "Time1",
+#'     dep2 = "Time2",
+#'     dep3 = "Time3",
+#'     typestatistics = "parametric"
+#' )
+#'
+#' # Advanced within-subjects analysis with custom settings
+#' jjwithinstats(
+#'     data = iris_wide,
+#'     dep1 = "Time1",
+#'     dep2 = "Time2",
+#'     dep3 = "Time3",
+#'     typestatistics = "nonparametric",
+#'     pairwisecomparisons = TRUE,
+#'     pairwisedisplay = "significant",
+#'     centralityplotting = TRUE,
+#'     centralitytype = "nonparametric",
+#'     pointpath = TRUE,
+#'     mytitle = "Repeated Measurements Over Time",
+#'     xtitle = "Time Point",
+#'     ytitle = "Measurement Value"
+#' )
+#'
+#' # Robust analysis with mtcars dataset (horsepower measurements)
+#' data(mtcars)
+#' mtcars_wide <- data.frame(
+#'     Car = rownames(mtcars)[1:20],
+#'     HP_Stock = mtcars$hp[1:20],
+#'     HP_Tuned = mtcars$hp[1:20] * 1.15,
+#'     HP_Racing = mtcars$hp[1:20] * 1.35
+#' )
+#' jjwithinstats(
+#'     data = mtcars_wide,
+#'     dep1 = "HP_Stock",
+#'     dep2 = "HP_Tuned",
+#'     dep3 = "HP_Racing",
+#'     typestatistics = "robust",
+#'     centralityplotting = TRUE,
+#'     centralitytype = "robust",
+#'     effsizetype = "unbiased",
+#'     conflevel = 0.99,
+#'     k = 3
+#' )
+#'
+#' # Bayesian analysis with ToothGrowth dataset (growth measurements)
+#' data(ToothGrowth)
+#' tooth_wide <- data.frame(
+#'     Subject = 1:20,
+#'     Week1 = ToothGrowth$len[1:20],
+#'     Week2 = ToothGrowth$len[21:40],
+#'     Week3 = ToothGrowth$len[41:60]
+#' )
+#' jjwithinstats(
+#'     data = tooth_wide,
+#'     dep1 = "Week1",
+#'     dep2 = "Week2",
+#'     dep3 = "Week3",
+#'     typestatistics = "bayes",
+#'     bfmessage = TRUE,
+#'     centralityplotting = TRUE,
+#'     mytitle = "Tooth Growth Over Time"
+#' )
+#'
 #' @param data The data as a data frame.
 #' @param dep1 .
 #' @param dep2 .
@@ -299,10 +466,20 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param dep4 .
 #' @param pointpath .
 #' @param centralitypath .
-#' @param centralityplotting .
+#' @param centralityplotting Display mean/median lines across time points to
+#'   visualize the overall trend.  Helps identify if the group as a whole is
+#'   improving, declining, or stable over time.
 #' @param centralitytype .
-#' @param typestatistics .
-#' @param pairwisecomparisons .
+#' @param clinicalpreset Choose a preset optimized for common clinical
+#'   scenarios, or select Custom for manual configuration.
+#' @param typestatistics Parametric: Assumes normal distribution, most
+#'   powerful when appropriate.  Nonparametric: No distribution assumptions,
+#'   robust for skewed biomarker data. Robust: Uses trimmed means, reduces
+#'   outlier influence. Bayesian: Provides evidence strength rather than
+#'   p-values.
+#' @param pairwisecomparisons Enable to see which specific time points differ
+#'   significantly (e.g., baseline vs month 3, month 3 vs month 6).  Useful for
+#'   identifying when changes occur during treatment or disease progression.
 #' @param pairwisedisplay .
 #' @param padjustmethod .
 #' @param effsizetype .
@@ -314,10 +491,19 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param ytitle .
 #' @param originaltheme .
 #' @param resultssubtitle .
+#' @param bfmessage Whether to display Bayes Factor in the subtitle when using
+#'   Bayesian analysis.
+#' @param conflevel Confidence level for confidence intervals.
+#' @param k Number of decimal places for displaying statistics in the
+#'   subtitle.
+#' @param plotwidth Width of the plot in pixels. Default is 650.
+#' @param plotheight Height of the plot in pixels. Default is 450.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$summary} \tab \tab \tab \tab \tab a html \cr
 #' }
 #'
 #' @export
@@ -325,12 +511,13 @@ jjwithinstats <- function(
     data,
     dep1,
     dep2,
-    dep3,
-    dep4,
+    dep3 = NULL,
+    dep4 = NULL,
     pointpath = FALSE,
     centralitypath = FALSE,
     centralityplotting = FALSE,
     centralitytype = "parametric",
+    clinicalpreset = "custom",
     typestatistics = "parametric",
     pairwisecomparisons = FALSE,
     pairwisedisplay = "significant",
@@ -338,12 +525,17 @@ jjwithinstats <- function(
     effsizetype = "biased",
     violin = TRUE,
     boxplot = TRUE,
-    point = TRUE,
+    point = FALSE,
     mytitle = "Within Group Comparison",
     xtitle = "",
     ytitle = "",
     originaltheme = FALSE,
-    resultssubtitle = TRUE) {
+    resultssubtitle = FALSE,
+    bfmessage = FALSE,
+    conflevel = 0.95,
+    k = 2,
+    plotwidth = 650,
+    plotheight = 450) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjwithinstats requires jmvcore to be installed (restart may be required)")
@@ -370,6 +562,7 @@ jjwithinstats <- function(
         centralitypath = centralitypath,
         centralityplotting = centralityplotting,
         centralitytype = centralitytype,
+        clinicalpreset = clinicalpreset,
         typestatistics = typestatistics,
         pairwisecomparisons = pairwisecomparisons,
         pairwisedisplay = pairwisedisplay,
@@ -382,7 +575,12 @@ jjwithinstats <- function(
         xtitle = xtitle,
         ytitle = ytitle,
         originaltheme = originaltheme,
-        resultssubtitle = resultssubtitle)
+        resultssubtitle = resultssubtitle,
+        bfmessage = bfmessage,
+        conflevel = conflevel,
+        k = k,
+        plotwidth = plotwidth,
+        plotheight = plotheight)
 
     analysis <- jjwithinstatsClass$new(
         options = options,

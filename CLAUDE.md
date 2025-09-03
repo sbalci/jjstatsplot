@@ -71,6 +71,8 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 - Never edit `.h.R` files manually
 - After modifying `.yaml` files, jamovi will regenerate `.h.R` files
 - Main module definition is in `jamovi/0000.yaml`
+- New analyses require both `.b.R` backend and corresponding `.a.yaml`, `.u.yaml`, `.r.yaml` files
+- Use `jmvtools::create()` to scaffold new analysis templates
 
 ## Package Dependencies
 
@@ -80,13 +82,19 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 - `ggstatsplot` (main statistical plotting engine)
 
 **Key Plotting:**
-- `ggplot2`, `ggalluvial`, `ggside`, `ggcorrplot`
-- `waffle` (for waffle charts)
+
+- `ggplot2`, `ggalluvial`, `ggside`, `ggcorrplot`, `ggdist`, `ggridges`, `ggrain`
+- `waffle` (for waffle charts), `arcdiagram`, `easyalluvial`
+- `ggsegmentedtotalbar` (for segmented bar charts)
 
 **Statistical:**
+
 - `PMCMRplus`, `WRS2`, `BayesFactor`, `effectsize`, `performance`
+- `moments` (for distribution moments)
 
 ## Analysis Types
+
+### Core Statistical Plots
 
 1. **jjhistostats** - Histograms with statistical annotations
 2. **jjscatterstats** - Scatter plots with regression details  
@@ -98,9 +106,21 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 8. **jjwithinstats** - Within-groups comparisons (repeated measures)
 9. **jjwaffle** - Waffle charts for distributions
 
+### Advanced/Additional Plots
+
+1. **advancedraincloud** - Enhanced raincloud plots with longitudinal support
+2. **jjarcdiagram** - Arc diagrams for network/flow visualization
+3. **jjridges** - Ridge plots for distribution comparisons
+4. **jjsegmentedtotalbar** - Segmented bar charts with totals
+5. **linechart** - Line charts for trends over time
+6. **lollipop** - Lollipop charts for ranked data
+7. **raincloud** - Basic raincloud plots (distribution + individual points)
+8. **statsplot2** - Extended statistical plotting functionality
+
 ## Key Patterns
 
 ### Plot Size Management
+
 ```r
 # In .init(), set dynamic plot sizes based on data
 deplen <- length(self$options$dep)
@@ -112,6 +132,7 @@ self$results$plot2$setSize(num_levels * 600, deplen * 450)
 ```
 
 ### Data Preparation Pattern
+
 ```r
 # Standard data preparation with caching
 .prepareData = function(force_refresh = FALSE) {
@@ -134,12 +155,14 @@ self$results$plot2$setSize(num_levels * 600, deplen * 450)
 ```
 
 ### Error Handling
+
 - Always check for required variables before running analysis
 - Use `glue::glue()` for user-friendly error messages
 - Return early with helpful guidance when data is missing
 - Wrap ggstatsplot calls in tryCatch blocks
 
 ### Theme Support
+
 - Supports both jamovi-style themes and original ggstatsplot themes
 - Theme selection handled through jamovi UI options
 - Theme applied via `self$options$theme` parameter
@@ -147,7 +170,7 @@ self$results$plot2$setSize(num_levels * 600, deplen * 450)
 ## File Organization
 
 - **R/** - All R source code
-  - `jj*.b.R` - Backend implementations (9 analyses)
+  - `jj*.b.R` - Backend implementations (17+ analyses)
   - `jj*.h.R` - Auto-generated helpers
   - `utils.R` - Utility functions
 - **jamovi/** - jamovi analysis definitions and UI
@@ -168,14 +191,17 @@ The package uses GitHub Actions with R-CMD-check on macOS and Windows. Tests aut
 ## Important Implementation Notes
 
 ### Progress Feedback
+
 Each analysis provides user feedback via `self$results$todo$setContent()` during data preparation and analysis phases.
 
 ### Result Structure
+
 - `self$results$plot` - Primary plot output
 - `self$results$plot2` - Secondary grouped plots (when applicable)
 - `self$results$todo` - Progress/status messages
 
 ### Common Pitfalls to Avoid
+
 - Never edit `.h.R` files (regenerated automatically)
 - Always use `jmvcore::toNumeric()` for numeric conversion
 - Use `jmvcore::naOmit()` for NA handling

@@ -1,16 +1,22 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.31.36
+version: 0.0.31.57
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <drserdarbalci@gmail.com>
-date: '2025-08-22'
+date: '2025-09-03'
 type: R
 description: >-
-  A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in
-  jamovi based on ggstatsplot package. Also includes additional plots.
+  Comprehensive statistical visualization module for jamovi featuring 17+ analysis
+  types with publication-ready plots and statistical annotations. Wraps ggstatsplot
+  functions for histograms, scatter plots, correlation matrices, between/within-group
+  comparisons, bar/pie/waffle charts, plus advanced visualizations including raincloud
+  plots, ridge plots, arc diagrams, lollipop charts, line charts, and segmented bar
+  charts. Features automatic plot selection, dual-mode operation for single/grouped
+  variables, statistical testing integration, and point-and-click interface for
+  researchers requiring sophisticated data visualization without coding.
 analyses:
   - title: Histogram
     name: jjhistostats
@@ -112,23 +118,33 @@ analyses:
     menuSubtitle: Repeated Continuous Measurements
     ribbon: analyses
     category: analyses
+    description: |
+      Wrapper Function for ggstatsplot::ggwithinstats and
+      ggstatsplot::grouped_ggwithinstats to generate violin plots
+      for repeated measurements and within-subjects analysis with
+      statistical annotations and significance testing.
   - title: Waffle Charts
     name: jwaffle
     ns: jjstatsplot
     menuGroup: JJStatsPlot
     menuSubgroup: Distribution
     menuTitle: Waffle Charts
-    description: |
-      'Creates waffle charts to visualize distributions and proportions'
+    description: >
+      'Creates waffle charts to visualize categorical distributions and
+      proportions using colored squares. Ideal for showing parts-of-whole
+      relationships in clinical data such as disease subtypes, treatment
+      outcomes, or risk category distributions. Each square represents a
+      proportion of the total sample, making it easy to see relative frequencies
+      across categories.'
     category: analyses
     ribbon: analyses
-  - title: Raincloud Plot
+  - title: Advanced Raincloud Plot
     name: advancedraincloud
     ns: jjstatsplot
     category: analyses
     menuGroup: JJStatsPlot
     menuSubgroup: Categorical vs Continuous
-    menuTitle: Raincloud Plot
+    menuTitle: Advanced Raincloud Plot
     description: >
       Creates advanced raincloud plots with longitudinal connections using
       ggrain package.
@@ -161,6 +177,100 @@ analyses:
       comprehensive fallback options. Supports both independent and repeated
       measures designs with various plot types including violin plots, scatter
       plots, bar charts, and alluvial diagrams.
+  - title: Arc Diagram
+    name: jjarcdiagram
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Network
+    menuTitle: Arc Diagram
+    description: >
+      'Creates arc diagrams for network visualization using the arcdiagram
+      package.'
+  - title: Ridge Plot
+    name: jjridges
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Distribution
+    menuTitle: Ridge Plot
+    menuSubtitle: Enhanced Ridgeline Visualization
+    description: >
+      'Create advanced ridgeline plots.
+
+      Visualize distributions across groups with multiple style options,
+      annotations,
+
+      statistical overlays, and publication-ready formatting. Supports both
+      basic and
+
+      complex ridge plots with inside plots, double ridgelines, and color
+      gradients.'
+  - title: Segmented Total Bar Charts
+    name: jjsegmentedtotalbar
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: ClinicoPath Advanced Plots
+    menuTitle: Segmented Total Bar Charts
+    menuSubtitle: 100% Stacked Bar Charts for Proportional Data
+    description: >
+      Create segmented total bar charts (100% stacked bars) that show
+      proportional 
+
+      breakdowns within categories. Perfect for displaying composition data
+      where 
+
+      each bar represents 100% and segments show relative proportions.
+  - title: Line Chart
+    name: linechart
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Lines
+    menuTitle: Line Chart
+    menuSubtitle: Time Series and Trend Analysis
+    description: >-
+      Creates line charts for time series analysis and trend visualization, with
+      support for multiple groups, confidence intervals, and statistical
+      overlays.
+  - title: Lollipop Chart
+    name: lollipop
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Lollipop Chart
+    menuSubtitle: Categorical Data Visualization
+    description: >-
+      Creates lollipop charts for categorical data visualization following R
+      Graph Gallery best practices, with emphasis on clinical applications like
+      patient timelines, treatment outcomes, and biomarker comparisons. Uses
+      geom_segment() and geom_point() for optimal visual presentation.
+  - title: Raincloud Plot
+    name: raincloud
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Raincloud Plot
+    description: >
+      Creates Raincloud plots to visualize data distributions using ggdist
+      package.
+
+      Raincloud plots combine three visualization techniques: half-violin plots
+      showing 
+
+      distribution density, box plots showing summary statistics, and dot plots
+      showing 
+
+      individual data points. This provides a comprehensive view of data
+      distribution 
+
+      that reveals patterns traditional box plots might miss, including
+      multimodality
+
+      and distribution shape. Based on the ggdist R-Bloggers tutorial.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
