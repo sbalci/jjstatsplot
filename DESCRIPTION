@@ -1,12 +1,12 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.31.57
+Version: 0.0.31.58
 Date: 2025-09-03
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
-        "cre"), email = "drserdarbalci@gmail.com", comment = c(ORCID =
+        "cre"), email = "serdarbalci@serdarbalci.com", comment = c(ORCID =
         "0000-0002-7852-3851"))
-Maintainer: Serdar Balci <drserdarbalci@gmail.com>
+Maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
 Description: Comprehensive statistical visualization package for jamovi that
         wraps ggstatsplot functions and provides 17+ analysis types including
         histograms, scatter plots, correlation matrices, between/within-group

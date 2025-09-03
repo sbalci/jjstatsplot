@@ -30,6 +30,14 @@ Traditional statistical software often separates visualization from analysis, re
 | **Categorical vs Categorical** | Bar Chart (`jjbarstats`)           | Frequency analysis          | Chi-square, Fisher's exact test            |
 | **Categorical vs Categorical** | Pie Chart (`jjpiestats`)           | Proportion visualization    | Goodness of fit tests                      |
 | **Distribution**               | Waffle Chart (`jjwaffle`)          | Part-to-whole visualization | Custom proportions display                 |
+| **Advanced Distributions**     | Raincloud (`raincloud`)            | Distribution + individual points | Kernel density, quartiles                |
+| **Advanced Distributions**     | Advanced Raincloud (`advancedraincloud`) | Enhanced raincloud plots   | Longitudinal support, multi-group comparison |
+| **Distribution Comparison**     | Ridge Plots (`jjridges`)           | Multiple distribution overlay | Density curves by groups                  |
+| **Network/Flow**               | Arc Diagrams (`jjarcdiagram`)      | Network visualization       | Connection strength, node properties       |
+| **Segmented Analysis**         | Segmented Bar (`jjsegmentedtotalbar`) | Stacked proportions        | Total and segment statistics               |
+| **Time Series**                | Line Chart (`linechart`)           | Trends over time            | Change rates, seasonal patterns            |
+| **Ranked Data**                | Lollipop Chart (`lollipop`)        | Ranked comparisons          | Ordered categorical analysis               |
+| **Extended Analysis**          | Stats Plot 2 (`statsplot2`)        | Extended statistical plots  | Multiple statistical approaches            |
 
 ### 🚀 Advanced Capabilities
 
@@ -130,7 +138,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 - **Bug Reports**: [GitHub Issues](https://github.com/sbalci/jjstatsplot/issues)
 - **Feature Requests**: [GitHub Discussions](https://github.com/sbalci/jjstatsplot/discussions)
-- **General Questions**: <drserdarbalci@gmail.com>
+- **General Questions**: <serdarbalci@serdarbalci.com>
 
 ## 📄 Citation
 
@@ -141,8 +149,8 @@ If you use jjstatsplot in your research, please cite:
   author = {Serdar Balci},
   title = {jjstatsplot: Statistical Visualizations for jamovi},
   url = {https://github.com/sbalci/jjstatsplot},
-  version = {0.0.3.90},
-  year = {2024}
+  version = {0.0.31.58},
+  year = {2025}
 }
 ```
 
