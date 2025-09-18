@@ -142,16 +142,11 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📄 Citation
 
-If you use jjstatsplot in your research, please cite:
+If you use jjstatsplot in your research, please cite the main ClinicoPath project:
 
-```bibtex
-@software{jjstatsplot,
-  author = {Serdar Balci},
-  title = {jjstatsplot: Statistical Visualizations for jamovi},
-  url = {https://github.com/sbalci/jjstatsplot},
-  version = {0.0.31.58},
-  year = {2025}
-}
+```
+Serdar Balci (2025). ClinicoPath jamovi Module. doi:10.5281/zenodo.3997188
+[R package]. Retrieved from https://github.com/sbalci/ClinicoPathJamoviModule
 ```
 
 Please also cite the underlying packages:

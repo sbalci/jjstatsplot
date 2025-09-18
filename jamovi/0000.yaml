@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.31.58
+version: 0.0.31.69
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2025-09-03'
+date: '2025-09-18'
 type: R
 description: >-
   Comprehensive statistical visualization module for jamovi featuring 17+
@@ -23,21 +23,52 @@ analyses:
     name: jjhistostats
     ns: jjstatsplot
     menuGroup: JJStatsPlot
-    menuSubgroup: Continuous
+    menuSubgroup: Distribution
     menuTitle: Histogram
-    menuSubtitle: Histogram
     description: |
       'Wrapper Function for ggstatsplot::gghistostats and
       ggstatsplot::grouped_gghistostats to generate Histogram.'
     ribbon: analyses
     category: analyses
+  - title: Ridge Plot
+    name: jjridges
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Distribution
+    menuTitle: Ridge Plot
+    description: >
+      'Create advanced ridgeline plots.
+
+      Visualize distributions across groups with multiple style options,
+      annotations,
+
+      statistical overlays, and publication-ready formatting. Supports both
+      basic and
+
+      complex ridge plots with inside plots, double ridgelines, and color
+      gradients.'
+  - title: Waffle Charts
+    name: jwaffle
+    ns: jjstatsplot
+    menuGroup: JJStatsPlot
+    menuSubgroup: Distribution
+    menuTitle: Waffle Charts
+    description: >
+      'Creates waffle charts to visualize categorical distributions and
+      proportions using colored squares. Ideal for showing parts-of-whole
+      relationships in clinical data such as disease subtypes, treatment
+      outcomes, or risk category distributions. Each square represents a
+      proportion of the total sample, making it easy to see relative frequencies
+      across categories.'
+    category: analyses
+    ribbon: analyses
   - title: Scatter Plot
     name: jjscatterstats
     ns: jjstatsplot
     menuGroup: JJStatsPlot
     menuSubgroup: Continuous vs Continuous
     menuTitle: Scatter Plot
-    menuSubtitle: Scatter Plot
     description: |
       Wrapper Function for ggstatsplot::ggscatterstats and
       ggstatsplot::grouped_ggscatterstats to generate scatter plots
@@ -50,7 +81,6 @@ analyses:
     menuGroup: JJStatsPlot
     menuSubgroup: Continuous vs Continuous
     menuTitle: Correlation Matrix
-    menuSubtitle: Correlation Matrix
     description: |
       Wrapper Function for ggstatsplot::ggcorrmat and
       ggstatsplot::grouped_ggcorrmat to generate correlation matrix
@@ -71,45 +101,6 @@ analyses:
       annotations.
     ribbon: analyses
     category: analyses
-  - title: Dot Chart
-    name: jjdotplotstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Continuous
-    menuTitle: Dot Chart
-    menuSubtitle: Dot Chart
-    description: |
-      Wrapper Function for ggstatsplot::ggdotplotstats and
-      ggstatsplot::grouped_ggdotplotstats to generate dot plots
-      comparing continuous variables between groups with statistical
-      annotations and significance testing.
-    ribbon: analyses
-    category: analyses
-  - title: Bar Charts
-    name: jjbarstats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Categorical
-    menuTitle: Bar Charts
-    menuSubtitle: Bar Charts, Grouped Bar Charts
-    description: |
-      'Wrapper Function for ggstatsplot::ggbarstats and
-      ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
-    ribbon: analyses
-    category: analyses
-  - title: Pie Charts
-    name: jjpiestats
-    ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Categorical
-    menuTitle: Pie Charts
-    menuSubtitle: Pie Charts
-    description: |
-      'Wrapper Function for ggstatsplot::ggpiestats and
-      ggstatsplot::grouped_ggpiestats to generate Pie Charts with
-      statistical analysis.'
-    ribbon: analyses
-    category: analyses
   - title: Box-Violin Plots to Compare Within Groups
     name: jjwithinstats
     ns: jjstatsplot
@@ -124,97 +115,37 @@ analyses:
       ggstatsplot::grouped_ggwithinstats to generate violin plots
       for repeated measurements and within-subjects analysis with
       statistical annotations and significance testing.
-  - title: Waffle Charts
-    name: jwaffle
+  - title: Dot Chart
+    name: jjdotplotstats
     ns: jjstatsplot
-    menuGroup: JJStatsPlot
-    menuSubgroup: Distribution
-    menuTitle: Waffle Charts
-    description: >
-      'Creates waffle charts to visualize categorical distributions and
-      proportions using colored squares. Ideal for showing parts-of-whole
-      relationships in clinical data such as disease subtypes, treatment
-      outcomes, or risk category distributions. Each square represents a
-      proportion of the total sample, making it easy to see relative frequencies
-      across categories.'
-    category: analyses
-    ribbon: analyses
-  - title: Advanced Raincloud Plot
-    name: advancedraincloud
-    ns: jjstatsplot
-    category: analyses
     menuGroup: JJStatsPlot
     menuSubgroup: Categorical vs Continuous
-    menuTitle: Advanced Raincloud Plot
-    description: >
-      Creates advanced raincloud plots with longitudinal connections using
-      ggrain package.
-
-      This module complements the existing Raincloud Plot module by providing
-      advanced 
-
-      features including longitudinal data connections, Likert scale support,
-      and flexible
-
-      raincloud positioning. Perfect for repeated measures data, survey
-      analysis, and 
-
-      complex distribution visualization in clinical research. Uses the ggrain
-      package
-
-      for enhanced customization and connectivity features.
-  - title: Automatic Plot Selection
-    name: statsplot2
-    ns: jjstatsplot
+    menuTitle: Dot Chart
+    description: |
+      Wrapper Function for ggstatsplot::ggdotplotstats and
+      ggstatsplot::grouped_ggdotplotstats to generate dot plots
+      comparing continuous variables between groups with statistical
+      annotations and significance testing.
+    ribbon: analyses
     category: analyses
-    menuGroup: JJStatsPlot
-    menuSubgroup: Auto Visualization
-    menuTitle: Automatic Plot Selection
-    menuSubtitle: Automatic Plot Selection Based on Variable Types
-    description: >-
-      Automatically selects and generates the most appropriate statistical
-      visualization based on variable data types. Features enhanced error
-      messages with contextual guidance, robust data validation, and
-      comprehensive fallback options. Supports both independent and repeated
-      measures designs with various plot types including violin plots, scatter
-      plots, bar charts, and alluvial diagrams.
-  - title: Arc Diagram
-    name: jjarcdiagram
+  - title: Bar Charts
+    name: jjbarstats
     ns: jjstatsplot
-    category: analyses
     menuGroup: JJStatsPlot
-    menuSubgroup: Network
-    menuTitle: Arc Diagram
-    description: >
-      'Creates arc diagrams for network visualization using the arcdiagram
-      package.'
-  - title: Ridge Plot
-    name: jjridges
-    ns: jjstatsplot
+    menuSubgroup: Categorical vs Categorical
+    menuTitle: Bar Charts
+    description: |
+      'Wrapper Function for ggstatsplot::ggbarstats and
+      ggstatsplot::grouped_ggbarstats to generate Bar Charts.'
+    ribbon: analyses
     category: analyses
-    menuGroup: JJStatsPlot
-    menuSubgroup: Distribution
-    menuTitle: Ridge Plot
-    menuSubtitle: Enhanced Ridgeline Visualization
-    description: >
-      'Create advanced ridgeline plots.
-
-      Visualize distributions across groups with multiple style options,
-      annotations,
-
-      statistical overlays, and publication-ready formatting. Supports both
-      basic and
-
-      complex ridge plots with inside plots, double ridgelines, and color
-      gradients.'
   - title: Segmented Total Bar Charts
     name: jjsegmentedtotalbar
     ns: jjstatsplot
     category: analyses
     menuGroup: JJStatsPlot
-    menuSubgroup: ClinicoPath Advanced Plots
+    menuSubgroup: Categorical vs Categorical
     menuTitle: Segmented Total Bar Charts
-    menuSubtitle: 100% Stacked Bar Charts for Proportional Data
     description: >
       Create segmented total bar charts (100% stacked bars) that show
       proportional 
@@ -223,31 +154,18 @@ analyses:
       where 
 
       each bar represents 100% and segments show relative proportions.
-  - title: Line Chart
-    name: linechart
+  - title: Pie Charts
+    name: jjpiestats
     ns: jjstatsplot
-    category: analyses
     menuGroup: JJStatsPlot
-    menuSubgroup: Lines
-    menuTitle: Line Chart
-    menuSubtitle: Time Series and Trend Analysis
-    description: >-
-      Creates line charts for time series analysis and trend visualization, with
-      support for multiple groups, confidence intervals, and statistical
-      overlays.
-  - title: Lollipop Chart
-    name: lollipop
-    ns: jjstatsplot
+    menuSubgroup: Categorical vs Categorical
+    menuTitle: Pie Charts
+    description: |
+      'Wrapper Function for ggstatsplot::ggpiestats and
+      ggstatsplot::grouped_ggpiestats to generate Pie Charts with
+      statistical analysis.'
+    ribbon: analyses
     category: analyses
-    menuGroup: JJStatsPlot
-    menuSubgroup: Categorical vs Continuous
-    menuTitle: Lollipop Chart
-    menuSubtitle: Categorical Data Visualization
-    description: >-
-      Creates lollipop charts for categorical data visualization following R
-      Graph Gallery best practices, with emphasis on clinical applications like
-      patient timelines, treatment outcomes, and biomarker comparisons. Uses
-      geom_segment() and geom_point() for optimal visual presentation.
   - title: Raincloud Plot
     name: raincloud
     ns: jjstatsplot
@@ -272,6 +190,79 @@ analyses:
       multimodality
 
       and distribution shape. Based on the ggdist R-Bloggers tutorial.
+  - title: Advanced Raincloud Plot
+    name: advancedraincloud
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Advanced Raincloud Plot
+    description: >
+      Creates advanced raincloud plots with longitudinal connections using
+      ggrain package.
+
+      This module complements the existing Raincloud Plot module by providing
+      advanced 
+
+      features including longitudinal data connections, Likert scale support,
+      and flexible
+
+      raincloud positioning. Perfect for repeated measures data, survey
+      analysis, and 
+
+      complex distribution visualization in clinical research. Uses the ggrain
+      package
+
+      for enhanced customization and connectivity features.
+  - title: Lollipop Chart
+    name: lollipop
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Lollipop Chart
+    description: >-
+      Creates lollipop charts for categorical data visualization following R
+      Graph Gallery best practices, with emphasis on clinical applications like
+      patient timelines, treatment outcomes, and biomarker comparisons. Uses
+      geom_segment() and geom_point() for optimal visual presentation.
+  - title: Arc Diagram
+    name: jjarcdiagram
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Network
+    menuTitle: Arc Diagram
+    description: >
+      'Creates arc diagrams for network visualization using the arcdiagram
+      package.'
+  - title: Line Chart
+    name: linechart
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Lines
+    menuTitle: Line Chart
+    menuSubtitle: Time Series and Trend Analysis
+    description: >-
+      Creates line charts for time series analysis and trend visualization, with
+      support for multiple groups, confidence intervals, and statistical
+      overlays.
+  - title: Automatic Plot Selection
+    name: statsplot2
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Auto Visualization
+    menuTitle: Automatic Plot Selection
+    menuSubtitle: Automatic Plot Selection Based on Variable Types
+    description: >-
+      Automatically selects and generates the most appropriate statistical
+      visualization based on variable data types. Features enhanced error
+      messages with contextual guidance, robust data validation, and
+      comprehensive fallback options. Supports both independent and repeated
+      measures designs with various plot types including violin plots, scatter
+      plots, bar charts, and alluvial diagrams.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
