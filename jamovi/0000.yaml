@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.31.70
+version: 0.0.31.72
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2025-09-19'
+date: '2025-09-21'
 type: R
 description: >-
   Comprehensive statistical visualization module for jamovi featuring 17+
@@ -263,6 +263,24 @@ analyses:
       comprehensive fallback options. Supports both independent and repeated
       measures designs with various plot types including violin plots, scatter
       plots, bar charts, and alluvial diagrams.
+  - title: Hull Plot
+    name: hullplot
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Continuous vs Continuous
+    menuTitle: Hull Plot
+    description: >
+      Creates Hull plots to visualize clusters and groups in scatter plots using
+      ggforce.
+
+      Hull plots draw polygonal boundaries around data points grouped by
+      categorical variables,
+
+      making it easy to identify customer segments, group membership, and data
+      clusters.
+
+      Based on the geom_mark_hull() function from ggforce package.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

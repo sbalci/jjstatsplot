@@ -1,30 +1,32 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.31.70
-Date: 2025-09-19
+Version: 0.0.31.72
+Date: 2025-09-21
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
-        "cre"), email = "serdarbalci@serdarbalci.com", comment = c(ORCID =
-        "0000-0002-7852-3851"))
+        "cre"), email = "serdarbalci@serdarbalci.com", comment =
+        c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-Description: Comprehensive statistical visualization package for jamovi that
-        wraps ggstatsplot functions and provides 17+ analysis types including
-        histograms, scatter plots, correlation matrices, between/within-group
-        comparisons, bar charts, pie charts, waffle charts, raincloud plots,
-        ridge plots, arc diagrams, lollipop charts, line charts, and segmented
-        bar charts. Features automatic plot selection, dual-mode operation
-        (single/grouped variables), statistical annotations, and publication-ready
-        visualizations with point-and-click interface.
+Description: Comprehensive statistical visualization package for jamovi
+        that wraps ggstatsplot functions and provides 17+ analysis
+        types including histograms, scatter plots, correlation
+        matrices, between/within-group comparisons, bar charts, pie
+        charts, waffle charts, raincloud plots, ridge plots, arc
+        diagrams, lollipop charts, line charts, and segmented bar
+        charts. Features automatic plot selection, dual-mode operation
+        (single/grouped variables), statistical annotations, and
+        publication-ready visualizations with point-and-click
+        interface.
 License: GPL (>= 2)
 URL: https://github.com/sbalci/jjstatsplot
 BugReports: https://github.com/sbalci/ClinicoPathJamoviModule/issues/
 Depends: R (>= 4.0.0)
 Imports: arcdiagram, BayesFactor, digest, dplyr, easyalluvial,
-        effectsize, ggalluvial, ggcorrplot, ggdist, ggplot2, ggrain,
-        ggridges, ggsegmentedtotalbar, ggside, ggstatsplot, glue,
-        htmltools, igraph, jmvcore, magrittr, moments, performance,
-        PMCMRplus, purrr, R6, RColorBrewer, rlang, scales, stringr,
-        tidyr, viridis, waffle, WRS2
+        effectsize, ggalluvial, ggcorrplot, ggdist, ggforce, ggplot2,
+        ggrain, ggridges, ggsegmentedtotalbar, ggside, ggstatsplot,
+        glue, grid, htmltools, igraph, jmvcore, magrittr, moments,
+        performance, PMCMRplus, purrr, R6, RColorBrewer, rlang, scales,
+        stringr, tidyr, viridis, waffle, WRS2
 Remotes: gastonstat/arcdiagram
 Encoding: UTF-8
 LazyData: true
