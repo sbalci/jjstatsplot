@@ -9,7 +9,7 @@
 
 ## Statistical Visualization Made Simple
 
-**jjstatsplot** brings the power of [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code.
+**jjstatsplot** brings the power of [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code. With 18 analysis types, jjstatsplot covers everything from basic distributions to advanced cluster visualizations.
 
 ### 🎯 Why jjstatsplot?
 
@@ -24,6 +24,7 @@ Traditional statistical software often separates visualization from analysis, re
 | **Continuous**                 | Histogram (`jjhistostats`)         | Distribution visualization  | Shapiro-Wilk test, robust measures         |
 | **Continuous vs Continuous**   | Scatter Plot (`jjscatterstats`)    | Relationship analysis       | Correlation coefficients, regression lines |
 | **Continuous vs Continuous**   | Correlation Matrix (`jjcorrmat`)   | Multiple correlations       | Significance levels, correlation strength  |
+| **Continuous vs Continuous**   | Hull Plot (`hullplot`)             | Cluster visualization       | Polygonal boundaries, group membership     |
 | **Categorical vs Continuous**  | Box-Violin Plot (`jjbetweenstats`) | Between-groups comparison   | ANOVA, Kruskal-Wallis, post-hoc tests      |
 | **Categorical vs Continuous**  | Box-Violin Plot (`jjwithinstats`)  | Within-subjects comparison  | Repeated measures ANOVA, Friedman test     |
 | **Categorical vs Continuous**  | Dot Chart (`jjdotplotstats`)       | Mean comparisons            | Confidence intervals, effect sizes         |

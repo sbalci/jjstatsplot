@@ -84,7 +84,7 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 **Key Plotting:**
 
 - `ggplot2`, `ggalluvial`, `ggside`, `ggcorrplot`, `ggdist`, `ggridges`, `ggrain`
-- `waffle` (for waffle charts), `arcdiagram`, `easyalluvial`
+- `ggforce` (for hull plots), `waffle` (for waffle charts), `arcdiagram`, `easyalluvial`
 - `ggsegmentedtotalbar` (for segmented bar charts)
 
 **Statistical:**
@@ -109,13 +109,14 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 ### Advanced/Additional Plots
 
 1. **advancedraincloud** - Enhanced raincloud plots with longitudinal support
-2. **jjarcdiagram** - Arc diagrams for network/flow visualization
-3. **jjridges** - Ridge plots for distribution comparisons
-4. **jjsegmentedtotalbar** - Segmented bar charts with totals
-5. **linechart** - Line charts for trends over time
-6. **lollipop** - Lollipop charts for ranked data
-7. **raincloud** - Basic raincloud plots (distribution + individual points)
-8. **statsplot2** - Extended statistical plotting functionality
+2. **hullplot** - Hull plots for cluster and group visualization using ggforce
+3. **jjarcdiagram** - Arc diagrams for network/flow visualization
+4. **jjridges** - Ridge plots for distribution comparisons
+5. **jjsegmentedtotalbar** - Segmented bar charts with totals
+6. **linechart** - Line charts for trends over time
+7. **lollipop** - Lollipop charts for ranked data
+8. **raincloud** - Basic raincloud plots (distribution + individual points)
+9. **statsplot2** - Extended statistical plotting functionality
 
 ## Key Patterns
 
@@ -170,7 +171,7 @@ self$results$plot2$setSize(num_levels * 600, deplen * 450)
 ## File Organization
 
 - **R/** - All R source code
-  - `jj*.b.R` - Backend implementations (17+ analyses)
+  - `jj*.b.R` - Backend implementations (18 analyses)
   - `jj*.h.R` - Auto-generated helpers
   - `utils.R` - Utility functions
 - **jamovi/** - jamovi analysis definitions and UI
