@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Wrapper for ggstatsplot">
-<meta name="description" content="A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in jamovi based on ggstatsplot package. Also includes additional plots.">
-<meta property="og:description" content="A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in jamovi based on ggstatsplot package. Also includes additional plots.">
+<meta name="description" content="Comprehensive statistical visualization package for jamovi that wraps ggstatsplot functions and provides 17+ analysis types including histograms, scatter plots, correlation matrices, between/within-group comparisons, bar charts, pie charts, waffle charts, raincloud plots, ridge plots, arc diagrams, lollipop charts, line charts, and segmented bar charts. Features automatic plot selection, dual-mode operation (single/grouped variables), statistical annotations, and publication-ready visualizations with point-and-click interface.">
+<meta property="og:description" content="Comprehensive statistical visualization package for jamovi that wraps ggstatsplot functions and provides 17+ analysis types including histograms, scatter plots, correlation matrices, between/within-group comparisons, bar charts, pie charts, waffle charts, raincloud plots, ridge plots, arc diagrams, lollipop charts, line charts, and segmented bar charts. Features automatic plot selection, dual-mode operation (single/grouped variables), statistical annotations, and publication-ready visualizations with point-and-click interface.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.82</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,46 +36,58 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
-    <li><a class="dropdown-item" href="articles/01-jamovi-user-guide.html">General 01: jamovi User Guide for Statistical Analysis</a></li>
-    <li><a class="dropdown-item" href="articles/02-categorical-plots.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="articles/03-continuous-comparisons.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
+    <li><a class="dropdown-item" href="articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
+    <li><a class="dropdown-item" href="articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
     <li><a class="dropdown-item" href="articles/04-continuous-comparisons-alt.html">Continuous Variable Comparisons</a></li>
-    <li><a class="dropdown-item" href="articles/05-correlations-scatterplots.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="articles/05-correlations-scatterplots.html">Exploring Relationships with Scatter Plots</a></li>
     <li><a class="dropdown-item" href="articles/06-BBC-style-data-visualization.html">BBC-Style Data Visualization - Professional News Graphics</a></li>
     <li><a class="dropdown-item" href="articles/06-use-in-r.html">Use jjstatsplot in R</a></li>
     <li><a class="dropdown-item" href="articles/07-advancedbarplot.html">Advanced Bar Charts - 7 Professional Approaches</a></li>
-    <li><a class="dropdown-item" href="articles/08-advancedraincloud.html">Advanced Raincloud Plots - Enhanced Distribution Visualization</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
+    <li><a class="dropdown-item" href="articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
     <li><a class="dropdown-item" href="articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/10-correlations-scatterplots-legacy.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/11-introduction-legacy.html">jjstatsplot: Statistical Visualization for Clinical Research</a></li>
     <li><a class="dropdown-item" href="articles/12-economistplots.html">Economist-Style Distribution Plots - Professional Data Visualization</a></li>
-    <li><a class="dropdown-item" href="articles/13-quick-reference.html">Quick Reference Guide for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="articles/13-quick-reference.html">jjstatsplot Plot Gallery</a></li>
     <li><a class="dropdown-item" href="articles/14-clinical-classification-comprehensive.html">Clinical Classification Analysis with Machine Learning</a></li>
     <li><a class="dropdown-item" href="articles/14-r-programming-guide.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="articles/15-grafify-comprehensive.html">Scientific Visualization with Grafify: Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="articles/15-troubleshooting-faq.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="articles/15-troubleshooting-faq.html">Troubleshooting Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="articles/16-jcomplexupset-comprehensive.html">Complex UpSet Plot Visualization with jcomplexupset</a></li>
     <li><a class="dropdown-item" href="articles/17-jextractggstats-comprehensive.html">Statistical Data Extraction from ggstatsplot</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/18-analysis-gallery-legacy.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="articles/18-jforester-comprehensive.html">Forest Plot Visualization with jforester</a></li>
-    <li><a class="dropdown-item" href="articles/19-jforestmodel-comprehensive.html">Forest Plots from Regression Models with jforestmodel</a></li>
+    <li><a class="dropdown-item" href="articles/19-jforestmodel-comprehensive.html">Visualizing Regression Models with Forest Plots</a></li>
     <li><a class="dropdown-item" href="articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
+    <li><a class="dropdown-item" href="articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="articles/24-jjarcdiagram-comprehensive.html">Network Visualization with jjarcdiagram</a></li>
     <li><a class="dropdown-item" href="articles/24-jjbetweenstats-comprehensive.html">High-Performance Violin Plot Analysis with jjbetweenstats</a></li>
     <li><a class="dropdown-item" href="articles/25-jjcorrmat-comprehensive.html">jjcorrmat: Comprehensive Correlation Matrix Analysis</a></li>
     <li><a class="dropdown-item" href="articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
+    <li><a class="dropdown-item" href="articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
     <li><a class="dropdown-item" href="articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
     <li><a class="dropdown-item" href="articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
+    <li><a class="dropdown-item" href="articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
@@ -84,9 +96,11 @@
     <li><a class="dropdown-item" href="articles/34-jviolin-comprehensive.html">Professional Violin Plots with jviolin</a></li>
     <li><a class="dropdown-item" href="articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
+    <li><a class="dropdown-item" href="articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
     <li><a class="dropdown-item" href="articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -103,190 +117,333 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="jjstatsplot">jjstatsplot<a class="anchor" aria-label="anchor" href="#jjstatsplot"></a>
 </h1></div>
-<p>Wrapper functions to use <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">ggstatsplot</a> functions as a module in <a href="https://www.jamovi.org" class="external-link">jamovi</a>, also includes additional plots</p>
-<p>See <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link uri">https://indrajeetpatil.github.io/ggstatsplot/</a></p>
-<p>See <a href="https://sbalci.github.io/ClinicoPathJamoviModule/" class="external-link uri">https://sbalci.github.io/ClinicoPathJamoviModule/</a></p>
-<p><a href="https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></p>
-<hr>
-</div>
-<div class="section level1">
-<h1 id="readme-badges-and-widgets-for-jjstatsplot">README Badges and Widgets for jjstatsplot<a class="anchor" aria-label="anchor" href="#readme-badges-and-widgets-for-jjstatsplot"></a>
-</h1>
 <div class="section level2">
-<h2 id="status-badges">Status Badges<a class="anchor" aria-label="anchor" href="#status-badges"></a>
+<h2 id="a-wrapper-for-ggstatsplot-jjstatsplot-help-researchers-to-generate-plots-in-jamovi-based-on-ggstatsplot-package-also-includes-additional-plots">A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in jamovi based on ggstatsplot package. Also includes additional plots<a class="anchor" aria-label="anchor" href="#a-wrapper-for-ggstatsplot-jjstatsplot-help-researchers-to-generate-plots-in-jamovi-based-on-ggstatsplot-package-also-includes-additional-plots"></a>
 </h2>
-<div class="section level3">
-<h3 id="jamovi-module-badges">jamovi Module Badges<a class="anchor" aria-label="anchor" href="#jamovi-module-badges"></a>
-</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">[</span><span class="al">![jamovi](https://img.shields.io/badge/jamovi-module-blue)</span><span class="co">](https://www.jamovi.org)</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">[</span><span class="al">![jamovi-version](https://img.shields.io/badge/jamovi-%E2%89%A5%201.2.19-blue)</span><span class="co">](https://www.jamovi.org)</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">[</span><span class="al">![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)</span><span class="co">](https://indrajeetpatil.github.io/ggstatsplot/)</span></span></code></pre></div>
+<p><a href="https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://www.jamovi.org" class="external-link"><img src="https://img.shields.io/badge/jamovi-module-blue" alt="jamovi"></a> <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link"><img src="https://img.shields.io/badge/ggstatsplot-wrapper-orange" alt="ggstatsplot-wrapper"></a> <a href="https://www.gnu.org/licenses/gpl-2.0.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg" alt="License: GPL (&gt;= 2)"></a></p>
 </div>
+<div class="section level2">
+<h2 id="statistical-visualization-made-simple">Statistical Visualization Made Simple<a class="anchor" aria-label="anchor" href="#statistical-visualization-made-simple"></a>
+</h2>
+<p><strong>jjstatsplot</strong> brings the power of <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">ggstatsplot</a> to <a href="https://www.jamovi.org" class="external-link">jamovi</a>, making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code. With 18 analysis types, jjstatsplot covers everything from basic distributions to advanced cluster visualizations.</p>
 <div class="section level3">
-<h3 id="package-status">Package Status<a class="anchor" aria-label="anchor" href="#package-status"></a>
+<h3 id="dart-why-jjstatsplot">🎯 Why jjstatsplot?<a class="anchor" aria-label="anchor" href="#dart-why-jjstatsplot"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">[</span><span class="al">![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)</span><span class="co">](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">[</span><span class="al">![CRAN status](https://www.r-pkg.org/badges/version/jjstatsplot)</span><span class="co">](https://CRAN.R-project.org/package=jjstatsplot)</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">[</span><span class="al">![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)</span><span class="co">](https://lifecycle.r-lib.org/articles/stages.html#stable)</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">[</span><span class="ot">![License: GPL (&gt;= 2)](https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg)</span><span class="co">](https://www.gnu.org/licenses/gpl-2.0.html)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="usage--downloads">Usage &amp; Downloads<a class="anchor" aria-label="anchor" href="#usage--downloads"></a>
-</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">[</span><span class="al">![GitHub release (latest by date)](https://img.shields.io/github/v/release/sbalci/jjstatsplot)</span><span class="co">](https://github.com/sbalci/jjstatsplot/releases)</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">[</span><span class="al">![GitHub all releases](https://img.shields.io/github/downloads/sbalci/jjstatsplot/total)</span><span class="co">](https://github.com/sbalci/jjstatsplot/releases)</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">[</span><span class="al">![GitHub last commit](https://img.shields.io/github/last-commit/sbalci/jjstatsplot)</span><span class="co">](https://github.com/sbalci/jjstatsplot/commits/master)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="code-quality">Code Quality<a class="anchor" aria-label="anchor" href="#code-quality"></a>
-</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">[</span><span class="al">![Code size](https://img.shields.io/github/languages/code-size/sbalci/jjstatsplot)</span><span class="co">](https://github.com/sbalci/jjstatsplot)</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">[</span><span class="al">![R](https://img.shields.io/badge/R-%E2%89%A5%204.0.0-blue)</span><span class="co">](https://www.r-project.org/)</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">[</span><span class="al">![Dependencies](https://img.shields.io/badge/dependencies-ggstatsplot%20%7C%20jmvcore-green)</span><span class="co">](https://github.com/sbalci/jjstatsplot/blob/master/DESCRIPTION)</span></span></code></pre></div>
+<p>Traditional statistical software often separates visualization from analysis, requiring users to manually annotate plots with statistical results. jjstatsplot integrates these steps, automatically adding appropriate statistical tests, effect sizes, and sample sizes to your visualizations. Whether you’re exploring data distributions, comparing groups, examining correlations, or analyzing categorical relationships, jjstatsplot provides the right visualization with the right statistics—all through jamovi’s familiar interface.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="feature-highlights">Feature Highlights<a class="anchor" aria-label="anchor" href="#feature-highlights"></a>
+<h2 id="sparkles-key-features">✨ Key Features<a class="anchor" aria-label="anchor" href="#sparkles-key-features"></a>
 </h2>
 <div class="section level3">
-<h3 id="analysis-types-widget">Analysis Types Widget<a class="anchor" aria-label="anchor" href="#analysis-types-widget"></a>
+<h3 id="bar_chart-comprehensive-analysis-types">📊 Comprehensive Analysis Types<a class="anchor" aria-label="anchor" href="#bar_chart-comprehensive-analysis-types"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">## 📊 Available Analyses</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="pp">|</span> Category <span class="pp">|</span> Analysis <span class="pp">|</span> ggstatsplot Function <span class="pp">|</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="pp">|----------|----------|---------------------|</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="pp">|</span> 📈 **Continuous** <span class="pp">|</span> Histogram <span class="pp">|</span> <span class="in">`gghistostats`</span> <span class="pp">|</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="pp">|</span> 🔗 **Continuous vs Continuous** <span class="pp">|</span> Scatter Plot <span class="pp">|</span> <span class="in">`ggscatterstats`</span> <span class="pp">|</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="pp">|</span> 🔗 **Continuous vs Continuous** <span class="pp">|</span> Correlation Matrix <span class="pp">|</span> <span class="in">`ggcorrmat`</span> <span class="pp">|</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="pp">|</span> 📊 **Categorical vs Continuous** <span class="pp">|</span> Box-Violin Plots (Between) <span class="pp">|</span> <span class="in">`ggbetweenstats`</span> <span class="pp">|</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="pp">|</span> 📊 **Categorical vs Continuous** <span class="pp">|</span> Dot Charts <span class="pp">|</span> <span class="in">`ggdotplotstats`</span> <span class="pp">|</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="pp">|</span> 📊 **Categorical vs Continuous** <span class="pp">|</span> Box-Violin Plots (Within) <span class="pp">|</span> <span class="in">`ggwithinstats`</span> <span class="pp">|</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="pp">|</span> 🍰 **Categorical vs Categorical** <span class="pp">|</span> Bar Charts <span class="pp">|</span> <span class="in">`ggbarstats`</span> <span class="pp">|</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="pp">|</span> 🍰 **Categorical vs Categorical** <span class="pp">|</span> Pie Charts <span class="pp">|</span> <span class="in">`ggpiestats`</span> <span class="pp">|</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="pp">|</span> 🧇 **Distribution** <span class="pp">|</span> Waffle Charts <span class="pp">|</span> Custom implementation <span class="pp">|</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="19%">
+<col width="29%">
+</colgroup>
+<thead><tr>
+<th>Category</th>
+<th>Analysis</th>
+<th>Description</th>
+<th>Statistical Details</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Continuous</strong></td>
+<td>Histogram (<code>jjhistostats</code>)</td>
+<td>Distribution visualization</td>
+<td>Shapiro-Wilk test, robust measures</td>
+</tr>
+<tr>
+<td><strong>Continuous vs Continuous</strong></td>
+<td>Scatter Plot (<code>jjscatterstats</code>)</td>
+<td>Relationship analysis</td>
+<td>Correlation coefficients, regression lines</td>
+</tr>
+<tr>
+<td><strong>Continuous vs Continuous</strong></td>
+<td>Correlation Matrix (<code>jjcorrmat</code>)</td>
+<td>Multiple correlations</td>
+<td>Significance levels, correlation strength</td>
+</tr>
+<tr>
+<td><strong>Continuous vs Continuous</strong></td>
+<td>Hull Plot (<code>hullplot</code>)</td>
+<td>Cluster visualization</td>
+<td>Polygonal boundaries, group membership</td>
+</tr>
+<tr>
+<td><strong>Categorical vs Continuous</strong></td>
+<td>Box-Violin Plot (<code>jjbetweenstats</code>)</td>
+<td>Between-groups comparison</td>
+<td>ANOVA, Kruskal-Wallis, post-hoc tests</td>
+</tr>
+<tr>
+<td><strong>Categorical vs Continuous</strong></td>
+<td>Box-Violin Plot (<code>jjwithinstats</code>)</td>
+<td>Within-subjects comparison</td>
+<td>Repeated measures ANOVA, Friedman test</td>
+</tr>
+<tr>
+<td><strong>Categorical vs Continuous</strong></td>
+<td>Dot Chart (<code>jjdotplotstats</code>)</td>
+<td>Mean comparisons</td>
+<td>Confidence intervals, effect sizes</td>
+</tr>
+<tr>
+<td><strong>Categorical vs Categorical</strong></td>
+<td>Bar Chart (<code>jjbarstats</code>)</td>
+<td>Frequency analysis</td>
+<td>Chi-square, Fisher’s exact test</td>
+</tr>
+<tr>
+<td><strong>Categorical vs Categorical</strong></td>
+<td>Pie Chart (<code>jjpiestats</code>)</td>
+<td>Proportion visualization</td>
+<td>Goodness of fit tests</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>Waffle Chart (<code>jjwaffle</code>)</td>
+<td>Part-to-whole visualization</td>
+<td>Custom proportions display</td>
+</tr>
+<tr>
+<td><strong>Advanced Distributions</strong></td>
+<td>Raincloud (<code>raincloud</code>)</td>
+<td>Distribution + individual points</td>
+<td>Kernel density, quartiles</td>
+</tr>
+<tr>
+<td><strong>Advanced Distributions</strong></td>
+<td>Advanced Raincloud (<code>advancedraincloud</code>)</td>
+<td>Enhanced raincloud plots</td>
+<td>Longitudinal support, multi-group comparison</td>
+</tr>
+<tr>
+<td><strong>Distribution Comparison</strong></td>
+<td>Ridge Plots (<code>jjridges</code>)</td>
+<td>Multiple distribution overlay</td>
+<td>Density curves by groups</td>
+</tr>
+<tr>
+<td><strong>Network/Flow</strong></td>
+<td>Arc Diagrams (<code>jjarcdiagram</code>)</td>
+<td>Network visualization</td>
+<td>Connection strength, node properties</td>
+</tr>
+<tr>
+<td><strong>Segmented Analysis</strong></td>
+<td>Segmented Bar (<code>jjsegmentedtotalbar</code>)</td>
+<td>Stacked proportions</td>
+<td>Total and segment statistics</td>
+</tr>
+<tr>
+<td><strong>Time Series</strong></td>
+<td>Line Chart (<code>linechart</code>)</td>
+<td>Trends over time</td>
+<td>Change rates, seasonal patterns</td>
+</tr>
+<tr>
+<td><strong>Ranked Data</strong></td>
+<td>Lollipop Chart (<code>lollipop</code>)</td>
+<td>Ranked comparisons</td>
+<td>Ordered categorical analysis</td>
+</tr>
+<tr>
+<td><strong>Extended Analysis</strong></td>
+<td>Stats Plot 2 (<code>statsplot2</code>)</td>
+<td>Extended statistical plots</td>
+<td>Multiple statistical approaches</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
-<h3 id="quick-start-widget">Quick Start Widget<a class="anchor" aria-label="anchor" href="#quick-start-widget"></a>
+<h3 id="rocket-advanced-capabilities">🚀 Advanced Capabilities<a class="anchor" aria-label="anchor" href="#rocket-advanced-capabilities"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">## 🚀 Quick Start</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">### For jamovi Users</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="ss">1. </span>**Install**: Download from <span class="co">[</span><span class="ot">jamovi library</span><span class="co">](https://library.jamovi.org/)</span> </span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="ss">2. </span>**Load**: Open jamovi → Modules → jjstatsplot</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="ss">3. </span>**Analyze**: Select your analysis from the <span class="in">`JJStatsPlot`</span> menu</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="fu">### For R Users</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co"># Install from GitHub</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sbalci/jjstatsplot"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co"># Load package</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="fu">library</span>(jjstatsplot)</span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co"># Use functions directly</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="fu">jjhistostats</span>(<span class="at">data =</span> mydata, <span class="at">dep =</span> <span class="st">"variable"</span>)</span></code></pre></div>
-<pre><code>
-### Installation Widget
-```markdown
-## 💾 Installation
-
-### jamovi Installation
-```markdown
-1. Open jamovi
-2. Go to Modules (⊞) in the top menu
-3. Select "jamovi library"
-4. Search for "jjstatsplot"
-5. Click Install</code></pre>
+<ul>
+<li>
+<strong>Dual-Mode Operation</strong>: Analyze single variables or multiple variables simultaneously</li>
+<li>
+<strong>Grouped Analysis</strong>: Automatic faceting by grouping variables</li>
+<li>
+<strong>Statistical Flexibility</strong>: Choose between parametric, non-parametric, robust, and Bayesian approaches</li>
+<li>
+<strong>Customization Options</strong>: Control plot aesthetics, statistical details, and output formatting</li>
+<li>
+<strong>Theme Support</strong>: Use jamovi’s consistent styling or ggstatsplot’s original themes</li>
+<li>
+<strong>Dynamic Sizing</strong>: Plots automatically adjust to accommodate your data</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="package-installation">📦 Installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
+</h2>
+<div class="section level3">
+<h3 id="for-jamovi-users">For jamovi Users<a class="anchor" aria-label="anchor" href="#for-jamovi-users"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Open jamovi</li>
+<li>Go to <strong>Modules</strong> → <strong>jamovi library</strong>
+</li>
+<li>Search for “jjstatsplot”</li>
+<li>Click <strong>Install</strong>
+</li>
+</ol>
 </div>
 <div class="section level3">
-<h3 id="r-installation">R Installation<a class="anchor" aria-label="anchor" href="#r-installation"></a>
+<h3 id="for-r-users">For R Users<a class="anchor" aria-label="anchor" href="#for-r-users"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># From GitHub (latest development version)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install from GitHub (latest development version)</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"sbalci/jjstatsplot"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># From CRAN (stable version - when available)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"jjstatsplot"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>
-### Key Features Widget
-```markdown
-## ✨ Key Features
-
-- 🎯 **Point-and-click interface** in jamovi
-- 📊 **9 statistical plot types** with automatic statistics
-- 🔧 **Dual-mode operation**: Single variables or grouped analyses
-- 🎨 **Flexible theming**: jamovi or ggstatsplot themes
-- 📈 **Statistical annotations**: Automatic significance testing
-- 🔄 **Grouped plotting**: Multiple dependent variables support
-- 📋 **Rich customization**: Extensive options through jamovi UI
-- 🔗 **R integration**: Use functions directly in R scripts</code></pre>
+<span><span class="co"># Load the package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sbalci/jjstatsplot" class="external-link">jjstatsplot</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="support--documentation">Support &amp; Documentation<a class="anchor" aria-label="anchor" href="#support--documentation"></a>
+<h2 id="running-quick-start">🏃 Quick Start<a class="anchor" aria-label="anchor" href="#running-quick-start"></a>
 </h2>
 <div class="section level3">
-<h3 id="links-widget">Links Widget<a class="anchor" aria-label="anchor" href="#links-widget"></a>
+<h3 id="in-jamovi">In jamovi<a class="anchor" aria-label="anchor" href="#in-jamovi"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">## 📚 Resources</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="pp">|</span> Resource <span class="pp">|</span> Link <span class="pp">|</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="pp">|----------|------|</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="pp">|</span> 📖 **Documentation** <span class="pp">|</span> <span class="co">[</span><span class="ot">Package docs</span><span class="co">](https://sbalci.github.io/jjstatsplot/)</span> <span class="pp">|</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="pp">|</span> 🎓 **ggstatsplot Guide** <span class="pp">|</span> <span class="co">[</span><span class="ot">ggstatsplot docs</span><span class="co">](https://indrajeetpatil.github.io/ggstatsplot/)</span> <span class="pp">|</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="pp">|</span> 🏠 **jamovi** <span class="pp">|</span> <span class="co">[</span><span class="ot">jamovi.org</span><span class="co">](https://www.jamovi.org)</span> <span class="pp">|</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="pp">|</span> 🐛 **Issues** <span class="pp">|</span> <span class="co">[</span><span class="ot">Report bugs</span><span class="co">](https://github.com/sbalci/ClinicoPathJamoviModule/issues/)</span> <span class="pp">|</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="pp">|</span> 💬 **Discussions** <span class="pp">|</span> <span class="co">[</span><span class="ot">GitHub Discussions</span><span class="co">](https://github.com/sbalci/jjstatsplot/discussions)</span> <span class="pp">|</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="pp">|</span> 📧 **Contact** <span class="pp">|</span> serdarbalci@serdarbalci.com <span class="pp">|</span></span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Open your dataset in jamovi</li>
+<li>Navigate to the <strong>Analyses</strong> tab</li>
+<li>Find <strong>jjstatsplot</strong> in the analysis menu</li>
+<li>Select your desired analysis type</li>
+<li>Drag and drop variables to the appropriate fields</li>
+<li>Customize options as needed</li>
+</ol>
 </div>
 <div class="section level3">
-<h3 id="citation-widget">Citation Widget<a class="anchor" aria-label="anchor" href="#citation-widget"></a>
+<h3 id="in-r">In R<a class="anchor" aria-label="anchor" href="#in-r"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">## 📝 Citation</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>If you use jjstatsplot in your research, please cite:</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="in">```bibtex</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="in">@software{jjstatsplot,</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="in">  author = {Serdar Balci},</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="in">  title = {jjstatsplot: Wrapper for ggstatsplot in jamovi},</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="in">  url = {https://github.com/sbalci/jjstatsplot},</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="in">  version = {0.0.3.21},</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="in">  year = {2024}</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="in">}</span></span></code></pre></div>
-<p><strong>Also cite the underlying packages:</strong> - <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">ggstatsplot</a>: Patil, I. (2021). Visualizations with statistical details: The ‘ggstatsplot’ approach. Journal of Open Source Software, 6(61), 3167. - <a href="https://www.jamovi.org" class="external-link">jamovi</a>: The jamovi project (2022). jamovi (Version 2.3) [Computer Software].</p>
-<pre><code>
-## Complete README Template
-
-### Suggested README structure using these widgets:
-```markdown
-# jjstatsplot
-
-[Status badges section]
-
-[Quick description]
-
-[Feature highlights table]
-
-## Installation
-[Installation widget]
-
-## Quick Start
-[Quick start widget]
-
-## Key Features
-[Key features widget]
-
-## Documentation
-[Links widget]
-
-## Citation
-[Citation widget]</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example: Create a histogram with statistical annotations</span></span>
+<span><span class="fu"><a href="reference/jjhistostats.html">jjhistostats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Sepal Length (cm)"</span>,</span>
+<span>  results.subtitle <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example: Compare groups with box-violin plots</span></span>
+<span><span class="fu"><a href="reference/jjbetweenstats.html">jjbetweenstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"mpg"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"cyl"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"nonparametric"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="wrench-development">🔧 Development<a class="anchor" aria-label="anchor" href="#wrench-development"></a>
+</h2>
+<div class="section level3">
+<h3 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h3>
+<ul>
+<li>R (≥ 4.0.0)</li>
+<li>jamovi (≥ 1.2.19)</li>
+<li>Core dependencies: <code>jmvcore</code>, <code>R6</code>, <code>ggstatsplot</code>
+</li>
+</ul>
 </div>
-
+<div class="section level3">
+<h3 id="building-from-source">Building from Source<a class="anchor" aria-label="anchor" href="#building-from-source"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Clone the repository</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>git clone https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>sbalci<span class="sc">/</span>jjstatsplot.git</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Install development dependencies</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_deps</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Check package</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co"># Build jamovi module</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>jmvtools<span class="sc">::</span><span class="fu">install</span>()</span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="books-documentation">📚 Documentation<a class="anchor" aria-label="anchor" href="#books-documentation"></a>
+</h2>
+<ul>
+<li>
+<strong>Package Documentation</strong>: <a href="https://sbalci.github.io/jjstatsplot/" class="external-link">sbalci.github.io/jjstatsplot</a>
+</li>
+<li>
+<strong>ggstatsplot Guide</strong>: <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">indrajeetpatil.github.io/ggstatsplot</a>
+</li>
+<li>
+<strong>jamovi Resources</strong>: <a href="https://www.jamovi.org" class="external-link">jamovi.org</a>
+</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="handshake-contributing">🤝 Contributing<a class="anchor" aria-label="anchor" href="#handshake-contributing"></a>
+</h2>
+<p>Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.</p>
+<div class="section level3">
+<h3 id="reporting-issues">Reporting Issues<a class="anchor" aria-label="anchor" href="#reporting-issues"></a>
+</h3>
+<ul>
+<li>
+<strong>Bug Reports</strong>: <a href="https://github.com/sbalci/jjstatsplot/issues" class="external-link">GitHub Issues</a>
+</li>
+<li>
+<strong>Feature Requests</strong>: <a href="https://github.com/sbalci/jjstatsplot/discussions" class="external-link">GitHub Discussions</a>
+</li>
+<li>
+<strong>General Questions</strong>: <a href="mailto:serdarbalci@serdarbalci.com" class="email">serdarbalci@serdarbalci.com</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="page_facing_up-citation">📄 Citation<a class="anchor" aria-label="anchor" href="#page_facing_up-citation"></a>
+</h2>
+<p>If you use jjstatsplot in your research, please cite the main ClinicoPath project:</p>
+<pre><code>Serdar Balci (2025). ClinicoPath jamovi Module. doi:10.5281/zenodo.3997188
+[R package]. Retrieved from https://github.com/sbalci/ClinicoPathJamoviModule</code></pre>
+<p>Please also cite the underlying packages:</p>
+<ul>
+<li>
+<strong>ggstatsplot</strong>: Patil, I. (2021). Visualizations with statistical details: The ‘ggstatsplot’ approach. <em>Journal of Open Source Software</em>, 6(61), 3167.</li>
+<li>
+<strong>jamovi</strong>: The jamovi project (2024). jamovi (Version 2.5) [Computer Software]. Retrieved from <a href="https://www.jamovi.org" class="external-link uri">https://www.jamovi.org</a>
+</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="pencil-license">📝 License<a class="anchor" aria-label="anchor" href="#pencil-license"></a>
+</h2>
+<p>This project is licensed under the GPL (≥ 2) License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+</div>
+<div class="section level2">
+<h2 id="pray-acknowledgments">🙏 Acknowledgments<a class="anchor" aria-label="anchor" href="#pray-acknowledgments"></a>
+</h2>
+<ul>
+<li>
+<a href="https://github.com/IndrajeetPatil" class="external-link">Indrajeet Patil</a> for creating ggstatsplot</li>
+<li>The <a href="https://www.jamovi.org/about.html" class="external-link">jamovi team</a> for their excellent statistical platform</li>
+<li>All contributors and users who have helped improve this package</li>
+</ul>
+<hr>
+<p align="center">
+Made with ❤️ for the jamovi community
+</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

@@ -11,10 +11,15 @@ articles:
   06-BBC-style-data-visualization: 06-BBC-style-data-visualization.html
   06-use-in-r: 06-use-in-r.html
   07-advancedbarplot: 07-advancedbarplot.html
+  legacy/07-continuous-comparisons-legacy: legacy/07-continuous-comparisons-legacy.html
   08-advancedraincloud: 08-advancedraincloud.html
+  legacy/08-categorical-plots-legacy: legacy/08-categorical-plots-legacy.html
   09-advancedtree: 09-advancedtree.html
   09-analysis-gallery: 09-analysis-gallery.html
   09-basegraphics: 09-basegraphics.html
+  legacy/09-continuous-comparisons-legacy: legacy/09-continuous-comparisons-legacy.html
+  legacy/10-correlations-scatterplots-legacy: legacy/10-correlations-scatterplots-legacy.html
+  legacy/11-introduction-legacy: legacy/11-introduction-legacy.html
   12-economistplots: 12-economistplots.html
   13-quick-reference: 13-quick-reference.html
   14-clinical-classification-comprehensive: 14-clinical-classification-comprehensive.html
@@ -23,26 +28,33 @@ articles:
   15-troubleshooting-faq: 15-troubleshooting-faq.html
   16-jcomplexupset-comprehensive: 16-jcomplexupset-comprehensive.html
   17-jextractggstats-comprehensive: 17-jextractggstats-comprehensive.html
+  legacy/18-analysis-gallery-legacy: legacy/18-analysis-gallery-legacy.html
   18-jforester-comprehensive: 18-jforester-comprehensive.html
   19-jforestmodel-comprehensive: 19-jforestmodel-comprehensive.html
   20-jggheatmap-comprehensive: 20-jggheatmap-comprehensive.html
   21-jggridges-comprehensive: 21-jggridges-comprehensive.html
   22-jggsankeyfier-comprehensive: 22-jggsankeyfier-comprehensive.html
+  22-jjsankeyfier-comprehensive: 22-jjsankeyfier-comprehensive.html
   23-jggstats-comprehensive: 23-jggstats-comprehensive.html
   23-jjbarstats-comprehensive: 23-jjbarstats-comprehensive.html
+  legacy/24-jamovi-user-guide-legacy: legacy/24-jamovi-user-guide-legacy.html
   24-jjarcdiagram-comprehensive: 24-jjarcdiagram-comprehensive.html
   24-jjbetweenstats-comprehensive: 24-jjbetweenstats-comprehensive.html
   25-jjcorrmat-comprehensive: 25-jjcorrmat-comprehensive.html
   26-jjdotplotstats-comprehensive: 26-jjdotplotstats-comprehensive.html
   27-jjhistostats-comprehensive: 27-jjhistostats-comprehensive.html
   28-jjpiestats-comprehensive: 28-jjpiestats-comprehensive.html
+  29-jjridges-comprehensive: 29-jjridges-comprehensive.html
   29-jjridgestats-comprehensive: 29-jjridgestats-comprehensive.html
+  legacy/29-quick-reference-legacy: legacy/29-quick-reference-legacy.html
   30-jjriverplot-comprehensive: 30-jjriverplot-comprehensive.html
   30-linechart-comprehensive: 30-linechart-comprehensive.html
+  legacy/30-r-programming-guide-legacy: legacy/30-r-programming-guide-legacy.html
   31-jjscatterstats-comprehensive: 31-jjscatterstats-comprehensive.html
   31-jpps-comprehensive: 31-jpps-comprehensive.html
   31-jscattermore-comprehensive: 31-jscattermore-comprehensive.html
   31-lollipop-comprehensive: 31-lollipop-comprehensive.html
+  legacy/31-troubleshooting-faq-legacy: legacy/31-troubleshooting-faq-legacy.html
   32-jjstreamgraph-comprehensive: 32-jjstreamgraph-comprehensive.html
   32-jsjplot-comprehensive: 32-jsjplot-comprehensive.html
   33-jjtreemap-comprehensive: 33-jjtreemap-comprehensive.html
@@ -51,8 +63,9 @@ articles:
   34-jviolin-comprehensive: 34-jviolin-comprehensive.html
   35-jvisr-comprehensive: 35-jvisr-comprehensive.html
   36-jwaffle-comprehensive: 36-jwaffle-comprehensive.html
+  jjstatsplot-01-oncodatasets-examples: jjstatsplot-01-oncodatasets-examples.html
   use-jjstatsplot-in-R: use-jjstatsplot-in-R.html
-last_built: 2025-07-29T11:42Z
+last_built: 2025-10-09T16:23Z
 urls:
   reference: https://www.serdarbalci.com/jjstatsplot/reference
   article: https://www.serdarbalci.com/jjstatsplot/articles

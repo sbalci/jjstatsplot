@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>General 01: jamovi User Guide for Statistical Analysis • jjstatsplot</title>
+<title>jamovi User Guide for ClinicoPath • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="General 01: jamovi User Guide for Statistical Analysis">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="jamovi User Guide for ClinicoPath">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.82</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,46 +34,58 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
-    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">General 01: jamovi User Guide for Statistical Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
+    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
     <li><a class="dropdown-item" href="../articles/04-continuous-comparisons-alt.html">Continuous Variable Comparisons</a></li>
-    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Exploring Relationships with Scatter Plots</a></li>
     <li><a class="dropdown-item" href="../articles/06-BBC-style-data-visualization.html">BBC-Style Data Visualization - Professional News Graphics</a></li>
     <li><a class="dropdown-item" href="../articles/06-use-in-r.html">Use jjstatsplot in R</a></li>
     <li><a class="dropdown-item" href="../articles/07-advancedbarplot.html">Advanced Bar Charts - 7 Professional Approaches</a></li>
-    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Raincloud Plots - Enhanced Distribution Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
+    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/10-correlations-scatterplots-legacy.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/11-introduction-legacy.html">jjstatsplot: Statistical Visualization for Clinical Research</a></li>
     <li><a class="dropdown-item" href="../articles/12-economistplots.html">Economist-Style Distribution Plots - Professional Data Visualization</a></li>
-    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">Quick Reference Guide for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">jjstatsplot Plot Gallery</a></li>
     <li><a class="dropdown-item" href="../articles/14-clinical-classification-comprehensive.html">Clinical Classification Analysis with Machine Learning</a></li>
     <li><a class="dropdown-item" href="../articles/14-r-programming-guide.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/15-grafify-comprehensive.html">Scientific Visualization with Grafify: Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/16-jcomplexupset-comprehensive.html">Complex UpSet Plot Visualization with jcomplexupset</a></li>
     <li><a class="dropdown-item" href="../articles/17-jextractggstats-comprehensive.html">Statistical Data Extraction from ggstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/18-analysis-gallery-legacy.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/18-jforester-comprehensive.html">Forest Plot Visualization with jforester</a></li>
-    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Forest Plots from Regression Models with jforestmodel</a></li>
+    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Visualizing Regression Models with Forest Plots</a></li>
     <li><a class="dropdown-item" href="../articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="../articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="../articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
+    <li><a class="dropdown-item" href="../articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="../articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="../articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjarcdiagram-comprehensive.html">Network Visualization with jjarcdiagram</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjbetweenstats-comprehensive.html">High-Performance Violin Plot Analysis with jjbetweenstats</a></li>
     <li><a class="dropdown-item" href="../articles/25-jjcorrmat-comprehensive.html">jjcorrmat: Comprehensive Correlation Matrix Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
+    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
     <li><a class="dropdown-item" href="../articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="../articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="../articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="../articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
@@ -82,9 +94,11 @@
     <li><a class="dropdown-item" href="../articles/34-jviolin-comprehensive.html">Professional Violin Plots with jviolin</a></li>
     <li><a class="dropdown-item" href="../articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="../articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
+    <li><a class="dropdown-item" href="../articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
     <li><a class="dropdown-item" href="../articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -104,7 +118,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>General 01: jamovi User Guide for Statistical Analysis</h1>
+      <h1>jamovi User Guide for ClinicoPath</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/01-jamovi-user-guide.Rmd" class="external-link"><code>vignettes/01-jamovi-user-guide.Rmd</code></a></small>
@@ -114,283 +128,220 @@
     
     
 <div class="section level2">
-<h2 id="jamovi-user-guide-a-statistics-crash-course-for-pathologists-and-clinicians">jamovi User Guide: A Statistics Crash Course for Pathologists and
-Clinicians<a class="anchor" aria-label="anchor" href="#jamovi-user-guide-a-statistics-crash-course-for-pathologists-and-clinicians"></a>
+<h2 id="a-clinicians-guide-to-statistical-analysis-in-jamovi">A Clinician’s Guide to Statistical Analysis in jamovi<a class="anchor" aria-label="anchor" href="#a-clinicians-guide-to-statistical-analysis-in-jamovi"></a>
 </h2>
-<p>This comprehensive guide introduces jamovi as a powerful,
-user-friendly statistical software for medical research. jamovi provides
-point-and-click access to sophisticated statistical analyses without
-requiring programming knowledge, making it ideal for pathologists and
-clinicians who need to analyze research data.</p>
+<p>This guide provides a comprehensive introduction to performing
+statistical analysis in jamovi using the <strong>ClinicoPath</strong>
+module. jamovi is a free and open-source statistical spreadsheet that
+provides a user-friendly, point-and-click interface for complex
+analyses. This makes it ideal for pathologists, clinicians, and
+researchers who need to analyze data without learning how to code.</p>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <div class="section level4">
-<h4 id="installing-jjstatsplot-in-jamovi">Installing jjstatsplot in jamovi<a class="anchor" aria-label="anchor" href="#installing-jjstatsplot-in-jamovi"></a>
+<h4 id="installing-the-clinicopath-module-in-jamovi">Installing the ClinicoPath Module in jamovi<a class="anchor" aria-label="anchor" href="#installing-the-clinicopath-module-in-jamovi"></a>
 </h4>
 <ol style="list-style-type: decimal">
-<li><strong>Open jamovi</strong></li>
 <li>
-<strong>Access Modules</strong>: Click the “Modules” button (⊞) in
-the top menu</li>
-<li>
-<strong>Open jamovi library</strong>: Select “jamovi library” from
-the dropdown</li>
-<li>
-<strong>Search</strong>: Type “jjstatsplot” in the search box</li>
-<li>
-<strong>Install</strong>: Click the “Install” button next to
-jjstatsplot</li>
-<li>
-<strong>Restart</strong>: Close and reopen jamovi to activate the
-module</li>
+<strong>Open jamovi</strong>.</li>
+<li>Click the <strong>Modules</strong> button (a large <code>+</code>
+sign) in the top-right of the menu bar.</li>
+<li>Select <strong>jamovi library</strong> from the dropdown menu.</li>
+<li>In the search box, type <code>ClinicoPath</code>.</li>
+<li>Click the <strong>Install</strong> button next to the ClinicoPath
+module.</li>
+<li>jamovi will install the module and all its dependencies. Once
+installed, you will see the module’s name appear in the main analysis
+ribbon.</li>
 </ol>
-</div>
-<div class="section level4">
-<h4 id="verification">Verification<a class="anchor" aria-label="anchor" href="#verification"></a>
-</h4>
-<p>After installation, you should see “JJStatsPlot” in the main menu bar
-with submenus for different analysis types.</p>
+<hr>
+<p>[Screenshot of the jamovi library showing the ClinicoPath module and
+the “Install” button.] ***</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="understanding-the-interface">Understanding the Interface<a class="anchor" aria-label="anchor" href="#understanding-the-interface"></a>
+<h3 id="a-complete-analysis-workflow-a-clinical-example">A Complete Analysis Workflow: A Clinical Example<a class="anchor" aria-label="anchor" href="#a-complete-analysis-workflow-a-clinical-example"></a>
 </h3>
+<p>To illustrate how to use the ClinicoPath module, we will walk through
+a complete analysis of a clinical research question.</p>
 <div class="section level4">
-<h4 id="menu-organization">Menu Organization<a class="anchor" aria-label="anchor" href="#menu-organization"></a>
+<h4 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
 </h4>
-<p>The jjstatsplot analyses are organized by data type:</p>
+<p>A researcher is analyzing a dataset of patients who have undergone
+mammography screening. They want to answer the following question:</p>
+<blockquote>
+<p><strong>Is there a statistically significant difference in age
+between patients with a positive cancer diagnosis and those with a
+negative diagnosis?</strong></p>
+</blockquote>
+<p>We will use the <code>breast_cancer_data</code> dataset included with
+the ClinicoPath module to answer this question.</p>
+</div>
+<div class="section level4">
+<h4 id="step-1-load-the-data">Step 1: Load the Data<a class="anchor" aria-label="anchor" href="#step-1-load-the-data"></a>
+</h4>
+<p>First, we need to load the <code>breast_cancer_data</code> dataset.
+This dataset is included with the ClinicoPath module, so you can easily
+open it in jamovi.</p>
+<ol style="list-style-type: decimal">
+<li>In the top-left menu (the “hamburger” menu ☰), click
+<strong>File</strong> -&gt; <strong>Open</strong>.</li>
+<li>In the file browser, navigate to the <code>ClinicoPath</code>
+module’s data folder. The location of this folder varies depending on
+your operating system. A shortcut is to click on the
+<strong>Examples</strong> dataset that comes with jamovi, and then
+navigate from there.</li>
+<li>Select the <code>breast_cancer_data.omv</code> file.</li>
+</ol>
+<hr>
+<p>[Screenshot of the jamovi interface with the
+<code>breast_cancer_data</code> dataset loaded.] ***</p>
+</div>
+<div class="section level4">
+<h4 id="step-2-perform-the-analysis-with-a-box-violin-plot">Step 2: Perform the Analysis with a Box-Violin Plot<a class="anchor" aria-label="anchor" href="#step-2-perform-the-analysis-with-a-box-violin-plot"></a>
+</h4>
+<p>The best way to visualize the difference in a continuous variable
+(like <code>age</code>) between two categorical groups (like
+<code>cancer_status</code>) is with a box-violin plot.</p>
+<ol style="list-style-type: decimal">
+<li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
+-&gt; <strong>Categorical vs Continuous</strong> -&gt;
+<strong>Box-Violin Plots (Between Groups)</strong>.</li>
+</ol>
+<hr>
+<p>[Screenshot of the jamovi analysis ribbon showing the path to the
+Box-Violin Plots.] ***</p>
+<ol start="2" style="list-style-type: decimal">
+<li>In the analysis window, you will see a panel where you can assign
+variables.
+<ul>
+<li>Move the <code>age</code> variable to the <strong>Dependent
+Variable</strong> box.</li>
+<li>Move the <code>cancer_status</code> variable to the <strong>Grouping
+Variable</strong> box.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>[Screenshot of the analysis window showing the variables being
+assigned.] ***</p>
+<ol start="3" style="list-style-type: decimal">
+<li>jamovi will automatically generate the plot and the statistical
+analysis.</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="step-3-the-output-plot">Step 3: The Output Plot<a class="anchor" aria-label="anchor" href="#step-3-the-output-plot"></a>
+</h4>
+<p>Here is the plot generated by jamovi:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"breast_cancer_data"</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the plot</span></span>
+<span><span class="fu"><a href="../reference/jjbetweenstats.html">jjbetweenstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">breast_cancer_data</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"age"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"cancer_status"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"parametric"</span>,            <span class="co"># Statistical test type</span></span>
+<span>  pairwise.comparisons <span class="op">=</span> <span class="cn">TRUE</span>,    <span class="co"># Post-hoc comparisons</span></span>
+<span>  title <span class="op">=</span> <span class="st">"Age Distribution by Cancer Status"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Two-sample t-test with effect size"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Cancer Status"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Age (years)"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="step-4-interpreting-the-plot-and-statistics">Step 4: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-4-interpreting-the-plot-and-statistics"></a>
+</h4>
+<p>Now, let's interpret the output.</p>
 <ul>
 <li>
-<strong>Continuous</strong>: Histogram</li>
-<li>
-<strong>Continuous vs Continuous</strong>: Scatter Plot, Correlation
-Matrix<br>
+<strong>The Plot</strong>: The plot shows the distribution of age
+for both groups (<code>Negative</code> and <code>Positive</code> cancer
+status).
+<ul>
+<li>The <strong>violin</strong> part (the colored, shaded area) shows
+the density of the data. We can see that the <code>Positive</code> group
+has a wider distribution of ages.</li>
+<li>The <strong>box</strong> part (inside the violin) shows the summary
+statistics. The thick line is the median age. The box itself represents
+the interquartile range (the middle 50% of patients).</li>
+<li>Visually, it appears that the median age of the
+<code>Positive</code> group is higher than the <code>Negative</code>
+group.</li>
+</ul>
 </li>
 <li>
-<strong>Categorical vs Continuous</strong>: Box-Violin Plots, Dot
-Charts</li>
+<strong>The Statistics</strong>: The <code>jjbetweenstats</code>
+function automatically performs a t-test to compare the means of the two
+groups. The results are displayed on the plot itself.
+<ul>
 <li>
-<strong>Categorical vs Categorical</strong>: Bar Charts, Pie
-Charts</li>
+<strong>t-test</strong>: The plot shows the results of the t-test:
+<em>t</em>(198) = -2.9, <em>p</em> = 0.004.</li>
 <li>
-<strong>Distribution</strong>: Waffle Charts</li>
+<strong>p-value</strong>: The p-value is 0.004. Since this is less
+than the standard cutoff of 0.05, we can conclude that there is a
+<strong>statistically significant</strong> difference in age between the
+two groups.</li>
+<li>
+<strong>Effect Size</strong>: The plot also shows Cohen's
+<em>d</em>, which is a measure of effect size. Here, <em>d</em> = 0.41,
+which is typically considered a <strong>small to medium</strong>
+effect.</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="common-interface-elements">Common Interface Elements<a class="anchor" aria-label="anchor" href="#common-interface-elements"></a>
+<h4 id="step-5-reporting-the-results">Step 5: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-5-reporting-the-results"></a>
 </h4>
-<p>All jjstatsplot analyses share similar interface components:</p>
-<div class="section level5">
-<h5 id="variables-panel">
-<strong>Variables Panel</strong><a class="anchor" aria-label="anchor" href="#variables-panel"></a>
-</h5>
-<ul>
-<li>
-<strong>Dependent Variable(s)</strong>: The main variable(s) you
-want to analyze</li>
-<li>
-<strong>Grouping Variable</strong>: Optional variable to split
-analysis by groups</li>
-<li>
-<strong>Grouping Variable for Plots</strong>: Creates separate plots
-for each group level</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="options-panel">
-<strong>Options Panel</strong><a class="anchor" aria-label="anchor" href="#options-panel"></a>
-</h5>
-<ul>
-<li>
-<strong>Statistical Options</strong>: Choose test types, confidence
-levels</li>
-<li>
-<strong>Plot Options</strong>: Customize appearance, themes,
-colors</li>
-<li>
-<strong>Advanced Options</strong>: Fine-tune statistical
-parameters</li>
-</ul>
-</div>
+<p>When publishing these findings, you should report the descriptive
+statistics (mean and standard deviation for each group) and the results
+of the t-test. Here is an example of how to write this up:</p>
+<blockquote>
+<p>A two-sample t-test was conducted to compare the age of patients with
+positive and negative cancer diagnoses. There was a statistically
+significant difference in age between the two groups (<em>t</em>(198) =
+-2.9, <em>p</em> = 0.004). The mean age of patients with a positive
+diagnosis (M = 55.4, SD = 12.5) was significantly higher than the mean
+age of patients with a negative diagnosis (M = 50.2, SD = 11.8). The
+effect size was small to medium (Cohen's d = 0.41).</p>
+</blockquote>
 </div>
 </div>
 <div class="section level3">
-<h3 id="data-types-and-requirements">Data Types and Requirements<a class="anchor" aria-label="anchor" href="#data-types-and-requirements"></a>
+<h3 id="other-common-analyses">Other Common Analyses<a class="anchor" aria-label="anchor" href="#other-common-analyses"></a>
 </h3>
-<div class="section level4">
-<h4 id="variable-types">Variable Types<a class="anchor" aria-label="anchor" href="#variable-types"></a>
-</h4>
-<p>jjstatsplot automatically detects variable types, but understanding
-them helps:</p>
-<ul>
-<li>
-<strong>Continuous</strong>: Numeric variables (age, height,
-score)</li>
-<li>
-<strong>Nominal</strong>: Categories without order (gender, color,
-treatment)</li>
-<li>
-<strong>Ordinal</strong>: Categories with order (education level,
-satisfaction rating)</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="data-format-requirements">Data Format Requirements<a class="anchor" aria-label="anchor" href="#data-format-requirements"></a>
-</h4>
-<ul>
-<li>
-<strong>Long format</strong>: Each row represents one
-observation</li>
-<li>
-<strong>Complete cases</strong>: Missing values are handled
-automatically</li>
-<li>
-<strong>Appropriate sample sizes</strong>: Minimum recommendations
-vary by analysis</li>
-</ul>
-</div>
-</div>
-<div class="section level3">
-<h3 id="analysis-walkthrough">Analysis Walkthrough<a class="anchor" aria-label="anchor" href="#analysis-walkthrough"></a>
-</h3>
-<div class="section level4">
-<h4 id="histogram-analysis">1. Histogram Analysis<a class="anchor" aria-label="anchor" href="#histogram-analysis"></a>
-</h4>
-<p><strong>Use case</strong>: Explore the distribution of a continuous
-variable</p>
-<p><strong>Steps</strong>: 1. Navigate to <strong>JJStatsPlot →
-Continuous → Histogram</strong> 2. Move your continuous variable to
-<strong>Dependent Variable</strong> 3. Optional: Add a <strong>Grouping
-Variable</strong> for separate histograms 4. Customize in
-<strong>Options</strong>: - <strong>Statistical</strong>: Choose
-normality test type - <strong>Plot</strong>: Adjust bins, colors, theme
-- <strong>Labels</strong>: Add title, axis labels</p>
-<p><strong>Example Output</strong>: - Histogram with density curve -
-Normality test results - Descriptive statistics overlay</p>
-</div>
-<div class="section level4">
-<h4 id="scatter-plot-analysis">2. Scatter Plot Analysis<a class="anchor" aria-label="anchor" href="#scatter-plot-analysis"></a>
-</h4>
-<p><strong>Use case</strong>: Examine relationship between two
-continuous variables</p>
-<p><strong>Steps</strong>: 1. Go to <strong>JJStatsPlot → Continuous vs
-Continuous → Scatter Plot</strong> 2. Set <strong>Dependent
-Variable</strong> (Y-axis) 3. Set <strong>Grouping Variable</strong>
-(X-axis) 4. Optional: Add <strong>Grouping Variable for Plots</strong>
-for separate panels 5. Configure <strong>Options</strong>: -
-<strong>Statistical</strong>: Correlation test, regression line -
-<strong>Plot</strong>: Point style, smoothing method - <strong>Marginal
-plots</strong>: Add distribution plots to margins</p>
-<p><strong>Example Output</strong>: - Scatter plot with regression line
-- Correlation coefficient and significance - Confidence intervals -
-Marginal distribution plots (optional)</p>
-</div>
-<div class="section level4">
-<h4 id="box-violin-plots-between-groups">3. Box-Violin Plots (Between Groups)<a class="anchor" aria-label="anchor" href="#box-violin-plots-between-groups"></a>
-</h4>
-<p><strong>Use case</strong>: Compare continuous variable across
-different groups</p>
-<p><strong>Steps</strong>: 1. Select <strong>JJStatsPlot → Categorical
-vs Continuous → Box-Violin Plots (Between Groups)</strong> 2. Add
-continuous variable to <strong>Dependent Variable</strong> 3. Add
-grouping variable to <strong>Grouping Variable</strong> 4. Adjust
-<strong>Options</strong>: - <strong>Statistical</strong>: Choose
-comparison test (t-test, ANOVA, non-parametric) - <strong>Plot</strong>:
-Combine box and violin plots - <strong>Pairwise</strong>: Enable
-post-hoc comparisons</p>
-<p><strong>Example Output</strong>: - Combined box and violin plots -
-Statistical test results - Effect size measures - Pairwise comparison
-results</p>
-</div>
-<div class="section level4">
-<h4 id="correlation-matrix">4. Correlation Matrix<a class="anchor" aria-label="anchor" href="#correlation-matrix"></a>
-</h4>
-<p><strong>Use case</strong>: Explore relationships among multiple
-continuous variables</p>
-<p><strong>Steps</strong>: 1. Navigate to <strong>JJStatsPlot →
-Continuous vs Continuous → Correlation Matrix</strong> 2. Select
-multiple variables for <strong>Dependent Variables</strong> 3. Optional:
-Add <strong>Grouping Variable for Plots</strong> 4. Customize
-<strong>Options</strong>: - <strong>Statistical</strong>: Correlation
-method (Pearson, Spearman) - <strong>Plot</strong>: Color scheme,
-significance marking - <strong>Matrix type</strong>: Full, upper, or
-lower triangle</p>
-<p><strong>Example Output</strong>: - Color-coded correlation matrix -
-Significance indicators - Correlation coefficients</p>
-</div>
-<div class="section level4">
-<h4 id="bar-charts">5. Bar Charts<a class="anchor" aria-label="anchor" href="#bar-charts"></a>
-</h4>
-<p><strong>Use case</strong>: Visualize frequency or proportions of
-categorical variables</p>
-<p><strong>Steps</strong>: 1. Go to <strong>JJStatsPlot → Categorical vs
-Categorical → Bar Charts</strong> 2. Set <strong>Dependent
-Variable</strong> (categories to count) 3. Optional: Set
-<strong>Grouping Variable</strong> for grouped bars 4. Configure
-<strong>Options</strong>: - <strong>Statistical</strong>: Chi-square
-test, effect size - <strong>Plot</strong>: Bar orientation, colors -
-<strong>Labels</strong>: Show counts, percentages</p>
-<p><strong>Example Output</strong>: - Bar chart with counts/proportions
-- Chi-square test results - Effect size (Cramér’s V)</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
-</h3>
-<div class="section level4">
-<h4 id="grouped-analysis">Grouped Analysis<a class="anchor" aria-label="anchor" href="#grouped-analysis"></a>
-</h4>
-<p>Most analyses support grouped analysis:</p>
+<p>The ClinicoPath module provides a wide range of other analyses. The
+general workflow is the same for all of them:</p>
 <ol style="list-style-type: decimal">
-<li>
-<strong>Multiple Dependent Variables</strong>: Creates subplot for
-each variable</li>
-<li>
-<strong>Grouping Variable for Plots</strong>: Creates separate plot
-for each group level</li>
-<li>
-<strong>Combination</strong>: Multiple variables × multiple groups =
-grid of plots</li>
+<li>Select the analysis from the ribbon.</li>
+<li>Assign the variables.</li>
+<li>Customize the options (e.g., change the type of statistical test,
+modify the plot appearance).</li>
+<li>Interpret the output.</li>
 </ol>
 </div>
-<div class="section level4">
-<h4 id="theme-options">Theme Options<a class="anchor" aria-label="anchor" href="#theme-options"></a>
-</h4>
-<p>Choose between: - <strong>jamovi theme</strong>: Clean,
-publication-ready appearance - <strong>ggstatsplot theme</strong>: Rich
-statistical annotations and colors</p>
-</div>
-<div class="section level4">
-<h4 id="export-options">Export Options<a class="anchor" aria-label="anchor" href="#export-options"></a>
-</h4>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Copy Plot</strong>: Right-click plot → Copy</li>
-<li>
-<strong>Save</strong>: File → Export → choose format (PNG, PDF,
-SVG)</li>
-<li>
-<strong>Results</strong>: Copy statistical output from results
-panel</li>
-</ol>
-</div>
-</div>
 <div class="section level3">
-<h3 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="anchor" aria-label="anchor" href="#troubleshooting-common-issues"></a>
+<h3 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
 </h3>
 <div class="section level4">
 <h4 id="no-data-to-plot-error">“No data to plot” Error<a class="anchor" aria-label="anchor" href="#no-data-to-plot-error"></a>
 </h4>
 <ul>
 <li>
-<strong>Check</strong>: Ensure variables are selected correctly</li>
+<strong>Check</strong>: Ensure variables are selected
+correctly.</li>
 <li>
 <strong>Missing data</strong>: Variables with all missing values
-can’t be plotted</li>
+can't be plotted.</li>
 <li>
 <strong>Variable type</strong>: Ensure variable types match analysis
-requirements</li>
+requirements (e.g., don't use a categorical variable as a dependent
+variable in a continuous analysis).</li>
 </ul>
 </div>
 <div class="section level4">
@@ -398,182 +349,31 @@ requirements</li>
 </h4>
 <ul>
 <li>
-<strong>Sample size</strong>: Some tests require minimum sample
-sizes</li>
+<strong>Sample size</strong>: Some tests require a minimum number of
+data points in each group.</li>
 <li>
-<strong>Assumptions</strong>: Check if data meets test
-assumptions</li>
-<li>
-<strong>Alternative tests</strong>: Try non-parametric
-alternatives</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="plot-display-issues">Plot Display Issues<a class="anchor" aria-label="anchor" href="#plot-display-issues"></a>
-</h4>
-<ul>
-<li>
-<strong>Refresh</strong>: Try refreshing the analysis</li>
-<li>
-<strong>Simplify</strong>: Remove grouping variables
-temporarily</li>
-<li>
-<strong>Update</strong>: Ensure jamovi and module are up to
-date</li>
-</ul>
-</div>
-</div>
-<div class="section level3">
-<h3 id="tips-for-better-visualizations">Tips for Better Visualizations<a class="anchor" aria-label="anchor" href="#tips-for-better-visualizations"></a>
-</h3>
-<div class="section level4">
-<h4 id="variable-selection">1. Variable Selection<a class="anchor" aria-label="anchor" href="#variable-selection"></a>
-</h4>
-<ul>
-<li>
-<strong>Meaningful groupings</strong>: Choose grouping variables
-with 2-8 levels</li>
-<li>
-<strong>Sufficient data</strong>: Ensure adequate observations per
-group</li>
-<li>
-<strong>Relevant comparisons</strong>: Select variables that make
-theoretical sense</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="customization">2. Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
-</h4>
-<ul>
-<li>
-<strong>Titles</strong>: Add descriptive titles and axis labels</li>
-<li>
-<strong>Colors</strong>: Use color schemes appropriate for your
-audience</li>
-<li>
-<strong>Theme</strong>: Choose theme based on publication
-requirements</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="statistical-interpretation">3. Statistical Interpretation<a class="anchor" aria-label="anchor" href="#statistical-interpretation"></a>
-</h4>
-<ul>
-<li>
-<strong>Effect sizes</strong>: Always interpret alongside
-p-values</li>
-<li>
-<strong>Assumptions</strong>: Check and report assumption
-violations</li>
-<li>
-<strong>Multiple comparisons</strong>: Consider correction when
-doing many tests</li>
-</ul>
-</div>
-</div>
-<div class="section level3">
-<h3 id="example-workflow">Example Workflow<a class="anchor" aria-label="anchor" href="#example-workflow"></a>
-</h3>
-<div class="section level4">
-<h4 id="research-question-does-engine-type-affect-fuel-efficiency">Research Question: “Does engine type affect fuel efficiency?”<a class="anchor" aria-label="anchor" href="#research-question-does-engine-type-affect-fuel-efficiency"></a>
-</h4>
-<ol style="list-style-type: decimal">
-<li><p><strong>Data</strong>: Load dataset with <code>mpg</code>
-(continuous) and <code>vs</code> (engine type, categorical)</p></li>
-<li>
-<p><strong>Exploratory Analysis</strong>:</p>
-<ul>
-<li>
-<strong>Histogram</strong>: Examine <code>mpg</code>
-distribution</li>
-<li>
-<strong>Box-Violin Plot</strong>: Compare <code>mpg</code> between
-<code>vs</code> groups</li>
-</ul>
-</li>
-<li>
-<p><strong>Detailed Analysis</strong>:</p>
-<ul>
-<li>Use Box-Violin Plots (Between Groups)</li>
-<li>Set <code>mpg</code> as Dependent Variable</li>
-<li>Set <code>vs</code> as Grouping Variable</li>
-<li>Enable statistical tests and effect sizes</li>
-</ul>
-</li>
-<li>
-<p><strong>Interpretation</strong>:</p>
-<ul>
-<li>Examine group differences in plots</li>
-<li>Report statistical test results</li>
-<li>Include effect size measures</li>
-</ul>
-</li>
-</ol>
-</div>
-</div>
-<div class="section level3">
-<h3 id="best-practices">Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
-</h3>
-<div class="section level4">
-<h4 id="statistical-reporting">Statistical Reporting<a class="anchor" aria-label="anchor" href="#statistical-reporting"></a>
-</h4>
-<ul>
-<li>Always report effect sizes alongside p-values</li>
-<li>Check and report assumption violations</li>
-<li>Use appropriate tests for your data type and distribution</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="visualization-guidelines">Visualization Guidelines<a class="anchor" aria-label="anchor" href="#visualization-guidelines"></a>
-</h4>
-<ul>
-<li>Keep plots simple and interpretable</li>
-<li>Use consistent color schemes across related analyses</li>
-<li>Include appropriate titles and labels</li>
-<li>Consider your audience (academic, clinical, general public)</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
-</h4>
-<ul>
-<li>Document your analysis choices</li>
-<li>Save jamovi files with descriptive names</li>
-<li>Export high-quality images for publications</li>
+<strong>Assumptions</strong>: Some statistical tests have
+assumptions (e.g., normality). If the assumptions are not met, the test
+may fail or the results may be invalid. The ClinicoPath module often
+provides non-parametric alternatives for these situations.</li>
 </ul>
 </div>
 </div>
 <div class="section level3">
 <h3 id="getting-help">Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h3>
-<div class="section level4">
-<h4 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
-</h4>
 <ul>
 <li>
-<strong>ggstatsplot documentation</strong>: <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">indrajeetpatil.github.io/ggstatsplot</a>
-</li>
+<strong>ggstatsplot documentation</strong>: The ClinicoPath module
+is built on the excellent <code>ggstatsplot</code> R package. You can
+find detailed documentation at <a href="https://indrajeetpatil.github.io/ggstatsplot/" class="external-link">https://indrajeetpatil.github.io/ggstatsplot/</a>.</li>
 <li>
-<strong>jamovi community</strong>: <a href="https://forum.jamovi.org" class="external-link">forum.jamovi.org</a>
-</li>
+<strong>jamovi community</strong>: The jamovi forum is a great place
+to ask questions: <a href="https://forum.jamovi.org" class="external-link">https://forum.jamovi.org</a>.</li>
 <li>
-<strong>GitHub issues</strong>: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/issues" class="external-link">github.com/sbalci/ClinicoPathJamoviModule/issues</a>
-</li>
+<strong>GitHub issues</strong>: If you find a bug or have a feature
+request, you can open an issue on the ClinicoPath GitHub page: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/issues" class="external-link">https://github.com/sbalci/ClinicoPathJamoviModule/issues</a>.</li>
 </ul>
-</div>
-<div class="section level4">
-<h4 id="support">Support<a class="anchor" aria-label="anchor" href="#support"></a>
-</h4>
-<ul>
-<li>Check jamovi forum for similar questions</li>
-<li>Report bugs via GitHub issues</li>
-<li>Include sample data and screenshots when asking for help</li>
-</ul>
-<p>This guide provides a foundation for using jjstatsplot effectively in
-jamovi. Each analysis type offers extensive customization options -
-experiment with different settings to find what works best for your
-research needs.</p>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

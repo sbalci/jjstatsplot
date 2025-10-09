@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Forest Plots from Regression Models with jforestmodel • jjstatsplot</title>
+<title>Visualizing Regression Models with Forest Plots • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Forest Plots from Regression Models with jforestmodel">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Visualizing Regression Models with Forest Plots">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.82</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,46 +34,58 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
-    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">General 01: jamovi User Guide for Statistical Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
+    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
     <li><a class="dropdown-item" href="../articles/04-continuous-comparisons-alt.html">Continuous Variable Comparisons</a></li>
-    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Exploring Relationships with Scatter Plots</a></li>
     <li><a class="dropdown-item" href="../articles/06-BBC-style-data-visualization.html">BBC-Style Data Visualization - Professional News Graphics</a></li>
     <li><a class="dropdown-item" href="../articles/06-use-in-r.html">Use jjstatsplot in R</a></li>
     <li><a class="dropdown-item" href="../articles/07-advancedbarplot.html">Advanced Bar Charts - 7 Professional Approaches</a></li>
-    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Raincloud Plots - Enhanced Distribution Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
+    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/10-correlations-scatterplots-legacy.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/11-introduction-legacy.html">jjstatsplot: Statistical Visualization for Clinical Research</a></li>
     <li><a class="dropdown-item" href="../articles/12-economistplots.html">Economist-Style Distribution Plots - Professional Data Visualization</a></li>
-    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">Quick Reference Guide for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">jjstatsplot Plot Gallery</a></li>
     <li><a class="dropdown-item" href="../articles/14-clinical-classification-comprehensive.html">Clinical Classification Analysis with Machine Learning</a></li>
     <li><a class="dropdown-item" href="../articles/14-r-programming-guide.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/15-grafify-comprehensive.html">Scientific Visualization with Grafify: Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/16-jcomplexupset-comprehensive.html">Complex UpSet Plot Visualization with jcomplexupset</a></li>
     <li><a class="dropdown-item" href="../articles/17-jextractggstats-comprehensive.html">Statistical Data Extraction from ggstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/18-analysis-gallery-legacy.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/18-jforester-comprehensive.html">Forest Plot Visualization with jforester</a></li>
-    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Forest Plots from Regression Models with jforestmodel</a></li>
+    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Visualizing Regression Models with Forest Plots</a></li>
     <li><a class="dropdown-item" href="../articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="../articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="../articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
+    <li><a class="dropdown-item" href="../articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="../articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="../articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjarcdiagram-comprehensive.html">Network Visualization with jjarcdiagram</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjbetweenstats-comprehensive.html">High-Performance Violin Plot Analysis with jjbetweenstats</a></li>
     <li><a class="dropdown-item" href="../articles/25-jjcorrmat-comprehensive.html">jjcorrmat: Comprehensive Correlation Matrix Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
+    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
     <li><a class="dropdown-item" href="../articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="../articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="../articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="../articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
@@ -82,9 +94,11 @@
     <li><a class="dropdown-item" href="../articles/34-jviolin-comprehensive.html">Professional Violin Plots with jviolin</a></li>
     <li><a class="dropdown-item" href="../articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="../articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
+    <li><a class="dropdown-item" href="../articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
     <li><a class="dropdown-item" href="../articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -104,12 +118,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Forest Plots from Regression Models with jforestmodel</h1>
-            <h3 data-toc-skip class="subtitle">Professional Forest Plot
-Visualization for Linear, Logistic, and Cox Regression Models</h3>
-                        <h4 data-toc-skip class="author">ClinicoPath</h4>
+      <h1>Visualizing Regression Models with Forest Plots</h1>
             
-            <h4 data-toc-skip class="date">2025-07-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/19-jforestmodel-comprehensive.Rmd" class="external-link"><code>vignettes/19-jforestmodel-comprehensive.Rmd</code></a></small>
       <div class="d-none name"><code>19-jforestmodel-comprehensive.Rmd</code></div>
@@ -117,875 +127,146 @@ Visualization for Linear, Logistic, and Cox Regression Models</h3>
 
     
     
+<div class="section level2">
+<h2 id="visualizing-regression-models-with-forest-plots">Visualizing Regression Models with Forest Plots<a class="anchor" aria-label="anchor" href="#visualizing-regression-models-with-forest-plots"></a>
+</h2>
+<p>A forest plot is a powerful way to visualize the results of a
+statistical model. It allows you to see the effect of several different
+predictors on an outcome all at once. In clinical research, forest plots
+are often used to display the results of regression models, showing the
+odds ratios or hazard ratios for various risk factors.</p>
+<div class="section level3">
+<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h3>
+<p>A researcher is working with the <code>BreastCancer</code> dataset
+and wants to understand which cellular characteristics are most strongly
+associated with a tumor being malignant. The research question is:</p>
+<blockquote>
+<p><strong>What are the risk factors for a breast tumor being malignant,
+and what is the strength of their association?</strong></p>
+</blockquote>
+<p>We will build a logistic regression model to answer this question and
+then visualize the results with a forest plot.</p>
+</div>
+<div class="section level3">
+<h3 id="what-is-a-logistic-regression">What is a Logistic Regression?<a class="anchor" aria-label="anchor" href="#what-is-a-logistic-regression"></a>
+</h3>
+<p>Before we make the plot, it’s helpful to understand the model behind
+it. A <strong>logistic regression</strong> is a statistical method used
+to predict a binary outcome (an outcome with only two possibilities,
+like “benign” or “malignant”) from a set of predictor variables. The
+model calculates an <strong>odds ratio</strong> for each predictor,
+which tells us how the odds of the outcome change with a one-unit
+increase in the predictor.</p>
+</div>
+<div class="section level3">
+<h3 id="step-1-the-analysis-in-jamovi">Step 1: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-1-the-analysis-in-jamovi"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Load the <code>BreastCancer.omv</code> dataset into jamovi.</li>
+<li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
+-&gt; <strong>Advanced</strong> -&gt; <strong>Forest Plot from
+Regression Model</strong>.</li>
+</ol>
+<hr>
+<p>[Screenshot of the jamovi analysis ribbon showing the path to the
+Forest Plot.] ***</p>
+<ol start="3" style="list-style-type: decimal">
+<li>In the analysis window:
+<ul>
+<li>Move the <code>Class</code> variable (which contains “benign” and
+“malignant”) to the <strong>Dependent Variable</strong> box. This is the
+outcome we want to predict.</li>
+<li>Move the predictor variables, such as <code>Cl.thickness</code>,
+<code>Cell.size</code>, and <code>Cell.shape</code>, to the
+<strong>Predictor Variables</strong> box.</li>
+<li>Under <strong>Model Type</strong>, select <strong>Logistic
+Regression (glm)</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>[Screenshot of the analysis window showing the variables being
+assigned.] ***</p>
+</div>
+<div class="section level3">
+<h3 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
+</h3>
+<p>jamovi will first fit a logistic regression model behind the scenes
+and then generate the following forest plot of the results:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sbalci/jjstatsplot" class="external-link">jjstatsplot</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
-<p>The <code>jforestmodel</code> function provides comprehensive forest
-plot visualization capabilities for regression models including linear
-regression, logistic regression, and Cox proportional hazards models.
-Unlike traditional forest plots that display pre-calculated effect
-sizes, this function fits regression models directly from raw data and
-creates publication-ready forest plots of the model coefficients.</p>
-<p>Forest plots from regression models are essential tools in medical
-research for:</p>
-<ul>
-<li>Visualizing the effect of multiple predictors simultaneously</li>
-<li>Comparing the relative importance of different risk factors</li>
-<li>Presenting odds ratios, hazard ratios, or linear coefficients with
-confidence intervals</li>
-<li>Creating publication-ready figures for medical journals</li>
-<li>Communicating statistical findings to clinical audiences</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
-</h2>
-<p>The <code>jforestmodel</code> function supports:</p>
-<ul>
-<li>
-<strong>Multiple Model Types</strong>: Linear regression (lm),
-logistic regression (glm), and Cox proportional hazards (coxph)</li>
-<li>
-<strong>Automatic Model Fitting</strong>: Fits models directly from
-your data</li>
-<li>
-<strong>Professional Visualization</strong>: Uses the forestmodel
-package for high-quality plots</li>
-<li>
-<strong>Flexible Customization</strong>: Colors, fonts, sizes, and
-layout options</li>
-<li>
-<strong>Clinical Interpretation</strong>: Automatic interpretation
-guidance</li>
-<li>
-<strong>Export Options</strong>: Multiple formats for
-publication</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="basic-linear-regression">Basic Linear Regression<a class="anchor" aria-label="anchor" href="#basic-linear-regression"></a>
-</h2>
-<div class="section level3">
-<h3 id="simple-linear-model">Simple Linear Model<a class="anchor" aria-label="anchor" href="#simple-linear-model"></a>
-</h3>
-<p>Let’s start with a basic linear regression using the histopathology
-dataset:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load histopathology data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">histopathology</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Display the first few rows</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">histopathology</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span>, <span class="st">"PNI"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create a basic linear regression forest plot</span></span>
-<span><span class="va">linear_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Age"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Linear Regression: Predictors of Age"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Beta Coefficient (Years)"</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_interpretation <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># The plot will be displayed in jamovi interface</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="understanding-linear-regression-forest-plots">Understanding Linear Regression Forest Plots<a class="anchor" aria-label="anchor" href="#understanding-linear-regression-forest-plots"></a>
-</h3>
-<p>In linear regression forest plots:</p>
-<ul>
-<li>
-<strong>Beta coefficients</strong> represent the change in the
-dependent variable for a one-unit increase in each predictor</li>
-<li>
-<strong>Confidence intervals</strong> that don’t cross zero indicate
-statistically significant associations</li>
-<li>
-<strong>Point estimates</strong> show the direction and magnitude of
-the effect</li>
-<li>
-<strong>Reference line</strong> at zero represents no effect</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2 id="logistic-regression">Logistic Regression<a class="anchor" aria-label="anchor" href="#logistic-regression"></a>
-</h2>
-<div class="section level3">
-<h3 id="binary-outcome-models">Binary Outcome Models<a class="anchor" aria-label="anchor" href="#binary-outcome-models"></a>
-</h3>
-<p>Logistic regression is commonly used for binary outcomes. Let’s
-predict lymphovascular invasion (LVI):</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Logistic regression with odds ratios</span></span>
-<span><span class="va">logistic_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Logistic Regression: Predictors of Lymphovascular Invasion"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Odds Ratio (95% CI)"</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  confidence_level <span class="op">=</span> <span class="fl">0.95</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="working-with-the-wisconsin-breast-cancer-dataset">Working with the Wisconsin Breast Cancer Dataset<a class="anchor" aria-label="anchor" href="#working-with-the-wisconsin-breast-cancer-dataset"></a>
-</h3>
-<p>Let’s use the classic Wisconsin Breast Cancer dataset for cancer
-diagnosis prediction:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load breast cancer data</span></span>
+<code class="sourceCode R"><span><span class="co"># Load the data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BreastCancer</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Display dataset structure</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BreastCancer</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Class"</span>, <span class="st">"Cl.thickness"</span>, <span class="st">"Cell.size"</span>, <span class="st">"Cell.shape"</span>, <span class="st">"Marg.adhesion"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Comprehensive breast cancer prediction model</span></span>
-<span><span class="va">breast_cancer_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
+<span><span class="co"># The jforestmodel function fits the model and creates the plot</span></span>
+<span><span class="fu">jforestmodel</span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">BreastCancer</span>,</span>
 <span>  dependent_var <span class="op">=</span> <span class="st">"Class"</span>,</span>
 <span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cl.thickness"</span>, <span class="st">"Cell.size"</span>, <span class="st">"Cell.shape"</span>, </span>
 <span>                    <span class="st">"Marg.adhesion"</span>, <span class="st">"Epith.c.size"</span>, <span class="st">"Bare.nuclei"</span><span class="op">)</span>,</span>
 <span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
 <span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Breast Cancer Diagnosis Prediction Model"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Odds Ratio (95% CI)"</span>,</span>
-<span>  color_scheme <span class="op">=</span> <span class="st">"blue"</span>,</span>
-<span>  factor_separate_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_p_values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_confidence_intervals <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="different-glm-families">Different GLM Families<a class="anchor" aria-label="anchor" href="#different-glm-families"></a>
-</h3>
-<p>The function supports various GLM families:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Poisson regression example</span></span>
-<span><span class="va">poisson_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Age"</span>,  <span class="co"># Treating age as count for demonstration</span></span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"poisson"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Poisson Regression Model"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Rate Ratio"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Gaussian GLM (equivalent to linear regression)</span></span>
-<span><span class="va">gaussian_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Age"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Gaussian GLM Model"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Coefficient"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="cox-proportional-hazards-models">Cox Proportional Hazards Models<a class="anchor" aria-label="anchor" href="#cox-proportional-hazards-models"></a>
-</h2>
-<div class="section level3">
-<h3 id="survival-analysis-with-colon-cancer-data">Survival Analysis with Colon Cancer Data<a class="anchor" aria-label="anchor" href="#survival-analysis-with-colon-cancer-data"></a>
-</h3>
-<p>Cox regression is used for time-to-event analysis. Let’s use the
-colon cancer dataset:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load colon cancer survival data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">colon</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Display relevant variables</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">colon</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"obstruct"</span>, <span class="st">"perfor"</span>, <span class="st">"adhere"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Cox proportional hazards model</span></span>
-<span><span class="va">cox_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">colon</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"status"</span>,  <span class="co"># Required by interface but not used directly</span></span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"obstruct"</span>, <span class="st">"perfor"</span>, <span class="st">"adhere"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"coxph"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="st">"status"</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Cox Regression: Colon Cancer Survival"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Hazard Ratio (95% CI)"</span>,</span>
-<span>  confidence_level <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="melanoma-survival-analysis">Melanoma Survival Analysis<a class="anchor" aria-label="anchor" href="#melanoma-survival-analysis"></a>
-</h3>
-<p>Let’s also examine melanoma survival data:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load melanoma data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">melanoma</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Display melanoma variables</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">melanoma</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"thickness"</span>, <span class="st">"ulcer"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Melanoma survival model</span></span>
-<span><span class="va">melanoma_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">melanoma</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"status"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"thickness"</span>, <span class="st">"ulcer"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"coxph"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="st">"status"</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Melanoma Survival Analysis"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Hazard Ratio (95% CI)"</span>,</span>
-<span>  color_scheme <span class="op">=</span> <span class="st">"red"</span>,</span>
-<span>  show_interpretation <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="advanced-customization">Advanced Customization<a class="anchor" aria-label="anchor" href="#advanced-customization"></a>
-</h2>
-<div class="section level3">
-<h3 id="color-schemes-and-visual-options">Color Schemes and Visual Options<a class="anchor" aria-label="anchor" href="#color-schemes-and-visual-options"></a>
-</h3>
-<p>The function provides multiple color schemes and visual
-customization:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Custom color scheme</span></span>
-<span><span class="va">custom_color_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  color_scheme <span class="op">=</span> <span class="st">"custom"</span>,</span>
-<span>  custom_color <span class="op">=</span> <span class="st">"#FF5722"</span>,</span>
-<span>  point_size <span class="op">=</span> <span class="fl">3.0</span>,</span>
-<span>  line_size <span class="op">=</span> <span class="fl">1.2</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Custom Styled Forest Plot"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Professional medical color scheme</span></span>
-<span><span class="va">medical_style_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  color_scheme <span class="op">=</span> <span class="st">"green"</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Medical Style Forest Plot"</span>,</span>
-<span>  show_reference_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  reference_value <span class="op">=</span> <span class="fl">1</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="confidence-levels-and-statistical-options">Confidence Levels and Statistical Options<a class="anchor" aria-label="anchor" href="#confidence-levels-and-statistical-options"></a>
-</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># 99% confidence intervals</span></span>
-<span><span class="va">high_confidence_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  confidence_level <span class="op">=</span> <span class="fl">0.99</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"High Confidence Model (99% CI)"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 90% confidence intervals</span></span>
-<span><span class="va">low_confidence_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  confidence_level <span class="op">=</span> <span class="fl">0.90</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Conservative Model (90% CI)"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="factor-variable-handling">Factor Variable Handling<a class="anchor" aria-label="anchor" href="#factor-variable-handling"></a>
-</h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Factor variables on separate lines (default)</span></span>
-<span><span class="va">factor_separate_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Death"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  factor_separate_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Factor Levels on Separate Lines"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Factor variables on same line</span></span>
-<span><span class="va">factor_together_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Death"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  factor_separate_line <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Factor Levels Together"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="variable-sorting-and-selection">Variable Sorting and Selection<a class="anchor" aria-label="anchor" href="#variable-sorting-and-selection"></a>
-</h2>
-<div class="section level3">
-<h3 id="sorting-options">Sorting Options<a class="anchor" aria-label="anchor" href="#sorting-options"></a>
-</h3>
-<p>The function provides several sorting options for variables:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Sort by coefficient size</span></span>
-<span><span class="va">coefficient_sorted_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  sort_variables <span class="op">=</span> <span class="st">"coefficient"</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Sorted by Coefficient Size"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Sort by p-value</span></span>
-<span><span class="va">pvalue_sorted_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  sort_variables <span class="op">=</span> <span class="st">"pvalue"</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Sorted by P-value"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Alphabetical sorting</span></span>
-<span><span class="va">alphabetical_sorted_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  sort_variables <span class="op">=</span> <span class="st">"alphabetical"</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Alphabetically Sorted"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="covariate-selection">Covariate Selection<a class="anchor" aria-label="anchor" href="#covariate-selection"></a>
-</h3>
-<p>You can specify which covariates to display in the plot:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Display only specific covariates</span></span>
-<span><span class="va">selected_covariates_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span><span class="op">)</span>,  <span class="co"># Only show these in plot</span></span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Selected Covariates Only"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="model-diagnostics-and-interpretation">Model Diagnostics and Interpretation<a class="anchor" aria-label="anchor" href="#model-diagnostics-and-interpretation"></a>
-</h2>
-<div class="section level3">
-<h3 id="model-summary-statistics">Model Summary Statistics<a class="anchor" aria-label="anchor" href="#model-summary-statistics"></a>
-</h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Comprehensive model with full reporting</span></span>
-<span><span class="va">comprehensive_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_interpretation <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Comprehensive Model Analysis"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="linear-model-diagnostics">Linear Model Diagnostics<a class="anchor" aria-label="anchor" href="#linear-model-diagnostics"></a>
-</h3>
-<p>For linear models, additional diagnostic information is provided:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Linear model with diagnostics</span></span>
-<span><span class="va">linear_diagnostics_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Age"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Linear Model with Diagnostics"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="publication-ready-examples">Publication-Ready Examples<a class="anchor" aria-label="anchor" href="#publication-ready-examples"></a>
-</h2>
-<div class="section level3">
-<h3 id="high-quality-clinical-example">High-Quality Clinical Example<a class="anchor" aria-label="anchor" href="#high-quality-clinical-example"></a>
-</h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Publication-ready breast cancer model</span></span>
-<span><span class="va">publication_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">BreastCancer</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Class"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cl.thickness"</span>, <span class="st">"Cell.size"</span>, <span class="st">"Cell.shape"</span>, </span>
-<span>                    <span class="st">"Marg.adhesion"</span>, <span class="st">"Epith.c.size"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  confidence_level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  plot_title <span class="op">=</span> <span class="st">"Predictors of Breast Cancer Malignancy"</span>,</span>
-<span>  x_axis_label <span class="op">=</span> <span class="st">"Odds Ratio (95% Confidence Interval)"</span>,</span>
-<span>  color_scheme <span class="op">=</span> <span class="st">"blue"</span>,</span>
-<span>  point_size <span class="op">=</span> <span class="fl">2.5</span>,</span>
-<span>  line_size <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  factor_separate_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_p_values <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_confidence_intervals <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_reference_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  reference_value <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  show_summary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_interpretation <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  x_axis_label <span class="op">=</span> <span class="st">"Odds Ratio (95% Confidence Interval)"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="multi-model-comparison">Multi-Model Comparison<a class="anchor" aria-label="anchor" href="#multi-model-comparison"></a>
+<h3 id="step-3-interpreting-the-forest-plot">Step 3: Interpreting the Forest Plot<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-forest-plot"></a>
 </h3>
-<p>You can create multiple models for comparison:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Model 1: Basic predictors</span></span>
-<span><span class="va">basic_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Death"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Basic Model: Age and Grade Only"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Model 2: Extended predictors</span></span>
-<span><span class="va">extended_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Death"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span>, <span class="st">"PNI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Extended Model: Multiple Predictors"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="layout-and-panel-customization">Layout and Panel Customization<a class="anchor" aria-label="anchor" href="#layout-and-panel-customization"></a>
-</h2>
-<div class="section level3">
-<h3 id="panel-width-ratios">Panel Width Ratios<a class="anchor" aria-label="anchor" href="#panel-width-ratios"></a>
-</h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Custom panel width ratios</span></span>
-<span><span class="va">custom_layout_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  panel_width_ratio <span class="op">=</span> <span class="st">"2:3:1"</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Custom Panel Layout"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="reference-lines-and-values">Reference Lines and Values<a class="anchor" aria-label="anchor" href="#reference-lines-and-values"></a>
-</h3>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Custom reference line for linear model</span></span>
-<span><span class="va">linear_reference_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"Age"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade"</span>, <span class="st">"TStage"</span>, <span class="st">"LVI"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  show_reference_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  reference_value <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Linear Model with Zero Reference"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Custom reference line for logistic model</span></span>
-<span><span class="va">logistic_reference_model</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">histopathology</span>,</span>
-<span>  dependent_var <span class="op">=</span> <span class="st">"LVI"</span>,</span>
-<span>  predictor_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Grade"</span>, <span class="st">"TStage"</span><span class="op">)</span>,</span>
-<span>  model_type <span class="op">=</span> <span class="st">"glm"</span>,</span>
-<span>  time_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  event_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  show_reference_line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  reference_value <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Logistic Model with OR=1 Reference"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="interpretation-guidelines">Interpretation Guidelines<a class="anchor" aria-label="anchor" href="#interpretation-guidelines"></a>
-</h2>
-<div class="section level3">
-<h3 id="understanding-different-effect-measures">Understanding Different Effect Measures<a class="anchor" aria-label="anchor" href="#understanding-different-effect-measures"></a>
-</h3>
-<div class="section level4">
-<h4 id="linear-regression-coefficients">Linear Regression Coefficients<a class="anchor" aria-label="anchor" href="#linear-regression-coefficients"></a>
-</h4>
+<p>The forest plot shows the <strong>odds ratio</strong> for each
+predictor variable.</p>
 <ul>
 <li>
-<strong>Interpretation</strong>: Change in dependent variable per
-unit increase in predictor</li>
+<strong>The Vertical Line</strong>: The vertical line at an odds
+ratio of 1.0 represents “no effect”. If a predictor’s confidence
+interval crosses this line, it is not statistically significant.</li>
 <li>
-<strong>Significance</strong>: Confidence intervals not including
-zero</li>
+<strong>The Points</strong>: Each point represents the odds ratio
+for that predictor. This is the “best guess” for the effect of that
+variable.</li>
 <li>
-<strong>Clinical relevance</strong>: Consider magnitude along with
-statistical significance</li>
+<strong>The Horizontal Lines</strong>: The horizontal lines
+represent the <strong>95% confidence interval</strong> for the odds
+ratio. This gives us a range of plausible values for the true odds
+ratio.</li>
 </ul>
-</div>
-<div class="section level4">
-<h4 id="odds-ratios-logistic-regression">Odds Ratios (Logistic Regression)<a class="anchor" aria-label="anchor" href="#odds-ratios-logistic-regression"></a>
-</h4>
+<p><strong>How to read the results:</strong></p>
 <ul>
 <li>
-<strong>OR = 1</strong>: No association</li>
+<strong>Cl.thickness (Clump Thickness)</strong>: The odds ratio is
+greater than 1, and the confidence interval does not cross 1. This means
+that for every one-unit increase in clump thickness, the odds of the
+tumor being malignant increase significantly.</li>
 <li>
-<strong>OR &gt; 1</strong>: Increased odds of outcome</li>
-<li>
-<strong>OR &lt; 1</strong>: Decreased odds of outcome</li>
-<li>
-<strong>95% CI</strong>: Must not include 1 for statistical
-significance</li>
+<strong>Cell.size (Uniformity of Cell Size)</strong>: This variable
+also has an odds ratio greater than 1, and its confidence interval does
+not cross 1, indicating that larger cell sizes are associated with
+higher odds of malignancy.</li>
+<li>All the variables in this plot are statistically significant
+predictors of malignancy because none of their confidence intervals
+cross the vertical line at 1.0.</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="hazard-ratios-cox-regression">Hazard Ratios (Cox Regression)<a class="anchor" aria-label="anchor" href="#hazard-ratios-cox-regression"></a>
-</h4>
-<ul>
-<li>
-<strong>HR = 1</strong>: No effect on hazard</li>
-<li>
-<strong>HR &gt; 1</strong>: Increased hazard (worse survival)</li>
-<li>
-<strong>HR &lt; 1</strong>: Decreased hazard (better survival)</li>
-<li>
-<strong>Interpretation</strong>: Instantaneous risk at any given
-time</li>
-</ul>
-</div>
-</div>
 <div class="section level3">
-<h3 id="model-assessment-guidelines">Model Assessment Guidelines<a class="anchor" aria-label="anchor" href="#model-assessment-guidelines"></a>
+<h3 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
 </h3>
-<div class="section level4">
-<h4 id="model-fit-assessment">Model Fit Assessment<a class="anchor" aria-label="anchor" href="#model-fit-assessment"></a>
-</h4>
-<ol style="list-style-type: decimal">
-<li>
-<strong>R-squared</strong> (linear): Proportion of variance
-explained</li>
-<li>
-<strong>AIC</strong> (all models): Lower values indicate better
-fit</li>
-<li>
-<strong>Residual analysis</strong> (linear/GLM): Check model
-assumptions</li>
-<li>
-<strong>Proportional hazards assumption</strong> (Cox): Verify with
-diagnostics</li>
-</ol>
+<p>When reporting the results from a forest plot, you should describe
+the model and then report the odds ratios and confidence intervals for
+the key predictors.</p>
+<blockquote>
+<p>A logistic regression model was built to predict the likelihood of a
+malignant diagnosis based on cellular characteristics. The results are
+displayed in a forest plot. Several factors were found to be
+significantly associated with the odds of malignancy. For example, for
+each one-unit increase in clump thickness, the odds of the tumor being
+malignant increased by a factor of X (OR = X, 95% CI [Y, Z]). Similarly,
+uniformity of cell size was also a significant predictor (OR = A, 95% CI
+[B, C]).</p>
+</blockquote>
+<p>(Note: You would fill in the X, Y, Z, A, B, and C values from the
+output table in jamovi.)</p>
 </div>
-<div class="section level4">
-<h4 id="clinical-interpretation">Clinical Interpretation<a class="anchor" aria-label="anchor" href="#clinical-interpretation"></a>
-</h4>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Statistical vs Clinical Significance</strong>: Large effects
-may not be clinically meaningful</li>
-<li>
-<strong>Confidence Intervals</strong>: Wide intervals suggest
-uncertainty</li>
-<li>
-<strong>Multiple Comparisons</strong>: Consider adjustment for
-multiple testing</li>
-<li>
-<strong>Model Limitations</strong>: Remember unmeasured
-confounders</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="best-practices">Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
-</h2>
-<div class="section level3">
-<h3 id="model-building">Model Building<a class="anchor" aria-label="anchor" href="#model-building"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Variable Selection</strong>: Use clinical knowledge and
-statistical criteria</li>
-<li>
-<strong>Sample Size</strong>: Ensure adequate power for the number
-of predictors</li>
-<li>
-<strong>Missing Data</strong>: Handle appropriately before
-modeling</li>
-<li>
-<strong>Assumption Checking</strong>: Verify model assumptions</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Appropriate Scale</strong>: Use exponentiation for ratios,
-raw coefficients for linear</li>
-<li>
-<strong>Clear Labeling</strong>: Descriptive titles and axis
-labels</li>
-<li>
-<strong>Consistent Formatting</strong>: Use standard
-conventions</li>
-<li>
-<strong>Color Choices</strong>: Consider accessibility and journal
-requirements</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Model Details</strong>: Report model type, sample size, and
-selection criteria</li>
-<li>
-<strong>Assumption Testing</strong>: Document assumption
-verification</li>
-<li>
-<strong>Effect Sizes</strong>: Include both point estimates and
-confidence intervals</li>
-<li>
-<strong>Clinical Context</strong>: Interpret findings in clinical
-context</li>
-</ol>
-</div>
-</div>
-<div class="section level2">
-<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="anchor" aria-label="anchor" href="#troubleshooting-common-issues"></a>
-</h2>
-<div class="section level3">
-<h3 id="data-preparation">Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
-</h3>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Ensure variables are properly formatted</span></span>
-<span><span class="va">data</span><span class="op">$</span><span class="va">outcome</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">outcome</span><span class="op">)</span>  <span class="co"># For binary outcomes</span></span>
-<span><span class="va">data</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>       <span class="co"># For survival time</span></span>
-<span><span class="va">data</span><span class="op">$</span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">event</span><span class="op">)</span>     <span class="co"># For event indicator</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="model-convergence-issues">Model Convergence Issues<a class="anchor" aria-label="anchor" href="#model-convergence-issues"></a>
-</h3>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># For convergence problems, try:</span></span>
-<span><span class="co"># 1. Check for perfect separation in logistic regression</span></span>
-<span><span class="co"># 2. Scale continuous variables</span></span>
-<span><span class="co"># 3. Check for multicollinearity</span></span>
-<span><span class="co"># 4. Reduce number of predictors</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="missing-data-handling">Missing Data Handling<a class="anchor" aria-label="anchor" href="#missing-data-handling"></a>
-</h3>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Remove incomplete cases or use multiple imputation</span></span>
-<span><span class="va">complete_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"outcome"</span>, <span class="st">"pred1"</span>, <span class="st">"pred2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="op">]</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
-</h2>
-<div class="section level3">
-<h3 id="custom-model-objects">Custom Model Objects<a class="anchor" aria-label="anchor" href="#custom-model-objects"></a>
-</h3>
-<p>The function also supports custom model objects (future
-enhancement):</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Fit your own model first</span></span>
-<span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">LVI</span> <span class="op">~</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">Grade</span> <span class="op">+</span> <span class="va">TStage</span>, </span>
-<span>               data <span class="op">=</span> <span class="va">histopathology</span>, </span>
-<span>               family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Then create forest plot</span></span>
-<span><span class="va">custom_model_plot</span> <span class="op">&lt;-</span> <span class="fu">jforestmodel</span><span class="op">(</span></span>
-<span>  model_object <span class="op">=</span> <span class="va">my_model</span>,  <span class="co"># Future feature</span></span>
-<span>  model_type <span class="op">=</span> <span class="st">"custom"</span>,</span>
-<span>  exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot_title <span class="op">=</span> <span class="st">"Custom Model Forest Plot"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="integration-with-other-packages">Integration with Other Packages<a class="anchor" aria-label="anchor" href="#integration-with-other-packages"></a>
-</h3>
-<p>The forest plots can be integrated with other R packages for enhanced
-analysis:</p>
-<ul>
-<li>
-<strong>broom</strong>: For model tidying and extraction</li>
-<li>
-<strong>performance</strong>: For model performance metrics</li>
-<li>
-<strong>see</strong>: For additional visualization options</li>
-<li>
-<strong>report</strong>: For automated interpretation</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
-</h2>
-<p>The <code>jforestmodel</code> function provides a comprehensive
-solution for creating professional forest plots directly from regression
-models. Key benefits include:</p>
-<ul>
-<li>
-<strong>Direct Model Fitting</strong>: No need to pre-calculate
-effect sizes</li>
-<li>
-<strong>Multiple Model Types</strong>: Support for linear, logistic,
-and Cox regression</li>
-<li>
-<strong>Professional Quality</strong>: Publication-ready
-outputs</li>
-<li>
-<strong>Extensive Customization</strong>: Colors, layouts, and
-formatting options</li>
-<li>
-<strong>Clinical Integration</strong>: Appropriate for medical
-research applications</li>
-</ul>
-<p>Forest plots from regression models are powerful tools for
-communicating statistical findings in medical research. The
-<code>jforestmodel</code> function makes it easy to create high-quality
-visualizations that meet publication standards and effectively
-communicate your research findings.</p>
-<p>For advanced statistical modeling considerations, consult with a
-biostatistician and refer to specialized statistical texts and
-guidelines from your research domain.</p>
-</div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h2>
-<ol style="list-style-type: decimal">
-<li>Lewis S, Clarke M. Forest plots: trying to see the wood and the
-trees. BMJ. 2001;322(7300):1479-80.</li>
-<li>Wickham H. ggplot2: Elegant Graphics for Data Analysis.
-Springer-Verlag New York, 2016.</li>
-<li>Therneau T. A Package for Survival Analysis in R. 2023.</li>
-<li>Harrell FE. Regression Modeling Strategies. Springer, 2015.</li>
-<li>Steyerberg EW. Clinical Prediction Models. Springer, 2019.</li>
-</ol>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

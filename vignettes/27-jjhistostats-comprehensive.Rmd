@@ -26,9 +26,7 @@ The `jjhistostats` function provides a comprehensive interface for creating stat
 #| eval: false
 
 # Install ClinicoPath if not already installed
-if (!require("ClinicoPath")) {
-  devtools::install_github("sbalci/ClinicoPathJamoviModule")
-}
+library(jjstatsplot)
 
 library(jjstatsplot)
 library(ggplot2)

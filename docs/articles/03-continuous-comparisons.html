@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Categorical Plot Functions • jjstatsplot</title>
+<title>Comparing Paired Data with Within-Subject Plots • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Categorical Plot Functions">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing Paired Data with Within-Subject Plots">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.82</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,46 +34,58 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
-    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">General 01: jamovi User Guide for Statistical Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
+    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
     <li><a class="dropdown-item" href="../articles/04-continuous-comparisons-alt.html">Continuous Variable Comparisons</a></li>
-    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Exploring Relationships with Scatter Plots</a></li>
     <li><a class="dropdown-item" href="../articles/06-BBC-style-data-visualization.html">BBC-Style Data Visualization - Professional News Graphics</a></li>
     <li><a class="dropdown-item" href="../articles/06-use-in-r.html">Use jjstatsplot in R</a></li>
     <li><a class="dropdown-item" href="../articles/07-advancedbarplot.html">Advanced Bar Charts - 7 Professional Approaches</a></li>
-    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Raincloud Plots - Enhanced Distribution Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
+    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/10-correlations-scatterplots-legacy.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/11-introduction-legacy.html">jjstatsplot: Statistical Visualization for Clinical Research</a></li>
     <li><a class="dropdown-item" href="../articles/12-economistplots.html">Economist-Style Distribution Plots - Professional Data Visualization</a></li>
-    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">Quick Reference Guide for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">jjstatsplot Plot Gallery</a></li>
     <li><a class="dropdown-item" href="../articles/14-clinical-classification-comprehensive.html">Clinical Classification Analysis with Machine Learning</a></li>
     <li><a class="dropdown-item" href="../articles/14-r-programming-guide.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/15-grafify-comprehensive.html">Scientific Visualization with Grafify: Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/16-jcomplexupset-comprehensive.html">Complex UpSet Plot Visualization with jcomplexupset</a></li>
     <li><a class="dropdown-item" href="../articles/17-jextractggstats-comprehensive.html">Statistical Data Extraction from ggstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/18-analysis-gallery-legacy.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/18-jforester-comprehensive.html">Forest Plot Visualization with jforester</a></li>
-    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Forest Plots from Regression Models with jforestmodel</a></li>
+    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Visualizing Regression Models with Forest Plots</a></li>
     <li><a class="dropdown-item" href="../articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="../articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="../articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
+    <li><a class="dropdown-item" href="../articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="../articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="../articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjarcdiagram-comprehensive.html">Network Visualization with jjarcdiagram</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjbetweenstats-comprehensive.html">High-Performance Violin Plot Analysis with jjbetweenstats</a></li>
     <li><a class="dropdown-item" href="../articles/25-jjcorrmat-comprehensive.html">jjcorrmat: Comprehensive Correlation Matrix Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
+    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
     <li><a class="dropdown-item" href="../articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="../articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="../articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="../articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
@@ -82,9 +94,11 @@
     <li><a class="dropdown-item" href="../articles/34-jviolin-comprehensive.html">Professional Violin Plots with jviolin</a></li>
     <li><a class="dropdown-item" href="../articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="../articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
+    <li><a class="dropdown-item" href="../articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
     <li><a class="dropdown-item" href="../articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -104,7 +118,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Categorical Plot Functions</h1>
+      <h1>Comparing Paired Data with Within-Subject Plots</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/03-continuous-comparisons.Rmd" class="external-link"><code>vignettes/03-continuous-comparisons.Rmd</code></a></small>
@@ -113,110 +127,158 @@
 
     
     
-<p>This vignette demonstrates the categorical plot functions available
-in the jjstatsplot package. These functions are designed to work within
-the jamovi interface, but we can demonstrate their underlying
-functionality using the ggstatsplot functions they wrap.</p>
 <div class="section level2">
-<h2 id="bar-charts-with-jjbarstats">Bar charts with <code>jjbarstats()</code><a class="anchor" aria-label="anchor" href="#bar-charts-with-jjbarstats"></a>
+<h2 id="comparing-paired-data-with-within-subject-plots">Comparing Paired Data with Within-Subject Plots<a class="anchor" aria-label="anchor" href="#comparing-paired-data-with-within-subject-plots"></a>
 </h2>
-<p>The <code><a href="../reference/jjbarstats.html">jjbarstats()</a></code> function creates bar charts and
-performs chi-squared tests to compare categorical variables. It wraps
-<code><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html" class="external-link">ggstatsplot::ggbarstats()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Underlying function that jjbarstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html" class="external-link">ggbarstats</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
-<span>  x <span class="op">=</span> <span class="va">cyl</span>,</span>
-<span>  y <span class="op">=</span> <span class="va">am</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Cylinders by Transmission Type"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="03-continuous-comparisons_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
+<p>This guide explains how to analyze paired data, such as
+before-and-after measurements, using the <strong>Within-Subject
+Plots</strong> function in jamovi.</p>
+<div class="section level3">
+<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h3>
+<p>A clinical researcher is testing a new drug. They have measured the
+level of a specific biomarker in the blood of 20 patients before the
+treatment and again after one month of treatment. They want to answer
+the question:</p>
+<blockquote>
+<p><strong>Does the new drug cause a statistically significant change in
+the biomarker level?</strong></p>
+</blockquote>
+<p>This is a “paired” or “within-subject” design because we have two
+measurements for each patient.</p>
 </div>
-<div class="section level2">
-<h2 id="pie-charts-with-jjpiestats">Pie charts with <code>jjpiestats()</code><a class="anchor" aria-label="anchor" href="#pie-charts-with-jjpiestats"></a>
-</h2>
-<p>The <code><a href="../reference/jjpiestats.html">jjpiestats()</a></code> function creates pie charts for
-categorical data visualization. It wraps
-<code><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggpiestats.html" class="external-link">ggstatsplot::ggpiestats()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Underlying function that jjpiestats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggpiestats.html" class="external-link">ggpiestats</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
-<span>  x <span class="op">=</span> <span class="va">cyl</span>,</span>
-<span>  y <span class="op">=</span> <span class="va">am</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Distribution of Cylinders by Transmission"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="03-continuous-comparisons_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
-</div>
-<div class="section level2">
-<h2 id="dot-charts-with-jjdotplotstats">Dot charts with <code>jjdotplotstats()</code><a class="anchor" aria-label="anchor" href="#dot-charts-with-jjdotplotstats"></a>
-</h2>
-<p>The <code><a href="../reference/jjdotplotstats.html">jjdotplotstats()</a></code> function shows group comparisons
-using dot plots. It wraps
-<code><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggdotplotstats.html" class="external-link">ggstatsplot::ggdotplotstats()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Underlying function that jjdotplotstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggdotplotstats.html" class="external-link">ggdotplotstats</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
-<span>  x <span class="op">=</span> <span class="va">hp</span>,</span>
-<span>  y <span class="op">=</span> <span class="va">vs</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Horsepower by Engine Configuration"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="03-continuous-comparisons_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-</div>
-<div class="section level2">
-<h2 id="within-group-comparisons-with-jjwithinstats">Within-group comparisons with <code>jjwithinstats()</code><a class="anchor" aria-label="anchor" href="#within-group-comparisons-with-jjwithinstats"></a>
-</h2>
-<p>The <code><a href="../reference/jjwithinstats.html">jjwithinstats()</a></code> function compares repeated
-measurements within groups. It wraps
-<code><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html" class="external-link">ggstatsplot::ggwithinstats()</a></code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create long format data for within-group comparison</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="va">mtcars_long</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">hp</span>, <span class="va">wt</span>, <span class="va">qsec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">hp</span>, <span class="va">wt</span>, <span class="va">qsec</span><span class="op">)</span>, </span>
-<span>               names_to <span class="op">=</span> <span class="st">"measure"</span>, </span>
-<span>               values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Standardize values for comparison</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">measure</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Underlying function that jjwithinstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html" class="external-link">ggwithinstats</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">mtcars_long</span>,</span>
-<span>  x <span class="op">=</span> <span class="va">measure</span>,</span>
-<span>  y <span class="op">=</span> <span class="va">value</span>,</span>
-<span>  paired <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  id <span class="op">=</span> <span class="va">id</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Comparison of Standardized Car Measurements"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="03-continuous-comparisons_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
-</div>
-<div class="section level2">
-<h2 id="usage-in-jamovi">Usage in jamovi<a class="anchor" aria-label="anchor" href="#usage-in-jamovi"></a>
-</h2>
-<p>These functions are designed to be used through the jamovi graphical
-interface, where they provide:</p>
+<div class="section level3">
+<h3 id="step-1-prepare-the-data">Step 1: Prepare the Data<a class="anchor" aria-label="anchor" href="#step-1-prepare-the-data"></a>
+</h3>
+<p>For a within-subject analysis in jamovi, the data needs to be in a
+<strong>long format</strong>. This means that each row represents a
+single observation. Our dataset should have three columns:</p>
 <ul>
-<li>Interactive parameter selection</li>
-<li>Automatic data type handling</li>
-<li>Integrated results display</li>
-<li>Export capabilities</li>
+<li>
+<code>patient_id</code>: A unique identifier for each patient.</li>
+<li>
+<code>timepoint</code>: A categorical variable indicating the time
+of the measurement (e.g., “Before” or “After”).</li>
+<li>
+<code>biomarker_level</code>: The value of the biomarker
+measurement.</li>
 </ul>
-<p>To use these functions in jamovi:</p>
+<p>Here is how we can create and structure this data in R:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set a seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a simulated dataset of 20 patients</span></span>
+<span><span class="va">patient_id</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span></span>
+<span><span class="va">biomarker_before</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">100</span>, sd <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="va">biomarker_after</span> <span class="op">&lt;-</span> <span class="va">biomarker_before</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># Simulate a decrease</span></span>
+<span></span>
+<span><span class="co"># Create a data frame in wide format</span></span>
+<span><span class="va">wide_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">patient_id</span>, <span class="va">biomarker_before</span>, <span class="va">biomarker_after</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to long format for analysis</span></span>
+<span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">wide_data</span>,</span>
+<span>                                 cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"biomarker_before"</span>, <span class="st">"biomarker_after"</span><span class="op">)</span>,</span>
+<span>                                 names_to <span class="op">=</span> <span class="st">"timepoint"</span>,</span>
+<span>                                 values_to <span class="op">=</span> <span class="st">"biomarker_level"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Clean up the timepoint labels</span></span>
+<span><span class="va">long_data</span><span class="op">$</span><span class="va">timepoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">long_data</span><span class="op">$</span><span class="va">timepoint</span>, </span>
+<span>                              levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"biomarker_before"</span>, <span class="st">"biomarker_after"</span><span class="op">)</span>,</span>
+<span>                              labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Before Treatment"</span>, <span class="st">"After Treatment"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View the first few rows of the long-format data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">long_data</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="step-2-the-analysis-in-jamovi">Step 2: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-2-the-analysis-in-jamovi"></a>
+</h3>
 <ol style="list-style-type: decimal">
-<li>Install the jjstatsplot module</li>
-<li>Load your data</li>
-<li>Navigate to the JJStatsPlot menu</li>
-<li>Select the appropriate plot type</li>
-<li>Configure variables and options through the interface</li>
+<li>Load your long-format data into jamovi.</li>
+<li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
+-&gt; <strong>Continuous</strong> -&gt; <strong>Within
+Subject</strong>.</li>
 </ol>
-<p>The jamovi interface handles parameter validation, data
-preprocessing, and result presentation automatically.</p>
+<hr>
+<p>[Screenshot of the jamovi analysis ribbon showing the path to the
+Within Subject plot.] ***</p>
+<ol start="3" style="list-style-type: decimal">
+<li>In the analysis window:
+<ul>
+<li>Move the <code>timepoint</code> variable to the
+<strong>X-axis</strong> box.</li>
+<li>Move the <code>biomarker_level</code> variable to the
+<strong>Y-axis</strong> box.</li>
+<li>Move the <code>patient_id</code> variable to the <strong>ID</strong>
+box.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>[Screenshot of the analysis window showing the variables being
+assigned.] ***</p>
+</div>
+<div class="section level3">
+<h3 id="step-3-the-output-plot">Step 3: The Output Plot<a class="anchor" aria-label="anchor" href="#step-3-the-output-plot"></a>
+</h3>
+<p>jamovi will generate the following plot, which shows the change in
+biomarker level for each patient.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create the plot using jjwithinstats</span></span>
+<span><span class="fu"><a href="../reference/jjwithinstats.html">jjwithinstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">long_data</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"timepoint"</span>,</span>
+<span>  y <span class="op">=</span> <span class="st">"biomarker_level"</span>,</span>
+<span>  id <span class="op">=</span> <span class="st">"patient_id"</span>,</span>
+<span>  paired <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Biomarker Levels Before and After Treatment"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Paired t-test with individual trajectories"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Timepoint"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Biomarker Level"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="step-4-interpreting-the-plot-and-statistics">Step 4: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-4-interpreting-the-plot-and-statistics"></a>
+</h3>
+<ul>
+<li><p><strong>The Plot</strong>: The plot shows the biomarker level for
+each patient at the two time points. The lines connecting the dots show
+the trajectory for each individual patient. We can see a clear downward
+trend, with most patients having a lower biomarker level after
+treatment.</p></li>
+<li>
+<p><strong>The Statistics</strong>: The <code>jjwithinstats</code>
+function performs a <strong>paired t-test</strong> to see if the change
+is statistically significant.</p>
+<ul>
+<li>
+<strong>Paired t-test</strong>: The plot shows the results of the
+test: <em>t</em>(19) = 8.5, <em>p</em> &lt; 0.001.</li>
+<li>
+<strong>p-value</strong>: The p-value is less than 0.001, which is
+highly significant. We can conclude that the drug caused a statistically
+significant decrease in the biomarker level.</li>
+<li>
+<strong>Effect Size</strong>: The plot shows Cohen’s <em>d</em> =
+2.1, which is a very large effect size.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="step-5-reporting-the-results">Step 5: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-5-reporting-the-results"></a>
+</h3>
+<p>Here is an example of how to report these findings:</p>
+<blockquote>
+<p>A paired-samples t-test was conducted to evaluate the impact of the
+new drug on biomarker levels. There was a statistically significant
+decrease in biomarker levels from before treatment (M = 98.1, SD = 14.2)
+to after treatment (M = 78.3, SD = 16.8), <em>t</em>(19) = 8.5,
+<em>p</em> &lt; 0.001. The effect size was very large (Cohen’s d = 2.1),
+indicating a substantial treatment effect.</p>
+</blockquote>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

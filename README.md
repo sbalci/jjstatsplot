@@ -129,7 +129,6 @@ jmvtools::install()
 - **Package Documentation**: [sbalci.github.io/jjstatsplot](https://sbalci.github.io/jjstatsplot/)
 - **ggstatsplot Guide**: [indrajeetpatil.github.io/ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/)
 - **jamovi Resources**: [jamovi.org](https://www.jamovi.org)
-- **Video Tutorials**: [YouTube Channel](https://www.youtube.com/channel/UC7Y8gp8PrBsc48yKVkZGVIg)
 
 ## 🤝 Contributing
 

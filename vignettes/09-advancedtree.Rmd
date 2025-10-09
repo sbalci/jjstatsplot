@@ -20,11 +20,7 @@ knitr::opts_chunk$set(
 )
 
 # Load required libraries
-if (!require("ClinicoPath")) {
-  if (!require("pak")) install.packages("pak")
-  pak::pak("sbalci/ClinicoPathJamoviModule")
-  library(jjstatsplot)
-}
+library(jjstatsplot)
 
 library(dplyr)
 library(ggplot2)

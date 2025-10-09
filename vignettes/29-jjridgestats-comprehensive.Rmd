@@ -35,9 +35,7 @@ Ridgeline plots are particularly effective for:
 #| eval: false
 
 # Install ClinicoPath if not already installed
-if (!require("ClinicoPath")) {
-  devtools::install_github("sbalci/ClinicoPathJamoviModule")
-}
+library(jjstatsplot)
 
 library(jjstatsplot)
 library(ggplot2)

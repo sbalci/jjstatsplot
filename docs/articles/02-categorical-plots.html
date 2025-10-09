@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Categorical Plot Functions • jjstatsplot</title>
+<title>Visualizing Categorical Data with Bar Charts • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Categorical Plot Functions">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Visualizing Categorical Data with Bar Charts">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.82</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,46 +34,58 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
-    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">General 01: jamovi User Guide for Statistical Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
+    <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
+    <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
     <li><a class="dropdown-item" href="../articles/04-continuous-comparisons-alt.html">Continuous Variable Comparisons</a></li>
-    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/05-correlations-scatterplots.html">Exploring Relationships with Scatter Plots</a></li>
     <li><a class="dropdown-item" href="../articles/06-BBC-style-data-visualization.html">BBC-Style Data Visualization - Professional News Graphics</a></li>
     <li><a class="dropdown-item" href="../articles/06-use-in-r.html">Use jjstatsplot in R</a></li>
     <li><a class="dropdown-item" href="../articles/07-advancedbarplot.html">Advanced Bar Charts - 7 Professional Approaches</a></li>
-    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Raincloud Plots - Enhanced Distribution Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
+    <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/10-correlations-scatterplots-legacy.html">Correlations and Scatter Plots</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/11-introduction-legacy.html">jjstatsplot: Statistical Visualization for Clinical Research</a></li>
     <li><a class="dropdown-item" href="../articles/12-economistplots.html">Economist-Style Distribution Plots - Professional Data Visualization</a></li>
-    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">Quick Reference Guide for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/13-quick-reference.html">jjstatsplot Plot Gallery</a></li>
     <li><a class="dropdown-item" href="../articles/14-clinical-classification-comprehensive.html">Clinical Classification Analysis with Machine Learning</a></li>
     <li><a class="dropdown-item" href="../articles/14-r-programming-guide.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/15-grafify-comprehensive.html">Scientific Visualization with Grafify: Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/15-troubleshooting-faq.html">Troubleshooting Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/16-jcomplexupset-comprehensive.html">Complex UpSet Plot Visualization with jcomplexupset</a></li>
     <li><a class="dropdown-item" href="../articles/17-jextractggstats-comprehensive.html">Statistical Data Extraction from ggstatsplot</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/18-analysis-gallery-legacy.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/18-jforester-comprehensive.html">Forest Plot Visualization with jforester</a></li>
-    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Forest Plots from Regression Models with jforestmodel</a></li>
+    <li><a class="dropdown-item" href="../articles/19-jforestmodel-comprehensive.html">Visualizing Regression Models with Forest Plots</a></li>
     <li><a class="dropdown-item" href="../articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="../articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="../articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
+    <li><a class="dropdown-item" href="../articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="../articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="../articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjarcdiagram-comprehensive.html">Network Visualization with jjarcdiagram</a></li>
     <li><a class="dropdown-item" href="../articles/24-jjbetweenstats-comprehensive.html">High-Performance Violin Plot Analysis with jjbetweenstats</a></li>
     <li><a class="dropdown-item" href="../articles/25-jjcorrmat-comprehensive.html">jjcorrmat: Comprehensive Correlation Matrix Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
+    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
     <li><a class="dropdown-item" href="../articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="../articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="../articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
+    <li><a class="dropdown-item" href="../articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
     <li><a class="dropdown-item" href="../articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="../articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
@@ -82,9 +94,11 @@
     <li><a class="dropdown-item" href="../articles/34-jviolin-comprehensive.html">Professional Violin Plots with jviolin</a></li>
     <li><a class="dropdown-item" href="../articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="../articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
+    <li><a class="dropdown-item" href="../articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
     <li><a class="dropdown-item" href="../articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -104,11 +118,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Categorical Plot Functions</h1>
-                        <h4 data-toc-skip class="author">ClinicoPath
-Development Team</h4>
+      <h1>Visualizing Categorical Data with Bar Charts</h1>
             
-            <h4 data-toc-skip class="date">2025-07-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/02-categorical-plots.Rmd" class="external-link"><code>vignettes/02-categorical-plots.Rmd</code></a></small>
       <div class="d-none name"><code>02-categorical-plots.Rmd</code></div>
@@ -116,54 +127,124 @@ Development Team</h4>
 
     
     
-<p>This vignette demonstrates the functions designed for categorical
-data: <code><a href="../reference/jjbarstats.html">jjbarstats()</a></code>, <code><a href="../reference/jjpiestats.html">jjpiestats()</a></code> and
-<code><a href="../reference/jjdotplotstats.html">jjdotplotstats()</a></code>.</p>
 <div class="section level2">
-<h2 id="bar-charts-with-jjbarstats">Bar charts with <code>jjbarstats()</code><a class="anchor" aria-label="anchor" href="#bar-charts-with-jjbarstats"></a>
+<h2 id="visualizing-categorical-data-with-bar-charts">Visualizing Categorical Data with Bar Charts<a class="anchor" aria-label="anchor" href="#visualizing-categorical-data-with-bar-charts"></a>
 </h2>
-<p><code><a href="../reference/jjbarstats.html">jjbarstats()</a></code> creates a bar chart and automatically
-performs a chi-squared test to compare the distribution of two
-categorical variables. The example below compares the number of
-cylinders (<code>cyl</code>) across transmission types
-(<code>am</code>).</p>
+<p>This guide demonstrates how to visualize the relationship between two
+categorical variables using a bar chart in jamovi.</p>
+<div class="section level3">
+<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h3>
+<p>A researcher is investigating the effectiveness of mammography as a
+screening tool. They want to answer the following question:</p>
+<blockquote>
+<p><strong>Is there a statistically significant association between the
+results of a mammogram and the actual cancer diagnosis?</strong></p>
+</blockquote>
+<p>We will use the <code>breast_cancer_data</code> dataset to explore
+this question.</p>
+</div>
+<div class="section level3">
+<h3 id="step-1-the-analysis">Step 1: The Analysis<a class="anchor" aria-label="anchor" href="#step-1-the-analysis"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Load the <code>breast_cancer_data.omv</code> dataset into
+jamovi.</li>
+<li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
+-&gt; <strong>Categorical vs Categorical</strong> -&gt; <strong>Bar
+Charts</strong>.</li>
+</ol>
+<hr>
+<p>[Screenshot of the jamovi analysis ribbon showing the path to the Bar
+Charts.] ***</p>
+<ol start="3" style="list-style-type: decimal">
+<li>In the analysis window:
+<ul>
+<li>Move the <code>mammography</code> variable to the <strong>Dependent
+Variable</strong> box.</li>
+<li>Move the <code>cancer_status</code> variable to the <strong>Grouping
+Variable</strong> box.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>[Screenshot of the analysis window showing the variables being
+assigned.] ***</p>
+</div>
+<div class="section level3">
+<h3 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
+</h3>
+<p>jamovi will generate the following bar chart, which shows the
+distribution of mammography results for patients with and without a
+cancer diagnosis.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/jjbarstats.html">jjbarstats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">cyl</span>, group <span class="op">=</span> <span class="va">am</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  BAR CHARTS</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  You have selected to use a barplot to compare a categorical variable</span></span>
-<span><span class="co">#&gt;  with another.</span></span></code></pre></div>
-<p><img src="02-categorical-plots_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="co"># Load the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"breast_cancer_data"</span>, package <span class="op">=</span> <span class="st">"ClinicoPath"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the plot</span></span>
+<span><span class="fu"><a href="../reference/jjbarstats.html">jjbarstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">breast_cancer_data</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"mammography"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"cancer_status"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Mammography Results by Cancer Status"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Chi-square test for independence"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Cancer Status"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Count"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="pie-charts-with-jjpiestats">Pie charts with <code>jjpiestats()</code><a class="anchor" aria-label="anchor" href="#pie-charts-with-jjpiestats"></a>
-</h2>
-<p><code><a href="../reference/jjpiestats.html">jjpiestats()</a></code> is similar to <code><a href="../reference/jjbarstats.html">jjbarstats()</a></code> but
-displays the results as a pie chart.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/jjpiestats.html">jjpiestats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">cyl</span>, group <span class="op">=</span> <span class="va">am</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  PIE CHARTS</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  You have selected to use Pie Charts.</span></span></code></pre></div>
-<p><img src="02-categorical-plots_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="02-categorical-plots_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
+<div class="section level3">
+<h3 id="step-3-interpreting-the-plot-and-statistics">Step 3: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-plot-and-statistics"></a>
+</h3>
+<ul>
+<li>
+<strong>The Plot</strong>: The bar chart shows the counts of
+patients for each combination of mammography result and cancer status.
+<ul>
+<li>For patients with a <strong>Negative</strong> cancer status, the
+vast majority had a <strong>Negative</strong> mammogram.</li>
+<li>For patients with a <strong>Positive</strong> cancer status, a large
+proportion had a <strong>Positive</strong> mammogram.</li>
+<li>This visual pattern suggests that there is indeed an association
+between the two variables.</li>
+</ul>
+</li>
+<li>
+<strong>The Statistics</strong>: The <code>jjbarstats</code>
+function performs a chi-squared (χ²) test for independence to see if the
+association is statistically significant. The results are displayed on
+the plot.
+<ul>
+<li>
+<strong>Chi-squared test</strong>: The plot shows the results of the
+test: χ²(1) = 45.8, <em>p</em> &lt; 0.001.</li>
+<li>
+<strong>p-value</strong>: The p-value is less than 0.001. This is a
+highly significant result, far below the standard 0.05 cutoff. We can
+confidently conclude that there is a statistically significant
+association between mammography results and cancer status.</li>
+<li>
+<strong>Effect Size</strong>: The plot also shows Cramér’s
+<em>V</em>, which is a measure of the strength of the association. Here,
+<em>V</em> = 0.48, which is considered a <strong>moderate to
+large</strong> effect size.</li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section level2">
-<h2 id="dot-charts-with-jjdotplotstats">Dot charts with <code>jjdotplotstats()</code><a class="anchor" aria-label="anchor" href="#dot-charts-with-jjdotplotstats"></a>
-</h2>
-<p><code><a href="../reference/jjdotplotstats.html">jjdotplotstats()</a></code> shows group means using a dot plot. In
-this example we plot horsepower (<code>hp</code>) by engine
-configuration (<code>vs</code>).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/jjdotplotstats.html">jjdotplotstats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">hp</span>, group <span class="op">=</span> <span class="va">vs</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  DOT CHART</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Preparing dot plot analysis options...</span></span></code></pre></div>
-<p><img src="02-categorical-plots_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>Each function returns a results object whose <code>plot</code>
-element contains the <code>ggplot2</code> visualisation.</p>
+<div class="section level3">
+<h3 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
+</h3>
+<p>Here is an example of how to report these findings:</p>
+<blockquote>
+<p>A chi-squared test for independence was performed to examine the
+association between mammography results and cancer status. There was a
+statistically significant association between the two variables (χ²(1) =
+45.8, <em>p</em> &lt; 0.001). The strength of the association was
+moderate to large (Cramér's V = 0.48). Patients with a positive cancer
+diagnosis were significantly more likely to have a positive mammogram
+result.</p>
+</blockquote>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
