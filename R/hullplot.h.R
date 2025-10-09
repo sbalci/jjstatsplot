@@ -253,7 +253,8 @@ hullplotResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Hull Plot",
                 refs=list(
-                    "ClinicoPathJamoviModule"))
+                    "ClinicoPathJamoviModule",
+                    "ggforce"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",

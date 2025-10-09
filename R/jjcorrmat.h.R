@@ -229,7 +229,6 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Correlation Matrix",
                 refs=list(
-                    "ggplot2",
                     "ggstatsplot",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(

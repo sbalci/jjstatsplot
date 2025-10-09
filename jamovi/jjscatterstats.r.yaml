@@ -51,7 +51,6 @@ items:
       requiresData: true
 
 refs:
-    - ggplot2
     - ggstatsplot
     - ClinicoPathJamoviModule
 

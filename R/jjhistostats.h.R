@@ -286,7 +286,6 @@ jjhistostatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                 name="",
                 title="Histogram",
                 refs=list(
-                    "ggplot2",
                     "ggstatsplot",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(

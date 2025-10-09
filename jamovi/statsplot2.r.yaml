@@ -55,6 +55,8 @@ refs:
     - ggalluvial
     - easyalluvial
     - ClinicoPathJamoviModule
+    - patchwork
+    - cowplot
 
 
 ...

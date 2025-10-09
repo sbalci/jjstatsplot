@@ -212,7 +212,6 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Pie Charts",
                 refs=list(
-                    "ggplot2",
                     "ggstatsplot",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(

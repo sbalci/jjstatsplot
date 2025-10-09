@@ -43,5 +43,6 @@ items:
 
 refs:
     - ClinicoPathJamoviModule
+    - ggforce
 
 ...

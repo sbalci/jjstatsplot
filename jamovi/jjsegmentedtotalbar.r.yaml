@@ -140,7 +140,6 @@ items:
 
 refs:
   - ClinicoPathJamoviModule
-  - ggplot2
   - ggsegmentedtotalbar
 
 ...
