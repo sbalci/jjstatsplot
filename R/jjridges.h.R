@@ -659,7 +659,7 @@ jjridgesBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjridges",
-                version = c(0,0,31),
+                version = c(0,0,32),
                 options = options,
                 results = jjridgesResults$new(options=options),
                 data = data,
