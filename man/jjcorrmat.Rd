@@ -16,13 +16,14 @@ jjcorrmat(
   padjustmethod = "holm",
   k = 2,
   partial = FALSE,
-  clinicalpreset = "custom",
+  naHandling = "listwise",
   lowcolor = "#E69F00",
   midcolor = "white",
   highcolor = "#009E73",
   title = "",
   subtitle = "",
   caption = "",
+  showexplanations = FALSE,
   plotwidth = 600,
   plotheight = 450
 )
@@ -59,11 +60,9 @@ insignificant.}
 correlations. Partial correlations control for all other variables in the
 analysis.}
 
-\item{clinicalpreset}{Pre-configured settings optimized for common clinical
-correlation scenarios. Biomarker: Focus on molecular correlations with
-robust methods. Lab Values: Emphasize clinical laboratory parameter
-relationships. Imaging: Specialized for radiological and pathological
-imaging metrics.}
+\item{naHandling}{Choose how missing values are handled. Listwise drops
+rows with missing values in selected variables; pairwise uses available
+data for each pair.}
 
 \item{lowcolor}{Color for low (negative) correlation values.}
 
@@ -77,6 +76,9 @@ imaging metrics.}
 
 \item{caption}{Caption for the correlation matrix plot.}
 
+\item{showexplanations}{Show detailed explanations of the analysis,
+including assumptions, interpretation, and a copy-ready report.}
+
 \item{plotwidth}{Width of the correlation matrix plot in pixels. Default is
 600.}
 
@@ -87,10 +89,21 @@ is 450.}
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$warnings} \tab \tab \tab \tab \tab a html \cr
 \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+\code{results$about} \tab \tab \tab \tab \tab a html \cr
+\code{results$summary} \tab \tab \tab \tab \tab a html \cr
+\code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+\code{results$table} \tab \tab \tab \tab \tab a table \cr
 }
+
+Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.frame}}. For example:
+
+\code{results$table$asDF}
+
+\code{as.data.frame(results$table)}
 }
 \description{
 Wrapper Function for ggstatsplot::ggcorrmat and

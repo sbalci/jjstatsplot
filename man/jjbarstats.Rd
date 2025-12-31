@@ -27,7 +27,12 @@ jjbarstats(
   conflevel = 0.95,
   ratio = "",
   clinicalpreset = "custom",
-  showexplanations = FALSE
+  showexplanations = FALSE,
+  showSummary = TRUE,
+  showAssumptions = TRUE,
+  showInterpretation = FALSE,
+  addGGPubrBalloon = FALSE,
+  ggpubrBalloonPalette = "jco"
 )
 }
 \arguments{
@@ -89,8 +94,24 @@ scenarios.  Automatically sets appropriate statistical methods and
 parameters.}
 
 \item{showexplanations}{Display detailed explanations of statistical
-methods, assumptions,  and clinical interpretations to guide analysis and
+methods, assumptions, and clinical interpretations to guide analysis and
 result interpretation.}
+
+\item{showSummary}{Display natural-language summary paragraph with key
+findings suitable for copying into reports and publications.}
+
+\item{showAssumptions}{Display statistical assumptions panel with detected
+violations, warnings about chi-square expected counts, and Fisher exact
+test recommendations.}
+
+\item{showInterpretation}{Display effect size interpretation guidelines
+(Cramér's V thresholds), clinical context based on analysis preset, and
+methodological notes.}
+
+\item{addGGPubrBalloon}{Add balloon plot for contingency table
+visualization using ggpubr.}
+
+\item{ggpubrBalloonPalette}{Color palette for balloon plot.}
 }
 \value{
 A results object containing:
@@ -103,6 +124,7 @@ A results object containing:
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+\code{results$balloonPlot} \tab \tab \tab \tab \tab an image \cr
 }
 }
 \description{

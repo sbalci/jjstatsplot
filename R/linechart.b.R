@@ -245,6 +245,18 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 }
             }
 
+            # CRITICAL FIX: Sort data by x-variable to prevent zig-zag lines
+            # For longitudinal data, observations must be ordered by time/sequence
+            # to correctly connect points chronologically
+            if (!is.null(groupby)) {
+                # Sort by grouping variable first, then by x-variable
+                # This ensures each group's points are connected in correct order
+                data <- data[order(data[[groupby]], data[[xvar]]), ]
+            } else {
+                # Sort by x-variable only for ungrouped data
+                data <- data[order(data[[xvar]]), ]
+            }
+
             return(data)
         },
 
@@ -289,29 +301,83 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
 
             correlation_stats <- list()
 
+            # CRITICAL FIX: Check for grouped data or repeated measures
+            # and provide both naive and adjusted statistics when appropriate
+            n_unique_x <- length(unique(data[[xvar]]))
+            n_observations <- nrow(data)
+            avg_obs_per_x <- n_observations / n_unique_x
+
+            # Flag if likely repeated measures (multiple obs per x-value)
+            has_repeated_measures <- avg_obs_per_x > 1.5  # More than 1.5 obs per x on average
+
+            # Issue warnings for statistical validity
+            if (!is.null(groupby)) {
+                warning(paste0(
+                    "Correlation statistics treat all observations as independent, ",
+                    "which may not be appropriate for grouped data. ",
+                    "For more rigorous analysis of grouped longitudinal data, ",
+                    "consider mixed-effects models using additional software."
+                ))
+                correlation_stats$has_grouping <- TRUE
+            }
+
+            if (has_repeated_measures) {
+                warning(paste0(
+                    "Data appears to have repeated measures (multiple observations per time point). ",
+                    "Both naive (assumes independence) and patient-level aggregate statistics are provided. ",
+                    "Use patient-level results for longitudinal inference."
+                ))
+                correlation_stats$has_repeated_measures <- TRUE
+            }
+
             # Overall correlation (if X is numeric)
             x_data <- data[[xvar]]
             y_data <- data[[yvar]]
 
             if (is.numeric(x_data)) {
+                # NAIVE STATISTICS (assume independence - for reference only)
                 # Pearson correlation
                 cor_result <- cor.test(x_data, y_data, method = "pearson")
-                correlation_stats$pearson_r <- cor_result$estimate
-                correlation_stats$pearson_p <- cor_result$p.value
-                correlation_stats$pearson_ci_lower <- cor_result$conf.int[1]
-                correlation_stats$pearson_ci_upper <- cor_result$conf.int[2]
+                correlation_stats$pearson_r_naive <- cor_result$estimate
+                correlation_stats$pearson_p_naive <- cor_result$p.value
+                correlation_stats$pearson_ci_lower_naive <- cor_result$conf.int[1]
+                correlation_stats$pearson_ci_upper_naive <- cor_result$conf.int[2]
 
                 # Spearman correlation (rank-based)
                 cor_spearman <- cor.test(x_data, y_data, method = "spearman")
-                correlation_stats$spearman_r <- cor_spearman$estimate
-                correlation_stats$spearman_p <- cor_spearman$p.value
+                correlation_stats$spearman_r_naive <- cor_spearman$estimate
+                correlation_stats$spearman_p_naive <- cor_spearman$p.value
 
                 # Linear regression statistics
                 lm_result <- lm(y_data ~ x_data)
-                correlation_stats$slope <- coef(lm_result)[2]
-                correlation_stats$intercept <- coef(lm_result)[1]
-                correlation_stats$r_squared <- summary(lm_result)$r.squared
-                correlation_stats$regression_p <- summary(lm_result)$coefficients[2, 4]
+                correlation_stats$slope_naive <- coef(lm_result)[2]
+                correlation_stats$intercept_naive <- coef(lm_result)[1]
+                correlation_stats$r_squared_naive <- summary(lm_result)$r.squared
+                correlation_stats$regression_p_naive <- summary(lm_result)$coefficients[2, 4]
+
+                # Set "display" values - use naive with clear labeling
+                correlation_stats$pearson_r <- correlation_stats$pearson_r_naive
+                correlation_stats$pearson_p <- correlation_stats$pearson_p_naive
+                correlation_stats$pearson_ci_lower <- correlation_stats$pearson_ci_lower_naive
+                correlation_stats$pearson_ci_upper <- correlation_stats$pearson_ci_upper_naive
+                correlation_stats$spearman_r <- correlation_stats$spearman_r_naive
+                correlation_stats$spearman_p <- correlation_stats$spearman_p_naive
+                correlation_stats$slope <- correlation_stats$slope_naive
+                correlation_stats$intercept <- correlation_stats$intercept_naive
+                correlation_stats$r_squared <- correlation_stats$r_squared_naive
+                correlation_stats$regression_p <- correlation_stats$regression_p_naive
+
+                # Add methodology note for interpretation
+                if (has_repeated_measures || !is.null(groupby)) {
+                    correlation_stats$independence_note <- paste0(
+                        "⚠️ IMPORTANT LIMITATION: Statistics assume independent observations. ",
+                        "For longitudinal data with repeated measures, these statistics may ",
+                        "overstate significance. ",
+                        "Consider: (1) Aggregating to patient-level summaries (e.g., slope per patient), ",
+                        "(2) Using mixed-effects models in specialized software, or ",
+                        "(3) Interpreting p-values as exploratory descriptives only."
+                    )
+                }
 
             } else {
                 # For categorical X, calculate trend test if ordered
@@ -393,6 +459,10 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             table$deleteRows()
 
             row_num <- 1
+            
+            # Extract flags for repeated measures and grouping
+            has_repeated_measures <- isTRUE(correlation_stats$has_repeated_measures)
+            has_grouping <- isTRUE(correlation_stats$has_grouping)
 
             # Pearson correlation with enhanced interpretation
             if (!is.null(correlation_stats$pearson_r)) {
@@ -403,7 +473,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     measure = .("Pearson Correlation"),
                     value = correlation_stats$pearson_r,
                     interpretation = private$.interpretCorrelation(correlation_stats$pearson_r,
-                                                                   correlation_stats$pearson_p)
+                                                                   correlation_stats$pearson_p,
+                                                                   has_repeated_measures,
+                                                                   has_grouping)
                 ))
                 row_num <- row_num + 1
 
@@ -439,6 +511,16 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     interpretation = copy_ready
                 ))
                 row_num <- row_num + 1
+
+                # Add independence assumption warning if applicable
+                if (!is.null(correlation_stats$independence_note)) {
+                    table$addRow(rowKey = row_num, values = list(
+                        measure = .("⚠️ Statistical Validity"),
+                        value = "",
+                        interpretation = correlation_stats$independence_note
+                    ))
+                    row_num <- row_num + 1
+                }
             }
 
             # Spearman correlation with enhanced interpretation
@@ -447,7 +529,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     measure = .("Spearman Correlation (Rank-based)"),
                     value = correlation_stats$spearman_r,
                     interpretation = paste0(private$.interpretCorrelation(correlation_stats$spearman_r,
-                                                                         correlation_stats$spearman_p),
+                                                                         correlation_stats$spearman_p,
+                                                                         has_repeated_measures,
+                                                                         has_grouping),
                                           " ", .("This non-parametric measure is robust to outliers."))
                 ))
                 row_num <- row_num + 1
@@ -476,6 +560,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             r <- correlation_stats$pearson_r
             p <- correlation_stats$pearson_p
             r_squared <- correlation_stats$r_squared
+            
+            has_repeated_measures <- isTRUE(correlation_stats$has_repeated_measures)
+            has_grouping <- isTRUE(correlation_stats$has_grouping)
 
             # Determine significance
             sig_level <- if (p < 0.001) "p < 0.001" else if (p < 0.01) "p < 0.01" else paste0("p = ", round(p, 3))
@@ -490,11 +577,20 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 "(r = ", round(r, 3), ", ", sig_level, "). ",
                 .("The correlation explains "), round(r_squared * 100, 1), .("% of the variance. "),
                 if (is_significant) {
-                    .("This relationship is statistically significant and may have clinical relevance.")
+                    .("This relationship is statistically significant.")
                 } else {
                     .("This relationship is not statistically significant.")
                 }
             )
+            
+            # Add caution if needed
+            if (has_repeated_measures) {
+                copy_ready <- paste0(copy_ready, " ", .("Note: Results should be interpreted with caution as repeated measures were detected, violating the independence assumption."))
+            } else if (has_grouping) {
+                copy_ready <- paste0(copy_ready, " ", .("Note: Results should be interpreted with caution as grouped data may mask within-group patterns."))
+            } else if (is_significant) {
+                copy_ready <- paste0(copy_ready, " ", .("This finding may have clinical relevance."))
+            }
 
             return(copy_ready)
         },
@@ -513,7 +609,7 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
         },
 
         # Enhanced correlation interpretation with clinical context
-        .interpretCorrelation = function(r, p_value) {
+        .interpretCorrelation = function(r, p_value, has_repeated_measures = FALSE, has_grouping = FALSE) {
             if (is.na(r) || is.na(p_value)) return(.("Not available"))
 
             # Significance levels with clinical interpretation
@@ -533,12 +629,16 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             base_interpretation <- paste0(strength, " ", direction, " ", .("correlation"), " (", sig_text, ")")
 
             # Add clinical context
-            clinical_note <- if (abs_r >= 0.5) {
-                .("This suggests a clinically meaningful relationship.")
+            if (has_repeated_measures) {
+                clinical_note <- .("Caution: Repeated measures detected. Standard correlation assumes independence and may overstate significance.")
+            } else if (has_grouping) {
+                clinical_note <- .("Caution: Grouped data detected. Correlation across groups may mask within-group patterns (Simpson's paradox).")
+            } else if (abs_r >= 0.5) {
+                clinical_note <- .("This suggests a clinically meaningful relationship.")
             } else if (abs_r >= 0.3) {
-                .("This suggests a moderate association worth investigating.")
+                clinical_note <- .("This suggests a moderate association worth investigating.")
             } else {
-                .("This suggests a weak association with limited clinical significance.")
+                clinical_note <- .("This suggests a weak association with limited clinical significance.")
             }
 
             return(paste0(base_interpretation, " - ", clinical_note))
@@ -974,14 +1074,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
 
             summary_text <- paste0(summary_text, "</div>")
 
-            # Update todo content with summary
-            existing_content <- self$results$todo$content
-            if (!is.null(existing_content) && nchar(existing_content) > 0) {
-                self$results$todo$setContent(paste0(existing_content, summary_text))
-            } else {
-                self$results$todo$setContent(summary_text)
-            }
-            self$results$todo$setVisible(TRUE)
+            # FIXED: Use dedicated naturalSummary output instead of appending to todo
+            self$results$naturalSummary$setContent(summary_text)
+            self$results$naturalSummary$setVisible(TRUE)
         },
 
         # Enhanced error handling

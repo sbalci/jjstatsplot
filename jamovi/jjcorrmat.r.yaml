@@ -16,7 +16,7 @@ clearWith:
     - padjustmethod
     - k
     - partial
-    - clinicalpreset
+    # - clinicalpreset
     - lowcolor
     - midcolor
     - highcolor
@@ -33,9 +33,29 @@ items:
       title: Analysis Guide
       type:  Html
 
+    - name: warnings
+      title: Warnings and Notices
+      type: Html
+      visible: true
+
     - name: interpretation
       title: Clinical Interpretation
       type: Html
+
+    - name:  about
+      title: About
+      type:  Html
+      visible: (showexplanations)
+
+    - name:  summary
+      title: Analysis Summary
+      type:  Html
+      visible: (showexplanations)
+
+    - name:  assumptions
+      title: Statistical Assumptions
+      type:  Html
+      visible: (showexplanations)
 
     - name: plot2
       title: Chart
@@ -53,10 +73,43 @@ items:
       height: 450
       renderFun: .plot
       requiresData: true
+      visible: true
+
+    - name: table
+      title: Correlation Table
+      type: Table
+      rows: 0
+      visible: true
+      columns:
+          - name: var1
+            title: Variable 1
+            type: text
+          - name: var2
+            title: Variable 2
+            type: text
+          - name: r
+            title: r / rho
+            type: number
+          - name: p
+            title: p-value
+            type: number
+          - name: conf_low
+            title: CI Lower
+            type: number
+          - name: conf_high
+            title: CI Upper
+            type: number
+          - name: method
+            title: Method
+            type: text
+          - name: group
+            title: Group
+            type: text
 
 
 
 refs:
+    - ggplot2
     - ggstatsplot
     - ClinicoPathJamoviModule
 

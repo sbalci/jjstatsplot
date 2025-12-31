@@ -109,14 +109,19 @@ options:
           name: r
         - title: "Flanking (Both Sides)"
           name: f
-        - title: "Flanking 1x1"
+        - title: "Flanking 1x1 (Paired)"
           name: f1x1
-        - title: "Flanking 2x2" 
+        - title: "Flanking 2x2 (Grouped)"
           name: f2x2
       default: l
       description:
         R: >
-          Position of the raincloud relative to the data points. Options include left (l), right (r), flanking both sides (f), 1x1 flanking (f1x1), and 2x2 flanking (f2x2).
+          Position of the raincloud relative to the data points. 
+          'Left' (l): Density on left, points on right.
+          'Right' (r): Density on right, points on left.
+          'Flanking' (f): Density on both sides.
+          'Flanking 1x1' (f1x1): Paired flanking for 1x1 comparisons.
+          'Flanking 2x2' (f2x2): Grouped flanking for 2x2 comparisons.
 
     - name: likert_mode
       title: Likert Scale Mode

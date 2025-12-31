@@ -164,11 +164,15 @@ options:
       default: false
       description:
           R: >
-            Generate clinical interpretation of histogram results including distribution shape, 
+            Generate clinical interpretation of histogram results including distribution shape,
             normality assessment, and practical implications for clinical data.
+            Note: Uses simplified heuristics (skewness threshold and sample size) as initial
+            screening guidance, not formal diagnostic criteria. Should be supplemented with
+            formal normality tests and expert judgment.
           ui: >
-            Generate plain-language interpretation of results including what the distribution 
-            shape means for your clinical data and recommendations for further analysis.
+            Generate plain-language interpretation of results including what the distribution
+            shape means for your clinical data. This provides simplified guidance for initial
+            screening and should be supplemented with formal statistical tests and domain expertise.
 
     - name: clinicalPreset
       title: Clinical Analysis Preset
@@ -193,13 +197,32 @@ options:
             Choose a preset optimized for your data type. Each preset automatically configures 
             statistical methods and display options appropriate for that clinical context.
 
+    - name: enableOneSampleTest
+      title: Enable One-Sample Test
+      type: Bool
+      default: false
+      description:
+          R: >
+            Whether to enable and display one-sample hypothesis test against a specified test value.
+            When disabled, only descriptive statistics and distribution visualization are shown.
+          ui: >
+            Enable to test whether your data differs significantly from a specific reference value
+            (e.g., population norm, clinical threshold). Leave disabled for purely descriptive analysis.
+
     - name: test.value
       title: Test Value
       type: Number
       default: 0
       description:
           R: >
-            Value to compare the sample against in one-sample test. Default is 0.
+            Value to compare the sample against in one-sample test. Only used when enableOneSampleTest is TRUE.
+            Note: Testing against 0 is rarely clinically meaningful for most biomedical data.
+            Consider using a clinically relevant threshold (e.g., reference range limit,
+            treatment cutoff, or population norm) for meaningful hypothesis testing.
+          ui: >
+            Specify a clinically meaningful value to test against (e.g., normal range upper limit,
+            treatment threshold, population mean). WARNING: Using 0 is rarely clinically relevant
+            for lab values, biomarkers, or patient measurements. Enter a meaningful reference value.
 
     - name: conf.level
       title: Confidence Level
@@ -371,6 +394,70 @@ options:
       description:
           R: >
             Height of each plot in pixels. Default is 450.
+
+    - name: addGGPubrPlot
+      title: Add ggpubr Histogram
+      type: Bool
+      default: false
+      description:
+          R: >
+            Add publication-ready histogram using ggpubr package.
+
+    - name: ggpubrPalette
+      title: ggpubr Fill Color
+      type: String
+      default: '#0073C2FF'
+      description:
+          R: >
+            Fill color for ggpubr histogram (hex code).
+
+    - name: ggpubrAddDensity
+      title: Add Density Curve (ggpubr)
+      type: Bool
+      default: true
+      description:
+          R: >
+            Add density curve overlay to ggpubr histogram.
+
+    - name: ggpubrAddMean
+      title: Add Mean Line (ggpubr)
+      type: Bool
+      default: false
+      description:
+          R: >
+            Add vertical line at mean for ggpubr histogram.
+
+    - name: addDistributionDiagnostics
+      title: Add Distribution Diagnostic Plots
+      type: Bool
+      default: false
+      description:
+          R: >
+            Add density plot, ECDF, and QQ plot for distribution assessment using ggpubr.
+
+    - name: ggpubrDensityColor
+      title: Density Plot Fill Color
+      type: String
+      default: '#0073C2FF'
+      description:
+          R: >
+            Fill color for density plot (hex code).
+
+    - name: ggpubrShowQQ
+      title: Show QQ Plot
+      type: Bool
+      default: true
+      description:
+          R: >
+            Show QQ plot for normality assessment.
+
+    - name: ggpubrShowECDF
+      title: Show ECDF Plot
+      type: Bool
+      default: true
+      description:
+          R: >
+            Show empirical cumulative distribution function plot.
 
 
 ...

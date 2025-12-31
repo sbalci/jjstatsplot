@@ -16,7 +16,7 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             pairwisedisplay = "significant",
             padjustmethod = "holm",
             effsizetype = "biased",
-            mytitle = "Within Group Comparison",
+            mytitle = "Between Group Comparison",
             xtitle = "",
             ytitle = "",
             originaltheme = FALSE,
@@ -25,9 +25,16 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             k = 2,
             conflevel = 0.95,
             varequal = FALSE,
+            multiEndpointCorrection = "none",
             plotwidth = 650,
             plotheight = 450,
-            colorblindSafe = FALSE, ...) {
+            colorblindSafe = FALSE,
+            showexplanations = FALSE,
+            addGGPubrPlot = FALSE,
+            ggpubrPlotType = "boxplot",
+            ggpubrPalette = "jco",
+            ggpubrAddStats = TRUE,
+            ggpubrAddPoints = FALSE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -118,7 +125,7 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             private$..mytitle <- jmvcore::OptionString$new(
                 "mytitle",
                 mytitle,
-                default="Within Group Comparison")
+                default="Between Group Comparison")
             private$..xtitle <- jmvcore::OptionString$new(
                 "xtitle",
                 xtitle,
@@ -155,6 +162,15 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 "varequal",
                 varequal,
                 default=FALSE)
+            private$..multiEndpointCorrection <- jmvcore::OptionList$new(
+                "multiEndpointCorrection",
+                multiEndpointCorrection,
+                options=list(
+                    "none",
+                    "bonferroni",
+                    "holm",
+                    "fdr"),
+                default="none")
             private$..plotwidth <- jmvcore::OptionInteger$new(
                 "plotwidth",
                 plotwidth,
@@ -170,6 +186,43 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             private$..colorblindSafe <- jmvcore::OptionBool$new(
                 "colorblindSafe",
                 colorblindSafe,
+                default=FALSE)
+            private$..showexplanations <- jmvcore::OptionBool$new(
+                "showexplanations",
+                showexplanations,
+                default=FALSE)
+            private$..addGGPubrPlot <- jmvcore::OptionBool$new(
+                "addGGPubrPlot",
+                addGGPubrPlot,
+                default=FALSE)
+            private$..ggpubrPlotType <- jmvcore::OptionList$new(
+                "ggpubrPlotType",
+                ggpubrPlotType,
+                options=list(
+                    "boxplot",
+                    "violin",
+                    "boxviolin"),
+                default="boxplot")
+            private$..ggpubrPalette <- jmvcore::OptionList$new(
+                "ggpubrPalette",
+                ggpubrPalette,
+                options=list(
+                    "jco",
+                    "npg",
+                    "aaas",
+                    "lancet",
+                    "jama",
+                    "nejm",
+                    "grey",
+                    "default"),
+                default="jco")
+            private$..ggpubrAddStats <- jmvcore::OptionBool$new(
+                "ggpubrAddStats",
+                ggpubrAddStats,
+                default=TRUE)
+            private$..ggpubrAddPoints <- jmvcore::OptionBool$new(
+                "ggpubrAddPoints",
+                ggpubrAddPoints,
                 default=FALSE)
 
             self$.addOption(private$..dep)
@@ -191,9 +244,16 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             self$.addOption(private$..k)
             self$.addOption(private$..conflevel)
             self$.addOption(private$..varequal)
+            self$.addOption(private$..multiEndpointCorrection)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
             self$.addOption(private$..colorblindSafe)
+            self$.addOption(private$..showexplanations)
+            self$.addOption(private$..addGGPubrPlot)
+            self$.addOption(private$..ggpubrPlotType)
+            self$.addOption(private$..ggpubrPalette)
+            self$.addOption(private$..ggpubrAddStats)
+            self$.addOption(private$..ggpubrAddPoints)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -215,9 +275,16 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         k = function() private$..k$value,
         conflevel = function() private$..conflevel$value,
         varequal = function() private$..varequal$value,
+        multiEndpointCorrection = function() private$..multiEndpointCorrection$value,
         plotwidth = function() private$..plotwidth$value,
         plotheight = function() private$..plotheight$value,
-        colorblindSafe = function() private$..colorblindSafe$value),
+        colorblindSafe = function() private$..colorblindSafe$value,
+        showexplanations = function() private$..showexplanations$value,
+        addGGPubrPlot = function() private$..addGGPubrPlot$value,
+        ggpubrPlotType = function() private$..ggpubrPlotType$value,
+        ggpubrPalette = function() private$..ggpubrPalette$value,
+        ggpubrAddStats = function() private$..ggpubrAddStats$value,
+        ggpubrAddPoints = function() private$..ggpubrAddPoints$value),
     private = list(
         ..dep = NA,
         ..group = NA,
@@ -238,9 +305,16 @@ jjbetweenstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
         ..k = NA,
         ..conflevel = NA,
         ..varequal = NA,
+        ..multiEndpointCorrection = NA,
         ..plotwidth = NA,
         ..plotheight = NA,
-        ..colorblindSafe = NA)
+        ..colorblindSafe = NA,
+        ..showexplanations = NA,
+        ..addGGPubrPlot = NA,
+        ..ggpubrPlotType = NA,
+        ..ggpubrPalette = NA,
+        ..ggpubrAddStats = NA,
+        ..ggpubrAddPoints = NA)
 )
 
 jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -248,8 +322,15 @@ jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
+        about = function() private$.items[["about"]],
+        summary = function() private$.items[["summary"]],
+        assumptions = function() private$.items[["assumptions"]],
+        interpretation = function() private$.items[["interpretation"]],
+        report = function() private$.items[["report"]],
         plot2 = function() private$.items[["plot2"]],
-        plot = function() private$.items[["plot"]]),
+        plot = function() private$.items[["plot"]],
+        ggpubrPlot = function() private$.items[["ggpubrPlot"]],
+        ggpubrPlot2 = function() private$.items[["ggpubrPlot2"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -259,6 +340,7 @@ jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 title="Box-Violin Plots to Compare Between Groups",
                 refs=list(
                     "ggstatsplot",
+                    "ggpubr",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep",
@@ -275,6 +357,7 @@ jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "k",
                     "conflevel",
                     "varequal",
+                    "multiEndpointCorrection",
                     "mytitle",
                     "xtitle",
                     "ytitle",
@@ -282,11 +365,37 @@ jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                     "resultssubtitle",
                     "plotwidth",
                     "plotheight",
-                    "colorblindSafe"))
+                    "colorblindSafe",
+                    "showexplanations"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
                 title="To Do"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="about",
+                title="About This Analysis",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="summary",
+                title="Analysis Summary",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="assumptions",
+                title="Statistical Assumptions",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="interpretation",
+                title="Interpretation Guide",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="report",
+                title="Copy-Ready Report Template",
+                visible="(showexplanations)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
@@ -299,7 +408,38 @@ jjbetweenstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 name="plot",
                 title="Violin Plot",
                 renderFun=".plot",
-                requiresData=TRUE))}))
+                requiresData=TRUE))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ggpubrPlot",
+                title="Publication-Ready Plot (ggpubr)",
+                width=650,
+                height=450,
+                renderFun=".plotGGPubr",
+                requiresData=TRUE,
+                visible="(addGGPubrPlot)",
+                clearWith=list(
+                    "dep",
+                    "group",
+                    "ggpubrPlotType",
+                    "ggpubrPalette",
+                    "ggpubrAddStats",
+                    "ggpubrAddPoints")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ggpubrPlot2",
+                title="`Publication-Ready Plot by ${grvar} (ggpubr)`",
+                renderFun=".plotGGPubr2",
+                requiresData=TRUE,
+                visible="(addGGPubrPlot && grvar)",
+                clearWith=list(
+                    "dep",
+                    "group",
+                    "grvar",
+                    "ggpubrPlotType",
+                    "ggpubrPalette",
+                    "ggpubrAddStats",
+                    "ggpubrAddPoints")))}))
 
 jjbetweenstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjbetweenstatsBase",
@@ -398,15 +538,40 @@ jjbetweenstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #' @param conflevel Confidence level for confidence intervals.
 #' @param varequal Whether to assume equal variances across groups for
 #'   parametric tests.
+#' @param multiEndpointCorrection Display guidance for multiple testing
+#'   correction when analyzing multiple dependent variables. IMPORTANT: This
+#'   option does NOT automatically adjust p-values. It provides instructions for
+#'   manual correction. When testing multiple endpoints (e.g., cholesterol,
+#'   glucose, triglycerides), the family-wise error rate increases. For example,
+#'   testing 3 variables at alpha=0.05 gives actual error rate of ~14\%. Select
+#'   a correction method to see step-by-step instructions for manually applying
+#'   that correction to the p-values shown in the plots.
 #' @param plotwidth Width of the plot in pixels. Default is 650.
 #' @param plotheight Height of the plot in pixels. Default is 450.
 #' @param colorblindSafe Whether to use colorblind-safe color palette for plot
 #'   elements.
+#' @param showexplanations Display additional explanatory content including
+#'   about section, summary, assumptions, interpretation guide, and copy-ready
+#'   report template.
+#' @param addGGPubrPlot Add publication-ready plot using ggpubr package. This
+#'   provides an alternative visualization with publication-quality aesthetics.
+#' @param ggpubrPlotType Type of ggpubr plot to display when addGGPubrPlot is
+#'   enabled.
+#' @param ggpubrPalette Color palette for ggpubr plot.
+#' @param ggpubrAddStats Add statistical comparison p-values to ggpubr plot.
+#' @param ggpubrAddPoints Overlay individual data points on ggpubr plot.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$about} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$summary} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$report} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$ggpubrPlot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$ggpubrPlot2} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
 #' @export
@@ -422,7 +587,7 @@ jjbetweenstats <- function(
     pairwisedisplay = "significant",
     padjustmethod = "holm",
     effsizetype = "biased",
-    mytitle = "Within Group Comparison",
+    mytitle = "Between Group Comparison",
     xtitle = "",
     ytitle = "",
     originaltheme = FALSE,
@@ -431,9 +596,16 @@ jjbetweenstats <- function(
     k = 2,
     conflevel = 0.95,
     varequal = FALSE,
+    multiEndpointCorrection = "none",
     plotwidth = 650,
     plotheight = 450,
-    colorblindSafe = FALSE) {
+    colorblindSafe = FALSE,
+    showexplanations = FALSE,
+    addGGPubrPlot = FALSE,
+    ggpubrPlotType = "boxplot",
+    ggpubrPalette = "jco",
+    ggpubrAddStats = TRUE,
+    ggpubrAddPoints = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjbetweenstats requires jmvcore to be installed (restart may be required)")
@@ -471,9 +643,16 @@ jjbetweenstats <- function(
         k = k,
         conflevel = conflevel,
         varequal = varequal,
+        multiEndpointCorrection = multiEndpointCorrection,
         plotwidth = plotwidth,
         plotheight = plotheight,
-        colorblindSafe = colorblindSafe)
+        colorblindSafe = colorblindSafe,
+        showexplanations = showexplanations,
+        addGGPubrPlot = addGGPubrPlot,
+        ggpubrPlotType = ggpubrPlotType,
+        ggpubrPalette = ggpubrPalette,
+        ggpubrAddStats = ggpubrAddStats,
+        ggpubrAddPoints = ggpubrAddPoints)
 
     analysis <- jjbetweenstatsClass$new(
         options = options,

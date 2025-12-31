@@ -16,13 +16,14 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             padjustmethod = "holm",
             k = 2,
             partial = FALSE,
-            clinicalpreset = "custom",
+            naHandling = "listwise",
             lowcolor = "#E69F00",
             midcolor = "white",
             highcolor = "#009E73",
             title = "",
             subtitle = "",
             caption = "",
+            showexplanations = FALSE,
             plotwidth = 600,
             plotheight = 450, ...) {
 
@@ -105,15 +106,13 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "partial",
                 partial,
                 default=FALSE)
-            private$..clinicalpreset <- jmvcore::OptionList$new(
-                "clinicalpreset",
-                clinicalpreset,
+            private$..naHandling <- jmvcore::OptionList$new(
+                "naHandling",
+                naHandling,
                 options=list(
-                    "custom",
-                    "biomarker",
-                    "labvalues",
-                    "imaging"),
-                default="custom")
+                    "listwise",
+                    "pairwise"),
+                default="listwise")
             private$..lowcolor <- jmvcore::OptionString$new(
                 "lowcolor",
                 lowcolor,
@@ -138,6 +137,10 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "caption",
                 caption,
                 default="")
+            private$..showexplanations <- jmvcore::OptionBool$new(
+                "showexplanations",
+                showexplanations,
+                default=FALSE)
             private$..plotwidth <- jmvcore::OptionInteger$new(
                 "plotwidth",
                 plotwidth,
@@ -161,13 +164,14 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..padjustmethod)
             self$.addOption(private$..k)
             self$.addOption(private$..partial)
-            self$.addOption(private$..clinicalpreset)
+            self$.addOption(private$..naHandling)
             self$.addOption(private$..lowcolor)
             self$.addOption(private$..midcolor)
             self$.addOption(private$..highcolor)
             self$.addOption(private$..title)
             self$.addOption(private$..subtitle)
             self$.addOption(private$..caption)
+            self$.addOption(private$..showexplanations)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
         }),
@@ -182,13 +186,14 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         padjustmethod = function() private$..padjustmethod$value,
         k = function() private$..k$value,
         partial = function() private$..partial$value,
-        clinicalpreset = function() private$..clinicalpreset$value,
+        naHandling = function() private$..naHandling$value,
         lowcolor = function() private$..lowcolor$value,
         midcolor = function() private$..midcolor$value,
         highcolor = function() private$..highcolor$value,
         title = function() private$..title$value,
         subtitle = function() private$..subtitle$value,
         caption = function() private$..caption$value,
+        showexplanations = function() private$..showexplanations$value,
         plotwidth = function() private$..plotwidth$value,
         plotheight = function() private$..plotheight$value),
     private = list(
@@ -202,13 +207,14 @@ jjcorrmatOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..padjustmethod = NA,
         ..k = NA,
         ..partial = NA,
-        ..clinicalpreset = NA,
+        ..naHandling = NA,
         ..lowcolor = NA,
         ..midcolor = NA,
         ..highcolor = NA,
         ..title = NA,
         ..subtitle = NA,
         ..caption = NA,
+        ..showexplanations = NA,
         ..plotwidth = NA,
         ..plotheight = NA)
 )
@@ -218,9 +224,14 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
+        warnings = function() private$.items[["warnings"]],
         interpretation = function() private$.items[["interpretation"]],
+        about = function() private$.items[["about"]],
+        summary = function() private$.items[["summary"]],
+        assumptions = function() private$.items[["assumptions"]],
         plot2 = function() private$.items[["plot2"]],
-        plot = function() private$.items[["plot"]]),
+        plot = function() private$.items[["plot"]],
+        table = function() private$.items[["table"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -229,6 +240,7 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Correlation Matrix",
                 refs=list(
+                    "ggplot2",
                     "ggstatsplot",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
@@ -244,7 +256,6 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "padjustmethod",
                     "k",
                     "partial",
-                    "clinicalpreset",
                     "lowcolor",
                     "midcolor",
                     "highcolor",
@@ -259,8 +270,28 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 title="Analysis Guide"))
             self$add(jmvcore::Html$new(
                 options=options,
+                name="warnings",
+                title="Warnings and Notices",
+                visible=TRUE))
+            self$add(jmvcore::Html$new(
+                options=options,
                 name="interpretation",
                 title="Clinical Interpretation"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="about",
+                title="About",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="summary",
+                title="Analysis Summary",
+                visible="(showexplanations)"))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="assumptions",
+                title="Statistical Assumptions",
+                visible="(showexplanations)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
@@ -277,7 +308,47 @@ jjcorrmatResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 width=600,
                 height=450,
                 renderFun=".plot",
-                requiresData=TRUE))}))
+                requiresData=TRUE,
+                visible=TRUE))
+            self$add(jmvcore::Table$new(
+                options=options,
+                name="table",
+                title="Correlation Table",
+                rows=0,
+                visible=TRUE,
+                columns=list(
+                    list(
+                        `name`="var1", 
+                        `title`="Variable 1", 
+                        `type`="text"),
+                    list(
+                        `name`="var2", 
+                        `title`="Variable 2", 
+                        `type`="text"),
+                    list(
+                        `name`="r", 
+                        `title`="r / rho", 
+                        `type`="number"),
+                    list(
+                        `name`="p", 
+                        `title`="p-value", 
+                        `type`="number"),
+                    list(
+                        `name`="conf_low", 
+                        `title`="CI Lower", 
+                        `type`="number"),
+                    list(
+                        `name`="conf_high", 
+                        `title`="CI Upper", 
+                        `type`="number"),
+                    list(
+                        `name`="method", 
+                        `title`="Method", 
+                        `type`="text"),
+                    list(
+                        `name`="group", 
+                        `title`="Group", 
+                        `type`="text"))))}))
 
 jjcorrmatBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjcorrmatBase",
@@ -363,17 +434,17 @@ jjcorrmatBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param partial Compute partial correlations instead of zero-order
 #'   correlations. Partial correlations control for all other variables in the
 #'   analysis.
-#' @param clinicalpreset Pre-configured settings optimized for common clinical
-#'   correlation scenarios. Biomarker: Focus on molecular correlations with
-#'   robust methods. Lab Values: Emphasize clinical laboratory parameter
-#'   relationships. Imaging: Specialized for radiological and pathological
-#'   imaging metrics.
+#' @param naHandling Choose how missing values are handled. Listwise drops
+#'   rows with missing values in selected variables; pairwise uses available
+#'   data for each pair.
 #' @param lowcolor Color for low (negative) correlation values.
 #' @param midcolor Color for mid (zero) correlation values.
 #' @param highcolor Color for high (positive) correlation values.
 #' @param title Title for the correlation matrix plot.
 #' @param subtitle Subtitle for the correlation matrix plot.
 #' @param caption Caption for the correlation matrix plot.
+#' @param showexplanations Show detailed explanations of the analysis,
+#'   including assumptions, interpretation, and a copy-ready report.
 #' @param plotwidth Width of the correlation matrix plot in pixels. Default is
 #'   600.
 #' @param plotheight Height of the correlation matrix plot in pixels. Default
@@ -381,10 +452,21 @@ jjcorrmatBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$warnings} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$about} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$summary} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$table} \tab \tab \tab \tab \tab a table \cr
 #' }
+#'
+#' Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.frame}}. For example:
+#'
+#' \code{results$table$asDF}
+#'
+#' \code{as.data.frame(results$table)}
 #'
 #' @export
 jjcorrmat <- function(
@@ -399,13 +481,14 @@ jjcorrmat <- function(
     padjustmethod = "holm",
     k = 2,
     partial = FALSE,
-    clinicalpreset = "custom",
+    naHandling = "listwise",
     lowcolor = "#E69F00",
     midcolor = "white",
     highcolor = "#009E73",
     title = "",
     subtitle = "",
     caption = "",
+    showexplanations = FALSE,
     plotwidth = 600,
     plotheight = 450) {
 
@@ -433,13 +516,14 @@ jjcorrmat <- function(
         padjustmethod = padjustmethod,
         k = k,
         partial = partial,
-        clinicalpreset = clinicalpreset,
+        naHandling = naHandling,
         lowcolor = lowcolor,
         midcolor = midcolor,
         highcolor = highcolor,
         title = title,
         subtitle = subtitle,
         caption = caption,
+        showexplanations = showexplanations,
         plotwidth = plotwidth,
         plotheight = plotheight)
 

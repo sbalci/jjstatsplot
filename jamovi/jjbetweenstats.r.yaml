@@ -18,6 +18,7 @@ clearWith:
     - k
     - conflevel
     - varequal
+    - multiEndpointCorrection
     - mytitle
     - xtitle
     - ytitle
@@ -26,6 +27,7 @@ clearWith:
     - plotwidth
     - plotheight
     - colorblindSafe
+    - showexplanations
 
 
 
@@ -34,6 +36,31 @@ items:
     - name:  todo
       title: To Do
       type:  Html
+
+    - name: about
+      title: About This Analysis
+      type: Html
+      visible: (showexplanations)
+
+    - name: summary
+      title: Analysis Summary
+      type: Html
+      visible: (showexplanations)
+
+    - name: assumptions
+      title: Statistical Assumptions
+      type: Html
+      visible: (showexplanations)
+
+    - name: interpretation
+      title: Interpretation Guide
+      type: Html
+      visible: (showexplanations)
+
+    - name: report
+      title: Copy-Ready Report Template
+      type: Html
+      visible: (showexplanations)
 
     - name: plot2
       title: '`Violin Plot by ${grvar}`'
@@ -48,13 +75,41 @@ items:
       renderFun: .plot
       requiresData: true
 
+    - name: ggpubrPlot
+      title: 'Publication-Ready Plot (ggpubr)'
+      type: Image
+      width: 650
+      height: 450
+      renderFun: .plotGGPubr
+      requiresData: true
+      visible: (addGGPubrPlot)
+      clearWith:
+        - dep
+        - group
+        - ggpubrPlotType
+        - ggpubrPalette
+        - ggpubrAddStats
+        - ggpubrAddPoints
 
-
+    - name: ggpubrPlot2
+      title: '`Publication-Ready Plot by ${grvar} (ggpubr)`'
+      type: Image
+      renderFun: .plotGGPubr2
+      requiresData: true
+      visible: (addGGPubrPlot && grvar)
+      clearWith:
+        - dep
+        - group
+        - grvar
+        - ggpubrPlotType
+        - ggpubrPalette
+        - ggpubrAddStats
+        - ggpubrAddPoints
 
 
 refs:
     - ggstatsplot
+    - ggpubr
     - ClinicoPathJamoviModule
-
 
 ...

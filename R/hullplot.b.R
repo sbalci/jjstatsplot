@@ -23,8 +23,42 @@ hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
         .data_cache_key = NULL,
 
         .prepare_data = function() {
-            # Create a cache key based on relevant options
+            # CRITICAL FIX: Create cache key including data CONTENT hash
+            # This prevents stale data after filtering/editing
             data_size <- if (is.null(self$data)) 0 else nrow(self$data)
+
+            # Calculate hash of relevant data columns to detect content changes
+            data_hash <- ""
+            if (!is.null(self$data) && data_size > 0) {
+                # Select only the columns that will be used in the plot
+                relevant_cols <- c(
+                    self$options$x_var,
+                    self$options$y_var,
+                    self$options$group_var,
+                    self$options$color_var,
+                    self$options$size_var
+                )
+                relevant_cols <- relevant_cols[!sapply(relevant_cols, is.null)]
+                relevant_cols <- relevant_cols[relevant_cols != ""]
+                relevant_cols <- relevant_cols[relevant_cols %in% names(self$data)]
+
+                if (length(relevant_cols) > 0) {
+                    relevant_data <- self$data[, relevant_cols, drop = FALSE]
+                    # Use digest for fast, reliable hashing
+                    if (requireNamespace("digest", quietly = TRUE)) {
+                        data_hash <- digest::digest(relevant_data, algo = "xxhash64")
+                    } else {
+                        # Fallback: use a simple hash based on first/last rows
+                        # Not perfect but better than nothing
+                        data_hash <- paste(
+                            digest::digest(head(relevant_data, 10)),
+                            digest::digest(tail(relevant_data, 10)),
+                            sep = ":"
+                        )
+                    }
+                }
+            }
+
             cache_key <- paste(
                 self$options$x_var,
                 self$options$y_var,
@@ -32,6 +66,7 @@ hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
                 self$options$color_var,
                 self$options$size_var,
                 data_size,
+                data_hash,  # ✅ Now includes actual data content
                 sep = "|"
             )
 
@@ -359,10 +394,31 @@ hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
                 )
             }
             
-            # Apply color palette - fix transparency application
-            colors <- private$.get_color_palette(length(levels(plot_data[[group_var]])))
-            p <- p + ggplot2::scale_fill_manual(values = colors)
-            p <- p + ggplot2::scale_color_manual(values = colors)
+            # CRITICAL FIX: Calculate correct number of levels for each aesthetic
+            # - Hulls (fill) use group_var levels
+            # - Points (color) use color_mapping levels (could be different variable)
+            n_groups <- length(levels(plot_data[[group_var]]))
+            n_colors <- length(levels(plot_data[[color_mapping]]))
+
+            # Generate color palettes with correct sizes
+            fill_palette <- private$.get_color_palette(n_groups)
+            color_palette <- if (color_mapping == group_var) {
+                fill_palette  # Same variable - reuse palette
+            } else {
+                private$.get_color_palette(n_colors)  # Different variable - separate palette
+            }
+
+            # Apply fill scale for hulls (always based on group_var)
+            p <- p + ggplot2::scale_fill_manual(
+                values = fill_palette,
+                name = group_var
+            )
+
+            # Apply colour scale for points (based on color_mapping)
+            p <- p + ggplot2::scale_colour_manual(
+                values = color_palette,
+                name = if (color_mapping == group_var) group_var else self$options$color_var
+            )
             
             # Apply theme
             p <- p + private$.get_plot_theme()
@@ -597,25 +653,75 @@ hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
             n_groups <- length(levels(data[[group_var]]))
             n_total <- nrow(data)
 
-            # Calculate overlap index (simplified measure)
+            # Calculate descriptive separation measure
+            # NOTE: This is a DESCRIPTIVE HEURISTIC, not a validated statistical test
             group_stats <- data %>%
                 dplyr::group_by(!!rlang::sym(group_var)) %>%
                 dplyr::summarise(
                     x_mean = mean(!!rlang::sym(x_var), na.rm = TRUE),
                     y_mean = mean(!!rlang::sym(y_var), na.rm = TRUE),
+                    x_sd = sd(!!rlang::sym(x_var), na.rm = TRUE),
+                    y_sd = sd(!!rlang::sym(y_var), na.rm = TRUE),
                     n = dplyr::n(),
                     .groups = 'drop'
                 )
 
-            # Determine separation quality
-            mean_distances <- stats::dist(group_stats[c("x_mean", "y_mean")])
-            avg_distance <- mean(mean_distances)
-            separation_quality <- if (avg_distance > 2) "well-separated" else if (avg_distance > 1) "moderately separated" else "overlapping"
+            if (n_groups < 2) {
+                # Single group - no inter-group distances to calculate
+                avg_distance <- NA
+                separation_quality <- "single cohort (no comparison available)"
+            } else {
+                # Multiple groups - calculate distances between group means
+                mean_distances <- stats::dist(group_stats[c("x_mean", "y_mean")])
+                avg_distance <- mean(mean_distances)
+
+                # Calculate average standard deviation across all groups and dimensions
+                # This provides a scale-independent measure of separation
+                avg_sd <- mean(c(
+                    mean(group_stats$x_sd, na.rm = TRUE),
+                    mean(group_stats$y_sd, na.rm = TRUE)
+                ), na.rm = TRUE)
+
+                # Calculate DESCRIPTIVE discriminability index (NOT a formal statistical test)
+                # Formula: (Mean of pairwise Euclidean distances between group centroids) / (Mean SD across groups and dimensions)
+                # This is analogous to effect size measures like Cohen's d but generalized to multiple groups
+                # LIMITATIONS:
+                #   - Assumes equal importance of X and Y dimensions
+                #   - Sensitive to differences in group variances
+                #   - Thresholds (below) are ARBITRARY and not empirically validated
+                # Avoid division by zero
+                discrim_index <- if (is.na(avg_sd) || avg_sd == 0) 0 else avg_distance / avg_sd
+
+                # Determine separation based on discriminability index
+                # IMPORTANT: These thresholds are DESCRIPTIVE RULES OF THUMB, not validated cutoffs
+                # Inspired by Cohen's d conventions (0.2/0.5/0.8) but adapted for multi-group settings
+                separation_quality <- if (is.na(discrim_index)) {
+                    "unable to calculate"
+                } else if (discrim_index > 3) {
+                    "well-separated"
+                } else if (discrim_index > 1.5) {
+                    "moderately separated"
+                } else {
+                    "overlapping"
+                }
+            }
 
             # Generate copy-ready summary
             summary_html <- paste0(
                 "<div style='background-color: #e8f5e8; border-left: 4px solid #28a745; padding: 20px; margin-bottom: 20px; border-radius: 4px;'>",
                 "<h3 style='color: #155724; margin-top: 0;'>📄 Natural Language Summary</h3>",
+
+                # Add disclaimer about descriptive nature
+                if (n_groups >= 2) paste0(
+                    "<div style='background-color: #fff3cd; border-left: 3px solid #ffc107; padding: 10px; margin: 10px 0;'>",
+                    "<p style='margin: 0; font-size: 13px;'><strong>⚠️ Note on 'Separation' Assessment:</strong> ",
+                    "The descriptors '", separation_quality, "' are based on a descriptive heuristic (discriminability index = ",
+                    "mean distance between group centroids / mean standard deviation). ",
+                    "<strong>This is NOT a formal statistical test.</strong> ",
+                    "Thresholds are rules of thumb adapted from Cohen's d conventions. ",
+                    "For formal inference about group differences, use appropriate statistical tests (MANOVA, discriminant analysis, etc.).</p>",
+                    "</div>"
+                ) else "",
 
                 "<div style='background-color: #ffffff; padding: 15px; border-radius: 6px; margin: 15px 0; border: 1px solid #c3e6cb;'>",
                 "<h4 style='color: #155724; margin-top: 0;'>Copy-Ready Text:</h4>",
@@ -701,10 +807,23 @@ hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
                 "<li><strong>Quality Control:</strong> Detecting unusual patterns or data quality issues</li>",
                 "</ul>",
 
-                "<div style='background-color: #ffe0b2; padding: 12px; border-radius: 6px; margin-top: 15px;'>",
-                "<p style='color: #bf360c; margin: 0; font-weight: bold;'>",
-                "⚠️ Remember: Hull plots are descriptive visualizations. For formal statistical inference about group differences, ",
-                "use appropriate statistical tests (t-tests, ANOVA, MANOVA, etc.) in addition to visual exploration.",
+                "<div style='background-color: #ffe0b2; padding: 15px; border-radius: 6px; margin-top: 15px; border: 2px solid #ff9800;'>",
+                "<h4 style='color: #bf360c; margin-top: 0;'>🚨 Critical Reminder: Exploratory vs. Inferential Analysis</h4>",
+                "<p style='color: #bf360c; margin: 5px 0;'><strong>Hull plots are DESCRIPTIVE VISUALIZATIONS, not statistical tests.</strong></p>",
+                "<ul style='color: #bf360c; margin: 10px 0;'>",
+                "<li><strong>Visual separation ≠ statistical significance:</strong> Groups may appear separated in a hull plot but not differ significantly when tested formally</li>",
+                "<li><strong>Descriptive indices (e.g., 'well-separated') are heuristics:</strong> These use arbitrary thresholds, not validated statistical cutoffs</li>",
+                "<li><strong>Required for inference:</strong> Complement hull plots with appropriate statistical tests:",
+                "<ul>",
+                "<li>MANOVA for multivariate group differences</li>",
+                "<li>Discriminant analysis for classification</li>",
+                "<li>Hotelling's T² for two-group comparisons</li>",
+                "<li>Permutation tests for complex designs</li>",
+                "</ul></li>",
+                "<li><strong>Best use case:</strong> Exploratory analysis, hypothesis generation, presentation of patterns</li>",
+                "</ul>",
+                "<p style='color: #bf360c; margin: 5px 0; font-style: italic;'>",
+                "Never claim statistical significance based solely on hull plot appearance or separation descriptors.",
                 "</p>",
                 "</div>",
                 "</div>"

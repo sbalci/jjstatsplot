@@ -23,14 +23,24 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
             # init ----
             .init = function() {
+                private$.applyClinicalPreset()
 
                 deplen <- length(self$options$dep)
-                
+
                 # Use configurable plot dimensions
                 plotwidth <- if (!is.null(self$options$plotwidth)) self$options$plotwidth else 600
                 plotheight <- if (!is.null(self$options$plotheight)) self$options$plotheight else 450
 
-                self$results$plot$setSize(plotwidth, deplen * plotheight)
+                # Improved height calculation to prevent compressed plots
+                # Add extra spacing when combining multiple plots vertically
+                if (deplen > 1) {
+                    # Add 15% extra height per plot for better spacing
+                    total_height <- deplen * plotheight * 1.15
+                } else {
+                    total_height <- plotheight
+                }
+
+                self$results$plot$setSize(plotwidth, total_height)
 
 
                 if (!is.null(self$options$grvar)) {
@@ -43,7 +53,20 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     as.factor(mydata[[grvar]])
                 )
 
-                self$results$plot2$setSize(num_levels * plotwidth, deplen * plotheight)
+                # For grouped analysis, calculate width based on layout
+                ncol_estimate <- ceiling(sqrt(num_levels))
+                grouped_width <- ncol_estimate * plotwidth
+
+                # Height calculation for grouped plots with multiple dependent variables
+                if (deplen > 1) {
+                    grouped_height <- deplen * plotheight * 1.15
+                } else {
+                    # For single dep var, height based on number of grouping levels
+                    nrow_estimate <- ceiling(num_levels / ncol_estimate)
+                    grouped_height <- nrow_estimate * plotheight
+                }
+
+                self$results$plot2$setSize(grouped_width, grouped_height)
 
                 }
 
@@ -62,6 +85,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     centralityline = self$options$centralityline,
                     centralitytype = self$options$centralitytype,
                     resultssubtitle = self$options$resultssubtitle,
+                    enableOneSampleTest = self$options$enableOneSampleTest,
                     test.value = self$options$test.value,
                     conf.level = self$options$conf.level,
                     bf.message = self$options$bf.message,
@@ -119,25 +143,48 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     }
                 }
                 
-                if (needs_transformation) {
-                    mydata <- self$data
-                    # Convert variables to numeric only if needed
-                    for (var in vars) {
-                        if (!is.numeric(mydata[[var]])) {
-                            mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
-                        }
-                        # Checkpoint during variable conversion loop
-                        private$.checkpoint(flush = FALSE)
+                # VALIDATE NUMERIC VARIABLES - reject factors instead of blind conversion
+                factor_warnings <- character()
+                for (var in vars) {
+                    if (is.factor(self$data[[var]])) {
+                        factor_warnings <- c(factor_warnings, var)
                     }
-                } else {
-                    mydata <- self$data
                 }
 
-                # Checkpoint before NA exclusion (potentially expensive for large datasets)
+                # Stop if any factors detected
+                if (length(factor_warnings) > 0) {
+                    stop(paste0("Histogram analysis requires numeric variables. The following variables are categorical: ",
+                               paste(factor_warnings, collapse = ", "),
+                               ". Please select continuous numeric variables for histogram analysis."))
+                }
+
+                mydata <- self$data
+
+                # SELECTIVE NA OMISSION - only remove rows with NAs in selected variables
+                # This prevents dropping patients with NAs in unused columns
+                relevant_cols <- vars
+
+                # Add grouping variable if present
+                if (!is.null(self$options$grvar)) {
+                    relevant_cols <- c(relevant_cols, self$options$grvar)
+                }
+
+                # Checkpoint before NA exclusion
                 private$.checkpoint(flush = FALSE)
-                
-                # Exclude NA
-                mydata <- jmvcore::naOmit(mydata)
+
+                # Count rows before and after NA removal
+                n_before <- nrow(mydata)
+                mydata <- mydata[complete.cases(mydata[relevant_cols]), ]
+                n_after <- nrow(mydata)
+
+                # Report NA removal if any occurred
+                if (n_before > n_after) {
+                    n_dropped <- n_before - n_after
+                    self$results$todo$setContent(
+                        glue::glue("<br>ℹ️ Info: {n_dropped} rows excluded due to missing values in selected variables.<br>",
+                                  "Rows with data: {n_after} of {n_before} ({round(100 * n_after / n_before, 1)}%)<br><hr>")
+                    )
+                }
 
                 # Cache the processed data
                 private$.processedData <- mydata
@@ -148,7 +195,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
             .generateHistogram = function(data, x_var, options_data, aesthetics_data, grvar_sym = NULL, messages = TRUE) {
                 # Checkpoint before expensive statistical plot generation
                 private$.checkpoint(flush = FALSE)
-                
+
                 # Build base arguments common to all plots
                 base_args <- list(
                     data = data,
@@ -158,7 +205,6 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     results.subtitle = options_data$resultssubtitle,
                     centrality.plotting = options_data$centralityline,
                     binwidth = options_data$binwidth,
-                    test.value = options_data$test.value,
                     conf.level = options_data$conf.level,
                     bf.message = options_data$bf.message,
                     digits = options_data$digits,
@@ -169,23 +215,28 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     bin.args = aesthetics_data$bin.args,
                     centrality.line.args = aesthetics_data$centrality.line.args
                 )
-                
+
+                # Conditionally add test.value only if one-sample test is enabled
+                if (options_data$enableOneSampleTest) {
+                    base_args$test.value <- options_data$test.value
+                }
+
                 # Add grouping variable if provided
                 if (!is.null(grvar_sym)) {
                     base_args$grouping.var <- grvar_sym
                 }
-                
+
                 # Add centrality.type if specified
                 if (!is.null(options_data$centrality.type)) {
                     base_args$centrality.type <- options_data$centrality.type
                 }
-                
+
                 # Remove NULL arguments to prevent conflicts
                 base_args <- base_args[!sapply(base_args, is.null)]
-                
+
                 # Checkpoint before calling expensive ggstatsplot functions
                 private$.checkpoint(flush = FALSE)
-                
+
                 # Call appropriate function based on grouping
                 if (is.null(grvar_sym)) {
                     do.call(ggstatsplot::gghistostats, base_args)
@@ -228,13 +279,45 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
             # Clinical assumption checking and warnings
             .generateClinicalWarnings = function(data, variables) {
                 warnings <- c()
-                
+
+                # WARN ABOUT TEST VALUE = 0 WHEN ONE-SAMPLE TEST IS ENABLED
+                # Testing "is mean = 0?" is almost never clinically relevant
+                if (self$options$enableOneSampleTest &&
+                    !is.null(self$options$test.value) &&
+                    self$options$test.value == 0) {
+                    # Check if any variable has all positive or all negative values
+                    has_irrelevant_test <- FALSE
+                    for (var in variables) {
+                        if (!var %in% names(data)) next
+                        var_data <- data[[var]][!is.na(data[[var]])]
+                        if (length(var_data) > 0) {
+                            if (all(var_data > 0) || all(var_data < 0)) {
+                                has_irrelevant_test <- TRUE
+                                break
+                            }
+                        }
+                    }
+
+                    if (has_irrelevant_test) {
+                        warnings <- c(warnings, paste0(
+                            "🚨 <strong>CRITICAL: TEST VALUE = 0 WARNING</strong> 🚨<br>",
+                            "Testing 'is the mean equal to 0?' is <strong>rarely clinically meaningful</strong> for biomedical data. ",
+                            "Your data contains only positive or only negative values, making a test against 0 inappropriate.<br>",
+                            "<strong>RECOMMENDED ACTION:</strong> Change the 'Test Value' to a clinically relevant threshold:<br>",
+                            "• Normal reference range limit (e.g., upper limit for cholesterol)<br>",
+                            "• Treatment decision threshold (e.g., cutoff for intervention)<br>",
+                            "• Population norm or expected value (e.g., established biomarker level)<br>",
+                            "• Or <strong>uncheck 'Enable One-Sample Test'</strong> if you only need descriptive statistics."
+                        ))
+                    }
+                }
+
                 for (var in variables) {
                     if (!var %in% names(data)) next
-                    
+
                     var_data <- data[[var]]
                     var_data <- var_data[!is.na(var_data)]
-                    
+
                     if (length(var_data) == 0) next
                     
                     # Sample size warnings
@@ -394,6 +477,12 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     full_interpretation <- paste0(
                         "<div style='background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; margin: 10px 0;'>",
                         "<h3>Clinical Interpretation</h3>",
+                        "<div style='background-color: #fff3cd; border-left: 3px solid #ffc107; padding: 10px; margin: 10px 0;'>",
+                        "<strong>⚠️ Note:</strong> This interpretation uses simplified heuristics (skewness &lt; 0.5 and n ≥ 30) ",
+                        "as initial screening guidance. These are <strong>rule-of-thumb approximations</strong>, not formal ",
+                        "diagnostic criteria. Always supplement with formal normality tests (Shapiro-Wilk, Anderson-Darling) ",
+                        "and expert clinical judgment before making analysis decisions.",
+                        "</div>",
                         paste(interpretation_parts, collapse = ""),
                         "<hr>",
                         "<h4>Recommendations:</h4>",
@@ -402,6 +491,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         "<li>Consider outliers and their clinical significance</li>",
                         "<li>For biomarker data, evaluate reference ranges and clinical cutoffs</li>",
                         "<li>Use grouped analysis to compare distributions between clinical subgroups</li>",
+                        "<li><strong>Verify normality assumptions</strong> with formal statistical tests before using parametric methods</li>",
                         "</ul>",
                         "</div>"
                     )
@@ -482,6 +572,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     binwidth = binwidth,
                     resultssubtitle = self$options$resultssubtitle,
                     centralityline = self$options$centralityline,
+                    enableOneSampleTest = self$options$enableOneSampleTest,
                     test.value = self$options$test.value,
                     conf.level = self$options$conf.level,
                     bf.message = self$options$bf.message,
@@ -649,10 +740,16 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                     # Checkpoint before expensive plot combination
                     private$.checkpoint(flush = FALSE)
-                    
+
                     plot <- ggstatsplot::combine_plots(
                         plotlist = plotlist,
-                        plotgrid.args = list(ncol = 1)
+                        plotgrid.args = list(
+                            ncol = 1,
+                            heights = rep(1, length(plotlist))
+                        ),
+                        annotation.args = list(
+                            tag_levels = "A"
+                        )
                     )
                 }
 
@@ -734,12 +831,233 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
 
                     plot2 <- ggstatsplot::combine_plots(
                         plotlist = plotlist,
-                        plotgrid.args = list(ncol = 1)
+                        plotgrid.args = list(
+                            ncol = 1,
+                            heights = rep(1, length(plotlist))
+                        ),
+                        annotation.args = list(
+                            tag_levels = "A"
+                        )
                     )
                 }
 
                 # Print plot
                 print(plot2)
+                TRUE
+            }
+
+            ,
+            .plotGGPubr = function(image, ...) {
+                # Validate inputs
+                if (is.null(self$options$dep))
+                    return()
+
+                # Skip if ggpubr plot not requested
+                if (!self$options$addGGPubrPlot)
+                    return()
+
+                # Prepare data
+                mydata <- self$data
+                dep <- self$options$dep
+
+                # Single variable
+                if (length(dep) == 1) {
+                    # Build histogram arguments
+                    args <- list(
+                        data = mydata,
+                        x = dep,
+                        fill = self$options$ggpubrPalette,
+                        add_density = self$options$ggpubrAddDensity
+                    )
+
+                    # Create histogram
+                    plot <- do.call(ggpubr::gghistogram, args)
+
+                    # Add mean line if requested
+                    if (self$options$ggpubrAddMean) {
+                        mean_val <- mean(mydata[[dep]], na.rm = TRUE)
+                        plot <- plot + ggplot2::geom_vline(xintercept = mean_val,
+                                                          color = "red",
+                                                          linetype = "dashed",
+                                                          linewidth = 1)
+                    }
+
+                    # Apply theme
+                    plot <- plot + ggpubr::theme_pubr()
+
+                    print(plot)
+                }
+
+                # Multiple variables
+                if (length(dep) > 1) {
+                    dep_list <- as.list(dep)
+
+                    plotlist <- lapply(dep_list, function(depvar) {
+                        args <- list(
+                            data = mydata,
+                            x = depvar,
+                            fill = self$options$ggpubrPalette,
+                            add_density = self$options$ggpubrAddDensity,
+                            title = depvar
+                        )
+
+                        p <- do.call(ggpubr::gghistogram, args)
+
+                        if (self$options$ggpubrAddMean) {
+                            mean_val <- mean(mydata[[depvar]], na.rm = TRUE)
+                            p <- p + ggplot2::geom_vline(xintercept = mean_val,
+                                                        color = "red",
+                                                        linetype = "dashed",
+                                                        linewidth = 1)
+                        }
+
+                        p <- p + ggpubr::theme_pubr()
+                        return(p)
+                    })
+
+                    plot <- ggpubr::ggarrange(plotlist = plotlist, ncol = 1, nrow = length(dep))
+                    print(plot)
+                }
+
+                TRUE
+            }
+
+            ,
+            .plotGGPubr2 = function(image, ...) {
+                # Validate inputs
+                if (is.null(self$options$dep) || is.null(self$options$grvar))
+                    return()
+
+                # Skip if ggpubr plot not requested
+                if (!self$options$addGGPubrPlot)
+                    return()
+
+                # Prepare data
+                mydata <- self$data
+                dep <- self$options$dep
+                grvar <- self$options$grvar
+
+                # Single variable with faceting
+                if (length(dep) == 1) {
+                    args <- list(
+                        data = mydata,
+                        x = dep,
+                        fill = self$options$ggpubrPalette,
+                        add_density = self$options$ggpubrAddDensity,
+                        facet.by = grvar
+                    )
+
+                    plot <- do.call(ggpubr::gghistogram, args)
+
+                    if (self$options$ggpubrAddMean) {
+                        mean_val <- mean(mydata[[dep]], na.rm = TRUE)
+                        plot <- plot + ggplot2::geom_vline(xintercept = mean_val,
+                                                          color = "red",
+                                                          linetype = "dashed",
+                                                          linewidth = 1)
+                    }
+
+                    plot <- plot + ggpubr::theme_pubr()
+                    print(plot)
+                }
+
+                # Multiple variables with faceting
+                if (length(dep) > 1) {
+                    dep_list <- as.list(dep)
+
+                    plotlist <- lapply(dep_list, function(depvar) {
+                        args <- list(
+                            data = mydata,
+                            x = depvar,
+                            fill = self$options$ggpubrPalette,
+                            add_density = self$options$ggpubrAddDensity,
+                            facet.by = grvar,
+                            title = depvar
+                        )
+
+                        p <- do.call(ggpubr::gghistogram, args)
+
+                        if (self$options$ggpubrAddMean) {
+                            mean_val <- mean(mydata[[depvar]], na.rm = TRUE)
+                            p <- p + ggplot2::geom_vline(xintercept = mean_val,
+                                                        color = "red",
+                                                        linetype = "dashed",
+                                                        linewidth = 1)
+                        }
+
+                        p <- p + ggpubr::theme_pubr()
+                        return(p)
+                    })
+
+                    plot <- ggpubr::ggarrange(plotlist = plotlist, ncol = 1, nrow = length(dep))
+                    print(plot)
+                }
+
+                TRUE
+            }
+
+            ,
+            .plotDensity = function(image, ...) {
+                if (is.null(self$options$dep) || !self$options$addDistributionDiagnostics)
+                    return()
+
+                mydata <- self$data
+                dep <- self$options$dep
+
+                if (length(dep) == 1) {
+                    plot <- ggpubr::ggdensity(
+                        mydata,
+                        x = dep,
+                        fill = self$options$ggpubrDensityColor,
+                        add = "mean",
+                        rug = TRUE
+                    )
+                    plot <- plot + ggpubr::theme_pubr()
+                    print(plot)
+                }
+
+                TRUE
+            }
+
+            ,
+            .plotQQ = function(image, ...) {
+                if (is.null(self$options$dep) || !self$options$addDistributionDiagnostics || !self$options$ggpubrShowQQ)
+                    return()
+
+                mydata <- self$data
+                dep <- self$options$dep
+
+                if (length(dep) == 1) {
+                    plot <- ggpubr::ggqqplot(
+                        mydata,
+                        x = dep,
+                        color = self$options$ggpubrDensityColor
+                    )
+                    plot <- plot + ggpubr::theme_pubr()
+                    print(plot)
+                }
+
+                TRUE
+            }
+
+            ,
+            .plotECDF = function(image, ...) {
+                if (is.null(self$options$dep) || !self$options$addDistributionDiagnostics || !self$options$ggpubrShowECDF)
+                    return()
+
+                mydata <- self$data
+                dep <- self$options$dep
+
+                if (length(dep) == 1) {
+                    plot <- ggpubr::ggecdf(
+                        mydata,
+                        x = dep,
+                        color = self$options$ggpubrDensityColor
+                    )
+                    plot <- plot + ggpubr::theme_pubr()
+                    print(plot)
+                }
+
                 TRUE
             }
         )

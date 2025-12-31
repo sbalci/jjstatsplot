@@ -186,29 +186,43 @@ options:
       type: Bool
       default: false
       description:
-          R: >
+        R: >
             Compute partial correlations instead of zero-order correlations.
             Partial correlations control for all other variables in the analysis.
 
-    - name: clinicalpreset
-      title: Clinical Preset
+    - name: naHandling
+      title: Missing Data Handling
       type: List
       options:
-        - title: Custom Analysis
-          name: custom
-        - title: Biomarker Correlations
-          name: biomarker
-        - title: Lab Value Relationships  
-          name: labvalues
-        - title: Imaging Metric Associations
-          name: imaging
-      default: custom
+        - title: Listwise (drop rows with any missing in selected vars)
+          name: listwise
+        - title: Pairwise (compute correlations on available pairs)
+          name: pairwise
+      default: listwise
       description:
-          R: >
-            Pre-configured settings optimized for common clinical correlation scenarios.
-            Biomarker: Focus on molecular correlations with robust methods.
-            Lab Values: Emphasize clinical laboratory parameter relationships.
-            Imaging: Specialized for radiological and pathological imaging metrics.
+        R: >
+            Choose how missing values are handled. Listwise drops rows with missing
+            values in selected variables; pairwise uses available data for each pair.
+
+    # - name: clinicalpreset
+    #   title: Clinical Preset
+    #   type: List
+    #   options:
+    #     - title: Custom Analysis
+    #       name: custom
+    #     - title: Biomarker Correlations
+    #       name: biomarker
+    #     - title: Lab Value Relationships
+    #       name: labvalues
+    #     - title: Imaging Metric Associations
+    #       name: imaging
+    #   default: custom
+    #   description:
+    #       R: >
+    #         Pre-configured settings optimized for common clinical correlation scenarios.
+    #         Biomarker: Focus on molecular correlations with robust methods.
+    #         Lab Values: Emphasize clinical laboratory parameter relationships.
+    #         Imaging: Specialized for radiological and pathological imaging metrics.
 
     - name: lowcolor
       title: Low Correlation Color
@@ -258,6 +272,14 @@ options:
           R: >
             Caption for the correlation matrix plot.
 
+    - name: showexplanations
+      title: Show Explanations
+      type: Bool
+      default: false
+      description:
+          R: >
+            Show detailed explanations of the analysis, including assumptions,
+            interpretation, and a copy-ready report.
     - name: plotwidth
       title: Plot Width
       type: Integer

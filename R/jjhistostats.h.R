@@ -15,6 +15,7 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
             resultssubtitle = FALSE,
             showInterpretation = FALSE,
             clinicalPreset = "custom",
+            enableOneSampleTest = FALSE,
             test.value = 0,
             conf.level = 0.95,
             bf.message = FALSE,
@@ -31,7 +32,15 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
             centralitylinewidth = 1,
             centralitylinetype = "dashed",
             plotwidth = 600,
-            plotheight = 450, ...) {
+            plotheight = 450,
+            addGGPubrPlot = FALSE,
+            ggpubrPalette = "#0073C2FF",
+            ggpubrAddDensity = TRUE,
+            ggpubrAddMean = FALSE,
+            addDistributionDiagnostics = FALSE,
+            ggpubrDensityColor = "#0073C2FF",
+            ggpubrShowQQ = TRUE,
+            ggpubrShowECDF = TRUE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -93,6 +102,10 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                     "patient_chars",
                     "pathology_scores"),
                 default="custom")
+            private$..enableOneSampleTest <- jmvcore::OptionBool$new(
+                "enableOneSampleTest",
+                enableOneSampleTest,
+                default=FALSE)
             private$..test.value <- jmvcore::OptionNumber$new(
                 "test.value",
                 test.value,
@@ -186,6 +199,38 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                 default=450,
                 min=300,
                 max=800)
+            private$..addGGPubrPlot <- jmvcore::OptionBool$new(
+                "addGGPubrPlot",
+                addGGPubrPlot,
+                default=FALSE)
+            private$..ggpubrPalette <- jmvcore::OptionString$new(
+                "ggpubrPalette",
+                ggpubrPalette,
+                default="#0073C2FF")
+            private$..ggpubrAddDensity <- jmvcore::OptionBool$new(
+                "ggpubrAddDensity",
+                ggpubrAddDensity,
+                default=TRUE)
+            private$..ggpubrAddMean <- jmvcore::OptionBool$new(
+                "ggpubrAddMean",
+                ggpubrAddMean,
+                default=FALSE)
+            private$..addDistributionDiagnostics <- jmvcore::OptionBool$new(
+                "addDistributionDiagnostics",
+                addDistributionDiagnostics,
+                default=FALSE)
+            private$..ggpubrDensityColor <- jmvcore::OptionString$new(
+                "ggpubrDensityColor",
+                ggpubrDensityColor,
+                default="#0073C2FF")
+            private$..ggpubrShowQQ <- jmvcore::OptionBool$new(
+                "ggpubrShowQQ",
+                ggpubrShowQQ,
+                default=TRUE)
+            private$..ggpubrShowECDF <- jmvcore::OptionBool$new(
+                "ggpubrShowECDF",
+                ggpubrShowECDF,
+                default=TRUE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..grvar)
@@ -196,6 +241,7 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
             self$.addOption(private$..resultssubtitle)
             self$.addOption(private$..showInterpretation)
             self$.addOption(private$..clinicalPreset)
+            self$.addOption(private$..enableOneSampleTest)
             self$.addOption(private$..test.value)
             self$.addOption(private$..conf.level)
             self$.addOption(private$..bf.message)
@@ -213,6 +259,14 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
             self$.addOption(private$..centralitylinetype)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
+            self$.addOption(private$..addGGPubrPlot)
+            self$.addOption(private$..ggpubrPalette)
+            self$.addOption(private$..ggpubrAddDensity)
+            self$.addOption(private$..ggpubrAddMean)
+            self$.addOption(private$..addDistributionDiagnostics)
+            self$.addOption(private$..ggpubrDensityColor)
+            self$.addOption(private$..ggpubrShowQQ)
+            self$.addOption(private$..ggpubrShowECDF)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -224,6 +278,7 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
         resultssubtitle = function() private$..resultssubtitle$value,
         showInterpretation = function() private$..showInterpretation$value,
         clinicalPreset = function() private$..clinicalPreset$value,
+        enableOneSampleTest = function() private$..enableOneSampleTest$value,
         test.value = function() private$..test.value$value,
         conf.level = function() private$..conf.level$value,
         bf.message = function() private$..bf.message$value,
@@ -240,7 +295,15 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
         centralitylinewidth = function() private$..centralitylinewidth$value,
         centralitylinetype = function() private$..centralitylinetype$value,
         plotwidth = function() private$..plotwidth$value,
-        plotheight = function() private$..plotheight$value),
+        plotheight = function() private$..plotheight$value,
+        addGGPubrPlot = function() private$..addGGPubrPlot$value,
+        ggpubrPalette = function() private$..ggpubrPalette$value,
+        ggpubrAddDensity = function() private$..ggpubrAddDensity$value,
+        ggpubrAddMean = function() private$..ggpubrAddMean$value,
+        addDistributionDiagnostics = function() private$..addDistributionDiagnostics$value,
+        ggpubrDensityColor = function() private$..ggpubrDensityColor$value,
+        ggpubrShowQQ = function() private$..ggpubrShowQQ$value,
+        ggpubrShowECDF = function() private$..ggpubrShowECDF$value),
     private = list(
         ..dep = NA,
         ..grvar = NA,
@@ -251,6 +314,7 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
         ..resultssubtitle = NA,
         ..showInterpretation = NA,
         ..clinicalPreset = NA,
+        ..enableOneSampleTest = NA,
         ..test.value = NA,
         ..conf.level = NA,
         ..bf.message = NA,
@@ -267,7 +331,15 @@ jjhistostatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
         ..centralitylinewidth = NA,
         ..centralitylinetype = NA,
         ..plotwidth = NA,
-        ..plotheight = NA)
+        ..plotheight = NA,
+        ..addGGPubrPlot = NA,
+        ..ggpubrPalette = NA,
+        ..ggpubrAddDensity = NA,
+        ..ggpubrAddMean = NA,
+        ..addDistributionDiagnostics = NA,
+        ..ggpubrDensityColor = NA,
+        ..ggpubrShowQQ = NA,
+        ..ggpubrShowECDF = NA)
 )
 
 jjhistostatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -277,7 +349,12 @@ jjhistostatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
         todo = function() private$.items[["todo"]],
         plot2 = function() private$.items[["plot2"]],
         plot = function() private$.items[["plot"]],
-        interpretation = function() private$.items[["interpretation"]]),
+        interpretation = function() private$.items[["interpretation"]],
+        ggpubrPlot = function() private$.items[["ggpubrPlot"]],
+        ggpubrPlot2 = function() private$.items[["ggpubrPlot2"]],
+        densityPlot = function() private$.items[["densityPlot"]],
+        qqPlot = function() private$.items[["qqPlot"]],
+        ecdfPlot = function() private$.items[["ecdfPlot"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -286,7 +363,9 @@ jjhistostatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                 name="",
                 title="Histogram",
                 refs=list(
+                    "ggplot2",
                     "ggstatsplot",
+                    "ggpubr",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep",
@@ -336,7 +415,70 @@ jjhistostatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                 options=options,
                 name="interpretation",
                 title="Clinical Interpretation",
-                visible="(showInterpretation)"))}))
+                visible="(showInterpretation)"))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ggpubrPlot",
+                title="Publication-Ready Histogram (ggpubr)",
+                width=600,
+                height=450,
+                renderFun=".plotGGPubr",
+                requiresData=TRUE,
+                visible="(addGGPubrPlot)",
+                clearWith=list(
+                    "dep",
+                    "ggpubrPalette",
+                    "ggpubrAddDensity",
+                    "ggpubrAddMean")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ggpubrPlot2",
+                title="`Publication-Ready Histogram by ${grvar} (ggpubr)`",
+                width=1200,
+                height=450,
+                renderFun=".plotGGPubr2",
+                requiresData=TRUE,
+                visible="(addGGPubrPlot && grvar)",
+                clearWith=list(
+                    "dep",
+                    "grvar",
+                    "ggpubrPalette",
+                    "ggpubrAddDensity",
+                    "ggpubrAddMean")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="densityPlot",
+                title="Density Plot (ggpubr)",
+                width=600,
+                height=400,
+                renderFun=".plotDensity",
+                requiresData=TRUE,
+                visible="(addDistributionDiagnostics)",
+                clearWith=list(
+                    "dep",
+                    "ggpubrDensityColor")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="qqPlot",
+                title="QQ Plot - Normality Assessment (ggpubr)",
+                width=600,
+                height=400,
+                renderFun=".plotQQ",
+                requiresData=TRUE,
+                visible="(addDistributionDiagnostics && ggpubrShowQQ)",
+                clearWith=list(
+                    "dep")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ecdfPlot",
+                title="Empirical CDF (ggpubr)",
+                width=600,
+                height=400,
+                renderFun=".plotECDF",
+                requiresData=TRUE,
+                visible="(addDistributionDiagnostics && ggpubrShowECDF)",
+                clearWith=list(
+                    "dep")))}))
 
 jjhistostatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjhistostatsBase",
@@ -416,13 +558,22 @@ jjhistostatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   subtitle in the plot, including normality test results and descriptive
 #'   statistics.
 #' @param showInterpretation Generate clinical interpretation of histogram
-#'   results including distribution shape,  normality assessment, and practical
-#'   implications for clinical data.
+#'   results including distribution shape, normality assessment, and practical
+#'   implications for clinical data. Note: Uses simplified heuristics (skewness
+#'   threshold and sample size) as initial screening guidance, not formal
+#'   diagnostic criteria. Should be supplemented with formal normality tests and
+#'   expert judgment.
 #' @param clinicalPreset Predefined configurations optimized for common
 #'   clinical data types. Automatically sets appropriate statistical methods and
 #'   visualization options.
+#' @param enableOneSampleTest Whether to enable and display one-sample
+#'   hypothesis test against a specified test value. When disabled, only
+#'   descriptive statistics and distribution visualization are shown.
 #' @param test.value Value to compare the sample against in one-sample test.
-#'   Default is 0.
+#'   Only used when enableOneSampleTest is TRUE. Note: Testing against 0 is
+#'   rarely clinically meaningful for most biomedical data. Consider using a
+#'   clinically relevant threshold (e.g., reference range limit, treatment
+#'   cutoff, or population norm) for meaningful hypothesis testing.
 #' @param conf.level Confidence level for confidence intervals (between 0 and
 #'   1).
 #' @param bf.message Whether to display Bayes Factor in the subtitle when
@@ -447,12 +598,26 @@ jjhistostatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param centralitylinetype Line type for the vertical centrality line.
 #' @param plotwidth Width of each plot in pixels. Default is 600.
 #' @param plotheight Height of each plot in pixels. Default is 450.
+#' @param addGGPubrPlot Add publication-ready histogram using ggpubr package.
+#' @param ggpubrPalette Fill color for ggpubr histogram (hex code).
+#' @param ggpubrAddDensity Add density curve overlay to ggpubr histogram.
+#' @param ggpubrAddMean Add vertical line at mean for ggpubr histogram.
+#' @param addDistributionDiagnostics Add density plot, ECDF, and QQ plot for
+#'   distribution assessment using ggpubr.
+#' @param ggpubrDensityColor Fill color for density plot (hex code).
+#' @param ggpubrShowQQ Show QQ plot for normality assessment.
+#' @param ggpubrShowECDF Show empirical cumulative distribution function plot.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$ggpubrPlot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$ggpubrPlot2} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$densityPlot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$qqPlot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$ecdfPlot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
 #' @export
@@ -467,6 +632,7 @@ jjhistostats <- function(
     resultssubtitle = FALSE,
     showInterpretation = FALSE,
     clinicalPreset = "custom",
+    enableOneSampleTest = FALSE,
     test.value = 0,
     conf.level = 0.95,
     bf.message = FALSE,
@@ -483,7 +649,15 @@ jjhistostats <- function(
     centralitylinewidth = 1,
     centralitylinetype = "dashed",
     plotwidth = 600,
-    plotheight = 450) {
+    plotheight = 450,
+    addGGPubrPlot = FALSE,
+    ggpubrPalette = "#0073C2FF",
+    ggpubrAddDensity = TRUE,
+    ggpubrAddMean = FALSE,
+    addDistributionDiagnostics = FALSE,
+    ggpubrDensityColor = "#0073C2FF",
+    ggpubrShowQQ = TRUE,
+    ggpubrShowECDF = TRUE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjhistostats requires jmvcore to be installed (restart may be required)")
@@ -508,6 +682,7 @@ jjhistostats <- function(
         resultssubtitle = resultssubtitle,
         showInterpretation = showInterpretation,
         clinicalPreset = clinicalPreset,
+        enableOneSampleTest = enableOneSampleTest,
         test.value = test.value,
         conf.level = conf.level,
         bf.message = bf.message,
@@ -524,7 +699,15 @@ jjhistostats <- function(
         centralitylinewidth = centralitylinewidth,
         centralitylinetype = centralitylinetype,
         plotwidth = plotwidth,
-        plotheight = plotheight)
+        plotheight = plotheight,
+        addGGPubrPlot = addGGPubrPlot,
+        ggpubrPalette = ggpubrPalette,
+        ggpubrAddDensity = ggpubrAddDensity,
+        ggpubrAddMean = ggpubrAddMean,
+        addDistributionDiagnostics = addDistributionDiagnostics,
+        ggpubrDensityColor = ggpubrDensityColor,
+        ggpubrShowQQ = ggpubrShowQQ,
+        ggpubrShowECDF = ggpubrShowECDF)
 
     analysis <- jjhistostatsClass$new(
         options = options,

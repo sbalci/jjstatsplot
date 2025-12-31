@@ -26,9 +26,7 @@ jjdotplotstats(
   centralityparameter = "mean",
   centralityk = 2,
   plotwidth = 650,
-  plotheight = 450,
-  guidedMode = FALSE,
-  clinicalPreset = "basic"
+  plotheight = 450
 )
 }
 \arguments{
@@ -112,19 +110,12 @@ detail but may not fit well in reports. Default: 650 pixels.}
 
 \item{plotheight}{Height of the plot in pixels. Adjust based on number of
 groups to ensure readability. Default: 450 pixels.}
-
-\item{guidedMode}{Enable step-by-step guidance for clinical researchers.
-Provides recommendations for test selection and interpretation.}
-
-\item{clinicalPreset}{Pre-configured analysis settings optimized for
-different use cases. Basic: Simple comparison with key statistics;
-Publication: Journal-ready formatting; Clinical: Medical report
-optimization; Custom: Full control.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$notices} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
@@ -135,10 +126,10 @@ A results object containing:
 }
 }
 \description{
-Wrapper Function for ggstatsplot::ggdotplotstats and
-ggstatsplot::grouped_ggdotplotstats to generate dot plots
-comparing continuous variables between groups with statistical
-annotations and significance testing.
+Wrapper Function for ggstatsplot::ggbetweenstats and
+ggstatsplot::grouped_ggbetweenstats to generate dot-style
+comparisons of continuous variables between groups with
+statistical annotations and significance testing.
 }
 \examples{
 # Basic dot plot with iris dataset
