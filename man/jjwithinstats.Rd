@@ -20,8 +20,8 @@ jjwithinstats(
   pairwisedisplay = "significant",
   padjustmethod = "holm",
   effsizetype = "biased",
-  violin = TRUE,
-  boxplot = TRUE,
+  violin = FALSE,
+  boxplot = FALSE,
   point = FALSE,
   mytitle = "Within Group Comparison",
   xtitle = "",
@@ -32,7 +32,14 @@ jjwithinstats(
   conflevel = 0.95,
   k = 2,
   plotwidth = 650,
-  plotheight = 450
+  plotheight = 450,
+  addGGPubrPlot = FALSE,
+  ggpubrPlotType = "boxplot",
+  ggpubrPalette = "jco",
+  ggpubrAddStats = FALSE,
+  ggpubrShowLines = FALSE,
+  ggpubrAddPoints = FALSE,
+  showExplanations = TRUE
 )
 }
 \arguments{
@@ -102,14 +109,35 @@ subtitle.}
 \item{plotwidth}{Width of the plot in pixels. Default is 650.}
 
 \item{plotheight}{Height of the plot in pixels. Default is 450.}
+
+\item{addGGPubrPlot}{Add publication-ready plot using ggpubr package for
+within-subjects/paired data.}
+
+\item{ggpubrPlotType}{Type of ggpubr plot for within-subjects data. Paired
+plot shows individual trajectories.}
+
+\item{ggpubrPalette}{Color palette for ggpubr plot.}
+
+\item{ggpubrAddStats}{Add statistical comparison p-values to ggpubr plot.}
+
+\item{ggpubrShowLines}{Show individual subject trajectories for paired
+plot.}
+
+\item{ggpubrAddPoints}{Overlay individual data points on ggpubr plot.}
+
+\item{showExplanations}{Show explanations of the statistical results.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$warnings} \tab \tab \tab \tab \tab a html \cr
+\code{results$notices} \tab \tab \tab \tab \tab a html \cr
 \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+\code{results$explanations} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 \code{results$summary} \tab \tab \tab \tab \tab a html \cr
+\code{results$ggpubrPlot} \tab \tab \tab \tab \tab an image \cr
 }
 }
 \description{

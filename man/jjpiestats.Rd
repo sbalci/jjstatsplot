@@ -17,12 +17,17 @@ jjpiestats(
   label = "percentage",
   digits = 2,
   conflevel = 0.95,
-  proportiontest = TRUE,
-  bfmessage = TRUE,
+  proportiontest = FALSE,
+  bfmessage = FALSE,
   messages = FALSE,
   clinicalpreset = "custom",
-  showexplanations = TRUE,
-  resultssubtitle = FALSE
+  showexplanations = FALSE,
+  resultssubtitle = FALSE,
+  showSummary = FALSE,
+  showAssumptions = FALSE,
+  showInterpretation = FALSE,
+  addGGPubrDonut = FALSE,
+  ggpubrDonutPalette = "jco"
 )
 }
 \arguments{
@@ -70,7 +75,7 @@ pie slice.}
 \item{conflevel}{Confidence/credible interval level.}
 
 \item{proportiontest}{Decides whether proportion test for x variable is to
-be  carried out for each level of y.}
+be carried out for each level of y.}
 
 \item{bfmessage}{Display Bayes Factor in favor of the null hypothesis.
 Only relevant for parametric test.}
@@ -83,13 +88,28 @@ scenarios.  Automatically sets appropriate statistical methods and
 parameters.}
 
 \item{showexplanations}{Display detailed explanations of statistical
-methods, assumptions,  and clinical interpretations to guide analysis and
+methods, assumptions, and clinical interpretations to guide analysis and
 result interpretation.}
 
 \item{resultssubtitle}{Whether to display statistical test results as
 subtitle in the pie chart. Shows test statistics, p-values, effect sizes,
 and confidence intervals for categorical association tests. Provides
 detailed statistical summary.}
+
+\item{showSummary}{Display natural-language summary paragraph with key
+findings suitable for copying into reports and publications.}
+
+\item{showAssumptions}{Display statistical assumptions panel with detected
+violations, warnings about chi-square expected counts, and Fisher exact
+test recommendations.}
+
+\item{showInterpretation}{Display effect size interpretation guidelines
+(Cramér's V thresholds), clinical context based on analysis preset, and
+methodological notes.}
+
+\item{addGGPubrDonut}{Add modern donut chart variant using ggpubr.}
+
+\item{ggpubrDonutPalette}{Color palette for donut chart.}
 }
 \value{
 A results object containing:
@@ -103,6 +123,7 @@ A results object containing:
 \code{results$plot4} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 \code{results$plot1} \tab \tab \tab \tab \tab an image \cr
+\code{results$donutPlot} \tab \tab \tab \tab \tab an image \cr
 }
 }
 \description{

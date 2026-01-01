@@ -53,6 +53,16 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             }
         },
 
+        .escapeVar = function(var_name) {
+            # Safely escape variable names for formulas and aes
+            if (is.null(var_name) || var_name == "") return(NULL)
+            # Add backticks if name contains spaces or special chars
+            if (grepl("[^A-Za-z0-9_.]", var_name) || grepl("^[0-9]", var_name)) {
+                return(paste0("`", var_name, "`"))
+            }
+            return(var_name)
+        },
+
         .run = function() {
 
             # Check if required variables have been selected
@@ -147,6 +157,31 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 analysis_data[[color_var]] <- as.factor(analysis_data[[color_var]])
             }
 
+            # Summary info for users
+            group_counts <- table(analysis_data[[group_var]])
+            min_group <- min(group_counts)
+            max_group <- max(group_counts)
+            imbalance_note <- if (max_group / min_group > 5) " <span style='color:#d9534f'>(unbalanced groups; interpret comparisons cautiously)</span>" else ""
+
+            missing_counts <- sapply(required_vars, function(v) sum(!complete.cases(dataset[, required_vars])) + sum(!complete.cases(dataset[, v, drop=FALSE])))
+            missing_msg <- paste0(
+                "<ul style='margin:6px 0;'>",
+                paste0("<li>", required_vars, ": ", missing_counts, " missing</li>", collapse = ""),
+                "</ul>"
+            )
+            summary_msg <- paste0(
+                "<div style='background-color:#f8f9fa;padding:12px;border-radius:8px;margin-bottom:12px;'>",
+                "<strong>Data summary:</strong> ", nrow(analysis_data), " complete rows (removed ",
+                nrow(dataset) - nrow(analysis_data), " with missing values). ",
+                length(group_counts), " groups: ",
+                paste(paste0(names(group_counts), " (n=", group_counts, ")"), collapse = ", "),
+                ".", imbalance_note,
+                "<br><strong>Missing by variable:</strong>", missing_msg,
+                if (min_group < 10) " <span style='color:#d9534f'>(some groups have n < 10; avoid inferential tests)</span>" else "",
+                "</div>"
+            )
+            self$results$todo$setContent(summary_msg)
+
             # Generate summary statistics if requested
             if (self$options$show_statistics) {
                 private$.checkpoint()  # Checkpoint before statistics calculation
@@ -179,19 +214,39 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             interpretation_html <- private$.generate_interpretation_guide(analysis_data, dep_var, group_var)
             self$results$interpretation$setContent(interpretation_html)
 
-            # Store data for plotting using setState
+            # Store data AND visual options for plotting using setState
             image <- self$results$plot
-            image$setState(analysis_data)
+            plotState <- list(
+                data = analysis_data,
+                # Include visual options to trigger updates
+                color_palette = self$options$color_palette,
+                plot_theme = self$options$plot_theme,
+                show_violin = self$options$show_violin,
+                show_boxplot = self$options$show_boxplot,
+                show_dots = self$options$show_dots,
+                dots_side = self$options$dots_side,
+                orientation = self$options$orientation,
+                violin_width = self$options$violin_width,
+                box_width = self$options$box_width,
+                dots_size = self$options$dots_size,
+                alpha_violin = self$options$alpha_violin,
+                alpha_dots = self$options$alpha_dots,
+                plot_title = self$options$plot_title,
+                x_label = self$options$x_label,
+                y_label = self$options$y_label,
+                log_transform = self$options$log_transform
+            )
+            image$setState(plotState)
 
         },
 
         .plot = function(image, ggtheme, theme, ...) {
-            
-            # Get data from setState
-            analysis_data <- image$state
-            if (is.null(analysis_data)) {
+
+            # Extract data from state
+            if (is.null(image$state) || is.null(image$state$data)) {
                 return()
             }
+            analysis_data <- image$state$data
             dep_var <- self$options$dep_var
             group_var <- self$options$group_var
             facet_var <- self$options$facet_var
@@ -205,8 +260,9 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             }
             
             # Create base plot
-            p <- ggplot2::ggplot(analysis_data, ggplot2::aes_string(x = group_var, y = dep_var, 
-                                                                   fill = color_mapping, color = color_mapping))
+            # Use aes() with .data pronoun for safety with special characters
+            p <- ggplot2::ggplot(analysis_data, ggplot2::aes(x = .data[[group_var]], y = .data[[dep_var]],
+                                                             fill = .data[[color_mapping]], color = .data[[color_mapping]]))
             
             # Add raincloud components based on options
             if (self$options$show_violin) {
@@ -242,7 +298,8 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             
             # Add faceting if specified
             if (!is.null(facet_var) && facet_var != "") {
-                p <- p + ggplot2::facet_wrap(as.formula(paste("~", facet_var)))
+                facet_safe <- private$.escapeVar(facet_var)
+                p <- p + ggplot2::facet_wrap(as.formula(paste("~", facet_safe)))
             }
             
             # Apply color palette
@@ -267,6 +324,16 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 fill = color_mapping,
                 color = color_mapping
             )
+
+            if (isTRUE(self$options$log_transform)) {
+                if (any(analysis_data[[dep_var]] <= 0)) {
+                    self$results$interpretation$setContent(
+                        "<div style='color:#d9534f'>Log transform requested but data contain non-positive values; skipped log scale.</div>"
+                    )
+                } else {
+                    p <- p + ggplot2::scale_y_continuous(trans = "log10")
+                }
+            }
             
             print(p)
             TRUE
@@ -277,7 +344,7 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             
             if (palette_name == "viridis") {
                 if (requireNamespace("viridis", quietly = TRUE)) {
-                    return(viridis::viridis(n_colors, discrete = TRUE))
+                    return(viridis::viridis(n_colors))
                 } else {
                     # Fallback to similar color scheme
                     return(grDevices::heat.colors(n_colors))
@@ -330,7 +397,7 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 }, error = function(e) {
                     # Fallback to viridis if ggprism palette fails
                     if (requireNamespace("viridis", quietly = TRUE)) {
-                        viridis::viridis(n_colors, discrete = TRUE)
+                        viridis::viridis(n_colors)
                     } else {
                         grDevices::heat.colors(n_colors)
                     }
@@ -338,7 +405,7 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             } else {
                 # Fallback to viridis if ggprism not available
                 if (requireNamespace("viridis", quietly = TRUE)) {
-                    viridis::viridis(n_colors, discrete = TRUE)
+                    viridis::viridis(n_colors)
                 } else {
                     grDevices::heat.colors(n_colors)
                 }
@@ -485,16 +552,17 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             
             for (i in 1:nrow(stats_summary)) {
                 row_bg <- if (i %% 2 == 0) "#ffffff" else "#f8f9fa"
-                stats_html <- paste0(stats_html,
+                stats_html <- paste0(
+                    stats_html,
                     "<tr style='background-color: ", row_bg, ";'>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6;'><strong>", stats_summary[[group_var]][i], "</strong></td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$n[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$mean[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$median[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$sd[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$iqr[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$min_val[i], " - ", stats_summary$max_val[i], "</td>",
-                    "<td style='padding: 8px; border: 1px solid #dee2e6; text-align: center;'>", stats_summary$skewness[i], "</td>",
+                    "<td><strong>", stats_summary[[group_var]][i], "</strong></td>",
+                    "<td>", stats_summary$n[i], "</td>",
+                    "<td>", stats_summary$mean[i], "</td>",
+                    "<td>", stats_summary$median[i], "</td>",
+                    "<td>", stats_summary$sd[i], "</td>",
+                    "<td>", stats_summary$iqr[i], "</td>",
+                    "<td>", stats_summary$min_val[i], " - ", stats_summary$max_val[i], "</td>",
+                    "<td>", stats_summary$skewness[i], "</td>",
                     "</tr>"
                 )
             }
@@ -512,7 +580,8 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
         .generate_outlier_analysis = function(data, dep_var, group_var) {
             # Detect and analyze outliers
             
-            outlier_method <- self$options$outlier_method
+            outlier_method <- tryCatch(self$options$outlier_method, error = function(...) NULL)
+            if (is.null(outlier_method)) outlier_method <- "iqr"
             outliers_list <- list()
             
             for (group in levels(data[[group_var]])) {
@@ -599,12 +668,13 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                     interpretation <- .("Sample size not suitable")
                 }
                 
-                normality_html <- paste0(normality_html,
+                normality_html <- paste0(
+                    normality_html,
                     "<tr>",
-                    "<td style='padding: 8px; border: 1px solid #ddd;'>", group, "</td>",
-                    "<td style='padding: 8px; border: 1px solid #ddd; text-align: center;'>", w_stat, "</td>",
-                    "<td style='padding: 8px; border: 1px solid #ddd; text-align: center;'>", p_val, "</td>",
-                    "<td style='padding: 8px; border: 1px solid #ddd; text-align: center;'>", interpretation, "</td>",
+                    "<td>", group, "</td>",
+                    "<td>", w_stat, "</td>",
+                    "<td>", p_val, "</td>",
+                    "<td>", interpretation, "</td>",
                     "</tr>"
                 )
             }
@@ -623,7 +693,15 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
             # Perform statistical comparisons between groups
             
             n_groups <- length(levels(data[[group_var]]))
-            comparison_method <- self$options$comparison_method
+            comparison_method <- tryCatch(self$options$comparison_method, error = function(...) NULL)
+            if (is.null(comparison_method)) comparison_method <- "auto"
+            adjust_method <- tryCatch(self$options$adjust_method, error = function(...) NULL)
+            if (is.null(adjust_method)) adjust_method <- "none"
+            effect_size_flag <- isTRUE(tryCatch(self$options$effect_size, error = function(...) FALSE))
+
+            if (n_groups < 2) {
+                return("<div style='background-color:#fff3cd;padding:12px;border-radius:8px;'>At least two groups are required for comparisons.</div>")
+            }
             
             # Automatic method selection
             if (comparison_method == "auto") {
@@ -676,6 +754,11 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 test_stat <- round(test_result$statistic, 4)
                 p_value <- round(test_result$p.value, 4)
                 test_details <- paste0("t = ", test_stat, ", df = ", round(test_result$parameter, 1))
+                if (effect_size_flag) {
+                    pooled_sd <- sqrt(((length(group1_data) - 1) * var(group1_data) + (length(group2_data) - 1) * var(group2_data)) /
+                                      (length(group1_data) + length(group2_data) - 2))
+                    d <- (mean(group1_data) - mean(group2_data)) / pooled_sd
+                }
                 
             } else if (test_method == "Wilcoxon" && n_groups == 2) {
                 group_levels <- levels(data[[group_var]])
@@ -688,7 +771,9 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 test_details <- paste0("W = ", test_stat)
                 
             } else if (test_method == "ANOVA") {
-                formula_str <- paste(dep_var, "~", group_var)
+                dep_safe <- private$.escapeVar(dep_var)
+                group_safe <- private$.escapeVar(group_var)
+                formula_str <- paste(dep_safe, "~", group_safe)
                 aov_result <- aov(as.formula(formula_str), data = data)
                 summary_aov <- summary(aov_result)
                 
@@ -699,13 +784,16 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 test_details <- paste0("F(", df1, ",", df2, ") = ", f_stat)
                 
             } else if (test_method == "Kruskal-Wallis") {
-                formula_str <- paste(dep_var, "~", group_var)
+                dep_safe <- private$.escapeVar(dep_var)
+                group_safe <- private$.escapeVar(group_var)
+                formula_str <- paste(dep_safe, "~", group_safe)
                 kw_result <- kruskal.test(as.formula(formula_str), data = data)
                 
                 test_stat <- round(kw_result$statistic, 4)
                 p_value <- round(kw_result$p.value, 4)
                 test_details <- paste0("χ² = ", test_stat, ", df = ", kw_result$parameter)
             }
+            p_adj <- if (adjust_method != "none") p.adjust(p_value, method = adjust_method) else p_value
             
             # Create results HTML
             significance <- if (p_value < 0.001) .("Highly significant (***)") else 
@@ -718,7 +806,9 @@ raincloudClass <- if (requireNamespace("jmvcore")) R6::R6Class("raincloudClass",
                 "<table style='width: 100%; border-collapse: collapse;'>",
                 "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Test Method:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", test_method, "</td></tr>",
                 "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Test Statistic:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", test_details, "</td></tr>",
-                "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>P-value:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", p_value, "</td></tr>",
+                "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>P-value:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", sprintf('%.4f', p_value), "</td></tr>",
+                if (adjust_method != "none") paste0("<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Adjusted (", adjust_method, "):</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", sprintf('%.4f', p_adj), "</td></tr>") else "",
+                if (effect_size_flag && exists("d")) paste0("<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Cohen's d:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", sprintf('%.3f', d), "</td></tr>") else "",
                 "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Result:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", significance, "</td></tr>",
                 "</table>",
                 "<p style='font-size: 12px; color: #7b1fa2; margin-top: 15px;'>",

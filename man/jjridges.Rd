@@ -49,7 +49,10 @@ jjridges(
   custom_annotations = "",
   width = 800,
   height = 600,
-  dpi = 300
+  dpi = 300,
+  clinicalPreset = "custom",
+  showAboutPanel = FALSE,
+  showAssumptions = FALSE
 )
 }
 \arguments{
@@ -71,8 +74,7 @@ comparing ridge plots across another dimension.}
 
 \item{plot_type}{Type of ridge plot. 'density_ridges' for smooth curves,
 'density_ridges_gradient' adds color gradients, 'histogram_ridges' for
-discrete bins, 'violin_ridges' for violin-style plots, 'double_ridges' for
-comparing two distributions.}
+discrete bins, 'violin_ridges' for violin-style plots.}
 
 \item{scale}{Controls ridge height and overlap. Values > 1 create
 overlapping ridges, < 1 creates more separation between ridges.}
@@ -104,7 +106,8 @@ lines.}
 \item{add_median}{Add vertical line at the median of each distribution.}
 
 \item{show_stats}{Display statistical annotations including p-values and
-effect sizes using ggstatsplot functionality.}
+effect sizes. WARNING: Assumes independent observations. Not valid for
+repeated measures data.}
 
 \item{test_type}{Type of statistical test for group comparisons when
 show_stats is TRUE.}
@@ -169,17 +172,32 @@ is specified.}
 \item{height}{Height of the plot in pixels.}
 
 \item{dpi}{Resolution for plot export.}
+
+\item{clinicalPreset}{Clinical analysis preset for ridge plots. Biomarker
+Distribution: nonparametric tests with Cliff's delta. Treatment Response:
+violin plots with Bonferroni correction. Age by Stage: parametric tests
+with Cohen's d. Tumor Size: Hodges-Lehmann shift. Lab Values: robust tests
+with Hedges' g. Survival Time: median with quartiles.}
+
+\item{showAboutPanel}{Display comprehensive information about ridge plots,
+interpretation guidance, and clinical examples.}
+
+\item{showAssumptions}{Display statistical assumptions, caveats, and
+methodological notes for the selected test type.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$instructions} \tab \tab \tab \tab \tab a html \cr
-\code{results$warnings} \tab \tab \tab \tab \tab a html \cr
 \code{results$clinicalSummary} \tab \tab \tab \tab \tab a html \cr
+\code{results$reportSummary} \tab \tab \tab \tab \tab a html \cr
+\code{results$aboutPanel} \tab \tab \tab \tab \tab a html \cr
+\code{results$assumptionsPanel} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 \code{results$statistics} \tab \tab \tab \tab \tab a table \cr
 \code{results$tests} \tab \tab \tab \tab \tab a table \cr
 \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+\code{results$notices} \tab \tab \tab \tab \tab a html \cr
 }
 
 Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.frame}}. For example:

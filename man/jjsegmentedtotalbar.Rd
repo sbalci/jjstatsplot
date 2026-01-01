@@ -11,13 +11,11 @@ jjsegmentedtotalbar(
   y_var,
   fill_var,
   facet_var = NULL,
-  show_ggplot2_plot = FALSE,
-  show_ggsegmented_plot = FALSE,
-  ggsegmented_labels = TRUE,
-  ggsegmented_alpha = 0.3,
+  show_plot = FALSE,
+  plot_type = "stacked",
   chart_style = "clinical",
   color_palette = "clinical",
-  show_percentages = TRUE,
+  show_percentages = FALSE,
   percentage_format = "integer",
   show_counts = FALSE,
   label_threshold = 5,
@@ -31,11 +29,18 @@ jjsegmentedtotalbar(
   bar_width = 0.8,
   plot_width = 10,
   plot_height = 6,
-  add_outline = TRUE,
+  add_outline = FALSE,
   outline_color = "white",
-  export_ready = TRUE,
+  export_ready = FALSE,
+  flerlage_show_labels = FALSE,
+  flerlage_label_size = 4,
+  flerlage_label_color = "black",
+  flerlage_alpha = 0.3,
+  flerlage_box_color = "lightgrey",
   show_statistical_tests = FALSE,
-  confidence_level = 0.95
+  confidence_level = 0.95,
+  exclude_missing = TRUE,
+  showExplanations = FALSE
 )
 }
 \arguments{
@@ -52,14 +57,10 @@ composition.}
 
 \item{facet_var}{Optional variable for creating multiple panels.}
 
-\item{show_ggplot2_plot}{Show plot using built-in ggplot2 implementation.}
+\item{show_plot}{Show segmented total bar chart.}
 
-\item{show_ggsegmented_plot}{Show plot using ggsegmentedtotalbar package.}
-
-\item{ggsegmented_labels}{Show value labels in ggsegmentedtotalbar plot.}
-
-\item{ggsegmented_alpha}{Transparency of background boxes in
-ggsegmentedtotalbar.}
+\item{plot_type}{Type of visualization - traditional 100\\% stacked bars or
+Flerlage-style segmented total bars.}
 
 \item{chart_style}{Overall visual style for the chart.}
 
@@ -99,17 +100,32 @@ ggsegmentedtotalbar.}
 
 \item{export_ready}{Whether to optimize plot for high-quality export.}
 
+\item{flerlage_show_labels}{Show value labels on Flerlage-style plots.}
+
+\item{flerlage_label_size}{Size of value labels in Flerlage plots.}
+
+\item{flerlage_label_color}{Color of value labels in Flerlage plots.}
+
+\item{flerlage_alpha}{Transparency of background boxes (0=transparent,
+1=opaque).}
+
+\item{flerlage_box_color}{Color of background boxes in Flerlage plots.}
+
 \item{show_statistical_tests}{Whether to perform chi-square tests for
 proportion differences.}
 
 \item{confidence_level}{Confidence level for statistical tests (0.80-0.99).}
+
+\item{exclude_missing}{Whether to exclude rows with missing values in key
+variables.}
+
+\item{showExplanations}{Show explanations of the statistical results}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
 \code{results$instructions} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
-\code{results$plot_ggsegmented} \tab \tab \tab \tab \tab an image \cr
 \code{results$summary} \tab \tab \tab \tab \tab a table \cr
 \code{results$composition_table} \tab \tab \tab \tab \tab a table \cr
 \code{results$detailed_stats} \tab \tab \tab \tab \tab a table \cr
@@ -117,6 +133,9 @@ A results object containing:
 \code{results$clinical_summary} \tab \tab \tab \tab \tab a html \cr
 \code{results$statistical_tests} \tab \tab \tab \tab \tab a table \cr
 \code{results$preset_guidance} \tab \tab \tab \tab \tab a html \cr
+\code{results$presetInfo} \tab \tab \tab \tab \tab a html \cr
+\code{results$warnings} \tab \tab \tab \tab \tab a html \cr
+\code{results$explanations} \tab \tab \tab \tab \tab a html \cr
 }
 
 Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.frame}}. For example:

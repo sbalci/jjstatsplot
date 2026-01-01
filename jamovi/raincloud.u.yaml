@@ -119,6 +119,7 @@ children:
             name: plot_title
             format: string
             label: "Plot Title"
+            width: largest
       - type: LayoutBox
         margin: large
         children:
@@ -126,10 +127,12 @@ children:
             name: x_label
             format: string
             label: "X-Axis Label"
+            width: largest
           - type: TextBox
             name: y_label
             format: string
             label: "Y-Axis Label"
+            width: largest
 
   - type: CollapseBox
     label: Statistical Analysis
@@ -138,30 +141,50 @@ children:
       - type: LayoutBox
         margin: large
         children:
+          - type: Label
+            label: Summary Statistics
+            style: list-inline
           - type: CheckBox
             name: show_statistics
-            label: "Show Summary Statistics"
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: Label
+            label: Outlier Detection
+            style: list-inline
           - type: CheckBox
             name: show_outliers
-            label: "Highlight Outliers"
-      - type: LayoutBox
-        margin: large
-        children:
           - type: ComboBox
             name: outlier_method
-            label: "Outlier Detection Method"
+            enable: (show_outliers)
       - type: LayoutBox
         margin: large
         children:
+          - type: Label
+            label: Normality Assessment
+            style: list-inline
           - type: CheckBox
             name: normality_test
-            label: "Test for Normality"
-          - type: CheckBox
-            name: comparison_test
-            label: "Group Comparison Test"
       - type: LayoutBox
         margin: large
         children:
+          - type: Label
+            label: Group Comparisons
+            style: list-inline
+          - type: CheckBox
+            name: comparison_test
           - type: ComboBox
             name: comparison_method
-            label: "Comparison Method"
+            enable: (comparison_test)
+          - type: ComboBox
+            name: adjust_method
+            enable: (comparison_test)
+          - type: CheckBox
+            name: effect_size
+            enable: (comparison_test)
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: CheckBox
+            name: log_transform
+            label: "Log-transform Y-axis"

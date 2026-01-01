@@ -20,8 +20,8 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             pairwisedisplay = "significant",
             padjustmethod = "holm",
             effsizetype = "biased",
-            violin = TRUE,
-            boxplot = TRUE,
+            violin = FALSE,
+            boxplot = FALSE,
             point = FALSE,
             mytitle = "Within Group Comparison",
             xtitle = "",
@@ -32,7 +32,14 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             conflevel = 0.95,
             k = 2,
             plotwidth = 650,
-            plotheight = 450, ...) {
+            plotheight = 450,
+            addGGPubrPlot = FALSE,
+            ggpubrPlotType = "boxplot",
+            ggpubrPalette = "jco",
+            ggpubrAddStats = FALSE,
+            ggpubrShowLines = FALSE,
+            ggpubrAddPoints = FALSE,
+            showExplanations = TRUE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -146,11 +153,11 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             private$..violin <- jmvcore::OptionBool$new(
                 "violin",
                 violin,
-                default=TRUE)
+                default=FALSE)
             private$..boxplot <- jmvcore::OptionBool$new(
                 "boxplot",
                 boxplot,
-                default=TRUE)
+                default=FALSE)
             private$..point <- jmvcore::OptionBool$new(
                 "point",
                 point,
@@ -203,6 +210,46 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                 default=450,
                 min=300,
                 max=800)
+            private$..addGGPubrPlot <- jmvcore::OptionBool$new(
+                "addGGPubrPlot",
+                addGGPubrPlot,
+                default=FALSE)
+            private$..ggpubrPlotType <- jmvcore::OptionList$new(
+                "ggpubrPlotType",
+                ggpubrPlotType,
+                options=list(
+                    "boxplot",
+                    "violin",
+                    "paired",
+                    "line"),
+                default="boxplot")
+            private$..ggpubrPalette <- jmvcore::OptionList$new(
+                "ggpubrPalette",
+                ggpubrPalette,
+                options=list(
+                    "jco",
+                    "npg",
+                    "aaas",
+                    "lancet",
+                    "jama",
+                    "nejm"),
+                default="jco")
+            private$..ggpubrAddStats <- jmvcore::OptionBool$new(
+                "ggpubrAddStats",
+                ggpubrAddStats,
+                default=FALSE)
+            private$..ggpubrShowLines <- jmvcore::OptionBool$new(
+                "ggpubrShowLines",
+                ggpubrShowLines,
+                default=FALSE)
+            private$..ggpubrAddPoints <- jmvcore::OptionBool$new(
+                "ggpubrAddPoints",
+                ggpubrAddPoints,
+                default=FALSE)
+            private$..showExplanations <- jmvcore::OptionBool$new(
+                "showExplanations",
+                showExplanations,
+                default=TRUE)
 
             self$.addOption(private$..dep1)
             self$.addOption(private$..dep2)
@@ -231,6 +278,13 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
             self$.addOption(private$..k)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
+            self$.addOption(private$..addGGPubrPlot)
+            self$.addOption(private$..ggpubrPlotType)
+            self$.addOption(private$..ggpubrPalette)
+            self$.addOption(private$..ggpubrAddStats)
+            self$.addOption(private$..ggpubrShowLines)
+            self$.addOption(private$..ggpubrAddPoints)
+            self$.addOption(private$..showExplanations)
         }),
     active = list(
         dep1 = function() private$..dep1$value,
@@ -259,7 +313,14 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         conflevel = function() private$..conflevel$value,
         k = function() private$..k$value,
         plotwidth = function() private$..plotwidth$value,
-        plotheight = function() private$..plotheight$value),
+        plotheight = function() private$..plotheight$value,
+        addGGPubrPlot = function() private$..addGGPubrPlot$value,
+        ggpubrPlotType = function() private$..ggpubrPlotType$value,
+        ggpubrPalette = function() private$..ggpubrPalette$value,
+        ggpubrAddStats = function() private$..ggpubrAddStats$value,
+        ggpubrShowLines = function() private$..ggpubrShowLines$value,
+        ggpubrAddPoints = function() private$..ggpubrAddPoints$value,
+        showExplanations = function() private$..showExplanations$value),
     private = list(
         ..dep1 = NA,
         ..dep2 = NA,
@@ -287,7 +348,14 @@ jjwithinstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
         ..conflevel = NA,
         ..k = NA,
         ..plotwidth = NA,
-        ..plotheight = NA)
+        ..plotheight = NA,
+        ..addGGPubrPlot = NA,
+        ..ggpubrPlotType = NA,
+        ..ggpubrPalette = NA,
+        ..ggpubrAddStats = NA,
+        ..ggpubrShowLines = NA,
+        ..ggpubrAddPoints = NA,
+        ..showExplanations = NA)
 )
 
 jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -295,9 +363,13 @@ jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
+        warnings = function() private$.items[["warnings"]],
+        notices = function() private$.items[["notices"]],
         interpretation = function() private$.items[["interpretation"]],
+        explanations = function() private$.items[["explanations"]],
         plot = function() private$.items[["plot"]],
-        summary = function() private$.items[["summary"]]),
+        summary = function() private$.items[["summary"]],
+        ggpubrPlot = function() private$.items[["ggpubrPlot"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -307,6 +379,7 @@ jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                 title="Violin Plots to Compare Within Groups",
                 refs=list(
                     "ggstatsplot",
+                    "ggpubr",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
                     "dep1",
@@ -335,25 +408,117 @@ jjwithinstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cla
                     "conflevel",
                     "k",
                     "plotwidth",
-                    "plotheight"))
+                    "plotheight",
+                    "showExplanations"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
                 title="Analysis Guide"))
             self$add(jmvcore::Html$new(
                 options=options,
+                name="warnings",
+                title="Messages",
+                visible=TRUE,
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics",
+                    "clinicalpreset")))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="notices",
+                title="Important Information",
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics",
+                    "clinicalpreset")))
+            self$add(jmvcore::Html$new(
+                options=options,
                 name="interpretation",
-                title="Clinical Interpretation"))
+                title="Clinical Interpretation",
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics")))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="explanations",
+                title="Explanations",
+                clearWith=list(
+                    "showExplanations")))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
                 title="Violin Plots",
                 renderFun=".plot",
-                requiresData=TRUE))
+                requiresData=TRUE,
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics",
+                    "pairwisecomparisons",
+                    "pairwisedisplay",
+                    "padjustmethod",
+                    "effsizetype",
+                    "pointpath",
+                    "centralityplotting",
+                    "centralitytype",
+                    "centralitypath",
+                    "violin",
+                    "boxplot",
+                    "point",
+                    "mytitle",
+                    "xtitle",
+                    "ytitle",
+                    "originaltheme",
+                    "resultssubtitle",
+                    "bfmessage",
+                    "conflevel",
+                    "k",
+                    "plotwidth",
+                    "plotheight")))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="summary",
-                title="Analysis Summary"))}))
+                title="Analysis Summary",
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics",
+                    "pairwisecomparisons",
+                    "centralityplotting",
+                    "pointpath")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="ggpubrPlot",
+                title="Publication-Ready Within-Subjects Plot (ggpubr)",
+                width=650,
+                height=450,
+                renderFun=".plotGGPubr",
+                requiresData=TRUE,
+                visible="(addGGPubrPlot)",
+                clearWith=list(
+                    "dep1",
+                    "dep2",
+                    "dep3",
+                    "dep4",
+                    "typestatistics",
+                    "ggpubrPlotType",
+                    "ggpubrPalette",
+                    "ggpubrAddStats",
+                    "ggpubrShowLines",
+                    "ggpubrAddPoints")))}))
 
 jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjwithinstatsBase",
@@ -497,12 +662,26 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   subtitle.
 #' @param plotwidth Width of the plot in pixels. Default is 650.
 #' @param plotheight Height of the plot in pixels. Default is 450.
+#' @param addGGPubrPlot Add publication-ready plot using ggpubr package for
+#'   within-subjects/paired data.
+#' @param ggpubrPlotType Type of ggpubr plot for within-subjects data. Paired
+#'   plot shows individual trajectories.
+#' @param ggpubrPalette Color palette for ggpubr plot.
+#' @param ggpubrAddStats Add statistical comparison p-values to ggpubr plot.
+#' @param ggpubrShowLines Show individual subject trajectories for paired
+#'   plot.
+#' @param ggpubrAddPoints Overlay individual data points on ggpubr plot.
+#' @param showExplanations Show explanations of the statistical results.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$warnings} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$notices} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$explanations} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$summary} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$ggpubrPlot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
 #' @export
@@ -522,8 +701,8 @@ jjwithinstats <- function(
     pairwisedisplay = "significant",
     padjustmethod = "holm",
     effsizetype = "biased",
-    violin = TRUE,
-    boxplot = TRUE,
+    violin = FALSE,
+    boxplot = FALSE,
     point = FALSE,
     mytitle = "Within Group Comparison",
     xtitle = "",
@@ -534,7 +713,14 @@ jjwithinstats <- function(
     conflevel = 0.95,
     k = 2,
     plotwidth = 650,
-    plotheight = 450) {
+    plotheight = 450,
+    addGGPubrPlot = FALSE,
+    ggpubrPlotType = "boxplot",
+    ggpubrPalette = "jco",
+    ggpubrAddStats = FALSE,
+    ggpubrShowLines = FALSE,
+    ggpubrAddPoints = FALSE,
+    showExplanations = TRUE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjwithinstats requires jmvcore to be installed (restart may be required)")
@@ -579,7 +765,14 @@ jjwithinstats <- function(
         conflevel = conflevel,
         k = k,
         plotwidth = plotwidth,
-        plotheight = plotheight)
+        plotheight = plotheight,
+        addGGPubrPlot = addGGPubrPlot,
+        ggpubrPlotType = ggpubrPlotType,
+        ggpubrPalette = ggpubrPalette,
+        ggpubrAddStats = ggpubrAddStats,
+        ggpubrShowLines = ggpubrShowLines,
+        ggpubrAddPoints = ggpubrAddPoints,
+        showExplanations = showExplanations)
 
     analysis <- jjwithinstatsClass$new(
         options = options,

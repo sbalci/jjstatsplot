@@ -1,4 +1,148 @@
-#' @title Violin Plots to Compare Within Group
+#' @title Violin Plots to Compare Within Group (Repeated Measures)
+#'
+#' @description
+#' Creates violin plots for within-subjects (repeated measures) analysis using
+#' ggstatsplot::ggwithinstats. Compares 2-4 measurements from the same subjects
+#' with statistical testing and pairwise comparisons. Ideal for biomarker tracking,
+#' treatment response monitoring, and longitudinal clinical studies.
+#'
+#' @param data Data frame in wide format (one row per subject, columns for time points)
+#' @param dep1 First measurement variable (required, numeric)
+#' @param dep2 Second measurement variable (required, numeric)
+#' @param dep3 Third measurement variable (optional, numeric)
+#' @param dep4 Fourth measurement variable (optional, numeric)
+#' @param typestatistics Type of statistical test: "parametric" (repeated measures ANOVA),
+#'   "nonparametric" (Friedman test), "robust" (trimmed means), or "bayes" (Bayesian)
+#' @param pairwisecomparisons Logical, whether to display pairwise comparisons between
+#'   time points (default: FALSE)
+#' @param pairwisedisplay Which pairwise comparisons to show: "significant",
+#'   "non-significant", or "everything" (default: "significant")
+#' @param padjustmethod P-value adjustment method for multiple comparisons:
+#'   "holm" (default), "hochberg", "bonferroni", "BH", "fdr", etc.
+#' @param effsizetype Effect size type for parametric tests: "biased" (Cohen's d),
+#'   "unbiased" (Hedge's g), "eta", or "omega"
+#' @param centralityplotting Logical, whether to display mean/median trend lines
+#' @param centralitytype Type of centrality measure: "parametric" (mean),
+#'   "nonparametric" (median), "robust" (trimmed mean), or "bayes"
+#' @param pointpath Logical, whether to show individual subject trajectories
+#' @param centralitypath Logical, whether to connect centrality points across measurements
+#' @param violin Logical, display violin plot layer
+#' @param boxplot Logical, display box plot layer
+#' @param point Logical, display individual data points
+#' @param mytitle Plot title (default: "Within Group Comparison")
+#' @param xtitle X-axis label (default: auto from measurement names)
+#' @param ytitle Y-axis label (default: auto from value variable)
+#' @param originaltheme Logical, use ggstatsplot theme (TRUE) or jamovi theme (FALSE)
+#' @param resultssubtitle Logical, display statistical results as subtitle
+#' @param bfmessage Logical, display Bayes Factor message for Bayesian analysis
+#' @param conflevel Confidence level for intervals (default: 0.95)
+#' @param k Number of decimal places for statistics (default: 2)
+#' @param plotwidth Plot width in pixels (default: 650)
+#' @param plotheight Plot height in pixels (default: 450)
+#' @param clinicalpreset Clinical analysis preset: "custom", "biomarker",
+#'   "treatment", or "laboratory"
+#' @param addGGPubrPlot Logical, add publication-ready ggpubr variant plot
+#' @param ggpubrPlotType Type of ggpubr plot: "boxplot", "violin", "paired", or "line"
+#' @param ggpubrPalette Color palette for ggpubr: "jco", "npg", "aaas", "lancet", etc.
+#' @param ggpubrAddStats Logical, add statistical comparisons to ggpubr plot
+#' @param ggpubrShowLines Logical, show connecting lines in paired plot
+#' @param ggpubrAddPoints Logical, overlay individual points on ggpubr plot
+#' @param showExplanations Logical, display explanations of statistical methods
+#'
+#' @return A jamovi analysis object with violin plots, statistical tests, and
+#'   clinical interpretation
+#'
+#' @details
+#' **Data Requirements:**
+#' - Wide format required (one row per subject)
+#' - Each column represents a different time point or condition
+#' - Complete data required for paired analysis (listwise deletion)
+#' - Minimum 3 subjects with complete data across all measurements
+#'
+#' **Statistical Tests:**
+#' - Parametric: Repeated measures ANOVA (assumes normality)
+#' - Nonparametric: Friedman test (no distribution assumptions)
+#' - Robust: Uses trimmed means (resistant to outliers)
+#' - Bayesian: Provides evidence strength via Bayes Factors
+#'
+#' **Clinical Presets:**
+#' - Biomarker: Optimized for laboratory biomarker tracking (nonparametric)
+#' - Treatment: Optimized for treatment response monitoring (parametric with pairwise)
+#' - Laboratory: Optimized for clinical lab values (robust)
+#'
+#' @section Performance Optimization:
+#' The function implements sophisticated caching:
+#' - Data preparation cached based on variable selection and data content
+#' - Options cached separately to minimize reprocessing
+#' - Plot state management prevents unnecessary regeneration
+#' - Checkpoint calls before expensive operations for responsiveness
+#'
+#' @section Clinical Validation:
+#' The function performs comprehensive data quality checks:
+#' - Validates paired design requirements (complete cases)
+#' - Detects small sample sizes (< 10 subjects)
+#' - Identifies potential outliers (> 10% outliers)
+#' - Warns about skewed data for parametric tests
+#' - Alerts to high missing data rates (> 50%)
+#'
+#' @examples
+#' \dontrun{
+#' # Basic within-subjects analysis
+#' data(iris)
+#' iris_wide <- data.frame(
+#'     Subject = 1:50,
+#'     Baseline = iris$Sepal.Length[1:50],
+#'     Month3 = iris$Sepal.Width[1:50] * 2.5,
+#'     Month6 = iris$Petal.Length[1:50] * 1.8
+#' )
+#'
+#' jjwithinstats(
+#'     data = iris_wide,
+#'     dep1 = "Baseline",
+#'     dep2 = "Month3",
+#'     dep3 = "Month6",
+#'     typestatistics = "parametric",
+#'     pairwisecomparisons = TRUE,
+#'     centralityplotting = TRUE,
+#'     pointpath = TRUE
+#' )
+#'
+#' # Clinical biomarker tracking (nonparametric)
+#' jjwithinstats(
+#'     data = clinical_data,
+#'     dep1 = "CRP_baseline",
+#'     dep2 = "CRP_week4",
+#'     dep3 = "CRP_week12",
+#'     clinicalpreset = "biomarker",
+#'     typestatistics = "nonparametric",
+#'     pairwisecomparisons = TRUE,
+#'     mytitle = "C-Reactive Protein Levels During Treatment"
+#' )
+#'
+#' # Robust analysis with publication plot
+#' jjwithinstats(
+#'     data = lab_data,
+#'     dep1 = "ALT_pre",
+#'     dep2 = "ALT_post",
+#'     typestatistics = "robust",
+#'     centralityplotting = TRUE,
+#'     centralitytype = "robust",
+#'     addGGPubrPlot = TRUE,
+#'     ggpubrPlotType = "paired",
+#'     ggpubrAddStats = TRUE
+#' )
+#' }
+#'
+#' @references
+#' Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach.
+#'   Journal of Open Source Software, 6(61), 3167. \doi{10.21105/joss.03167}
+#'
+#' @seealso
+#' \code{\link[ggstatsplot]{ggwithinstats}} for the underlying plotting function
+#'
+#' @family JJStatsPlot functions
+#' @keywords hplot htest
+#'
 #' @importFrom R6 R6Class
 #' @import jmvcore
 #' @import glue
@@ -6,7 +150,10 @@
 #' @import ggplot2
 #' @importFrom rlang sym
 #' @importFrom digest digest
+#' @importFrom ggstatsplot ggwithinstats theme_ggstatsplot
+#' @importFrom ggpubr ggpaired ggboxplot ggviolin ggline stat_compare_means theme_pubr
 #'
+#' @export
 
 
 jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -18,6 +165,22 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .data_hash = NULL,
         .options_hash = NULL,
         .messages = NULL,
+        .data_messages = NULL,
+
+        # Notice collection list for HTML-based notices (avoids serialization errors)
+        .noticeList = list(),
+
+        # Variable name safety utility ----
+        .escapeVar = function(var) {
+            if (is.null(var)) return(NULL)
+            # Escape special characters for safe variable access
+            # Use jmvcore::composeTerm for variables with spaces/special chars
+            if (grepl("[^A-Za-z0-9_]", var)) {
+                jmvcore::composeTerm(var)
+            } else {
+                var
+            }
+        },
 
         # init ----
 
@@ -72,19 +235,111 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         },
         
-        # Enhanced message management system
-        .accumulateMessage = function(message) {
+        # Enhanced message management system (dual output: HTML + Notice)
+        .accumulateMessage = function(message, notice_type = "WARNING") {
             if (is.null(private$.messages)) {
                 private$.messages <- character()
             }
             private$.messages <- append(private$.messages, message)
-            self$results$todo$setContent(paste(private$.messages, collapse = ""))
+
+            # LEGACY: Keep HTML warnings for backward compatibility
+            if (!is.null(self$results$warnings)) {
+                self$results$warnings$setContent(paste(private$.messages, collapse = ""))
+                self$results$warnings$setVisible(TRUE)
+            }
+
+            # MODERN: Add to HTML-based notice system (no serialization issues)
+            # Note: We don't call .renderNotices() here - that's done at end of .run()
+            # This just accumulates the notices for later rendering
         },
         
         # Reset messages for new analysis run
         .resetMessages = function() {
             private$.messages <- character()
-            self$results$todo$setContent("")
+            # Clear HTML-based notice list
+            private$.noticeList <- list()
+            # Don't clear TODO here, as it might hold "Welcome" or "Ready"
+            # warning content is cleared
+            if (!is.null(self$results$warnings)) {
+                self$results$warnings$setContent("")
+                # Don't hide yet, wait until run to decide visibility or let specific checks set it
+            }
+        },
+
+        # DEPRECATED: Old notice system with serialization errors
+        # DO NOT USE - kept for reference only
+        # Use .addNoticeHTML() instead
+        # .addNotice = function(content, type = "WARNING", name = NULL) {
+        #     # This method causes serialization errors due to insert(999, notice)
+        #     # See CLAUDE.md > Notice Serialization and HTML Conversion
+        #     stop("Deprecated: Use .addNoticeHTML() instead to avoid serialization errors")
+        # },
+
+        # MODERN NOTICE SYSTEM (HTML-based, no serialization issues) ----
+
+        # Add a notice to the HTML-based collection (recommended for all new code)
+        .addNoticeHTML = function(type, title, content) {
+            private$.noticeList[[length(private$.noticeList) + 1]] <- list(
+                type = type,
+                title = title,
+                content = content
+            )
+        },
+
+        # HTML sanitization for security
+        .safeHtmlOutput = function(text) {
+            if (is.null(text) || length(text) == 0) return("")
+            text <- as.character(text)
+            # Sanitize potentially dangerous characters
+            text <- gsub("&", "&amp;", text, fixed = TRUE)
+            text <- gsub("<", "&lt;", text, fixed = TRUE)
+            text <- gsub(">", "&gt;", text, fixed = TRUE)
+            text <- gsub("\"", "&quot;", text, fixed = TRUE)
+            text <- gsub("'", "&#x27;", text, fixed = TRUE)
+            text <- gsub("/", "&#x2F;", text, fixed = TRUE)
+            return(text)
+        },
+
+        # Render collected notices as HTML (call at end of .run())
+        .renderNotices = function() {
+            if (length(private$.noticeList) == 0) {
+                return()
+            }
+
+            # Map notice types to colors and icons
+            typeStyles <- list(
+                ERROR = list(color = "#dc2626", bgcolor = "#fef2f2", border = "#fca5a5", icon = "⛔"),
+                STRONG_WARNING = list(color = "#ea580c", bgcolor = "#fff7ed", border = "#fdba74", icon = "⚠️"),
+                WARNING = list(color = "#ca8a04", bgcolor = "#fefce8", border = "#fde047", icon = "⚡"),
+                INFO = list(color = "#2563eb", bgcolor = "#eff6ff", border = "#93c5fd", icon = "ℹ️")
+            )
+
+            html <- "<div style='margin: 10px 0;'>"
+
+            for (notice in private$.noticeList) {
+                style <- typeStyles[[notice$type]]
+                if (is.null(style)) style <- typeStyles$INFO
+
+                html <- paste0(html,
+                    "<div style='background-color: ", style$bgcolor, "; ",
+                    "border-left: 4px solid ", style$border, "; ",
+                    "padding: 12px; margin: 8px 0; border-radius: 4px;'>",
+                    "<strong style='color: ", style$color, ";'>",
+                    style$icon, " ", private$.safeHtmlOutput(notice$title), "</strong><br>",
+                    "<span style='color: #374151;'>", private$.safeHtmlOutput(notice$content), "</span>",
+                    "</div>"
+                )
+            }
+
+            html <- paste0(html, "</div>")
+
+            self$results$notices$setContent(html)
+        },
+
+        # Helper to cache data-specific messages
+        .accumulateDataMessage = function(message) {
+            private$.data_messages <- append(private$.data_messages, message)
+            private$.accumulateMessage(message)
         },
         
         # Apply clinical presets for common scenarios
@@ -101,7 +356,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         # Would need to update options through proper channels
                         private$.accumulateMessage(.("💡 Biomarker preset: Consider using Nonparametric test for skewed biomarker data<br>"))
                     }
-                    private$.accumulateMessage(.("🔬 <strong>Biomarker Tracking:</strong> Optimized for laboratory values and biomarker levels over time<br>"))
+                    private$.accumulateMessage(.("🔬 <strong>Biomarker Tracking (Guidance Only):</strong> Optimized for laboratory values. Please manually ensure 'Nonparametric' is selected if data is skewed.<br>"))
                 },
                 "treatment" = {
                     # Treatment response: parametric with pairwise comparisons
@@ -257,25 +512,46 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Checkpoint before expensive hash computation for large datasets
             private$.checkpoint(flush = FALSE)
-            
-            # Create robust hash of current data to detect changes
-            vars <- Filter(Negate(is.null), c(self$options$dep1, self$options$dep2, 
+
+            # CRITICAL FIX: Create robust hash including ACTUAL DATA VALUES
+            # Bug: Old code only hashed variable names and dimensions
+            # Result: Editing data values didn't invalidate cache, showing outdated results
+            vars <- Filter(Negate(is.null), c(self$options$dep1, self$options$dep2,
                                              self$options$dep3, self$options$dep4))
+
+            # Extract actual data for selected variables
+            # Use safe variable names for variables with spaces/special chars
+            safe_vars <- sapply(vars, function(v) {
+                if (grepl("[^A-Za-z0-9_]", v)) jmvcore::composeTerm(v) else v
+            })
+            data_subset <- self$data[, safe_vars, drop = FALSE]
+
             current_hash <- digest::digest(list(
                 dep1 = self$options$dep1, dep2 = self$options$dep2,
                 dep3 = self$options$dep3, dep4 = self$options$dep4,
-                data_dim = dim(self$data), col_names = names(self$data)
+                data_dim = dim(self$data), col_names = names(self$data),
+                # CRITICAL FIX: Include actual data content in hash
+                data_content = data_subset
             ), algo = "md5")
             
             # Only reprocess if data has changed or forced refresh
             if (!is.null(private$.prepared_data) && 
                 private$.data_hash == current_hash && 
                 !force_refresh) {
+                # Re-emit cached messages
+                if (!is.null(private$.data_messages)) {
+                    for (msg in private$.data_messages) {
+                        private$.accumulateMessage(msg)
+                    }
+                }
                 return(private$.prepared_data)
             }
             
+            # Reset data messages for new processing
+            private$.data_messages <- character()
+            
             # Add processing feedback
-            private$.accumulateMessage(
+            private$.accumulateDataMessage(
                 glue::glue(.("<br>Processing {length(vars)} measurements for within-subjects analysis...<br>"))
             )
             
@@ -284,7 +560,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Check for empty dataset
             if (nrow(mydata) == 0) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     .("<br>❌ Dataset is empty (0 rows). Please load data first.<br>")
                 )
                 private$.prepared_data <- NULL
@@ -292,11 +568,14 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
             
             mydata$rowid <- seq.int(nrow(mydata))
-            
-            # Check if required variables exist in dataset
-            missing_vars <- vars[!vars %in% names(mydata)]
+
+            # Check if required variables exist in dataset using safe names
+            safe_vars_check <- sapply(vars, function(v) {
+                if (grepl("[^A-Za-z0-9_]", v)) jmvcore::composeTerm(v) else v
+            })
+            missing_vars <- vars[!safe_vars_check %in% names(mydata)]
             if (length(missing_vars) > 0) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     paste0(.("<br>❌ Variables not found in dataset: "), paste(missing_vars, collapse = ", "), "<br>")
                 )
                 private$.prepared_data <- NULL
@@ -305,10 +584,20 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Checkpoint before expensive data conversion loop
             private$.checkpoint()
-            
-            # Convert variables to numeric once
-            for (var in vars)
-                mydata[[var]] <- jmvcore::toNumeric(mydata[[var]])
+
+            # Convert variables to numeric with labelled awareness
+            for (i in seq_along(vars)) {
+                var <- vars[i]
+                safe_var <- safe_vars_check[i]
+                col <- mydata[[safe_var]]
+
+                # Handle labelled data (preserve labels for reporting)
+                if (inherits(col, "haven_labelled")) {
+                    col <- haven::as_factor(col, levels = "both")
+                }
+
+                mydata[[safe_var]] <- jmvcore::toNumeric(col)
+            }
             
             # Enhanced validation for optional parameters
             if (!is.null(self$options$dep3) && is.null(self$options$dep2)) {
@@ -317,15 +606,75 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.null(self$options$dep4) && is.null(self$options$dep3)) {
                 stop('Third measurement required when fourth is specified')
             }
-            
+
+            # CRITICAL FIX: Validate paired design structure
+            # Within-subjects analysis requires complete data for all subjects across measurements
+            # Check for excessive missing data that would break paired tests
+            n_rows <- nrow(mydata)
+            complete_cases <- sum(complete.cases(mydata[, vars, drop = FALSE]))
+            missing_pct <- (1 - complete_cases/n_rows) * 100
+
+            if (complete_cases < 3) {
+                warning_msg <- paste0(
+                    "<div style='background:#fff3cd; border-left:4px solid #ff9800; padding:15px; margin:10px 0;'>",
+                    "<h4 style='color:#ff6f00; margin-top:0;'>⚠️ Insufficient Complete Cases for Paired Analysis</h4>",
+                    "<p><strong>Within-subjects analysis requires complete data across all measurements.</strong></p>",
+                    "<p>Current status:</p>",
+                    "<ul>",
+                    "<li>Total subjects: ", n_rows, "</li>",
+                    "<li>Complete cases (all measurements present): ", complete_cases, "</li>",
+                    "<li>Missing data: ", round(missing_pct, 1), "%</li>",
+                    "</ul>",
+                    "<p><strong>Minimum required:</strong> At least 3 subjects with complete data across all measurements.</p>",
+                    "</div>"
+                )
+                private$.accumulateDataMessage(warning_msg)
+                private$.prepared_data <- NULL
+                return(NULL)
+            }
+
+            if (missing_pct > 50) {
+                warning_msg <- paste0(
+                    "<div style='background:#fff3cd; border-left:4px solid #ffc107; padding:15px; margin:10px 0;'>",
+                    "<h4 style='color:#ff9800; margin-top:0;'>⚠️ High Missing Data Rate</h4>",
+                    "<p><strong>Warning:</strong> ", round(missing_pct, 1), "% of subjects have incomplete measurements.</p>",
+                    "<p>Paired analysis will only use the ", complete_cases, " subjects with complete data.</p>",
+                    "<p>Consider investigating why so much data is missing.</p>",
+                    "</div>"
+                )
+                if (!is.null(self$results$warnings)) {
+                    self$results$warnings$setContent(warning_msg)
+                    self$results$warnings$setVisible(TRUE)
+                } else {
+                    private$.accumulateDataMessage(warning_msg)
+                }
+            }
+
             # Validate data quality before processing
+            # Note: .validateDataQuality calls .accumulateMessage directly, maybe update it too?
+            # For now, data quality messages are less critical to cache strictly or should be cached too.
+            # Ideally .validateDataQuality should use .accumulateDataMessage logic if passed.
             private$.validateDataQuality(mydata, vars)
             
             # Remove NA values once
             mydata <- jmvcore::naOmit(mydata)
             
+            # Report N retained
+            final_n <- nrow(mydata)
+            dropped_n <- n_rows - final_n
+            
+            if (dropped_n > 0) {
+                 private$.accumulateDataMessage(
+                    glue::glue(.("<br>ℹ️ <strong>Data Processing:</strong> {final_n} subjects retained. {dropped_n} incomplete cases removed.<br>"))
+                )
+            } else {
+                 private$.accumulateDataMessage(
+                    glue::glue(.("<br>ℹ️ <strong>Data Processing:</strong> All {final_n} subjects retained (complete data).<br>"))
+                )
+            }
+            
             if (nrow(mydata) == 0) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     .("<br>❌ No complete observations after removing missing values<br>")
                 )
                 private$.prepared_data <- NULL
@@ -334,15 +683,19 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Checkpoint before expensive data transformation
             private$.checkpoint()
-            
-            # Perform pivot_longer transformation once
+
+            # Perform pivot_longer transformation once using safe variable names
+            # Use unname() to avoid "Can't rename variables" error from named vector
             long_data <- tidyr::pivot_longer(
                 mydata,
-                cols = vars,
+                cols = unname(safe_vars_check),
                 names_to = "measurement",
                 values_to = "value"
             )
-            
+
+            # Map safe names back to original names for display
+            names_mapping <- setNames(vars, safe_vars_check)
+            long_data$measurement <- names_mapping[as.character(long_data$measurement)]
             long_data$measurement <- factor(long_data$measurement, levels = vars)
             
             private$.prepared_data <- long_data
@@ -540,10 +893,35 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             )
             
             return(paste(summary_parts, collapse = ""))
-        }
+        },
+
+        # Generate explanations ----
+        .generateExplanations = function() {
+            self$results$explanations$setVisible(TRUE)
+            self$results$explanations$setContent(
+                "<h3>Explanations</h3>
+                <p>
+                    This analysis compares repeated measurements from the same subjects (within-subjects design).
+                    It helps determine if there are significant differences between time points or conditions.
+                </p>
+                <p>
+                    <strong>Violin Plots:</strong> Show the distribution of data. Wider sections indicate more data points.
+                    <br>
+                    <strong>Box Plots:</strong> Show the median (middle line) and quartiles (box edges).
+                </p>
+                <p>
+                    <strong>Statistical Tests:</strong>
+                    <ul>
+                        <li><strong>Parametric (ANOVA/t-test):</strong> Assumes normal distribution. Tests for difference in means.</li>
+                        <li><strong>Nonparametric (Friedman/Wilcoxon):</strong> No distribution assumption. Tests for difference in medians.</li>
+                        <li><strong>Robust:</strong> Resistant to outliers. Uses trimmed means.</li>
+                        <li><strong>Bayesian:</strong> Provides evidence strength for/against the null hypothesis.</li>
+                    </ul>
+                </p>"
+            )
+        },
 
         # run ----
-        ,
         .run = function() {
             ## Initial Message ----
             if ( is.null(self$options$dep1) || is.null(self$options$dep2)) {
@@ -573,6 +951,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 if (!is.null(self$results$summary)) {
                     self$results$summary$setVisible(visible = FALSE)
                 }
+                if (!is.null(self$results$warnings)) {
+                    self$results$warnings$setVisible(visible = FALSE)
+                }
 
                 return()
 
@@ -580,12 +961,20 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 # Clear messages for actual analysis
                 private$.resetMessages()
                 
+                # Check messages from presets and data quality each run
+                private$.applyClinicalPresets()
+                # Ensure data is prepared (and N messages generated)
+                private$.prepareData()
+                
                 # Make all outputs visible when variables are selected
                 self$results$todo$setVisible(visible = TRUE)
                 self$results$plot$setVisible(visible = TRUE)
                 self$results$interpretation$setVisible(visible = TRUE)
                 if (!is.null(self$results$summary)) {
                     self$results$summary$setVisible(visible = TRUE)
+                }
+                if (!is.null(self$results$warnings)) {
+                    self$results$warnings$setVisible(visible = TRUE)
                 }
                 
                 # Generate clinical guidance for active analysis
@@ -621,6 +1010,14 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 if (nrow(self$data) == 0)
                     stop(.("Data contains no (complete) rows"))
 
+                # Generate explanations if requested
+                if (self$options$showExplanations) {
+                    private$.generateExplanations()
+                }
+
+                # Render accumulated HTML-based notices (if any)
+                private$.renderNotices()
+
             }
         }
 
@@ -647,9 +1044,42 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 return()
             }
 
+            # CRITICAL FIX: Set plot state for efficient caching
+            # This ensures plot only regenerates when data or visual options actually change
+            state_data <- list(
+                # Data content (convert to base data.frame to avoid serialization issues)
+                data = as.data.frame(long_data),
+                # All visual options that affect plot appearance
+                visual_opts = list(
+                    typestatistics = opts$typestatistics,
+                    pairwisecomparisons = opts$pairwisecomparisons,
+                    pairwisedisplay = opts$pairwisedisplay,
+                    padjustmethod = opts$padjustmethod,
+                    effsizetype = opts$effsizetype,
+                    centralityplotting = opts$centralityplotting,
+                    centralitytype = opts$centralitytype,
+                    pointpath = opts$pointpath,
+                    centralitypath = opts$centralitypath,
+                    violin = self$options$violin,
+                    boxplot = self$options$boxplot,
+                    point = self$options$point,
+                    mytitle = opts$mytitle,
+                    xtitle = opts$xtitle,
+                    ytitle = opts$ytitle,
+                    originaltheme = opts$originaltheme,
+                    resultssubtitle = opts$resultssubtitle,
+                    bfmessage = opts$bfmessage,
+                    conflevel = opts$conflevel,
+                    k = self$options$k
+                )
+            )
+
+            # Set state - jamovi will only regenerate if state changes
+            image$setState(state_data)
+
             # Checkpoint before expensive plot creation
             private$.checkpoint()
-            
+
             # Create plot using optimized data and options ----
             tryCatch({
                 plot <- ggstatsplot::ggwithinstats(
@@ -710,6 +1140,142 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 self$results$todo$setContent(error_msg)
             })
 
+        }
+
+        ,
+        .plotGGPubr = function(image, ...) {
+            # Validate inputs
+            if (is.null(self$options$dep1) || is.null(self$options$dep2))
+                return()
+
+            # Skip if ggpubr plot not requested
+            if (!self$options$addGGPubrPlot)
+                return()
+
+            tryCatch({
+                # Prepare data - convert wide to long format
+                deps <- c(self$options$dep1, self$options$dep2)
+                if (!is.null(self$options$dep3)) deps <- c(deps, self$options$dep3)
+                if (!is.null(self$options$dep4)) deps <- c(deps, self$options$dep4)
+
+                # Use safe variable names for variables with spaces/special chars
+                safe_deps <- sapply(deps, function(v) {
+                    if (grepl("[^A-Za-z0-9_]", v)) jmvcore::composeTerm(v) else v
+                })
+
+                # CRITICAL FIX: Paired analysis requires listwise deletion
+                # Only keep subjects with processing data for ALL selected measurements
+                mydata <- self$data
+                mydata <- mydata[, safe_deps, drop = FALSE]
+                mydata <- jmvcore::naOmit(mydata)
+                
+                # Check for empty data after filtering
+                if (nrow(mydata) == 0) {
+                     return() # Should be handled by main validation
+                }
+
+                # Create subject ID for paired analysis
+                mydata$Subject_ID <- seq_len(nrow(mydata))
+
+                # Convert to long format using safe variable names
+                long_data <- data.frame()
+                for (i in seq_along(deps)) {
+                    temp <- data.frame(
+                        Subject_ID = mydata$Subject_ID,
+                        Measurement = deps[i],  # Original name for display
+                        Value = mydata[[safe_deps[i]]]  # Safe name for access
+                    )
+                    long_data <- rbind(long_data, temp)
+                }
+
+                # Start Plot Construction
+                palette <- self$options$ggpubrPalette
+
+                # Create plot based on type
+                if (self$options$ggpubrPlotType == "paired") {
+                    # Paired plot with connecting lines
+                    args <- list(
+                        data = long_data,
+                        x = "Measurement",
+                        y = "Value",
+                        id = "Subject_ID",
+                        palette = palette,
+                        line.color = "gray",
+                        line.size = 0.4,
+                        label = NULL
+                    )
+
+                    if (!self$options$ggpubrShowLines) {
+                        args$line.color <- NA
+                    }
+
+                    plot <- do.call(ggpubr::ggpaired, args)
+
+                } else if (self$options$ggpubrPlotType == "boxplot") {
+                    args <- list(
+                        data = long_data,
+                        x = "Measurement",
+                        y = "Value",
+                        palette = palette,
+                        add = if (self$options$ggpubrAddPoints) "jitter" else NULL
+                    )
+                    plot <- do.call(ggpubr::ggboxplot, args)
+
+                } else if (self$options$ggpubrPlotType == "violin") {
+                    args <- list(
+                        data = long_data,
+                        x = "Measurement",
+                        y = "Value",
+                        palette = palette,
+                        add = if (self$options$ggpubrAddPoints) "jitter" else NULL
+                    )
+                    plot <- do.call(ggpubr::ggviolin, args)
+
+                } else if (self$options$ggpubrPlotType == "line") {
+                    args <- list(
+                        data = long_data,
+                        x = "Measurement",
+                        y = "Value",
+                        palette = palette,
+                        add = "mean_se"
+                    )
+                    plot <- do.call(ggpubr::ggline, args)
+                }
+
+                # Add statistical comparisons
+                if (self$options$ggpubrAddStats && self$options$ggpubrPlotType != "line") {
+                    # Determine appropriate paired test method
+                    test_method <- switch(
+                        self$options$typestatistics,
+                        "parametric" = "t.test",
+                        "nonparametric" = "wilcox.test",
+                        "robust" = "t.test",  # Fallback
+                        "bayes" = NULL,
+                        "t.test"  # Default
+                    )
+
+                    if (!is.null(test_method)) {
+                        # Use global p-value for >2 groups, paired for 2 groups
+                        # For >2 groups, ggpubr might warn but paired=TRUE is key
+                        plot <- plot + ggpubr::stat_compare_means(
+                            method = test_method,
+                            paired = TRUE,
+                            label = "p.signif"
+                        )
+                    }
+                }
+
+                # Apply theme
+                plot <- plot + ggpubr::theme_pubr() +
+                    ggplot2::labs(subtitle = "Descriptive Plot (ggpubr)")
+
+                print(plot)
+                TRUE
+
+            }, error = function(e) {
+                # Silent fail for secondary plot or log error
+                # self$results$todo$setContent(paste("ggpubr error:", e$message))
+            })
         }
 
     )

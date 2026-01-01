@@ -17,12 +17,17 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             label = "percentage",
             digits = 2,
             conflevel = 0.95,
-            proportiontest = TRUE,
-            bfmessage = TRUE,
+            proportiontest = FALSE,
+            bfmessage = FALSE,
             messages = FALSE,
             clinicalpreset = "custom",
-            showexplanations = TRUE,
-            resultssubtitle = FALSE, ...) {
+            showexplanations = FALSE,
+            resultssubtitle = FALSE,
+            showSummary = FALSE,
+            showAssumptions = FALSE,
+            showInterpretation = FALSE,
+            addGGPubrDonut = FALSE,
+            ggpubrDonutPalette = "jco", ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -108,11 +113,11 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..proportiontest <- jmvcore::OptionBool$new(
                 "proportiontest",
                 proportiontest,
-                default=TRUE)
+                default=FALSE)
             private$..bfmessage <- jmvcore::OptionBool$new(
                 "bfmessage",
                 bfmessage,
-                default=TRUE)
+                default=FALSE)
             private$..messages <- jmvcore::OptionBool$new(
                 "messages",
                 messages,
@@ -129,11 +134,35 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..showexplanations <- jmvcore::OptionBool$new(
                 "showexplanations",
                 showexplanations,
-                default=TRUE)
+                default=FALSE)
             private$..resultssubtitle <- jmvcore::OptionBool$new(
                 "resultssubtitle",
                 resultssubtitle,
                 default=FALSE)
+            private$..showSummary <- jmvcore::OptionBool$new(
+                "showSummary",
+                showSummary,
+                default=FALSE)
+            private$..showAssumptions <- jmvcore::OptionBool$new(
+                "showAssumptions",
+                showAssumptions,
+                default=FALSE)
+            private$..showInterpretation <- jmvcore::OptionBool$new(
+                "showInterpretation",
+                showInterpretation,
+                default=FALSE)
+            private$..addGGPubrDonut <- jmvcore::OptionBool$new(
+                "addGGPubrDonut",
+                addGGPubrDonut,
+                default=FALSE)
+            private$..ggpubrDonutPalette <- jmvcore::OptionList$new(
+                "ggpubrDonutPalette",
+                ggpubrDonutPalette,
+                options=list(
+                    "jco",
+                    "npg",
+                    "lancet"),
+                default="jco")
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
@@ -152,6 +181,11 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..clinicalpreset)
             self$.addOption(private$..showexplanations)
             self$.addOption(private$..resultssubtitle)
+            self$.addOption(private$..showSummary)
+            self$.addOption(private$..showAssumptions)
+            self$.addOption(private$..showInterpretation)
+            self$.addOption(private$..addGGPubrDonut)
+            self$.addOption(private$..ggpubrDonutPalette)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -170,7 +204,12 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         messages = function() private$..messages$value,
         clinicalpreset = function() private$..clinicalpreset$value,
         showexplanations = function() private$..showexplanations$value,
-        resultssubtitle = function() private$..resultssubtitle$value),
+        resultssubtitle = function() private$..resultssubtitle$value,
+        showSummary = function() private$..showSummary$value,
+        showAssumptions = function() private$..showAssumptions$value,
+        showInterpretation = function() private$..showInterpretation$value,
+        addGGPubrDonut = function() private$..addGGPubrDonut$value,
+        ggpubrDonutPalette = function() private$..ggpubrDonutPalette$value),
     private = list(
         ..dep = NA,
         ..group = NA,
@@ -188,7 +227,12 @@ jjpiestatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..messages = NA,
         ..clinicalpreset = NA,
         ..showexplanations = NA,
-        ..resultssubtitle = NA)
+        ..resultssubtitle = NA,
+        ..showSummary = NA,
+        ..showAssumptions = NA,
+        ..showInterpretation = NA,
+        ..addGGPubrDonut = NA,
+        ..ggpubrDonutPalette = NA)
 )
 
 jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -203,7 +247,8 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         todo = function() private$.items[["todo"]],
         plot4 = function() private$.items[["plot4"]],
         plot2 = function() private$.items[["plot2"]],
-        plot1 = function() private$.items[["plot1"]]),
+        plot1 = function() private$.items[["plot1"]],
+        donutPlot = function() private$.items[["donutPlot"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -212,6 +257,7 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Pie Charts",
                 refs=list(
+                    "ggplot2",
                     "ggstatsplot",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
@@ -231,7 +277,10 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "originaltheme",
                     "resultssubtitle",
                     "clinicalpreset",
-                    "showexplanations"))
+                    "showexplanations",
+                    "showSummary",
+                    "showAssumptions",
+                    "showInterpretation"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="about",
@@ -241,16 +290,17 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 options=options,
                 name="summary",
                 title="Analysis Summary",
-                visible="(dep)"))
+                visible="(showSummary)"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="assumptions",
-                title="Statistical Assumptions & Warnings"))
+                title="Statistical Assumptions & Warnings",
+                visible="(showAssumptions)"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="interpretation",
                 title="Results Interpretation",
-                visible="(dep)"))
+                visible="(showInterpretation)"))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="report",
@@ -286,7 +336,16 @@ jjpiestatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 height=300,
                 renderFun=".plot1",
                 requiresData=TRUE,
-                visible="(dep)"))}))
+                visible="(dep)"))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="donutPlot",
+                title="Donut Chart",
+                width=500,
+                height=400,
+                renderFun=".plotDonut",
+                requiresData=TRUE,
+                visible="(addGGPubrDonut)"))}))
 
 jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "jjpiestatsBase",
@@ -377,7 +436,7 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param digits Number of digits after decimal point for statistical results.
 #' @param conflevel Confidence/credible interval level.
 #' @param proportiontest Decides whether proportion test for x variable is to
-#'   be  carried out for each level of y.
+#'   be carried out for each level of y.
 #' @param bfmessage Display Bayes Factor in favor of the null hypothesis.
 #'   Only relevant for parametric test.
 #' @param messages Display statistical messages in console.  Disabling
@@ -386,12 +445,22 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   scenarios.  Automatically sets appropriate statistical methods and
 #'   parameters.
 #' @param showexplanations Display detailed explanations of statistical
-#'   methods, assumptions,  and clinical interpretations to guide analysis and
+#'   methods, assumptions, and clinical interpretations to guide analysis and
 #'   result interpretation.
 #' @param resultssubtitle Whether to display statistical test results as
 #'   subtitle in the pie chart. Shows test statistics, p-values, effect sizes,
 #'   and confidence intervals for categorical association tests. Provides
 #'   detailed statistical summary.
+#' @param showSummary Display natural-language summary paragraph with key
+#'   findings suitable for copying into reports and publications.
+#' @param showAssumptions Display statistical assumptions panel with detected
+#'   violations, warnings about chi-square expected counts, and Fisher exact
+#'   test recommendations.
+#' @param showInterpretation Display effect size interpretation guidelines
+#'   (Cramér's V thresholds), clinical context based on analysis preset, and
+#'   methodological notes.
+#' @param addGGPubrDonut Add modern donut chart variant using ggpubr.
+#' @param ggpubrDonutPalette Color palette for donut chart.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$about} \tab \tab \tab \tab \tab a html \cr
@@ -403,6 +472,7 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   \code{results$plot4} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot2} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plot1} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$donutPlot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
 #' @export
@@ -419,12 +489,17 @@ jjpiestats <- function(
     label = "percentage",
     digits = 2,
     conflevel = 0.95,
-    proportiontest = TRUE,
-    bfmessage = TRUE,
+    proportiontest = FALSE,
+    bfmessage = FALSE,
     messages = FALSE,
     clinicalpreset = "custom",
-    showexplanations = TRUE,
-    resultssubtitle = FALSE) {
+    showexplanations = FALSE,
+    resultssubtitle = FALSE,
+    showSummary = FALSE,
+    showAssumptions = FALSE,
+    showInterpretation = FALSE,
+    addGGPubrDonut = FALSE,
+    ggpubrDonutPalette = "jco") {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjpiestats requires jmvcore to be installed (restart may be required)")
@@ -462,7 +537,12 @@ jjpiestats <- function(
         messages = messages,
         clinicalpreset = clinicalpreset,
         showexplanations = showexplanations,
-        resultssubtitle = resultssubtitle)
+        resultssubtitle = resultssubtitle,
+        showSummary = showSummary,
+        showAssumptions = showAssumptions,
+        showInterpretation = showInterpretation,
+        addGGPubrDonut = addGGPubrDonut,
+        ggpubrDonutPalette = ggpubrDonutPalette)
 
     analysis <- jjpiestatsClass$new(
         options = options,

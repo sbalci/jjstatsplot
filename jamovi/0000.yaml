@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.32.64
+version: 0.0.32.66
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2025-12-31'
+date: '2026-01-01'
 type: R
 description: >-
   Comprehensive statistical visualization module for jamovi featuring 17+
@@ -253,7 +253,7 @@ analyses:
     ns: jjstatsplot
     category: analyses
     menuGroup: JJStatsPlot
-    menuSubgroup: Auto Visualization
+    menuSubgroup: All-In-One
     menuTitle: Automatic Plot Selection
     menuSubtitle: Automatic Plot Selection Based on Variable Types
     description: >-

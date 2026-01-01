@@ -31,6 +31,7 @@ clearWith:
     - k
     - plotwidth
     - plotheight
+    - showExplanations
 
 
 items:
@@ -39,26 +40,118 @@ items:
       title: Analysis Guide
       type:  Html
 
+
+    - name: warnings
+      title: Messages
+      type: Html
+      visible: true
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+        - clinicalpreset
+
+    # Notice outputs converted to HTML to avoid serialization errors
+    - name: notices
+      title: Important Information
+      type: Html
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+        - clinicalpreset
+
     - name: interpretation
       title: Clinical Interpretation
       type: Html
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+
+    - name: explanations
+      title: Explanations
+      type: Html
+      clearWith:
+        - showExplanations
 
     - name: plot
       title: 'Violin Plots'
       type: Image
       renderFun: .plot
       requiresData: true
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+        - pairwisecomparisons
+        - pairwisedisplay
+        - padjustmethod
+        - effsizetype
+        - pointpath
+        - centralityplotting
+        - centralitytype
+        - centralitypath
+        - violin
+        - boxplot
+        - point
+        - mytitle
+        - xtitle
+        - ytitle
+        - originaltheme
+        - resultssubtitle
+        - bfmessage
+        - conflevel
+        - k
+        - plotwidth
+        - plotheight
 
     - name: summary
       title: Analysis Summary
       type: Html
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+        - pairwisecomparisons
+        - centralityplotting
+        - pointpath
 
+    - name: ggpubrPlot
+      title: 'Publication-Ready Within-Subjects Plot (ggpubr)'
+      type: Image
+      width: 650
+      height: 450
+      renderFun: .plotGGPubr
+      requiresData: true
+      visible: (addGGPubrPlot)
+      clearWith:
+        - dep1
+        - dep2
+        - dep3
+        - dep4
+        - typestatistics
+        - ggpubrPlotType
+        - ggpubrPalette
+        - ggpubrAddStats
+        - ggpubrShowLines
+        - ggpubrAddPoints
 
 
 
 refs:
     - ggstatsplot
+    - ggpubr
     - ClinicoPathJamoviModule
-
 
 ...

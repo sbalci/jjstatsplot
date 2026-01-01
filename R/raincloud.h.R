@@ -25,12 +25,15 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             plot_title = "Raincloud Plot - Distribution Visualization",
             x_label = "",
             y_label = "",
-            show_statistics = TRUE,
+            show_statistics = FALSE,
             show_outliers = FALSE,
             outlier_method = "iqr",
             normality_test = FALSE,
             comparison_test = FALSE,
-            comparison_method = "auto", ...) {
+            comparison_method = "auto",
+            adjust_method = "none",
+            effect_size = FALSE,
+            log_transform = FALSE, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -180,7 +183,7 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..show_statistics <- jmvcore::OptionBool$new(
                 "show_statistics",
                 show_statistics,
-                default=TRUE)
+                default=FALSE)
             private$..show_outliers <- jmvcore::OptionBool$new(
                 "show_outliers",
                 show_outliers,
@@ -211,6 +214,23 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "anova",
                     "kruskal"),
                 default="auto")
+            private$..adjust_method <- jmvcore::OptionList$new(
+                "adjust_method",
+                adjust_method,
+                options=list(
+                    "none",
+                    "holm",
+                    "bonferroni",
+                    "BH"),
+                default="none")
+            private$..effect_size <- jmvcore::OptionBool$new(
+                "effect_size",
+                effect_size,
+                default=FALSE)
+            private$..log_transform <- jmvcore::OptionBool$new(
+                "log_transform",
+                log_transform,
+                default=FALSE)
 
             self$.addOption(private$..dep_var)
             self$.addOption(private$..group_var)
@@ -237,6 +257,9 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..normality_test)
             self$.addOption(private$..comparison_test)
             self$.addOption(private$..comparison_method)
+            self$.addOption(private$..adjust_method)
+            self$.addOption(private$..effect_size)
+            self$.addOption(private$..log_transform)
         }),
     active = list(
         dep_var = function() private$..dep_var$value,
@@ -263,7 +286,10 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         outlier_method = function() private$..outlier_method$value,
         normality_test = function() private$..normality_test$value,
         comparison_test = function() private$..comparison_test$value,
-        comparison_method = function() private$..comparison_method$value),
+        comparison_method = function() private$..comparison_method$value,
+        adjust_method = function() private$..adjust_method$value,
+        effect_size = function() private$..effect_size$value,
+        log_transform = function() private$..log_transform$value),
     private = list(
         ..dep_var = NA,
         ..group_var = NA,
@@ -289,7 +315,10 @@ raincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..outlier_method = NA,
         ..normality_test = NA,
         ..comparison_test = NA,
-        ..comparison_method = NA)
+        ..comparison_method = NA,
+        ..adjust_method = NA,
+        ..effect_size = NA,
+        ..log_transform = NA)
 )
 
 raincloudResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -472,6 +501,12 @@ raincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param comparison_test If TRUE, performs statistical tests to compare
 #'   groups.
 #' @param comparison_method Statistical test method for comparing groups.
+#' @param adjust_method Adjustment method applied to the reported p-value
+#'   (useful for multiple comparisons).
+#' @param effect_size If TRUE and two groups are present, reports Cohen's d
+#'   effect size.
+#' @param log_transform Apply log10 transformation to the Y-axis (requires all
+#'   positive values).
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -505,12 +540,15 @@ raincloud <- function(
     plot_title = "Raincloud Plot - Distribution Visualization",
     x_label = "",
     y_label = "",
-    show_statistics = TRUE,
+    show_statistics = FALSE,
     show_outliers = FALSE,
     outlier_method = "iqr",
     normality_test = FALSE,
     comparison_test = FALSE,
-    comparison_method = "auto") {
+    comparison_method = "auto",
+    adjust_method = "none",
+    effect_size = FALSE,
+    log_transform = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("raincloud requires jmvcore to be installed (restart may be required)")
@@ -553,7 +591,10 @@ raincloud <- function(
         outlier_method = outlier_method,
         normality_test = normality_test,
         comparison_test = comparison_test,
-        comparison_method = comparison_method)
+        comparison_method = comparison_method,
+        adjust_method = adjust_method,
+        effect_size = effect_size,
+        log_transform = log_transform)
 
     analysis <- raincloudClass$new(
         options = options,

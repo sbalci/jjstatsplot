@@ -13,7 +13,7 @@ statsplot2(
   distribution = "p",
   alluvsty = "t1",
   excl = FALSE,
-  sampleLarge = TRUE
+  sampleLarge = FALSE
 )
 }
 \arguments{
@@ -47,7 +47,7 @@ rows) to 5,000 rows for improved performance.}
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
-\code{results$ExplanationMessage} \tab \tab \tab \tab \tab a preformatted \cr
+\code{results$ExplanationMessage} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 }
 }

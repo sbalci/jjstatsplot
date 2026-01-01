@@ -25,12 +25,15 @@ raincloud(
   plot_title = "Raincloud Plot - Distribution Visualization",
   x_label = "",
   y_label = "",
-  show_statistics = TRUE,
+  show_statistics = FALSE,
   show_outliers = FALSE,
   outlier_method = "iqr",
   normality_test = FALSE,
   comparison_test = FALSE,
-  comparison_method = "auto"
+  comparison_method = "auto",
+  adjust_method = "none",
+  effect_size = FALSE,
+  log_transform = FALSE
 )
 }
 \arguments{
@@ -99,6 +102,15 @@ each group.}
 groups.}
 
 \item{comparison_method}{Statistical test method for comparing groups.}
+
+\item{adjust_method}{Adjustment method applied to the reported p-value
+(useful for multiple comparisons).}
+
+\item{effect_size}{If TRUE and two groups are present, reports Cohen's d
+effect size.}
+
+\item{log_transform}{Apply log10 transformation to the Y-axis (requires all
+positive values).}
 }
 \value{
 A results object containing:

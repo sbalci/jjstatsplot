@@ -12,7 +12,7 @@ jwaffle(
   rows = 5,
   flip = FALSE,
   color_palette = "default",
-  show_legend = TRUE,
+  show_legend = FALSE,
   mytitle = "",
   legendtitle = "",
   showSummaries = FALSE,
@@ -60,6 +60,7 @@ contexts.}
 A results object containing:
 \tabular{llllll}{
 \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$warnings} \tab \tab \tab \tab \tab a html \cr
 \code{results$analysisSummary} \tab \tab \tab \tab \tab a html \cr
 \code{results$plot} \tab \tab \tab \tab \tab an image \cr
 \code{results$methodExplanation} \tab \tab \tab \tab \tab a html \cr

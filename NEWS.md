@@ -1,3 +1,77 @@
+# jjstatsplot 0.0.32.66 (2026-01-01)
+
+## New Features
+
+### ggpubr Integration
+- **NEW**: Added publication-ready plot variants using `ggpubr` package across multiple analyses
+  - **jjwithinstats**: Added ggpubr plot option for within-subjects/paired data
+    - Multiple plot types: boxplot, violin, paired (with connecting lines), line (mean trajectory)
+    - Journal-specific color palettes: JCO, NPG, AAAS, Lancet, JAMA, NEJM
+    - Options for statistical comparisons, individual trajectories, and overlay points
+  - **jjpiestats**: Added modern donut chart variant
+    - Publication-ready donut charts with journal color palettes
+    - Clean, professional aesthetic for reports and publications
+
+### Enhanced Clinical Workflow Features
+
+#### Ridge Plots (jjridges)
+- **NEW**: Clinical analysis presets with automatic configuration
+  - Biomarker Distribution (nonparametric + Cliff's delta)
+  - Treatment Response (violin plots + Bonferroni correction)
+  - Age by Disease Stage (parametric + Cohen's d)
+  - Tumor Size Comparison (Hodges-Lehmann shift)
+  - Lab Values by Group (robust tests + Hedges' g)
+  - Survival Time Distribution (median + quartiles)
+- Added comprehensive help panels:
+  - `showAboutPanel`: Interpretation guidance and clinical examples
+  - `showAssumptions`: Statistical assumptions and methodological notes
+- Enhanced statistical warnings for repeated measures/longitudinal data
+
+#### Pie Charts (jjpiestats)
+- **NEW**: Interactive guidance panels
+  - `showSummary`: Natural-language summary suitable for copy-paste into reports
+  - `showAssumptions`: Detected violations and Fisher exact test recommendations
+  - `showInterpretation`: Effect size interpretation and clinical context
+
+#### Segmented Total Bar Charts (jjsegmentedtotalbar)
+- **NEW**: Dual plot type support
+  - Traditional 100% stacked bars
+  - **Flerlage-style segmented total bars** (Kevin Flerlage design)
+    - Emphasizes both totals and composition
+    - Customizable labels, colors, transparency
+    - Background box styling options
+- Reorganized options for clearer workflow
+
+#### Lollipop Charts
+- **NEW**: Data aggregation options for repeated measures
+  - No aggregation (plot all points)
+  - Mean, Median, Sum aggregation
+  - Guidance for clinical measurements vs. counts
+- Default empty strings for labels/titles for cleaner initial plots
+
+### User Experience Improvements
+- Multiple analyses updated with improved default settings for cleaner initial plots
+  - jjwithinstats: Violin and boxplot defaults changed to `false` for simpler initial view
+  - jjpiestats: Proportion test and BF message defaults to `false` to reduce clutter
+  - jjsegmentedtotalbar: Percentages, outlines, export_ready defaults to `false`
+  - jwaffle: Legend default to `false`
+- Enhanced explanatory text across multiple analyses
+- Improved statistical assumption warnings (especially for repeated measures data)
+
+## Package Dependencies
+- **Added** `ggpubr` to Imports for publication-ready plot variants
+- **Added** `rstatix` to Imports for enhanced statistical testing support
+
+## Documentation
+- Updated R documentation for all modified analyses
+- Enhanced roxygen2 documentation with version 7.3.3
+- Improved parameter descriptions and usage examples
+
+## Bug Fixes
+- Fixed documentation formatting issues in several .Rd files
+
+---
+
 # jjstatsplot 0.0.31.84 (2025-10-03)
 
 ## New Features
