@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for ggstatsplot
-Version: 0.0.33
-Date: 2026-01-17
+Version: 0.0.37
+Date: 2026-03-04
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
         "cre"), email = "serdarbalci@serdarbalci.com", comment =
         c(ORCID = "0000-0002-7852-3851"))
@@ -22,15 +22,15 @@ URL: https://github.com/sbalci/jjstatsplot
 BugReports: https://github.com/sbalci/ClinicoPathJamoviModule/issues/
 Depends: R (>= 4.0.0)
 Imports: arcdiagram, BayesFactor, digest, dplyr, easyalluvial,
-        effectsize, ggalluvial, ggcorrplot, ggdist, ggforce, ggplot2,
-        ggpubr, ggrain, ggridges, ggsegmentedtotalbar, ggside,
+        effectsize, ggalluvial, ggdist, ggforce, ggplot2,
+        ggpubr, ggrain, ggridges, ggsegmentedtotalbar,
         ggstatsplot, glue, grid, htmltools, igraph, jmvcore, magrittr,
-        moments, performance, PMCMRplus, purrr, R6, RColorBrewer,
+        moments, purrr, R6, RColorBrewer,
         rlang, rstatix, scales, stringr, tidyr, viridis, waffle, WRS2
 Remotes: gastonstat/arcdiagram
 Encoding: UTF-8
 LazyData: true
-Suggests: knitr, rmarkdown
+Suggests: ggcorrplot, ggside, knitr, performance, PMCMRplus, rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

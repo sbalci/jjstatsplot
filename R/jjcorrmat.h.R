@@ -358,7 +358,7 @@ jjcorrmatBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjcorrmat",
-                version = c(0,0,33),
+                version = c(0,0,37),
                 options = options,
                 results = jjcorrmatResults$new(options=options),
                 data = data,

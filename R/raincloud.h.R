@@ -385,7 +385,7 @@ raincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "raincloud",
-                version = c(0,0,33),
+                version = c(0,0,37),
                 options = options,
                 results = raincloudResults$new(options=options),
                 data = data,
@@ -414,6 +414,7 @@ raincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' 
 #'
 #' @examples
+#' \donttest{
 #' # Load example dataset
 #' data(histopathology)
 #'
@@ -460,7 +461,7 @@ raincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   violin_width = 0.8,
 #'   alpha_violin = 0.6
 #' )
-#'
+#'}
 #' @param data The data as a data frame.
 #' @param dep_var Continuous variable whose distribution will be visualized in
 #'   the raincloud plot.
