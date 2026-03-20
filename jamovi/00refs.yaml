@@ -106,6 +106,14 @@ refs:
         publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=car'
         url: https://CRAN.R-project.org/package=car
 
+    dplyr:
+        type: 'software'
+        author: Hadley Wickham
+        year: 2023
+        title: "dplyr: A Grammar of Data Manipulation"
+        publisher: '[R package version 1.1.4]. Retrieved from https://CRAN.R-project.org/package=dplyr'
+        url: https://CRAN.R-project.org/package=dplyr
+
     ggplot2:
         type: 'software'
         author: Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., & RStudio
@@ -238,10 +246,10 @@ refs:
 
     survival:
         type: 'software'
-        author: Terry M Therneau, Thomas Lumley
-        year: 2019
+        author: Terry M Therneau
+        year: 2026
         title: "survival: Survival Analysis"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=survival'
+        publisher: '[R package version 3.8-6]. Retrieved from https://CRAN.R-project.org/package=survival'
         url: https://CRAN.R-project.org/package=survival
 
     survminer:
@@ -877,11 +885,19 @@ refs:
 
     glmnet:
         type: 'software'
-        author: ""
-        year: ""
-        title: "glmnet: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=glmnet'
+        author: Jerome Friedman, Trevor Hastie, Rob Tibshirani, Balasubramanian Narasimhan, Kenneth Tay, Noah Simon
+        year: 2025
+        title: "glmnet: Lasso and Elastic-Net Regularized Generalized Linear Models"
+        publisher: '[R package version 4.1-10]. Retrieved from https://CRAN.R-project.org/package=glmnet'
         url: https://CRAN.R-project.org/package=glmnet
+
+    grpreg:
+        type: 'software'
+        author: Patrick Breheny
+        year: 2024
+        title: "grpreg: Regularization Paths for Regression Models with Grouped Covariates"
+        publisher: '[R package version 3.5.0]. Retrieved from https://CRAN.R-project.org/package=grpreg'
+        url: https://CRAN.R-project.org/package=grpreg
 
     pwr:
         type: 'software'
@@ -965,10 +981,10 @@ refs:
 
     scales:
         type: 'software'
-        author: ""
-        year: ""
-        title: "scales: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=scales'
+        author: Hadley Wickham
+        year: 2025
+        title: "scales: Scale Functions for Visualization"
+        publisher: '[R package version 1.4.0]. Retrieved from https://CRAN.R-project.org/package=scales'
         url: https://CRAN.R-project.org/package=scales
 
     patchwork:
@@ -1045,10 +1061,10 @@ refs:
 
     pROC:
         type: 'software'
-        author: ""
-        year: ""
-        title: "pROC: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=pROC'
+        author: Xavier Robin
+        year: 2025
+        title: "pROC: Display and Analyze ROC Curves"
+        publisher: '[R package version 1.19.0.1]. Retrieved from https://CRAN.R-project.org/package=pROC'
         url: https://CRAN.R-project.org/package=pROC
 
     boot:
@@ -1310,10 +1326,10 @@ refs:
 
     condSURV:
         type: 'software'
-        author: ""
-        year: ""
-        title: "condSURV: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=condSURV'
+        author: Luis Meira-Machado and Marta Sestelo
+        year: 2023
+        title: "condSURV: Estimation of the Conditional Survival Function for Ordered Multivariate Failure Time Data"
+        publisher: '[R package version 2.0.4]. Retrieved from https://CRAN.R-project.org/package=condSURV'
         url: https://CRAN.R-project.org/package=condSURV
 
     flexsurv:
@@ -1374,19 +1390,35 @@ refs:
 
     smcure:
         type: 'software'
-        author: ""
-        year: ""
-        title: "smcure: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=smcure'
+        author: Chao Cai
+        year: 2025
+        title: "smcure: Fit Semiparametric Mixture Cure Models"
+        publisher: '[R package version 2.2]. Retrieved from https://CRAN.R-project.org/package=smcure'
         url: https://CRAN.R-project.org/package=smcure
 
     flexsurvcure:
         type: 'software'
-        author: ""
-        year: ""
-        title: "flexsurvcure: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=flexsurvcure'
+        author: Jordan Amdahl
+        year: 2025
+        title: "flexsurvcure: Flexible Parametric Cure Models"
+        publisher: '[R package version 1.3.3]. Retrieved from https://CRAN.R-project.org/package=flexsurvcure'
         url: https://CRAN.R-project.org/package=flexsurvcure
+
+    npcure:
+        type: 'software'
+        author: "Lopez-Cheda A, Cao R, Jager-Honz S, Keilegom IV"
+        year: "2021"
+        title: "npcure: An R Package for Nonparametric Inference in Mixture Cure Models"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=npcure'
+        url: https://CRAN.R-project.org/package=npcure
+
+    cuRe:
+        type: 'software'
+        author: "Boekel LW, Andersson TM-L, Dickman PW, Jakobsen LH"
+        year: "2023"
+        title: "cuRe: Parametric Cure Model Estimation"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=cuRe'
+        url: https://CRAN.R-project.org/package=cuRe
 
     visdat:
         type: 'software'
@@ -2006,11 +2038,11 @@ refs:
 
     survcomp:
         type: 'software'
-        author: ""
-        year: ""
-        title: "survcomp: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=survcomp'
-        url: https://CRAN.R-project.org/package=survcomp
+        author: Benjamin Haibe-Kains, Markus Schroeder, Catharina Olsen, Christos Sotiriou, Gianluca Bontempi, John Quackenbush
+        year: 2024
+        title: "survcomp: Performance Assessment and Comparison for Survival Analysis"
+        publisher: '[R/Bioconductor package]. Retrieved from https://bioconductor.org/packages/release/bioc/html/survcomp.html'
+        url: https://bioconductor.org/packages/release/bioc/html/survcomp.html
 
     reReg:
         type: 'software'
@@ -2310,10 +2342,10 @@ refs:
 
     timeROC:
         type: 'software'
-        author: ""
-        year: ""
-        title: "timeROC: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=timeROC'
+        author: Paul Blanche
+        year: 2019
+        title: "timeROC: Time-Dependent ROC Curve and AUC for Censored Survival Data"
+        publisher: '[R package version 0.4]. Retrieved from https://CRAN.R-project.org/package=timeROC'
         url: https://CRAN.R-project.org/package=timeROC
 
     dcurves:
@@ -2491,4 +2523,53 @@ refs:
         title: "ggVennDiagram: R package"
         publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggVennDiagram'
         url: https://CRAN.R-project.org/package=ggVennDiagram
+
+    logistf:
+        type: 'software'
+        author: "Heinze G, Ploner M, Jiricka L"
+        year: "2024"
+        title: "logistf: Firth's Bias-Reduced Logistic Regression"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=logistf'
+        url: https://CRAN.R-project.org/package=logistf
+
+    coxphf:
+        type: 'software'
+        author: "Heinze G, Ploner M"
+        year: "2024"
+        title: "coxphf: Cox Regression with Firth's Penalized Likelihood"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=coxphf'
+        url: https://CRAN.R-project.org/package=coxphf
+
+    doParallel:
+        type: 'software'
+        author:
+        year:
+        title: "doParallel: R package"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=doParallel'
+        url: https://CRAN.R-project.org/package=doParallel
+
+    foreach:
+        type: 'software'
+        author:
+        year:
+        title: "foreach: R package"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=foreach'
+        url: https://CRAN.R-project.org/package=foreach
+
+    sparsepca:
+        type: 'software'
+        author:
+        year:
+        title: "sparsepca: R package"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=sparsepca'
+        url: https://CRAN.R-project.org/package=sparsepca
+
+    kernlab:
+        type: 'software'
+        author:
+        year:
+        title: "kernlab: R package"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=kernlab'
+        url: https://CRAN.R-project.org/package=kernlab
+
 ...
