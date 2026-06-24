@@ -181,6 +181,7 @@ linechartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
         todo = function() private$.items[["todo"]],
+        naturalSummary = function() private$.items[["naturalSummary"]],
         summary = function() private$.items[["summary"]],
         correlation = function() private$.items[["correlation"]],
         assumptions = function() private$.items[["assumptions"]],
@@ -199,6 +200,11 @@ linechartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="todo",
                 title="Instructions",
                 visible=TRUE))
+            self$add(jmvcore::Html$new(
+                options=options,
+                name="naturalSummary",
+                title="Summary",
+                visible=FALSE))
             self$add(jmvcore::Table$new(
                 options=options,
                 name="summary",
@@ -252,7 +258,7 @@ linechartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "linechart",
-                version = c(0,0,38),
+                version = c(0,0,42),
                 options = options,
                 results = linechartResults$new(options=options),
                 data = data,
@@ -316,6 +322,7 @@ linechartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
+#'   \code{results$naturalSummary} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$summary} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$correlation} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$assumptions} \tab \tab \tab \tab \tab a html \cr

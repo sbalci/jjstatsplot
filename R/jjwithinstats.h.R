@@ -528,7 +528,7 @@ jjwithinstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjwithinstats",
-                version = c(0,0,38),
+                version = c(0,0,42),
                 options = options,
                 results = jjwithinstatsResults$new(options=options),
                 data = data,
