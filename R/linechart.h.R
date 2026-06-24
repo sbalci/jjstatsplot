@@ -258,7 +258,7 @@ linechartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "linechart",
-                version = c(0,0,42),
+                version = c(0,0,43),
                 options = options,
                 results = linechartResults$new(options=options),
                 data = data,

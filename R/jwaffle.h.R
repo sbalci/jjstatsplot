@@ -219,7 +219,7 @@ jwaffleBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jwaffle",
-                version = c(0,0,42),
+                version = c(0,0,43),
                 options = options,
                 results = jwaffleResults$new(options=options),
                 data = data,

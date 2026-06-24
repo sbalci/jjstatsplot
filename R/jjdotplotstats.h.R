@@ -334,7 +334,7 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjdotplotstats",
-                version = c(0,0,42),
+                version = c(0,0,43),
                 options = options,
                 results = jjdotplotstatsResults$new(options=options),
                 data = data,
