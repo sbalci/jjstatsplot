@@ -26,56 +26,46 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # Option overrides for presets
         overrides = list(),
 
-        # Notice collection list for HTML rendering
+        # Notice collection helpers. A single Preformatted (plain-text) output item:
+        # avoids BOTH the jmvcore::Notice serialization error from
+        # self$results$insert(999, Notice) AND any HTML in notices (project convention:
+        # notice content must be plain text). ====
         .noticeList = list(),
 
-        # Add a notice to the collection
         .addNotice = function(type, title, content) {
-          private$.noticeList[[length(private$.noticeList) + 1]] <- list(
-            type = type,
-            title = title,
-            content = content
-          )
+            private$.noticeList[[length(private$.noticeList) + 1]] <- list(
+                type = type,
+                title = title,
+                content = content
+            )
+            # Render immediately so early-return validation aborts still display the notice
+            private$.renderNotices()
         },
 
-        # Render collected notices as HTML
         .renderNotices = function() {
-          if (length(private$.noticeList) == 0) {
-            return()
-          }
+            if (length(private$.noticeList) == 0) {
+                self$results$notices$setContent("")
+                return()
+            }
 
-          typeStyles <- list(
-            ERROR = "background:#ffebee; border-left:4px solid #c62828; color:#b71c1c;",
-            STRONG_WARNING = "background:#fff3e0; border-left:4px solid #ef6c00; color:#e65100;",
-            WARNING = "background:#fff9c4; border-left:4px solid #f9a825; color:#f57f17;",
-            INFO = "background:#e3f2fd; border-left:4px solid #1976d2; color:#0d47a1;"
-          )
+            # Plain text only — notices avoid HTML by project convention; the Preformatted
+            # output item renders this literally (no markup, no injection surface).
+            blocks <- vapply(private$.noticeList, function(notice) {
+                prefix <- switch(notice$type,
+                    ERROR          = "ERROR: ",
+                    STRONG_WARNING = "WARNING: ",
+                    WARNING        = "WARNING: ",
+                    "")
+                paste0(prefix, notice$title, "\n", notice$content)
+            }, character(1))
 
-          html <- "<div style='margin: 10px 0;'>"
-
-          for (notice in private$.noticeList) {
-            style <- typeStyles[[notice$type]] %||% typeStyles$INFO
-
-            html <- paste0(html,
-              "<div style='", style, " padding:12px; margin:8px 0; border-radius:4px;'>",
-                "<strong style='display:block; margin-bottom:4px;'>", notice$title, "</strong>",
-                "<span style='opacity:0.9;'>", notice$content, "</span>",
-              "</div>"
-            )
-          }
-
-          html <- paste0(html, "</div>")
-          self$results$notices$setContent(html)
+            self$results$notices$setContent(paste(blocks, collapse = "\n\n"))
         },
 
         # === Helper: Escape Variable Names ===
         .escapeVarName = function(var) {
             if (is.null(var) || var == "") return(var)
-            # Wrap in backticks if contains spaces or special chars
-            if (grepl("[^A-Za-z0-9_.]", var)) {
-                return(paste0("`", var, "`"))
-            }
-            return(var)
+            jmvcore::composeTerm(var)
         },
         
         .option = function(option) {
@@ -197,25 +187,25 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Check variable selection
             if (is.null(self$options$x_var)) {
-                stop(.("Please select a continuous variable for X (Distribution)"))
+                jmvcore::reject(.("Please select a continuous variable for X (Distribution)"))
             }
             if (is.null(self$options$y_var)) {
-                stop(.("Please select a grouping variable for Y (Groups)"))
+                jmvcore::reject(.("Please select a grouping variable for Y (Groups)"))
             }
 
             # Check data availability
             if (is.null(self$data) || nrow(self$data) == 0) {
-                stop(.("No data available for analysis"))
+                jmvcore::reject(.("No data available for analysis"))
             }
 
             # Type checks
             x_col <- self$data[[self$options$x_var]]
             y_col <- self$data[[self$options$y_var]]
             if (!is.numeric(x_col)) {
-                stop(paste0(.("X variable must be numeric for ridge plotting. Selected"), ": ", self$options$x_var))
+                jmvcore::reject(.("X variable must be numeric for ridge plotting. Selected: {var}"), var = self$options$x_var)
             }
             if (!is.factor(y_col) && !is.character(y_col)) {
-                stop(paste0(.("Y variable should be categorical (factor/character). Selected"), ": ", self$options$y_var))
+                jmvcore::reject(.("Y variable should be categorical (factor/character). Selected: {var}"), var = self$options$y_var)
             }
             
             # Check minimum sample size
@@ -240,7 +230,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Check for minimum group count
             n_groups <- length(unique(plot_data$y))
             if (n_groups < 2) {
-                stop(.("At least 2 groups required for ridge plot comparison"))
+                jmvcore::reject(.("At least 2 groups required for ridge plot comparison"))
             }
             
             # Check group sizes with clinical context
@@ -324,14 +314,16 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .generateClinicalSummary = function(data, has_stats = FALSE) {
             n_groups <- length(unique(data$y))
             n_total <- nrow(data)
-            
+            x_var_safe <- htmltools::htmlEscape(self$options$x_var)
+            y_var_safe <- htmltools::htmlEscape(self$options$y_var)
+
             # Basic summary
             summary <- paste0(
                 "<div class='clinical-summary' style='background:#f8f9fa; border-left:4px solid #007bff; padding:15px; margin:10px 0;'>",
                 "<h4 style='color:#007bff; margin-top:0;'>", .("Clinical Summary"), "</h4>",
-                "<p><strong>", .("Analysis:"), "</strong> ", .("Ridge plot comparing the distribution of"), " <strong>", 
-                self$options$x_var, "</strong> ", .("across"), " <strong>", n_groups, " ", .("groups"), "</strong> ", .("defined by"), " <strong>", 
-                self$options$y_var, "</strong>.</p>",
+                "<p><strong>", .("Analysis:"), "</strong> ", .("Ridge plot comparing the distribution of"), " <strong>",
+                x_var_safe, "</strong> ", .("across"), " <strong>", n_groups, " ", .("groups"), "</strong> ", .("defined by"), " <strong>",
+                y_var_safe, "</strong>.</p>",
                 "<p><strong>", .("Sample:"), "</strong> n = ", n_total, " ", .("total observations across all groups"), ".</p>"
             )
             
@@ -351,8 +343,8 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         .generateReportSummary = function(data, has_stats = FALSE) {
             # Generate copy-ready plain text summary for pathology reports
-            x_var <- self$options$x_var
-            y_var <- self$options$y_var
+            x_var <- htmltools::htmlEscape(self$options$x_var)
+            y_var <- htmltools::htmlEscape(self$options$y_var)
             n_groups <- length(unique(data$y))
             n_total <- nrow(data)
 
@@ -392,7 +384,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             for (i in 1:nrow(stats_by_group)) {
                 row <- stats_by_group[i, ]
                 text_summary <- paste0(text_summary,
-                    "<p>", row$y, " (n=", row$n, "): ",
+                    "<p>", htmltools::htmlEscape(as.character(row$y)), " (n=", row$n, "): ",
                     "Mean=", sprintf("%.2f", row$mean), " (SD=", sprintf("%.2f", row$sd), "), ",
                     "Median=", sprintf("%.2f", row$median), " (IQR: ",
                     sprintf("%.2f", row$q1), "-", sprintf("%.2f", row$q3), ")",
@@ -615,6 +607,17 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             return(html)
         },
 
+        # TODO (correctness): `.applyClinicalPreset` writes back to jamovi option objects
+        # via `opt$value <- value` at L628. jamovi options are read-only at runtime;
+        # this mutation pattern may silently no-op or raise a runtime error in newer
+        # jamovi versions. Same concern as jjbarstats/jjcoefstats/jjhistostats/jjpubr.
+        # The `private$overrides` + `private$.option(name)` indirection works without
+        # the mutation — drop the direct `opt$value <- value` line and rely on the
+        # override list (jjoncoplot's `.optionsWithPreset` L34-93 is the right pattern).
+        #
+        # TODO (UX): L719 emits `warning(msg)` AND L723-728 sets `warnings$setContent`.
+        # Duplicate notification; keep only the panel since R warnings are not visible
+        # to the typical jamovi UI user.
         .applyClinicalPreset = function() {
             preset <- self$options$clinicalPreset
             private$overrides <- list()
@@ -739,6 +742,10 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (is.null(self$options$x_var) || is.null(self$options$y_var))
                 return()
 
+            # Reset notice list so prior-run notices don't persist across re-runs
+            # (jamovi may reuse the same R6 instance when options change)
+            private$.noticeList <- list()
+
             # Apply clinical preset if selected (must be done before other processing)
             private$.applyClinicalPreset()
 
@@ -783,13 +790,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             all_warnings <- c(input_warnings, data_warnings)
             if (length(all_warnings) > 0) {
                 for (i in seq_along(all_warnings)) {
-                    notice <- jmvcore::Notice$new(
-                        options = self$options,
-                        name = paste0('dataQualityWarning', i),
-                        type = jmvcore::NoticeType$WARNING
-                    )
-                    notice$setContent(all_warnings[i])
-                    self$results$insert(100, notice)
+                    private$.addNotice('WARNING', 'Data Quality Warning', all_warnings[i])
                 }
             }
             
@@ -901,8 +902,8 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 plot_data$facet <- as.factor(data[[self$options$facet_var]])
             }
             
-            # Remove missing values
-            plot_data <- na.omit(plot_data)
+            # Remove missing values (jmvcore::naOmit preserves jamovi column attributes)
+            plot_data <- jmvcore::naOmit(plot_data)
             
             # Reverse order if requested
             if (self$options$reverse_order) {
@@ -1481,18 +1482,10 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 if (length(assumption_violations) > 0) {
                     # Auto-suggest and switch to nonparametric for robustness
-                    # Create WARNING Notice about assumption violations
-                    notice <- jmvcore::Notice$new(
-                        options = self$options,
-                        name = paste0('assumptionViolation_', group1, '_', group2),
-                        type = jmvcore::NoticeType$WARNING
-                    )
-                    notice_msg <- paste0(
+                    private$.addNotice('WARNING', 'Assumption Check Failed', paste0(
                         "Assumption check failed: ", paste(assumption_violations, collapse = "; "),
-                        " • Using Wilcoxon test instead of t-test (auto-suggested)."
-                    )
-                    notice$setContent(notice_msg)
-                    self$results$insert(100, notice)
+                        " - Using Wilcoxon test instead of t-test (auto-suggested)."
+                    ))
 
                     test_result <- wilcox.test(data1, data2, conf.int = TRUE)
                     statistic <- test_result$statistic
@@ -1540,19 +1533,11 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ci_upper <- test_result$conf.int[2]
                     test_method <- "t-test (WRS2 unavailable)"
 
-                    # Create WARNING Notice about WRS2 unavailability
-                    notice <- jmvcore::Notice$new(
-                        options = self$options,
-                        name = paste0('wrs2Unavailable_', group1, '_', group2),
-                        type = jmvcore::NoticeType$WARNING
-                    )
-                    notice_msg <- paste0(
+                    private$.addNotice('WARNING', 'WRS2 Package Unavailable', paste0(
                         "WRS2 package not available for robust test. Falling back to standard t-test for comparison: ",
                         group1, " vs ", group2,
                         if(stratum_label != "") paste0(" (", stratum_label, ")") else ""
-                    )
-                    notice$setContent(notice_msg)
-                    self$results$insert(100, notice)
+                    ))
                 }
 
             } else if (test_type == "bayes") {
@@ -1576,14 +1561,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         ci_upper <- NA
                         test_method <- "Bayesian (failed)"
 
-                        # Create WARNING Notice about Bayesian test failure
-                        notice <- jmvcore::Notice$new(
-                            options = self$options,
-                            name = paste0('bayesianTestFailed_', group1, '_', group2),
-                            type = jmvcore::NoticeType$WARNING
-                        )
-                        notice$setContent(paste0("Bayesian test failed for: ", group1, " vs ", group2))
-                        self$results$insert(100, notice)
+                        private$.addNotice('WARNING', 'Bayesian Test Failed', paste0("Bayesian test failed for: ", group1, " vs ", group2))
                     }
                 } else {
                     statistic <- NA
@@ -1592,28 +1570,14 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     ci_upper <- NA
                     test_method <- "Bayesian (unavailable)"
 
-                    # Create WARNING Notice about BayesFactor unavailability
-                    notice <- jmvcore::Notice$new(
-                        options = self$options,
-                        name = paste0('bayesFactorUnavailable_', group1, '_', group2),
-                        type = jmvcore::NoticeType$WARNING
-                    )
-                    notice$setContent(paste0(
+                    private$.addNotice('WARNING', 'BayesFactor Package Unavailable', paste0(
                         "BayesFactor package not available. Cannot perform Bayesian test for: ",
                         group1, " vs ", group2
                     ))
-                    self$results$insert(100, notice)
                 }
 
             } else {
-                # Create WARNING Notice about unknown test type
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = paste0('unknownTestType_', group1, '_', group2),
-                    type = jmvcore::NoticeType$WARNING
-                )
-                notice$setContent(paste0("Unknown test type '", test_type, "' for: ", group1, " vs ", group2))
-                self$results$insert(100, notice)
+                private$.addNotice('WARNING', 'Unknown Test Type', paste0("Unknown test type '", test_type, "' for: ", group1, " vs ", group2))
             }
 
             # Calculate effect size with proper CIs
@@ -1754,14 +1718,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 }
 
             }, error = function(e) {
-                # Create WARNING Notice about effect size calculation error
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = paste0('effectSizeError_', as.integer(runif(1, 1, 1e6))),
-                    type = jmvcore::NoticeType$WARNING
-                )
-                notice$setContent(paste0("Error calculating effect size: ", e$message))
-                self$results$insert(100, notice)
+                private$.addNotice('WARNING', 'Effect Size Calculation Error', paste0("Error calculating effect size: ", e$message))
             })
 
             return(list(
@@ -1813,6 +1770,11 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Check 3: Look for variables with "patient", "subject", "id" in the data
             # (checked in parent data, not just plot_data)
+            # TODO (correctness): the grepl pattern below is a naive substring match —
+            # "id" matches inside "candidate", "android", "video"; "case" matches inside
+            # "lowercase", "phasecase". Use word-boundary anchors:
+            #   grepl("\\b(patient|subject|id|case)\\b", col_names)
+            # to reduce false positives in the heuristic.
             if (!is.null(self$data)) {
                 col_names <- tolower(names(self$data))
                 has_id_vars <- any(grepl("patient|subject|id|case", col_names))
@@ -1894,6 +1856,12 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 all_test_results <- list()
                 all_p_values <- numeric()
 
+                # TODO (security forward-looking): `stratum_label` below interpolates
+                # `stratum_val` which is a factor-level VALUE from user fill_var/facet_var
+                # columns. Today it flows into Notice content (plain-text, safe) and
+                # tests-table `comparison` cells (auto-escaped, safe). If this label
+                # ever flows to a Html$setContent sink, wrap with `htmltools::htmlEscape`
+                # at the assignment below.
                 for (s in seq_len(nrow(strata_combinations))) {
                     # Filter data for this stratum
                     stratum_data <- data
@@ -1969,16 +1937,18 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .generateInterpretation = function(data) {
             # Generate clinical summary first
             clinical_summary <- private$.generateClinicalSummary(data, private$.option("show_stats"))
-            
+
             # Traditional interpretation
             n_groups <- length(unique(data$y))
             n_total <- nrow(data)
-            
+            x_var_safe <- htmltools::htmlEscape(self$options$x_var)
+            y_var_safe <- htmltools::htmlEscape(self$options$y_var)
+
             interpretation <- paste0(
                 clinical_summary,
                 "<h4>", .("Technical Interpretation"), "</h4>",
-                "<p>", .("The ridge plot displays the distribution of"), " <strong>", self$options$x_var, "</strong> ",
-                .("across"), " <strong>", n_groups, " ", .("groups"), "</strong> ", .("defined by"), " <strong>", self$options$y_var, "</strong>.</p>",
+                "<p>", .("The ridge plot displays the distribution of"), " <strong>", x_var_safe, "</strong> ",
+                .("across"), " <strong>", n_groups, " ", .("groups"), "</strong> ", .("defined by"), " <strong>", y_var_safe, "</strong>.</p>",
                 "<ul>",
                 "<li><strong>", .("Each ridge:"), "</strong> ", .("Shows the probability density or frequency distribution for a group"), "</li>",
                 "<li><strong>", .("Overlapping areas:"), "</strong> ", .("Indicate similar value ranges between groups"), "</li>",
@@ -1992,8 +1962,8 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 interpretation <- paste0(
                     interpretation,
                     "<div style='background:#e3f2fd; padding:10px; margin:10px 0; border-radius:4px;'>",
-                    "<strong> ", .("Gradient Coloring:"), "</strong> ", .("Colors represent the value of"), " ", 
-                    self$options$x_var, " ", .("along each ridge, helping visualize how values are distributed within groups."), "</div>"
+                    "<strong> ", .("Gradient Coloring:"), "</strong> ", .("Colors represent the value of"), " ",
+                    x_var_safe, " ", .("along each ridge, helping visualize how values are distributed within groups."), "</div>"
                 )
             }
             
@@ -2102,30 +2072,35 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (is.null(x_var) || is.null(y_var))
                 return('')
 
-            # Escape variable names
-            x_var_escaped <- if (!is.null(x_var) && !identical(make.names(x_var), x_var)) {
-                paste0('`', x_var, '`')
-            } else {
-                x_var
+            # Build the argument list in option-declaration order.
+            #
+            # Every variable-name option (single OptionVariable or multi-variable
+            # OptionVariables) is emitted as a deparse()'d string literal. deparse()
+            # produces valid, fully-escaped R for names containing spaces, quotes or
+            # backslashes (e.g. `Tumor Grade`); jmvcore's default sourcify would emit
+            # some of these as bare, unquoted symbols and yield invalid syntax.
+            # Detecting the option by CLASS (not by name) means any variable option
+            # added later is escaped automatically.
+            #
+            # Variables are NOT re-emitted through private$.asArgs() — doing so
+            # previously duplicated them in the generated syntax (the "double
+            # variables" bug). All non-variable options keep jmvcore's per-option
+            # sourcify so formatting stays consistent with jamovi.
+            args <- character(0)
+            for (option in private$.options$options) {
+                if (option$name == 'data')
+                    next
+                if (inherits(option, 'OptionVariable') || inherits(option, 'OptionVariables')) {
+                    val <- option$value
+                    if (!is.null(val) && length(val) > 0)
+                        args <- c(args, paste0(option$name, ' = ',
+                                               paste0(deparse(val), collapse = '')))
+                } else {
+                    as <- private$.sourcifyOption(option)
+                    if (!identical(as, ''))
+                        args <- c(args, as)
+                }
             }
-
-            y_var_escaped <- if (!is.null(y_var) && !identical(make.names(y_var), y_var)) {
-                paste0('`', y_var, '`')
-            } else {
-                y_var
-            }
-
-            # Build arguments
-            x_var_arg <- paste0('x_var = "', x_var_escaped, '"')
-            y_var_arg <- paste0('y_var = "', y_var_escaped, '"')
-
-            # Get other arguments
-            args <- ''
-            if (!is.null(private$.asArgs)) {
-                args <- private$.asArgs(incData = FALSE)
-            }
-            if (args != '')
-                args <- paste0(',\n    ', args)
 
             # Get package name dynamically
             pkg_name <- utils::packageName()
@@ -2133,7 +2108,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Build complete function call
             paste0(pkg_name, '::jjridges(\n    data = data,\n    ',
-                   x_var_arg, ',\n    ', y_var_arg, args, ')')
+                   paste(args, collapse = ',\n    '), ')')
         }
     ) # End of public list
 )

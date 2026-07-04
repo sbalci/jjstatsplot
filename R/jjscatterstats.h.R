@@ -462,7 +462,7 @@ jjscatterstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 height=450,
                 renderFun=".plot2",
                 requiresData=TRUE,
-                visible="(!is.null(grvar))"))
+                visible="(grvar)"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
@@ -522,7 +522,7 @@ jjscatterstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjscatterstats",
-                version = c(0,0,43),
+                version = c(0,0,46),
                 options = options,
                 results = jjscatterstatsResults$new(options=options),
                 data = data,

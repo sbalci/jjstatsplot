@@ -204,7 +204,7 @@ linechartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 options=options,
                 name="naturalSummary",
                 title="Summary",
-                visible=FALSE))
+                visible=TRUE))
             self$add(jmvcore::Table$new(
                 options=options,
                 name="summary",
@@ -258,7 +258,7 @@ linechartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "linechart",
-                version = c(0,0,43),
+                version = c(0,0,46),
                 options = options,
                 results = linechartResults$new(options=options),
                 data = data,

@@ -12,7 +12,7 @@ items:
     - name: naturalSummary
       title: Summary
       type: Html
-      visible: false
+      visible: true
 
     - name: summary
       title: Data Summary

@@ -160,7 +160,32 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .cached_plot = NULL,
         .cached_palette = NULL,
         .messages = NULL,
-        
+
+        # Notice collection (single Preformatted plain-text output item; avoids the
+        # jmvcore::Notice serialization error from self$results$insert(999, Notice)).
+        .noticeList = list(),
+
+        .addNotice = function(type, title, content) {
+            private$.noticeList[[length(private$.noticeList) + 1]] <- list(
+                type = type, title = title, content = content
+            )
+            private$.renderNotices()
+        },
+
+        .renderNotices = function() {
+            if (length(private$.noticeList) == 0) {
+                self$results$notices$setContent("")
+                return()
+            }
+            blocks <- vapply(private$.noticeList, function(notice) {
+                prefix <- switch(notice$type,
+                    ERROR = "ERROR: ", STRONG_WARNING = "WARNING: ",
+                    WARNING = "WARNING: ", "")
+                paste0(prefix, notice$title, "\n", notice$content)
+            }, character(1))
+            self$results$notices$setContent(paste(blocks, collapse = "\n\n"))
+        },
+
         .init = function() {
             # Reset messages for new analysis
             private$.resetMessages()
@@ -206,14 +231,11 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 clean_msg <- gsub("&nbsp;", " ", clean_msg)
                 clean_msg <- trimws(clean_msg)
 
-                # Remove any existing accumulated_warnings notice before adding new one
-                # (jamovi will handle duplicates, but this keeps it clean)
                 tryCatch({
-                    private$.addNotice(
-                        content = clean_msg,
-                        type = notice_type,
-                        name = "accumulated_warnings"
-                    )
+                    # clean_msg already holds ALL accumulated messages combined, so
+                    # reset the notice list first to avoid appending duplicate blocks.
+                    private$.noticeList <- list()
+                    private$.addNotice(notice_type, "Data Quality Notes", clean_msg)
                 }, error = function(e) {
                     # Silent fail if notice system unavailable
                 })
@@ -223,57 +245,17 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # Reset messages for new analysis run
         .resetMessages = function() {
             private$.messages <- character()
+            private$.noticeList <- list()
             if (!is.null(self$results$warnings)) {
                 self$results$warnings$setContent("")
             }
         },
 
-        # Add jmvcore::Notice to results (modern notice system)
-        .addNotice = function(content, type = "WARNING", name = NULL) {
-            # Generate unique name if not provided
-            if (is.null(name)) {
-                if (requireNamespace("digest", quietly = TRUE)) {
-                    name <- paste0("notice_", digest::digest(content, algo = "md5"))
-                } else {
-                    name <- paste0("notice_", sample(10000:99999, 1))
-                }
-            }
-
-            # Map string types to jmvcore::NoticeType
-            notice_type <- switch(type,
-                "ERROR" = jmvcore::NoticeType$ERROR,
-                "STRONG_WARNING" = jmvcore::NoticeType$STRONG_WARNING,
-                "WARNING" = jmvcore::NoticeType$WARNING,
-                "INFO" = jmvcore::NoticeType$INFO,
-                jmvcore::NoticeType$WARNING  # Default
-            )
-
-            # Create notice
-            notice <- jmvcore::Notice$new(
-                options = self$options,
-                name = name,
-                type = notice_type
-            )
-
-            # Clean content for notice (remove HTML tags since notices don't support HTML)
-            clean_content <- gsub("<br>|<br/>|<hr>", "\n", content)
-            clean_content <- gsub("<[^>]*>", "", clean_content)
-            clean_content <- gsub("&bull;", "•", clean_content)
-            clean_content <- gsub("&nbsp;", " ", clean_content)
-            # Remove multiple consecutive line breaks
-            clean_content <- gsub("\n\n+", "\n\n", clean_content)
-            # Trim leading/trailing whitespace
-            clean_content <- trimws(clean_content)
-
-            notice$setContent(clean_content)
-
-            # Insert at beginning of results
-            self$results$insert(999, notice)
-
-            return(notice)
-        },
-
         # Variable name safety utility
+        # TODO (cleanup): .escapeVar() is defined but never called anywhere in this file.
+        # Either remove it, or wire it into the asSource() / facet_wrap paths where
+        # column-name escaping happens (currently those paths use jmvcore::composeTerm
+        # / deparse() inline).
         .escapeVar = function(var) {
             if (is.null(var)) return(NULL)
             # Use jmvcore::composeTerm for variables with spaces/special chars
@@ -503,29 +485,29 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Check if required groups variable exists
             if (is.null(self$options$groups) || self$options$groups == "") {
-                stop("Please specify a grouping variable for the waffle chart.")
+                jmvcore::reject("Please specify a grouping variable for the waffle chart.")
             }
-            
+
             if (!self$options$groups %in% names(self$data)) {
-                stop(paste("Grouping variable '", self$options$groups, 
-                          "' not found in data. Available variables: ", 
-                          paste(names(self$data), collapse = ", ")))
+                jmvcore::reject(
+                    "Grouping variable '{}' not found in data. Available variables: {}",
+                    self$options$groups, paste(names(self$data), collapse = ", "))
             }
-            
+
             # Check optional counts variable
             if (!is.null(self$options$counts) && self$options$counts != "" &&
                 !self$options$counts %in% names(self$data)) {
-                stop(paste("Counts variable '", self$options$counts, 
-                          "' not found in data. Available variables: ", 
-                          paste(names(self$data), collapse = ", ")))
+                jmvcore::reject(
+                    "Counts variable '{}' not found in data. Available variables: {}",
+                    self$options$counts, paste(names(self$data), collapse = ", "))
             }
-            
-            # Check optional facet variable  
+
+            # Check optional facet variable
             if (!is.null(self$options$facet) && self$options$facet != "" &&
                 !self$options$facet %in% names(self$data)) {
-                stop(paste("Facet variable '", self$options$facet, 
-                          "' not found in data. Available variables: ", 
-                          paste(names(self$data), collapse = ", ")))
+                jmvcore::reject(
+                    "Facet variable '{}' not found in data. Available variables: {}",
+                    self$options$facet, paste(names(self$data), collapse = ", "))
             }
             
             # Validate data types and handle labelled factors
@@ -542,9 +524,9 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
 
             if (!is.factor(groups_data)) {
-                stop(paste("Grouping variable '", self$options$groups,
-                          "' must be categorical (factor, character, or logical), not ",
-                          class(groups_data)[1]))
+                jmvcore::reject(
+                    "Grouping variable '{}' must be categorical (factor, character, or logical), not {}",
+                    self$options$groups, class(groups_data)[1])
             }
             
             # Enhanced clinical validation checks
@@ -552,21 +534,23 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             n_total <- nrow(self$data)
             
             if (n_categories == 1) {
-                stop(paste(
-                    "Only one category found in '", self$options$groups, 
-                    "'. Waffle charts require multiple categories to show proportions.",
-                    "Consider using a different visualization for single-category data."
-                ))
+                jmvcore::reject(
+                    "Only one category found in '{}'. Waffle charts require multiple categories to show proportions. Consider using a different visualization for single-category data.",
+                    self$options$groups)
             }
             
             
+            # User-controlled identifiers (column names, factor labels) must be HTML-escaped
+            # before flowing into glue() / setContent on Html outputs.
+            groups_name_safe <- htmltools::htmlEscape(self$options$groups)
+
             if (n_categories > 10) {
                 private$.accumulateMessage(glue::glue(
-                    "<br> <strong>Many Categories:</strong> {n_categories} categories detected in '{self$options$groups}'. ",
+                    "<br> <strong>Many Categories:</strong> {n_categories} categories detected in '{groups_name_safe}'. ",
                     "Consider grouping rare categories as 'Other' for clarity detailed clinical presentation.<br>"
                 ))
             }
-            
+
             # Check sample size adequacy for clinical interpretation
             if (n_total < 30) {
                 private$.accumulateMessage(glue::glue(
@@ -574,14 +558,15 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "Consider combining categories or collecting more data.<br>"
                 ))
             }
-            
+
             # Check for very small category sizes
             category_counts <- table(groups_data, useNA = "no")
             min_count <- min(category_counts)
             if (min_count < 5 && n_total >= 30) {
                 small_cats <- names(category_counts)[category_counts < 5]
+                small_cats_safe <- paste(htmltools::htmlEscape(small_cats), collapse = ', ')
                 private$.accumulateMessage(glue::glue(
-                    "<br> <strong>Rare Categories:</strong> Some categories have <5 cases: {paste(small_cats, collapse = ', ')}. ",
+                    "<br> <strong>Rare Categories:</strong> Some categories have <5 cases: {small_cats_safe}. ",
                     "Consider combining rare categories for more reliable clinical interpretation.<br>"
                 ))
             }
@@ -590,15 +575,15 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.null(self$options$counts) && self$options$counts != "") {
                 counts_data <- self$data[[self$options$counts]]
                 if (!is.numeric(counts_data)) {
-                    stop(paste("Counts variable '", self$options$counts,
-                              "' must be numeric, not ", class(counts_data)[1]))
+                    jmvcore::reject(
+                        "Counts variable '{}' must be numeric, not {}",
+                        self$options$counts, class(counts_data)[1])
                 }
                 if (any(counts_data < 0, na.rm = TRUE)) {
                     n_negative <- sum(counts_data < 0, na.rm = TRUE)
-                    stop(sprintf(
-                        "Counts variable '%s' contains %d negative value(s). All counts must be non-negative for waffle charts. Please check your data.",
-                        self$options$counts, n_negative
-                    ))
+                    jmvcore::reject(
+                        "Counts variable '{}' contains {} negative value(s). All counts must be non-negative for waffle charts. Please check your data.",
+                        self$options$counts, n_negative)
                 }
             }
         },
@@ -606,7 +591,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .aggregateData = function(data, groups_var, facet_var = NULL, counts_var = NULL) {
             # Pre-check for empty data
             if (is.null(data) || nrow(data) == 0) {
-                stop("Cannot aggregate empty dataset. Please ensure your data contains valid rows.")
+                jmvcore::reject("Cannot aggregate empty dataset. Please ensure your data contains valid rows.")
             }
             
             # Build grouping variables
@@ -631,8 +616,9 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 
                 return(result)
             }, error = function(e) {
-                stop(paste("Error aggregating data:", e$message, 
-                          "Please check that your variables are properly formatted."))
+                jmvcore::reject(
+                    "Error aggregating data: {}. Please check that your variables are properly formatted.",
+                    e$message)
             })
         },
         
@@ -642,69 +628,81 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 return("<b>No data available for analysis summary.</b>")
             }
 
+            # HTML-escape every user-controlled identifier (column names + factor labels)
+            # before interpolating into the HTML summary. Column names and factor labels
+            # are arbitrary strings from the user's dataset — escape once at the boundary
+            # so the rest of the function can stay readable.
+            groups_var_safe <- htmltools::htmlEscape(groups_var)
+            plotdata[[groups_var]] <- htmltools::htmlEscape(as.character(plotdata[[groups_var]]))
+            facet_var_safe <- NULL
+            if (!is.null(facet_var) && facet_var != "" && facet_var %in% names(plotdata)) {
+                facet_var_safe <- htmltools::htmlEscape(facet_var)
+                plotdata[[facet_var]] <- htmltools::htmlEscape(as.character(plotdata[[facet_var]]))
+            }
+
             # Choose appropriate terminology
             unit_label <- if (is_weighted) "weighted units" else "cases"
-            
+
             if (!is.null(facet_var) && facet_var != "" && facet_var %in% names(plotdata)) {
                 # Faceted summary
                 summary_parts <- list()
-                
+
                 for (facet_level in unique(plotdata[[facet_var]])) {
                     facet_data <- plotdata[plotdata[[facet_var]] == facet_level, ]
                     facet_total <- sum(facet_data$count)
                     proportions <- (facet_data$count / facet_total) * 100
-                    
+
                     # Sort the data by groups_var to ensure consistent ordering
                     facet_data <- facet_data[order(facet_data[[groups_var]]), ]
                     proportions <- (facet_data$count / facet_total) * 100
-                    
+
                     # Create breakdown showing all categories within this facet
                     category_breakdown <- paste(
-                        sprintf("%s %s: %.1f%% (n=%d)", 
-                               groups_var,
-                               facet_data[[groups_var]], 
-                               proportions, 
-                               facet_data$count), 
+                        sprintf("%s %s: %.1f%% (n=%d)",
+                               groups_var_safe,
+                               facet_data[[groups_var]],
+                               proportions,
+                               facet_data$count),
                         collapse = "; "
                     )
-                    
+
                     # Find the dominant category within this facet
                     max_prop_idx <- which.max(proportions)
                     dominant_category <- facet_data[[groups_var]][max_prop_idx]
                     max_proportion <- proportions[max_prop_idx]
-                    
+
                     summary_parts[[facet_level]] <- sprintf(
                         "<b>Among %s %s</b> (n=%d): %s → <i>%s %s predominates (%.1f%%)</i>",
-                        facet_var, facet_level, facet_total, category_breakdown,
-                        groups_var, dominant_category, max_proportion
+                        facet_var_safe, facet_level, facet_total, category_breakdown,
+                        groups_var_safe, dominant_category, max_proportion
                     )
                 }
 
                 summary_text <- paste0(
-                    "<b> Waffle Chart Summary by ", facet_var, ":</b><br><br>",
+                    "<b> Waffle Chart Summary by ", facet_var_safe, ":</b><br><br>",
                     paste(summary_parts, collapse = "<br><br>"),
-                    "<br><br><b> Overall Sample:</b> ", total_cases, " ", unit_label, " showing ", groups_var,
-                    " distribution across ", length(unique(plotdata[[facet_var]])), " ", facet_var, " groups.",
-                    "<br><br><b> Clinical Note:</b> Compare how ", groups_var,
-                    " patterns differ between ", facet_var, " groups. Each square represents a fixed proportion of ", unit_label, "."
+                    "<br><br><b> Overall Sample:</b> ", total_cases, " ", unit_label, " showing ", groups_var_safe,
+                    " distribution across ", length(unique(plotdata[[facet_var]])), " ", facet_var_safe, " groups.",
+                    "<br><br><b> Clinical Note:</b> Compare how ", groups_var_safe,
+                    " patterns differ between ", facet_var_safe, " groups. Each square represents a fixed proportion of ", unit_label, "."
                 )
-                
+
             } else {
                 # Simple summary
                 proportions <- (plotdata$count / total_cases) * 100
                 max_prop_idx <- which.max(proportions)
                 dominant_category <- plotdata[[groups_var]][max_prop_idx]
                 max_proportion <- proportions[max_prop_idx]
-                
+
                 # Create simple breakdown
                 breakdown_list <- paste(
-                    sprintf("%s: %.1f%% (n=%d)", 
-                           plotdata[[groups_var]], 
-                           proportions, 
-                           plotdata$count), 
+                    sprintf("%s: %.1f%% (n=%d)",
+                           plotdata[[groups_var]],
+                           proportions,
+                           plotdata$count),
                     collapse = ", "
                 )
-                
+
                 summary_text <- sprintf(
                     "<b> Waffle Chart Summary:</b><br><br>
                     The sample contains %d %s distributed as: %s.<br><br>
@@ -715,7 +713,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     dominant_category, max_proportion, plotdata$count[max_prop_idx], total_cases, unit_label
                 )
             }
-            
+
             return(summary_text)
         },
         
@@ -766,6 +764,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         
         .run = function() {
+            private$.noticeList <- list()
             if (is.null(self$options$groups)) {
                 todo <- paste0(
                     "<div style='background: #f8f9fa; ",
@@ -805,8 +804,13 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 return()
             }
 
+            # TODO (cleanup): the same `jmvcore::reject('Data contains no (complete) rows')`
+            # guard is repeated at lines ~816 (.run early), ~843 (.run post-prep), and
+            # ~890 (.plot post-prep). Consolidate into a small private$.requireData()
+            # helper that takes the data frame and rejects with a consistent message,
+            # so future entry points pick up the same guard for free.
             if (nrow(self$data) == 0)
-                stop('Data contains no (complete) rows')
+                jmvcore::reject('Data contains no (complete) rows')
 
             private$.resetMessages()
 
@@ -814,13 +818,20 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             tryCatch({
                 private$.validateInputs()
             }, error = function(e) {
-                # Display validation error in todo and stop
+                # Display validation error in todo and stop. e$message may carry a
+                # user-controlled column name (e.g. via the jmvcore::reject(...) templates
+                # in .validateInputs), so escape before flowing into HTML setContent.
+                error_msg_safe <- htmltools::htmlEscape(conditionMessage(e))
                 error_msg <- glue::glue(
                     "<br> <b>Input Validation Error:</b><br>
-                    <br>{e$message}<br>
+                    <br>{error_msg_safe}<br>
                     <br>Please check your variable selections and try again.<br><hr>"
                 )
                 self$results$todo$setContent(error_msg)
+                # TODO (UX): stop(e$message) rethrows as a plain stop and loses the
+                # rejection class set inside .validateInputs(). Consider
+                # `jmvcore::reject(e$message)` so jamovi surfaces a structured error
+                # alongside the HTML todo card.
                 stop(e$message)
             })
             
@@ -829,7 +840,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             options <- private$.prepareOptions()
             
             if (is.null(mydata) || nrow(mydata) == 0) {
-                stop('Data contains no (complete) rows')
+                jmvcore::reject('Data contains no (complete) rows')
             }
             
             # Generate analysis summary and explanations if requested
@@ -876,7 +887,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- private$.prepareData()
             
             if (is.null(mydata) || nrow(mydata) == 0)
-                stop('Data contains no (complete) rows')
+                jmvcore::reject('Data contains no (complete) rows')
 
             groups_var <- self$options$groups
             facet_var <- self$options$facet
@@ -956,7 +967,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         caption = combined_caption
                     ) +
                     ggplot2::facet_wrap(
-                        as.formula(paste0("~", facet_var)),
+                        jmvcore::asFormula(paste0("~", jmvcore::composeTerm(facet_var))),
                         nrow = 1,
                         strip.position = "bottom"
                     )
@@ -1040,51 +1051,39 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         #' @return Character string with R syntax for reproducible analysis
         asSource = function() {
             groups <- self$options$groups
-            facet <- self$options$facet
-            counts <- self$options$counts
 
             if (is.null(groups))
                 return('')
 
-            # Escape groups variable
-            groups_escaped <- if (!is.null(groups) && !identical(make.names(groups), groups)) {
-                paste0('`', groups, '`')
-            } else {
-                groups
-            }
-
-            # Build required arguments
-            groups_arg <- paste0('groups = "', groups_escaped, '"')
-
-            # Build optional facet argument
-            facet_arg <- ''
-            if (!is.null(facet)) {
-                facet_escaped <- if (!identical(make.names(facet), facet)) {
-                    paste0('`', facet, '`')
+            # Build the argument list in option-declaration order.
+            #
+            # Every variable-name option (single OptionVariable or multi-variable
+            # OptionVariables) is emitted as a deparse()'d string literal. deparse()
+            # produces valid, fully-escaped R for names containing spaces, quotes or
+            # backslashes (e.g. `Tumor Grade`); jmvcore's default sourcify would emit
+            # some of these as bare, unquoted symbols and yield invalid syntax.
+            # Detecting the option by CLASS (not by name) means any variable option
+            # added later is escaped automatically.
+            #
+            # Variables are NOT re-emitted through private$.asArgs() — doing so
+            # previously duplicated them in the generated syntax (the "double
+            # variables" bug). All non-variable options keep jmvcore's per-option
+            # sourcify so formatting stays consistent with jamovi.
+            args <- character(0)
+            for (option in private$.options$options) {
+                if (option$name == 'data')
+                    next
+                if (inherits(option, 'OptionVariable') || inherits(option, 'OptionVariables')) {
+                    val <- option$value
+                    if (!is.null(val) && length(val) > 0)
+                        args <- c(args, paste0(option$name, ' = ',
+                                               paste0(deparse(val), collapse = '')))
                 } else {
-                    facet
+                    as <- private$.sourcifyOption(option)
+                    if (!identical(as, ''))
+                        args <- c(args, as)
                 }
-                facet_arg <- paste0(',\n    facet = "', facet_escaped, '"')
             }
-
-            # Build optional counts argument
-            counts_arg <- ''
-            if (!is.null(counts)) {
-                counts_escaped <- if (!identical(make.names(counts), counts)) {
-                    paste0('`', counts, '`')
-                } else {
-                    counts
-                }
-                counts_arg <- paste0(',\n    counts = "', counts_escaped, '"')
-            }
-
-            # Get other arguments using base helper (if available)
-            args <- ''
-            if (!is.null(private$.asArgs)) {
-                args <- private$.asArgs(incData = FALSE)
-            }
-            if (args != '')
-                args <- paste0(',\n    ', args)
 
             # Get package name dynamically
             pkg_name <- utils::packageName()
@@ -1092,7 +1091,7 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Build complete function call
             paste0(pkg_name, '::jwaffle(\n    data = data,\n    ',
-                   groups_arg, facet_arg, counts_arg, args, ')')
+                   paste(args, collapse = ',\n    '), ')')
         }
     ) # End of public list
 )

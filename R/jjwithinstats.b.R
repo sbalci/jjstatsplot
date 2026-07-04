@@ -170,6 +170,21 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # Notice collection list for HTML-based notices (avoids serialization errors)
         .noticeList = list(),
 
+        # TODO (cleanup): `.escapeVar` is dead code — defined here but never
+        # called anywhere in this file (grep confirms 1 occurrence: the
+        # definition). The inline `if (grepl("[^A-Za-z0-9_]", v)) jmvcore::composeTerm(v) else v`
+        # patterns at L525/L574/L1163 already do this work without the helper
+        # — and they could simplify to just `jmvcore::composeTerm(v)` which
+        # already handles syntactic names by returning them unwrapped. Remove
+        # this helper.
+        #
+        # TODO (cleanup): `.safeHtmlOutput` at L290 is a roll-your-own
+        # htmlEscape with extra `/` → `&#x2F;` substitution. Functionally
+        # correct but non-standard. Replace with `htmltools::htmlEscape()` to
+        # match the convention used in other audited files (jjridges,
+        # jjsegmentedtotalbar). Drop-in replacement at the helper site only;
+        # call sites at L328-329 and L440/L445/L580/L1135 (post-audit) need
+        # no changes.
         # Variable name safety utility ----
         .escapeVar = function(var) {
             if (is.null(var)) return(NULL)
@@ -400,27 +415,27 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # Comprehensive data structure validation
         .validateDataStructure = function() {
             if (!is.data.frame(self$data))
-                stop(.("Data must be a data frame"))
+                jmvcore::reject(.("Data must be a data frame"))
             if (nrow(self$data) == 0)
-                stop(.("Data contains no (complete) rows"))
+                jmvcore::reject(.("Data contains no (complete) rows"))
             if (ncol(self$data) < 2)
-                stop(.("Data must contain at least 2 columns"))
+                jmvcore::reject(.("Data must contain at least 2 columns"))
             if (!is.finite(nrow(self$data)) || !is.finite(ncol(self$data)))
-                stop(.("Data dimensions are invalid"))
+                jmvcore::reject(.("Data dimensions are invalid"))
         },
-        
+
         # Variable type and existence validation
         .validateVariableTypes = function(vars) {
             for (var in vars) {
                 if (!(var %in% names(self$data)))
-                    stop(.("Variable '{name}' not found in data"), list(name = var))
-                
+                    jmvcore::reject(.("Variable '{name}' not found in data"), name = var)
+
                 # Check if variable can be converted to numeric
                 test_vals <- self$data[[var]]
                 if (!is.numeric(test_vals)) {
                     converted_vals <- suppressWarnings(as.numeric(as.character(test_vals)))
                     if (all(is.na(converted_vals)) && !all(is.na(test_vals)))
-                        stop(.("Variable '{name}' cannot be converted to numeric values"), list(name = var))
+                        jmvcore::reject(.("Variable '{name}' cannot be converted to numeric values"), name = var)
                 }
             }
         },
@@ -433,15 +448,17 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             for (var in vars) {
                 num_vals <- jmvcore::toNumeric(mydata[[var]])
                 num_vals <- num_vals[!is.na(num_vals)]
-                
+                # htmlEscape user column name before flowing into legacy warnings$setContent
+                var_safe <- private$.safeHtmlOutput(var)
+
                 if (length(num_vals) < 3) {
                     private$.accumulateMessage(
-                        glue::glue(.("<br> <strong>Warning:</strong> {var} has less than 3 valid observations<br>"))
+                        glue::glue(.("<br> <strong>Warning:</strong> {var_safe} has less than 3 valid observations<br>"))
                     )
                 }
                 if (length(unique(num_vals)) < 2) {
                     private$.accumulateMessage(
-                        glue::glue(.("<br> <strong>Warning:</strong> {var} has no variation (all values identical)<br>"))
+                        glue::glue(.("<br> <strong>Warning:</strong> {var_safe} has no variation (all values identical)<br>"))
                     )
                 }
             }
@@ -576,7 +593,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             missing_vars <- vars[!safe_vars_check %in% names(mydata)]
             if (length(missing_vars) > 0) {
                 private$.accumulateDataMessage(
-                    paste0(.("<br> Variables not found in dataset: "), paste(missing_vars, collapse = ", "), "<br>")
+                    paste0(.("<br> Variables not found in dataset: "), private$.safeHtmlOutput(paste(missing_vars, collapse = ", ")), "<br>")
                 )
                 private$.prepared_data <- NULL
                 return(NULL)
@@ -601,10 +618,10 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Enhanced validation for optional parameters
             if (!is.null(self$options$dep3) && is.null(self$options$dep2)) {
-                stop('Second measurement required when third is specified')
+                jmvcore::reject(.('Second measurement required when third is specified'))
             }
             if (!is.null(self$options$dep4) && is.null(self$options$dep3)) {
-                stop('Third measurement required when fourth is specified')
+                jmvcore::reject(.('Third measurement required when fourth is specified'))
             }
 
             # CRITICAL FIX: Validate paired design structure
@@ -1008,7 +1025,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 self$results$todo$setContent(todo)
 
                 if (nrow(self$data) == 0)
-                    stop(.("Data contains no (complete) rows"))
+                    jmvcore::reject(.("Data contains no (complete) rows"))
 
                 # Generate explanations if requested
                 if (self$options$showExplanations) {
@@ -1128,8 +1145,9 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 TRUE
                 
             }, error = function(e) {
+                # htmlEscape e$message — ggwithinstats errors may include user column-name fragments
                 error_msg <- paste0(
-                    .("<br>Error creating within-subjects plot: "), e$message,
+                    .("<br>Error creating within-subjects plot: "), private$.safeHtmlOutput(e$message),
                     .("<br><br>Please check that:"),
                     .("<br>• All measurement variables contain numeric values"),
                     .("<br>• Data has at least 2 complete rows"),
@@ -1286,57 +1304,39 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         asSource = function() {
             dep1 <- self$options$dep1
             dep2 <- self$options$dep2
-            dep3 <- self$options$dep3
-            dep4 <- self$options$dep4
 
             if (is.null(dep1) || is.null(dep2))
                 return('')
 
-            # Escape all variable names
-            dep1_escaped <- if (!is.null(dep1) && !identical(make.names(dep1), dep1)) {
-                paste0('`', dep1, '`')
-            } else {
-                dep1
-            }
-
-            dep2_escaped <- if (!is.null(dep2) && !identical(make.names(dep2), dep2)) {
-                paste0('`', dep2, '`')
-            } else {
-                dep2
-            }
-
-            # Build base arguments
-            dep1_arg <- paste0('dep1 = "', dep1_escaped, '"')
-            dep2_arg <- paste0('dep2 = "', dep2_escaped, '"')
-
-            # Add optional dep3 and dep4
-            dep3_arg <- ''
-            if (!is.null(dep3)) {
-                dep3_escaped <- if (!identical(make.names(dep3), dep3)) {
-                    paste0('`', dep3, '`')
+            # Build the argument list in option-declaration order.
+            #
+            # Every variable-name option (dep1, dep2, dep3, dep4) is emitted as a
+            # deparse()'d string literal. deparse() produces valid, fully-escaped
+            # R for names containing spaces, quotes or backslashes (e.g.
+            # `Tumor Grade`); jmvcore's default sourcify would emit these as bare,
+            # unquoted symbols and yield invalid syntax. Detecting OptionVariable
+            # by class (rather than by name) means any variable option added later
+            # is escaped automatically.
+            #
+            # dep1..dep4 are NOT re-emitted through private$.asArgs() — doing so
+            # previously duplicated the dep variables in the generated syntax (the
+            # "double variables" bug). All non-variable options keep jmvcore's
+            # per-option sourcify so formatting stays consistent with jamovi.
+            args <- character(0)
+            for (option in private$.options$options) {
+                if (option$name == 'data')
+                    next
+                if (inherits(option, 'OptionVariable') || inherits(option, 'OptionVariables')) {
+                    val <- option$value
+                    if (!is.null(val))
+                        args <- c(args, paste0(option$name, ' = ',
+                                               paste0(deparse(val), collapse = '')))
                 } else {
-                    dep3
+                    as <- private$.sourcifyOption(option)
+                    if (!identical(as, ''))
+                        args <- c(args, as)
                 }
-                dep3_arg <- paste0(',\n    dep3 = "', dep3_escaped, '"')
             }
-
-            dep4_arg <- ''
-            if (!is.null(dep4)) {
-                dep4_escaped <- if (!identical(make.names(dep4), dep4)) {
-                    paste0('`', dep4, '`')
-                } else {
-                    dep4
-                }
-                dep4_arg <- paste0(',\n    dep4 = "', dep4_escaped, '"')
-            }
-
-            # Get other arguments
-            args <- ''
-            if (!is.null(private$.asArgs)) {
-                args <- private$.asArgs(incData = FALSE)
-            }
-            if (args != '')
-                args <- paste0(',\n    ', args)
 
             # Get package name dynamically
             pkg_name <- utils::packageName()
@@ -1344,7 +1344,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Build complete function call
             paste0(pkg_name, '::jjwithinstats(\n    data = data,\n    ',
-                   dep1_arg, ',\n    ', dep2_arg, dep3_arg, dep4_arg, args, ')')
+                   paste(args, collapse = ',\n    '), ')')
         }
     ) # End of public list
 )

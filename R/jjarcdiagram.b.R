@@ -11,6 +11,32 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjarcdiagramClass",
     inherit = jjarcdiagramBase,
     private = list(
+
+        # Notice collection (single Preformatted plain-text output item; avoids the
+        # jmvcore::Notice serialization error from self$results$insert(999, Notice)).
+        .noticeList = list(),
+
+        .addNotice = function(type, title, content) {
+            private$.noticeList[[length(private$.noticeList) + 1]] <- list(
+                type = type, title = title, content = content
+            )
+            private$.renderNotices()
+        },
+
+        .renderNotices = function() {
+            if (length(private$.noticeList) == 0) {
+                self$results$notices$setContent("")
+                return()
+            }
+            blocks <- vapply(private$.noticeList, function(notice) {
+                prefix <- switch(notice$type,
+                    ERROR = "ERROR: ", STRONG_WARNING = "WARNING: ",
+                    WARNING = "WARNING: ", "")
+                paste0(prefix, notice$title, "\n", notice$content)
+            }, character(1))
+            self$results$notices$setContent(paste(blocks, collapse = "\n\n"))
+        },
+
         # Init function
         .init = function() {
             if (is.null(self$options$source) || is.null(self$options$target))
@@ -31,7 +57,9 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         # Run function
         .run = function() {
-            
+
+            private$.noticeList <- list()
+
             # Check for required variables
             if (is.null(self$options$source) || is.null(self$options$target) || 
                 length(self$options$source) == 0 || length(self$options$target) == 0) {
@@ -61,7 +89,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Validate data
             if (nrow(self$data) == 0) {
-                stop(.('Data contains no (complete) rows'))
+                jmvcore::reject(.('Data contains no (complete) rows'))
             }
             
             private$.checkpoint()
@@ -138,13 +166,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             tryCatch({
                 private$.createArcPlot(network_data)
             }, error = function(e) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'plotCreationError',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent(paste('Error creating plot:', e$message))
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'Plot Creation Error', paste('Error creating plot:', e$message))
                 stop(e$message)
             })
 
@@ -290,13 +312,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata <- self$data
 
             if (nrow(mydata) == 0) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'noDataAvailable',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('No data available. Please load a dataset and re-run the analysis.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'No Data Available', 'No data available. Please load a dataset and re-run the analysis.')
                 return(NULL)
             }
 
@@ -308,13 +324,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Validate required columns exist
             if (!source_var %in% names(mydata) || !target_var %in% names(mydata)) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'variablesNotFound',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('Source or target variables not found in the dataset.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'Variables Not Found', 'Source or target variables not found in the dataset.')
                 return(NULL)
             }
 
@@ -332,13 +342,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             mydata_clean <- mydata[complete_rows, , drop = FALSE]
 
             if (nrow(mydata_clean) == 0) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'noCompleteRows',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('No complete rows after removing missing values. Check your data for NA values in source, target, weight, or group variables.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'No Complete Rows', 'No complete rows after removing missing values. Check your data for NA values in source, target, weight, or group variables.')
                 return(NULL)
             }
 
@@ -360,13 +364,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
 
             if (nrow(edge_df) == 0) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'noEdgeData',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('No valid edge data available after processing. Ensure source and target variables have overlapping values.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'No Edge Data', 'No valid edge data available after processing. Ensure source and target variables have overlapping values.')
                 return(NULL)
             }
 
@@ -439,75 +437,33 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Display self-loops warning as Notice
             if (self_loops > 0) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'selfLoopsDetected',
-                    type = jmvcore::NoticeType$WARNING
-                )
-                notice$setContent(sprintf('%d self-loop(s) detected and removed from the network.', self_loops))
-                self$results$insert(2, notice)
+                private$.addNotice('WARNING', 'Self-Loops Removed', sprintf('%d self-loop(s) detected and removed from the network.', self_loops))
             }
 
             # Display aggregation warnings as Notices
             if (length(aggregation_warnings) > 0) {
                 for (i in seq_along(aggregation_warnings)) {
-                    notice <- jmvcore::Notice$new(
-                        options = self$options,
-                        name = paste0('aggregationWarning', i),
-                        type = jmvcore::NoticeType$WARNING
-                    )
-                    # Remove the "Warning: " prefix from the message since NoticeType already indicates it's a warning
+                    # Remove the "Warning: " prefix from the message since the notice type already indicates it's a warning
                     msg <- sub("^Warning: ", "", aggregation_warnings[i])
-                    notice$setContent(msg)
-                    self$results$insert(2, notice)
+                    private$.addNotice('WARNING', 'Edge Aggregation', msg)
                 }
             }
 
             # Check for small/large networks with tiered warnings
             if (n_nodes < 3) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'trivialNetwork',
-                    type = jmvcore::NoticeType$STRONG_WARNING
-                )
-                notice$setContent('Network has fewer than 3 nodes. Centrality measures are not meaningful for networks this small. Consider adding more entities or combining data.')
-                self$results$insert(999, notice)
+                private$.addNotice('STRONG_WARNING', 'Trivial Network', 'Network has fewer than 3 nodes. Centrality measures are not meaningful for networks this small. Consider adding more entities or combining data.')
             } else if (n_nodes < 5) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'verySmallNetwork',
-                    type = jmvcore::NoticeType$STRONG_WARNING
-                )
-                notice$setContent('Network has fewer than 5 nodes. Centrality measures may be unreliable. Interpret with caution and consider qualitative assessment instead of quantitative metrics.')
-                self$results$insert(999, notice)
+                private$.addNotice('STRONG_WARNING', 'Very Small Network', 'Network has fewer than 5 nodes. Centrality measures may be unreliable. Interpret with caution and consider qualitative assessment instead of quantitative metrics.')
             } else if (n_nodes < 10) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'smallNetwork',
-                    type = jmvcore::NoticeType$WARNING
-                )
-                notice$setContent('Small network (< 10 nodes). Centrality measures may show limited variation. Results should be interpreted cautiously.')
-                self$results$insert(2, notice)
+                private$.addNotice('WARNING', 'Small Network', 'Small network (< 10 nodes). Centrality measures may show limited variation. Results should be interpreted cautiously.')
             }
 
             if (n_edges > 10000) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'largeNetwork',
-                    type = jmvcore::NoticeType$INFO
-                )
-                notice$setContent('Large network detected. Analysis may take longer.')
-                self$results$insert(999, notice)
+                private$.addNotice('INFO', 'Large Network', 'Large network detected. Analysis may take longer.')
             }
 
             if (n_edges > 50000) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'networkTooLarge',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('Network too large (> 50,000 edges after aggregation). Consider filtering or sampling data first.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'Network Too Large', 'Network too large (> 50,000 edges after aggregation). Consider filtering or sampling data first.')
                 stop('Network too large (> 50,000 edges after aggregation). Consider filtering or sampling data first.')
             }
 
@@ -551,15 +507,9 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 # Display group conflict warnings as Notices
                 if (length(group_conflicts) > 0) {
                     for (i in seq_along(group_conflicts)) {
-                        notice <- jmvcore::Notice$new(
-                            options = self$options,
-                            name = paste0('groupConflict', i),
-                            type = jmvcore::NoticeType$WARNING
-                        )
                         # Remove the "Warning: " prefix from the message
                         msg <- sub("^Warning: ", "", group_conflicts[i])
-                        notice$setContent(msg)
-                        self$results$insert(2, notice)
+                        private$.addNotice('WARNING', 'Group Conflict', msg)
                     }
                 }
             }
@@ -569,13 +519,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             g <- tryCatch({
                 igraph::graph_from_edgelist(edgelist, directed = self$options$directed)
             }, error = function(e) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'invalidEdgeStructure',
-                    type = jmvcore::NoticeType$ERROR
-                )
-                notice$setContent('Invalid edge structure detected. Check for duplicate or self-referencing edges.')
-                self$results$insert(999, notice)
+                private$.addNotice('ERROR', 'Invalid Edge Structure', 'Invalid edge structure detected. Check for duplicate or self-referencing edges.')
                 return(NULL)
             })
 
@@ -605,24 +549,12 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Domain-specific network density warnings
             if (density > 0.7) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'highNetworkDensity',
-                    type = jmvcore::NoticeType$WARNING
-                )
-                notice$setContent('Network density is very high (>70%). Consider filtering weak connections or using different visualization methods for clearer interpretation.')
-                self$results$insert(2, notice)
+                private$.addNotice('WARNING', 'High Network Density', 'Network density is very high (>70%). Consider filtering weak connections or using different visualization methods for clearer interpretation.')
             }
 
             # Info for sparse networks (helpful guidance, not a problem)
             if (density < 0.05 && n_nodes > 20) {
-                notice <- jmvcore::Notice$new(
-                    options = self$options,
-                    name = 'sparseNetwork',
-                    type = jmvcore::NoticeType$INFO
-                )
-                notice$setContent('Network is sparse (density <5%). Arc diagram is well-suited for visualizing sparse network structures.')
-                self$results$insert(999, notice)
+                private$.addNotice('INFO', 'Sparse Network', 'Network is sparse (density <5%). Arc diagram is well-suited for visualizing sparse network structures.')
             }
 
             return(list(
@@ -960,8 +892,8 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 stats_text <- paste(stats_text,
                     .("<h4>Centrality Measures:</h4>"),
                     "<ul>",
-                    paste(.("<li><strong>Highest Degree:</strong>"), highest_degree_node, " (", round(max_degree, 2), " ", degree_label, ")</li>"),
-                    paste(.("<li><strong>Highest Betweenness:</strong>"), highest_betweenness_node, " (", round(max_betweenness, 2), ")</li>"),
+                    paste(.("<li><strong>Highest Degree:</strong>"), htmltools::htmlEscape(highest_degree_node), " (", round(max_degree, 2), " ", degree_label, ")</li>"),
+                    paste(.("<li><strong>Highest Betweenness:</strong>"), htmltools::htmlEscape(highest_betweenness_node), " (", round(max_betweenness, 2), ")</li>"),
                     "</ul>",
                     sep = "\n"
                 )
@@ -970,10 +902,10 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 centrality_interp <- paste(
                     "<div style='background-color: #fff5f5; padding: 8px; margin: 8px 0; border-left: 4px solid #FF6B6B;'>",
                     sprintf(.("<p><strong> Key Players:</strong> '%s' is the most connected entity (%.2f %s), suggesting it may be a hub or central player.</p>"),
-                            highest_degree_node, max_degree, degree_label),
+                            htmltools::htmlEscape(highest_degree_node), max_degree, degree_label),
                     if (highest_betweenness_node != highest_degree_node) {
                         sprintf(.("<p><strong> Bridge Entity:</strong> '%s' has the highest betweenness centrality, indicating it serves as an important bridge between different network regions.</p>"),
-                                highest_betweenness_node)
+                                htmltools::htmlEscape(highest_betweenness_node))
                     } else {
                         .("<p><strong> Central Hub:</strong> The same entity serves as both the most connected node and the main bridge in the network.</p>")
                     },
@@ -991,7 +923,7 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 stats_text <- paste(stats_text,
                     .("<h4>Group Distribution (Node Counts):</h4>"),
                     "<ul>",
-                    paste("<li><strong>", names(group_counts), ":</strong>", group_counts, .(" nodes"), "</li>", collapse = ""),
+                    paste("<li><strong>", htmltools::htmlEscape(names(group_counts)), ":</strong>", group_counts, .(" nodes"), "</li>", collapse = ""),
                     "</ul>",
                     sep = "\n"
                 )
@@ -1080,10 +1012,10 @@ jjarcdiagramClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     # Use appropriate label for weighted vs unweighted
                     if (!is.null(igraph::E(network_data$g)$weight) && any(igraph::E(network_data$g)$weight != 1)) {
                         sprintf(.("<p><strong>Key Findings:</strong> The entity '%s' emerged as the most highly connected hub with %.2f weighted connections, suggesting its central role in the network.</p>"),
-                                highest_degree_node, max_degree)
+                                htmltools::htmlEscape(highest_degree_node), max_degree)
                     } else {
                         sprintf(.("<p><strong>Key Findings:</strong> The entity '%s' emerged as the most highly connected hub with %.0f direct connections, suggesting its central role in the network.</p>"),
-                                highest_degree_node, max_degree)
+                                htmltools::htmlEscape(highest_degree_node), max_degree)
                     }
                 } else {
                     ""

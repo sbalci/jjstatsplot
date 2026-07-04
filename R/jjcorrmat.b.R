@@ -14,6 +14,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # Cache for processed data and options to avoid redundant computation
         .processedData = NULL,
         .processedOptions = NULL,
+        .data_hash = NULL,
         .options_hash = NULL,
         # .preset_recommendations = NULL,  # Commented out - clinical preset feature disabled
         .warnings = list(),  # Collect warnings for HTML display (avoids Notice serialization errors)
@@ -124,7 +125,21 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         # Optimized data preparation with caching
         .prepareData = function(force_refresh = FALSE) {
-            if (!is.null(private$.processedData) && !force_refresh) {
+            # Hash-based invalidation — mirrors .options_hash pattern.
+            # Without this, stale filtered data could be returned when dep/grvar/
+            # naHandling change between .run() invocations on the same R6 instance.
+            current_data_hash <- digest::digest(list(
+                dep = self$options$dep,
+                grvar = self$options$grvar,
+                naHandling = self$options$naHandling,
+                data_dim = dim(self$data),
+                col_names = names(self$data)
+            ), algo = "md5")
+
+            if (!is.null(private$.processedData) &&
+                !is.null(private$.data_hash) &&
+                private$.data_hash == current_data_hash &&
+                !force_refresh) {
                 return(private$.processedData)
             }
 
@@ -177,6 +192,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Cache the processed data
             private$.processedData <- mydata
+            private$.data_hash <- current_data_hash
             return(mydata)
         },
 
@@ -203,7 +219,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             for (var in self$options$dep) {
                 varname <- resolve_name(var)
                 if (!(varname %in% names(mydata))) {
-                    private$.addWarning("ERROR", sprintf('Variable "%s" not found in data. Please select valid variables and re-run.', var))
+                    private$.addWarning("ERROR", sprintf('Variable "%s" not found in data. Please select valid variables and re-run.', htmltools::htmlEscape(var)))
                     return(FALSE)
                 }
             }
@@ -234,7 +250,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Stop if correlating category codes
             if (length(factor_warnings) > 0) {
-                private$.addWarning("ERROR", sprintf('Correlation analysis requires numeric variables. The following are categorical: %s. Please select continuous numeric variables.', paste(factor_warnings, collapse = ', ')))
+                private$.addWarning("ERROR", sprintf('Correlation analysis requires numeric variables. The following are categorical: %s. Please select continuous numeric variables.', htmltools::htmlEscape(paste(factor_warnings, collapse = ', '))))
                 return(FALSE)
             }
 
@@ -344,7 +360,8 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Generate clinical interpretation
             interpretation <- paste0(
                 .("A "), strength, " ", direction, .(" correlation (r = "), sprintf("%.3f", r),
-                .(") between "), var1, .(" and "), var2, .(" that is "), significance,
+                .(") between "), htmltools::htmlEscape(var1), .(" and "), htmltools::htmlEscape(var2),
+                .(" that is "), significance,
                 .(" using "), method, .(" correlation.")
             )
 
@@ -415,8 +432,8 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 cor_data[[var]] <- jmvcore::toNumeric(cor_data[[var]])
             }
 
-            # Remove rows with missing values
-            cor_data <- na.omit(cor_data)
+            # Remove rows with missing values (jmvcore::naOmit preserves jamovi column attributes)
+            cor_data <- jmvcore::naOmit(cor_data)
 
             if (nrow(cor_data) < 3) {
                 self$results$interpretation$setContent(.("Insufficient data for correlation interpretation."))
@@ -1006,24 +1023,35 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (is.null(dep) || length(dep) == 0)
                 return('')
 
-            # Escape variable names
-            dep_escaped <- sapply(dep, function(v) {
-                if (!is.null(v) && !identical(make.names(v), v))
-                    paste0('`', v, '`')
-                else
-                    v
-            })
-
-            # Build dep argument
-            dep_arg <- paste0('dep = c(', paste(sapply(dep_escaped, function(v) paste0('"', v, '"')), collapse = ', '), ')')
-
-            # Get other arguments
-            args <- ''
-            if (!is.null(private$.asArgs)) {
-                args <- private$.asArgs(incData = FALSE)
+            # Build the argument list in option-declaration order.
+            #
+            # Every variable-name option (single OptionVariable or multi-variable
+            # OptionVariables) is emitted as a deparse()'d string literal. deparse()
+            # produces valid, fully-escaped R for names containing spaces, quotes or
+            # backslashes (e.g. `Tumor Grade`); jmvcore's default sourcify would emit
+            # some of these as bare, unquoted symbols and yield invalid syntax.
+            # Detecting the option by CLASS (not by name) means any variable option
+            # added later is escaped automatically.
+            #
+            # Variables are NOT re-emitted through private$.asArgs() — doing so
+            # previously duplicated them in the generated syntax (the "double
+            # variables" bug). All non-variable options keep jmvcore's per-option
+            # sourcify so formatting stays consistent with jamovi.
+            args <- character(0)
+            for (option in private$.options$options) {
+                if (option$name == 'data')
+                    next
+                if (inherits(option, 'OptionVariable') || inherits(option, 'OptionVariables')) {
+                    val <- option$value
+                    if (!is.null(val) && length(val) > 0)
+                        args <- c(args, paste0(option$name, ' = ',
+                                               paste0(deparse(val), collapse = '')))
+                } else {
+                    as <- private$.sourcifyOption(option)
+                    if (!identical(as, ''))
+                        args <- c(args, as)
+                }
             }
-            if (args != '')
-                args <- paste0(',\n    ', args)
 
             # Get package name dynamically
             pkg_name <- utils::packageName()
@@ -1031,7 +1059,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Build complete function call
             paste0(pkg_name, '::jjcorrmat(\n    data = data,\n    ',
-                   dep_arg, args, ')')
+                   paste(args, collapse = ',\n    '), ')')
         }
     ) # End of public list
 ) else NULL

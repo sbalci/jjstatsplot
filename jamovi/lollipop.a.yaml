@@ -111,8 +111,8 @@ options:
 
     - name: highlight
       title: 'Highlight Level'
-      type: String
-      default: ''
+      type: Level
+      variable: (group)
       description:
           R: >
             Specific level to highlight in the plot with different color/style. Only used when useHighlight is TRUE.

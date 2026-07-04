@@ -19,6 +19,42 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .plotTheme = NULL,
         .effectiveOptions = NULL,
 
+        # Notice collection helpers. A single Preformatted (plain-text) output item:
+        # avoids BOTH the jmvcore::Notice serialization error from
+        # self$results$insert(999, Notice) AND any HTML in notices (project convention:
+        # notice content must be plain text). ====
+        .noticeList = list(),
+
+        .addNotice = function(type, title, content) {
+            private$.noticeList[[length(private$.noticeList) + 1]] <- list(
+                type = type,
+                title = title,
+                content = content
+            )
+            # Render immediately so early-return validation aborts still display the notice
+            private$.renderNotices()
+        },
+
+        .renderNotices = function() {
+            if (length(private$.noticeList) == 0) {
+                self$results$notices$setContent("")
+                return()
+            }
+
+            # Plain text only — notices avoid HTML by project convention; the Preformatted
+            # output item renders this literally (no markup, no injection surface).
+            blocks <- vapply(private$.noticeList, function(notice) {
+                prefix <- switch(notice$type,
+                    ERROR          = "ERROR: ",
+                    STRONG_WARNING = "WARNING: ",
+                    WARNING        = "WARNING: ",
+                    "")
+                paste0(prefix, notice$title, "\n", notice$content)
+            }, character(1))
+
+            self$results$notices$setContent(paste(blocks, collapse = "\n\n"))
+        },
+
         # init ----
 
         .init = function() {
@@ -118,6 +154,15 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     invokeRestart("muffleWarning")
                 }
             )
+            # TODO (cleanup): File-wide pattern — many commented-out jmvcore::Notice
+            #   blocks preserved as dead code. Sites: L122-130 (here), L401-408,
+            #   L425-434, L676-691, L832-839, L1108-1119, L1209-1218, L1226-1240,
+            #   L1353-1364, L1373-1386. Either delete or revive. If revived, the
+            #   sprintf'd column-name interpolations (e.g. L686 `diseased_level`
+            #   factor-level value, L1232 `fisher_check$low_count_cells` numeric)
+            #   must apply htmltools::htmlEscape on user-controlled tokens IF
+            #   migrated to Html-typed result items per project's notice-to-HTML
+            #   conversion guide. Notice plain-text rendering is safe today.
             if (length(ratio_warnings) > 0 && isTRUE(self$options$messages)) {
                 ratio_warnings <- unique(ratio_warnings)
                 # notice <- jmvcore::Notice$new(
@@ -134,12 +179,17 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         },
         
         .getPlotTheme = function() {
-            if (is.null(private$.plotTheme)) {
-                private$.plotTheme <- if (!isTRUE(self$options$originaltheme)) {
+            # Hash-based invalidation — without this, toggling `originaltheme`
+            # between .run() invocations on the same R6 instance returns a stale theme.
+            current_originaltheme <- isTRUE(self$options$originaltheme)
+            if (is.null(private$.plotTheme) ||
+                !identical(attr(private$.plotTheme, "originaltheme"), current_originaltheme)) {
+                private$.plotTheme <- if (!current_originaltheme) {
                     ggplot2::theme_bw()
                 } else {
                     ggstatsplot::theme_ggstatsplot()
                 }
+                attr(private$.plotTheme, "originaltheme") <- current_originaltheme
             }
             private$.plotTheme
         },
@@ -198,11 +248,11 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         .generateSummaryContent = function() {
             # Basic summary based on current selections
             dep_info <- if (!is.null(self$options$dep)) {
-                paste(.('Analyzing variable:'), self$options$dep)
+                paste(.('Analyzing variable:'), htmltools::htmlEscape(self$options$dep))
             } else { .('No outcome variable selected') }
-            
+
             group_info <- if (!is.null(self$options$group) && self$options$group != "") {
-                paste(.('Comparing across groups:'), self$options$group)
+                paste(.('Comparing across groups:'), htmltools::htmlEscape(self$options$group))
             } else { .('No grouping variable - single pie chart') }
             
             method_info <- paste(.('Statistical method:'), tools::toTitleCase(self$options$typestatistics))
@@ -229,8 +279,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     counts_var <- self$options$counts
                     if (!is.null(counts_var) && counts_var != "" && counts_var %in% names(self$data)) {
                         # Weighted contingency table using xtabs
-                        formula_str <- paste0(counts_var, " ~ ", self$options$dep, " + ", self$options$group)
-                        contingency_table <- xtabs(as.formula(formula_str), data = self$data)
+                        formula_str <- paste0(jmvcore::composeTerm(counts_var),
+                                              " ~ ", jmvcore::composeTerm(self$options$dep),
+                                              " + ", jmvcore::composeTerm(self$options$group))
+                        contingency_table <- xtabs(jmvcore::asFormula(formula_str), data = self$data)
                     } else {
                         # Unweighted contingency table
                         contingency_table <- table(self$data[[self$options$dep]], self$data[[self$options$group]])
@@ -331,12 +383,20 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 .('statistical analysis')
             )
             
+            # TODO (correctness): paste() with named args is broken here — the
+            #   `{outcome}/{groups}/{method}` placeholders are NEVER interpolated.
+            #   paste() only respects `sep`/`collapse`; other named args are treated
+            #   as positional values and concatenated with default sep=" ". Result is
+            #   literal `{outcome}` text followed by appended values. Use glue::glue()
+            #   or sprintf() instead to actually interpolate the placeholders.
             sample_description <- if (!is.null(self$options$group) && self$options$group != "") {
                 paste(.('We compared {outcome} distributions across {groups} using {method}.'),
-                     outcome = self$options$dep, groups = self$options$group, method = method_name)
+                     outcome = htmltools::htmlEscape(self$options$dep),
+                     groups = htmltools::htmlEscape(self$options$group),
+                     method = method_name)
             } else {
                 paste(.('We analyzed the distribution of {outcome} using descriptive statistics.'),
-                     outcome = self$options$dep)
+                     outcome = htmltools::htmlEscape(self$options$dep))
             }
             
             glue::glue(
@@ -371,7 +431,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             missing_vars <- all_vars[!all_vars %in% names(self$data)]
             if (length(missing_vars) > 0) {
-                stop(paste(.('Variables not found in data:'), paste(missing_vars, collapse = ', ')))
+                jmvcore::reject(.('Variables not found in data: {vars}'),
+                                vars = paste(missing_vars, collapse = ', '))
             }
             
             # Validate that variables are appropriate for pie charts (categorical)
@@ -383,8 +444,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         if (is.numeric(self$data[[var]])) {
                             unique_vals <- length(unique(self$data[[var]], na.rm = TRUE))
                             if (unique_vals > 10) {
-                                stop(paste(.('Variable \'{var}\' appears to be continuous ({count} unique values). Pie charts are for categorical data. Consider converting to groups first.'), 
-                                    list(var = var, count = unique_vals)))
+                                jmvcore::reject(
+                                    .('Variable "{var}" appears to be continuous ({count} unique values). Pie charts are for categorical data. Consider converting to groups first.'),
+                                    var = var, count = unique_vals
+                                )
                             }
                         }
                     }
@@ -406,7 +469,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     # )
                     # notice$setContent(counts_validation$message)
                     # self$results$insert(999, notice)
-                    stop(counts_validation$message)
+                    jmvcore::reject(counts_validation$message)
                 }
             }
 
@@ -435,7 +498,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 }
 
                 if (length(group_sizes) < 2) {
-                    stop(.('Grouping variable must have at least 2 categories for comparison.'))
+                    jmvcore::reject(.('Grouping variable must have at least 2 categories for comparison.'))
                 }
             }
 
@@ -443,8 +506,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.null(dep) && dep != "" && dep %in% names(self$data)) {
                 dep_levels <- table(self$data[[dep]], useNA = "no")
                 if (length(dep_levels) < 2) {
-                    stop(paste(.('Variable \'{var}\' has insufficient variation (only {count} level). Need at least 2 categories for meaningful pie chart.'),
-                              list(var = dep, count = length(dep_levels))))
+                    jmvcore::reject(
+                        .('Variable "{var}" has insufficient variation (only {count} level). Need at least 2 categories for meaningful pie chart.'),
+                        var = dep, count = length(dep_levels)
+                    )
                 }
             }
         },
@@ -527,8 +592,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             tryCatch({
                 # Create contingency table (weighted if counts present)
                 if (!is.null(counts_var) && counts_var != "" && counts_var %in% names(data)) {
-                    formula_str <- paste0(counts_var, " ~ ", dep_var, " + ", group_var)
-                    cont_table <- xtabs(as.formula(formula_str), data = data)
+                    formula_str <- paste0(jmvcore::composeTerm(counts_var),
+                                          " ~ ", jmvcore::composeTerm(dep_var),
+                                          " + ", jmvcore::composeTerm(group_var))
+                    cont_table <- xtabs(jmvcore::asFormula(formula_str), data = data)
                 } else {
                     cont_table <- table(data[[dep_var]], data[[group_var]])
                 }
@@ -581,8 +648,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             counts_var <- self$options$counts
             if (!is.null(counts_var) && counts_var != "" && counts_var %in% names(data)) {
                 # Weighted contingency table
-                formula_str <- paste0(counts_var, " ~ ", dep_var, " + ", group_var)
-                cross_table <- xtabs(as.formula(formula_str), data = data)
+                formula_str <- paste0(jmvcore::composeTerm(counts_var),
+                                      " ~ ", jmvcore::composeTerm(dep_var),
+                                      " + ", jmvcore::composeTerm(group_var))
+                cross_table <- xtabs(jmvcore::asFormula(formula_str), data = data)
             } else {
                 # Unweighted contingency table
                 cross_table <- table(data[[dep_var]], data[[group_var]])
@@ -653,8 +722,10 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Create contingency table (use weighted if counts present)
             counts_var <- self$options$counts
             if (!is.null(counts_var) && counts_var != "" && counts_var %in% names(data)) {
-                formula_str <- paste0(counts_var, " ~ ", dep_var, " + ", group_var)
-                cont_table <- xtabs(as.formula(formula_str), data = data)
+                formula_str <- paste0(jmvcore::composeTerm(counts_var),
+                                      " ~ ", jmvcore::composeTerm(dep_var),
+                                      " + ", jmvcore::composeTerm(group_var))
+                cont_table <- xtabs(jmvcore::asFormula(formula_str), data = data)
             } else {
                 cont_table <- table(data[[dep_var]], data[[group_var]])
             }
@@ -696,7 +767,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # CRITICAL FIX: Defensive check for dep variable
             if (is.null(self$options$dep) || length(self$options$dep) == 0 ||
                 (length(self$options$dep) == 1 && self$options$dep == "")) {
-                stop(.('Dependent variable is required but not properly set'))
+                jmvcore::reject(.('Dependent variable is required but not properly set'))
             }
 
             opts <- private$.effectiveOptionsList()
@@ -718,7 +789,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Additional safety check
             if (length(relevant_cols) == 0) {
-                stop(.('No valid analysis variables found in dataset. Please check variable names.'))
+                jmvcore::reject(.('No valid analysis variables found in dataset. Please check variable names.'))
             }
 
             # Hash actual data content (not just structure)
@@ -763,7 +834,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # CRITICAL FIX: Defensive check for dep variable
             if (is.null(self$options$dep) || length(self$options$dep) == 0 ||
                 (length(self$options$dep) == 1 && self$options$dep == "")) {
-                stop(.('Dependent variable is required but not properly set'))
+                jmvcore::reject(.('Dependent variable is required but not properly set'))
             }
 
             # Prepare data with progress feedback
@@ -788,7 +859,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Safety check
             if (length(relevant_cols) == 0) {
-                stop(.('No valid analysis variables specified'))
+                jmvcore::reject(.('No valid analysis variables specified'))
             }
 
             # Remove rows with NAs only in relevant columns
@@ -809,13 +880,13 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         rows_msg = ngettext(n_dropped, 'row', 'rows'),
                         excluded_msg = .('excluded due to missing values in'),
                         vars_msg = .('analysis variables'),
-                        var_list = paste(relevant_cols, collapse = ', ')
+                        var_list = htmltools::htmlEscape(paste(relevant_cols, collapse = ', '))
                     )
                 )
             }
 
             if (nrow(mydata) == 0 || nrow(mydata) < 3) {
-                stop(.('No complete data rows available after handling missing values. Please check your data for the selected variables.'))
+                jmvcore::reject(.('No complete data rows available after handling missing values. Please check your data for the selected variables.'))
             }
 
             return(mydata)
@@ -896,7 +967,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Defensive validation: ensure dep is not zero-length
             if (is.null(self$options$dep) || length(self$options$dep) == 0 || (length(self$options$dep) == 1 && self$options$dep == "")) {
-                stop(.('Dependent variable is not properly set'))
+                jmvcore::reject(.('Dependent variable is not properly set'))
             }
             
             # Build effective options (includes preset and parsed ratio)
@@ -911,6 +982,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # run ----
         ,
         .run = function() {
+
+            private$.noticeList <- list()
 
             # Generate clinical interpretation panels
             private$.generateClinicalPanels()
@@ -946,7 +1019,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 tryCatch({
                     # Basic data check
                     if (nrow(self$data) == 0) {
-                        stop(.('Dataset is empty. Please ensure your data contains observations.'))
+                        jmvcore::reject(.('Dataset is empty. Please ensure your data contains observations.'))
                     }
                     
             # Use cached data validation and preparation
@@ -970,12 +1043,12 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     }
                     
                     # Build status message
-                    dep_info <- paste(.('Variable:'), self$options$dep)
+                    dep_info <- paste(.('Variable:'), htmltools::htmlEscape(self$options$dep))
                     group_info <- if (!is.null(self$options$group) && self$options$group != "") {
-                        paste(",", .('grouped by'), self$options$group)
+                        paste(",", .('grouped by'), htmltools::htmlEscape(self$options$group))
                     } else { "" }
                     split_info <- if (!is.null(self$options$grvar) && self$options$grvar != "") {
-                        paste(",", .('split by'), self$options$grvar)
+                        paste(",", .('split by'), htmltools::htmlEscape(self$options$grvar))
                     } else { "" }
                     
                     todo <- glue::glue(
@@ -1026,7 +1099,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     
                     error_msg <- glue::glue(
                         "<br> <b>{error_title}:</b><br>
-                        <br>{e$message}<br>
+                        <br>{htmltools::htmlEscape(e$message)}<br>
                         {error_context}
                         <br><b>{troubleshoot_title}:</b><br>
                         • {check1}<br>
@@ -1431,13 +1504,14 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Handle weighted counts if present
             if (!is.null(options_data$counts) && options_data$counts != "") {
                 # Weighted aggregation
-                formula_str <- paste0(options_data$counts, " ~ ", dep)
+                formula_str <- paste0(jmvcore::composeTerm(options_data$counts),
+                                      " ~ ", jmvcore::composeTerm(dep))
                 if (!is.null(group) && group != "") {
-                    formula_str <- paste0(formula_str, " + ", group)
+                    formula_str <- paste0(formula_str, " + ", jmvcore::composeTerm(group))
                 }
-                
+
                 # Use xtabs to sum counts
-                agg_table <- xtabs(as.formula(formula_str), data = mydata)
+                agg_table <- xtabs(jmvcore::asFormula(formula_str), data = mydata)
                 plot_data <- as.data.frame(agg_table)
                 
                 # Rename count column to 'Freq' for consistency
@@ -1471,7 +1545,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             
             # Facet if grouped
             if (!is.null(group) && group != "") {
-                plot <- plot + ggplot2::facet_wrap(as.formula(paste("~", group)))
+                plot <- plot + ggplot2::facet_wrap(jmvcore::asFormula(paste("~", jmvcore::composeTerm(group))))
             }
             
             print(plot)

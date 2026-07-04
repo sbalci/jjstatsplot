@@ -9,7 +9,7 @@ lollipopOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             dep = NULL,
             group = NULL,
             useHighlight = FALSE,
-            highlight = "",
+            highlight = NULL,
             aggregation = "none",
             sortBy = "original",
             orientation = "vertical",
@@ -54,10 +54,10 @@ lollipopOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "useHighlight",
                 useHighlight,
                 default=FALSE)
-            private$..highlight <- jmvcore::OptionString$new(
+            private$..highlight <- jmvcore::OptionLevel$new(
                 "highlight",
                 highlight,
-                default="")
+                variable="(group)")
             private$..aggregation <- jmvcore::OptionList$new(
                 "aggregation",
                 aggregation,
@@ -242,6 +242,7 @@ lollipopResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "lollipopResults",
     inherit = jmvcore::Group,
     active = list(
+        notices = function() private$.items[["notices"]],
         todo = function() private$.items[["todo"]],
         summary = function() private$.items[["summary"]],
         plot = function() private$.items[["plot"]]),
@@ -256,6 +257,17 @@ lollipopResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "ClinicoPathJamoviModule",
                     "RGraphGallery",
                     "ggplot2"))
+            self$add(jmvcore::Preformatted$new(
+                options=options,
+                name="notices",
+                title="Important Information",
+                clearWith=list(
+                    "dep",
+                    "group",
+                    "sortBy",
+                    "orientation",
+                    "aggregation",
+                    "colorScheme")))
             self$add(jmvcore::Html$new(
                 options=options,
                 name="todo",
@@ -291,7 +303,7 @@ lollipopBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "lollipop",
-                version = c(0,0,43),
+                version = c(0,0,46),
                 options = options,
                 results = lollipopResults$new(options=options),
                 data = data,
@@ -409,6 +421,7 @@ lollipopBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param height Height of the plot in pixels.
 #' @return A results object containing:
 #' \tabular{llllll}{
+#'   \code{results$notices} \tab \tab \tab \tab \tab a preformatted \cr
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
 #'   \code{results$summary} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$plot} \tab \tab \tab \tab \tab an image \cr
@@ -426,7 +439,7 @@ lollipop <- function(
     dep,
     group,
     useHighlight = FALSE,
-    highlight = "",
+    highlight,
     aggregation = "none",
     sortBy = "original",
     orientation = "vertical",

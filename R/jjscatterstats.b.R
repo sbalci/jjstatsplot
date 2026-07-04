@@ -9,18 +9,12 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jjscatterstatsBase,
     private = list(
 
-        # === Variable Name Safety ===
-        .escapeVar = function(varname) {
-            if (is.null(varname) || varname == "") return(varname)
-            # Wrap in backticks if contains spaces or special chars
-            if (grepl("[^A-Za-z0-9_.]", varname)) {
-                return(paste0("`", varname, "`"))
-            }
-            return(varname)
-        },
-
         # init ----
 
+        # TODO (data hygiene): the `num_levels * plotwidth` sizing below is unbounded —
+        # a `grvar` column with hundreds of unique levels produces enormous canvases.
+        # Cap num_levels at a sane upper bound (e.g., 16) with a notice when exceeded,
+        # or defer sizing to .run/.plot post-validation. Same concern as jjradarplot.
         .init = function() {
 
             plotwidth <- if (!is.null(self$options$plotwidth)) self$options$plotwidth else 600
@@ -80,13 +74,24 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 self$results$todo$setContent(todo)
 
                 if (nrow(self$data) == 0)
-                    stop('Data contains no (complete) rows')
+                    jmvcore::reject(.('Data contains no (complete) rows'))
             }
 
             private$.applyClinicalPreset()
             private$.generateExplanations()
         },
 
+        # TODO (correctness): `.applyClinicalPreset` writes back to jamovi options via
+        # `self$options$typestatistics <- ...` at L102-104, L118-119, L133-134. jamovi
+        # options are read-only at runtime; this mutation pattern may silently no-op or
+        # raise a runtime error in newer jamovi versions. Same concern as
+        # jjbarstats/jjcoefstats/jjhistostats/jjpubr/jjridges. Recommended fix: build
+        # an overrides list + `.option(name)` indirection (jjoncoplot's
+        # `.optionsWithPreset` L34-93 is the correct pattern).
+        #
+        # TODO (cleanup): L90-101 / L107-117 / L122-131 contain near-identical
+        # `preset_message` HTML blocks. Consider templating to a single helper that
+        # accepts (title, items) to reduce duplication and drift risk.
         .applyClinicalPreset = function() {
             preset <- self$options$clinicalPreset
             if (preset == "custom") {
@@ -332,7 +337,15 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 )
             }
 
-            # Evaluate the call
+            # Safety note: `plot_call` is built with `rlang::expr()` and
+            # `!!` quasiquotation. The function name
+            # (`ggstatsplot::grouped_ggscatterstats`) is hardcoded. User
+            # inputs flow only into argument-VALUE positions: column-name
+            # strings via `rlang::sym()` (which become symbols bound at
+            # evaluation time to columns of `plotData`, not function
+            # calls), numeric/bool options, and free-text titles passed
+            # as character literals. No user string lands in a
+            # function-name position.
             plot <- eval(plot_call)
 
             if (self$options$showRugPlot) {
@@ -404,19 +417,19 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             point_aes <- list()
 
             if (!is.null(self$options$colorvar) && self$options$colorvar != "") {
-                point_aes$colour <- rlang::sym(private$.escapeVar(self$options$colorvar))
+                point_aes$colour <- rlang::sym(self$options$colorvar)
             }
 
             if (!is.null(self$options$sizevar) && self$options$sizevar != "") {
-                point_aes$size <- rlang::sym(private$.escapeVar(self$options$sizevar))
+                point_aes$size <- rlang::sym(self$options$sizevar)
             }
 
             if (!is.null(self$options$shapevar) && self$options$shapevar != "") {
-                point_aes$shape <- rlang::sym(private$.escapeVar(self$options$shapevar))
+                point_aes$shape <- rlang::sym(self$options$shapevar)
             }
 
             if (!is.null(self$options$alphavar) && self$options$alphavar != "") {
-                point_aes$alpha <- rlang::sym(private$.escapeVar(self$options$alphavar))
+                point_aes$alpha <- rlang::sym(self$options$alphavar)
             }
 
             # Add points with aesthetics
@@ -547,7 +560,8 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 p <- p + ggplot2::labs(subtitle = cor_text)
             }, error = function(e) {
                 # If correlation fails, continue without it
-                warning_msg <- paste0(" Correlation calculation failed: ", e$message)
+                # htmlEscape e$message since cor.test errors may include column-name fragments
+                warning_msg <- paste0(" Correlation calculation failed: ", htmltools::htmlEscape(e$message))
                 self$results$warnings$setContent(warning_msg)
                 self$results$warnings$setVisible(TRUE)
             })
@@ -714,30 +728,36 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (is.null(dep) || is.null(group))
                 return('')
 
-            # Escape variable names
-            dep_escaped <- if (!is.null(dep) && !identical(make.names(dep), dep)) {
-                paste0('`', dep, '`')
-            } else {
-                dep
+            # Build the argument list in option-declaration order.
+            #
+            # Every variable-name option (dep, group, grvar, colorvar, sizevar,
+            # shapevar, alphavar, labelvar) is emitted as a deparse()'d string
+            # literal. deparse() produces valid, fully-escaped R for names
+            # containing spaces, quotes or backslashes (e.g. `Tumor Grade`);
+            # jmvcore's default sourcify would emit these as bare, unquoted
+            # symbols and yield invalid syntax. Detecting OptionVariable by class
+            # (rather than by name) means any variable option added later is
+            # escaped automatically.
+            #
+            # data/dep/group are NOT re-emitted through private$.asArgs() — doing
+            # so previously duplicated dep and group in the generated syntax (the
+            # "double variables" bug). All non-variable options keep jmvcore's
+            # per-option sourcify so formatting stays consistent with jamovi.
+            args <- character(0)
+            for (option in private$.options$options) {
+                if (option$name == 'data')
+                    next
+                if (inherits(option, 'OptionVariable')) {
+                    val <- option$value
+                    if (!is.null(val))
+                        args <- c(args, paste0(option$name, ' = ',
+                                               paste0(deparse(val), collapse = '')))
+                } else {
+                    as <- private$.sourcifyOption(option)
+                    if (!identical(as, ''))
+                        args <- c(args, as)
+                }
             }
-
-            group_escaped <- if (!is.null(group) && !identical(make.names(group), group)) {
-                paste0('`', group, '`')
-            } else {
-                group
-            }
-
-            # Build arguments
-            dep_arg <- paste0('dep = "', dep_escaped, '"')
-            group_arg <- paste0('group = "', group_escaped, '"')
-
-            # Get other arguments
-            args <- ''
-            if (!is.null(private$.asArgs)) {
-                args <- private$.asArgs(incData = FALSE)
-            }
-            if (args != '')
-                args <- paste0(',\n    ', args)
 
             # Get package name dynamically
             pkg_name <- utils::packageName()
@@ -745,7 +765,7 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Build complete function call
             paste0(pkg_name, '::jjscatterstats(\n    data = data,\n    ',
-                   dep_arg, ',\n    ', group_arg, args, ')')
+                   paste(args, collapse = ',\n    '), ')')
         }
     ) # End of public list
 )
