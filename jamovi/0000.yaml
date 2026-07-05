@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.46
+version: 0.0.47
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2026-07-04'
+date: '2026-07-05'
 type: R
 description: >-
   Comprehensive statistical visualization module for jamovi featuring 17+

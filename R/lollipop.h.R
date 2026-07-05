@@ -303,7 +303,7 @@ lollipopBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "lollipop",
-                version = c(0,0,46),
+                version = c(0,0,47),
                 options = options,
                 results = lollipopResults$new(options=options),
                 data = data,
