@@ -1,3 +1,60 @@
+# jjstatsplot 0.0.46 (2026-07-04)
+
+This release consolidates all work from 0.0.32.66 through 0.0.46 into a single entry. The main themes are: a new **"Important Information" notices system** surfacing typed diagnostic messages across analyses; extensive **input-validation and HTML-escaping hardening** of the backends; **multiple-endpoint-correction guidance** for group comparisons; and **dependency/infrastructure cleanup** that raises the minimum jamovi version to 2.7.27.
+
+## New Features
+
+### "Important Information" Notices
+- **NEW**: Added an "Important Information" `Preformatted` output (`notices`) that surfaces prioritized, typed messages (ERROR / STRONG_WARNING / WARNING / INFO) generated during the analysis to seven modules:
+  - **Arc Diagram** (`jjarcdiagram`)
+  - **Bar Charts** (`jjbarstats`)
+  - **Pie Charts** (`jjpiestats`)
+  - **Advanced Ridge Plot** (`jjridges`) — replaces the previous free-form `Notices` (`Html`, always-visible) output
+  - **Waffle Charts** (`jwaffle`)
+  - **Lollipop Chart** (`lollipop`)
+  - **statsplot2** (`statsplot2`)
+- Backends for `jjarcdiagram`, `jjbarstats`, `jjpiestats`, `jwaffle`, `lollipop`, and `statsplot2` gained a shared `.addNotice()` / `.renderNotices()` helper pair that accumulates notices and renders them safely, avoiding the `jmvcore::Notice` serialization failure.
+
+### Multiple-Endpoint Correction Guidance (`jjbetweenstats`)
+- **NEW** results panels `mecGuidance`, `diagnostics`, and `clinicalSummary` (all `Html`):
+  - `mecGuidance` renders step-by-step guidance for the `multiEndpointCorrection` option (`none` / `bonferroni` / `holm` / `fdr`), including the adjusted significance threshold and a family-wise error-rate inflation warning when multiple dependent variables are tested.
+  - `diagnostics` renders data-quality and assumption diagnostics.
+  - `clinicalSummary` renders a natural-language clinical interpretation.
+  - Guidance and diagnostics are now rendered from `.run()` into always-visible elements (via `setContent()`), so they reliably appear and update when options change — fixing content that previously vanished on option-only changes because it was emitted only from the memoized `.prepareData()` path.
+
+### Natural-Language Summary (`linechart`)
+- **NEW** `naturalSummary` (`Html`) output providing a plain-language summary of the line chart.
+
+## Enhanced Existing Modules
+
+- **Bar Charts** (`jjbarstats`): input validation now rejects continuous variables used as categories, non-numeric or negative `counts` values, and grouping variables with fewer than 2 categories; auto-selects Fisher's exact test when appropriate; validates paired-data structure; validates and normalizes expected-proportion `ratio` values (with warnings on parse errors); UI reorganized into `CollapseBox` / `Label` groups.
+- **Between-Group Comparisons** (`jjbetweenstats`): UI reorganized into `CollapseBox` / `Label` groups.
+- **Arc Diagram** (`jjarcdiagram`): added network-size notices (trivial / very-small / small / large network), density notices (high / sparse), self-loop detection and removal, and edge-aggregation reporting.
+- **Housekeeping across modules**: descriptive text and option titles were rewritten to avoid the literal `%` character (e.g. "100%" → "100 percent", "Winsorize (5/95%)" → "Winsorize (5/95 percent)", "Show CV% Bands" → "Show CV percent Bands") for compatibility with the notices/preformatted output.
+
+## Security & Robustness
+
+- **HTML escaping**: `htmltools::htmlEscape()` is now applied to all user-supplied values interpolated into HTML output — variable names, group and factor labels, baseline-group names, and network node names — across `hullplot`, `jjarcdiagram`, `jjbarstats`, `jjbetweenstats`, `jjpiestats`, and others, preventing HTML/script injection via malicious column names or factor levels.
+- **Safe formula construction**: `jjbarstats` builds its counts formula (`counts ~ var1 + var2`) with `jmvcore::composeTerm()` instead of raw string pasting.
+- **Input validation**: `jmvcore::reject()` guards for empty datasets, missing/not-found variables, and no-complete-cases conditions across `hullplot`, `jjarcdiagram`, `jjbarstats`, and others.
+- **Shared helpers** added to `R/utils.R`: `.escapeVariableNames()`, `.asSurvivalFormula()` (extends the jmvcore 2.7.27 `asFormula` allow-list), `.buildSurvivalFormula()`, and the `%notin%` / `%!in%` operators.
+
+## Bug Fixes
+
+- **Line Chart** (`linechart`): added the missing `naturalSummary` results element that the backend calls via `setContent()`, which previously caused an error (community contribution — PR #12 by G Chia).
+- **Between-Group Comparisons** (`jjbetweenstats`): fixed multi-dependent-variable plotting by passing the aesthetic symbol directly (`y = y`) instead of `y = !!y` inside a plain `list()`, which errored with "invalid argument type".
+- **Histogram** (`jjhistostats`): fixed the conditional visibility of the grouped ggpubr plot (`ggpubrPlot2`) to use `!is.null(grvar)`; renamed the ggpubr output titles to remove parentheses (e.g. "Density Plot (ggpubr)" → "Density Plot ggpubr").
+- **Scatter Plot** (`jjscatterstats`): adjusted the grouped-plot (`plot2`) visibility condition.
+
+## Package Infrastructure
+
+- Version bumped to **0.0.46** (Date 2026-07-04); minimum jamovi (`minApp`) raised from **1.2.19** to **2.7.27**.
+- DESCRIPTION `Imports` reorganized one-per-line; **added** `DT` and `extrafont`; **moved** `ggcorrplot`, `ggside`, `performance`, and `PMCMRplus` from `Imports` to `Suggests`.
+- **Added** `ClinicoPath/waffle` to `Remotes` (alongside `gastonstat/arcdiagram`).
+- Switched to `Config/roxygen2/version: 8.0.0` (from `RoxygenNote: 7.3.3`).
+
+---
+
 # jjstatsplot 0.0.32.66 (2026-01-01)
 
 ## New Features
