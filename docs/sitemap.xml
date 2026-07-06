@@ -84,6 +84,9 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_sensitivity.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/calculate_specificity.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/clinicopath_startup_message.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/dot-asSurvivalFormula.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/dot-buildSurvivalFormula.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/dot-escapeVariableNames.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/hullplot.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/hullplotClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/index.html</loc></url>
@@ -122,6 +125,7 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/not-in-alt.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/not-in.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/null-coalescing.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/null_coalescing.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/pipe.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/print.sensSpecTable.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/prop_to_percent.html</loc></url>

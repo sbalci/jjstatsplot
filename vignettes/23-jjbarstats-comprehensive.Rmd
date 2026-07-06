@@ -357,7 +357,7 @@ The function respects jamovi's theming system when `originaltheme = FALSE` (defa
 
 ## Statistical Method Selection
 
-1. **Parametric**: Use when data meets assumptions (large sample sizes, expected frequencies ≥ 5)
+1. **Parametric**: Use when data meets assumptions (large sample sizes, expected frequencies >= 5)
 2. **Non-parametric**: Default choice for categorical data, fewer assumptions
 3. **Robust**: Good middle ground, less sensitive to outliers
 4. **Bayesian**: When you want to incorporate prior knowledge or report Bayes factors
@@ -371,7 +371,7 @@ The function respects jamovi's theming system when `originaltheme = FALSE` (defa
 
 ## Sample Size Considerations
 
-- Chi-squared tests require expected frequencies ≥ 5 in each cell
+- Chi-squared tests require expected frequencies >= 5 in each cell
 - Fisher's exact test is automatically used for small samples
 - Consider effect sizes, not just p-values
 

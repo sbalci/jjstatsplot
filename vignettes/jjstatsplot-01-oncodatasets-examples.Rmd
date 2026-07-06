@@ -10,9 +10,13 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+# OncoDataSets is an optional demo dependency and is NOT imported by this module.
+# Gate all code execution on its availability so the site still builds when it is
+# absent (code is shown for reference but not evaluated); runs fully if installed.
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = requireNamespace("OncoDataSets", quietly = TRUE)
 )
 ```
 

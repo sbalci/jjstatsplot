@@ -52,7 +52,7 @@ Before demonstrating the functionality, it's crucial to understand the well-docu
 
 # Example demonstrating comparison difficulties
 # These values are hard to distinguish in pie charts:
-similar_values <- c(23, 25, 22, 30)  # Very close values
+similar_values <- c(23, 25, 22, 30) # Very close values
 # But easy to compare in bar charts
 
 # Multiple pie charts are nearly impossible to compare
@@ -116,7 +116,7 @@ The `typestatistics` parameter supports four approaches:
 
 1. **"parametric"** (default): Pearson's Chi-square test
    - Tests independence in contingency tables
-   - Assumes expected cell counts ≥ 5
+   - Assumes expected cell counts >= 5
    - Most commonly used for categorical association
 
 2. **"nonparametric"**: Contingency table tests
@@ -409,8 +409,10 @@ str(jjpiestats_test_data)
 
 # 1. Limit to 3-5 categories maximum
 jjpiestats(
-  data = subset(jjpiestats_test_data, 
-                disease_severity %in% c("Mild", "Moderate", "Severe")),
+  data = subset(
+    jjpiestats_test_data,
+    disease_severity %in% c("Mild", "Moderate", "Severe")
+  ),
   dep = "disease_severity"
 )
 
@@ -466,7 +468,7 @@ The `jjpiestats` function is built on:
 # Internal caching structure (conceptual)
 # private$.processedData: Cached cleaned data with factor levels
 # private$.processedOptions: Cached option processing
-# 
+#
 # Benefits:
 # - Eliminates redundant jmvcore::naOmit() calls
 # - Avoids repeated data processing across plot methods
@@ -528,7 +530,7 @@ pie_result <- jjpiestats(
 )
 
 # Step 2: ALSO create bar chart alternative
-bar_result <- jjbarstats(  # Recommended alternative
+bar_result <- jjbarstats( # Recommended alternative
   data = clinical_data,
   dep = "primary_outcome",
   typestatistics = "parametric"
@@ -569,25 +571,28 @@ bar_result <- jjbarstats(  # Recommended alternative
 #| eval: false
 
 # Example error handling
-tryCatch({
-  result <- jjpiestats(
-    data = my_data,
-    dep = "categorical_var",
-    typestatistics = "parametric"
-  )
-}, error = function(e) {
-  message("Error in pie chart analysis: ", e$message)
-  message("Consider these alternatives:")
-  message("1. Check factor levels in your data")
-  message("2. Combine rare categories")
-  message("3. Use bar charts instead (jjbarstats)")
-  
-  # Diagnostic information
-  cat("Data structure:\n")
-  str(my_data)
-  cat("\nVariable summary:\n")
-  summary(my_data$categorical_var)
-})
+tryCatch(
+  {
+    result <- jjpiestats(
+      data = my_data,
+      dep = "categorical_var",
+      typestatistics = "parametric"
+    )
+  },
+  error = function(e) {
+    message("Error in pie chart analysis: ", e$message)
+    message("Consider these alternatives:")
+    message("1. Check factor levels in your data")
+    message("2. Combine rare categories")
+    message("3. Use bar charts instead (jjbarstats)")
+
+    # Diagnostic information
+    cat("Data structure:\n")
+    str(my_data)
+    cat("\nVariable summary:\n")
+    summary(my_data$categorical_var)
+  }
+)
 ```
 
 ## Recommendations and Conclusion
@@ -604,7 +609,7 @@ tryCatch({
 Use pie charts only when:
 - ✅ Specifically requested by stakeholders
 - ✅ Part-to-whole relationship is crucial
-- ✅ ≤5 categories with clear differences
+- ✅ <=5 categories with clear differences
 - ✅ Single time point analysis
 - ⚠️ **Always provide bar chart alternative**
 

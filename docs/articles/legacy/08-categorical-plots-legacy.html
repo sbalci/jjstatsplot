@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Categorical Plot Functions • jjstatsplot</title>
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Categorical Plot Functions">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.47</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@
                         <h4 data-toc-skip class="author">ClinicoPath
 Development Team</h4>
             
-            <h4 data-toc-skip class="date">2025-10-09</h4>
+            <h4 data-toc-skip class="date">2026-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/legacy/08-categorical-plots-legacy.Rmd" class="external-link"><code>vignettes/legacy/08-categorical-plots-legacy.Rmd</code></a></small>
       <div class="d-none name"><code>08-categorical-plots-legacy.Rmd</code></div>
@@ -143,12 +143,16 @@ cylinders (<code>cyl</code>) across transmission types
 (<code>am</code>).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/jjbarstats.html">jjbarstats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">cyl</span>, group <span class="op">=</span> <span class="va">am</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect</span></span>
+<span><span class="co">#&gt; Warning in private$.validateStatisticalRequirements(dep_vars, group_var):</span></span>
+<span><span class="co">#&gt; Variable ' cyl ' vs ' am ': Chi-square expected count assumption violated (some</span></span>
+<span><span class="co">#&gt; cells &lt; 5).</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  BAR CHARTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  &lt;div style='padding: 15px; background-color: #f8f9fa; border-left: 4px</span></span>
 <span><span class="co">#&gt;  solid #007bff; margin: 10px 0;'&gt;&lt;h4 style='color: #007bff; margin-top:</span></span>
-<span><span class="co">#&gt;  0;'&gt;📊 About Bar Chart Analysis</span></span>
+<span><span class="co">#&gt;  0;'&gt; About Bar Chart Analysis</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Purpose: Compare the distribution of categorical variables across</span></span>
 <span><span class="co">#&gt;  groups using statistical testing.</span></span>
@@ -173,8 +177,6 @@ cylinders (<code>cyl</code>) across transmission types
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Bar chart analysis comparing cyl by am.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Data prepared: 32 observations (missing values will be handled by</span></span>
@@ -182,11 +184,11 @@ cylinders (<code>cyl</code>) across transmission types
 <span><span class="co">#&gt; Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` argument instead.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">jmvcore</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/jamovi/jmvcore/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/jamovi/jamovi/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
-<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="pie-charts-with-jjpiestats">Pie charts with <code>jjpiestats()</code><a class="anchor" aria-label="anchor" href="#pie-charts-with-jjpiestats"></a>
@@ -195,100 +197,19 @@ cylinders (<code>cyl</code>) across transmission types
 displays the results as a pie chart.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/jjpiestats.html">jjpiestats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">cyl</span>, group <span class="op">=</span> <span class="va">am</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in value[[3L]](cond): Clinical preset application failed: {error}.</span></span>
-<span><span class="co">#&gt; Using custom settings. argument is missing, with no default</span></span>
-<span><span class="co">#&gt; Warning in chisq.test(contingency_table): Chi-squared approximation may be</span></span>
-<span><span class="co">#&gt; incorrect</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  PIE CHARTS</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Pie Chart Analysis</span></span>
+<span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  What this analysis does: Generates pie charts with statistical</span></span>
-<span><span class="co">#&gt;  analysis to compare categorical variables across groups. Performs</span></span>
-<span><span class="co">#&gt;  chi-square tests, Fisher's exact tests, or other appropriate</span></span>
-<span><span class="co">#&gt;  statistical tests based on your data.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  When to use: Use when you want to visualize proportions of categorical</span></span>
-<span><span class="co">#&gt;  outcomes and test for significant differences between groups. Ideal</span></span>
-<span><span class="co">#&gt;  for diagnostic test results, treatment responses, or biomarker</span></span>
-<span><span class="co">#&gt;  categories.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Current configuration: This analysis uses custom settings for pie</span></span>
-<span><span class="co">#&gt;  chart generation with statistical testing.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  What you'll get: Interactive pie charts with statistical test results,</span></span>
-<span><span class="co">#&gt;  confidence intervals, and effect sizes. Optional grouped analysis for</span></span>
-<span><span class="co">#&gt;  complex study designs.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Analysis Configuration</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  • Analyzing variable: cyl</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  • Comparing across groups: am</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  • Statistical method: Parametric</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  • Sample size: 32 observations</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Statistical Assumptions &amp; Warnings</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  General Requirements</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ✓ Data should be categorical (factors or characters)</span></span>
-<span><span class="co">#&gt;  ✓ Observations should be independent</span></span>
-<span><span class="co">#&gt;  ✓ For statistical tests: adequate sample size in each category</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Warnings</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ⚠️ Expected cell counts &lt; 5 detected. Consider using Fisher's exact</span></span>
-<span><span class="co">#&gt;  test (nonparametric option) for more reliable results.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  How to Interpret Your Results</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Statistical Method: Chi-square test results show whether group</span></span>
-<span><span class="co">#&gt;  differences are statistically significant. Look for p-values &lt; 0.05</span></span>
-<span><span class="co">#&gt;  for significant associations.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Clinical Context: Interpret results in the context of your specific</span></span>
-<span><span class="co">#&gt;  research question and clinical setting.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  General Guidance: Pie charts show proportions visually - larger slices</span></span>
-<span><span class="co">#&gt;  represent higher frequencies. Statistical tests determine if observed</span></span>
-<span><span class="co">#&gt;  differences are likely due to chance or represent true group</span></span>
-<span><span class="co">#&gt;  differences.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Copy-Ready Report Template</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;div style='background-color: #f8f9fa; padding: 15px; border: 1px</span></span>
-<span><span class="co">#&gt;  solid #dee2e6; border-radius: 5px;'&gt;</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Methods:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  We compared {outcome} distributions across {groups} using {method}.</span></span>
-<span><span class="co">#&gt;  cyl am chi-square test Statistical significance was set at p &lt; 0.05.</span></span>
-<span><span class="co">#&gt;  All analyses were performed using jamovi statistical software.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Results:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  [Results will be automatically filled when analysis is complete]</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Copy the text above and modify as needed for your manuscript or</span></span>
-<span><span class="co">#&gt;  report.</span></span>
+<span><span class="co">#&gt; character(0)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pie chart analysis ready Variable: cyl, grouped by am.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Data prepared: 32 observations (cached).</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Statistical method: Parametric analysis.</span></span></code></pre></div>
-<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
+<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="dot-charts-with-jjdotplotstats">Dot charts with <code>jjdotplotstats()</code><a class="anchor" aria-label="anchor" href="#dot-charts-with-jjdotplotstats"></a>
@@ -303,62 +224,12 @@ configuration (<code>vs</code>).</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Processing data for dot plot analysis...</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ℹ️ 1 potential outlier(s) detected in hp</span></span>
+<span><span class="co">#&gt;  1 potential outlier(s) detected in hp</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  📊 Analysis summary: 2 groups, 32 total observations</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;div style='background-color: #f8f9fa; padding: 15px; border-left: 4px</span></span>
-<span><span class="co">#&gt;  solid #007bff; margin: 10px 0;'&gt;&lt;h4 style='color: #007bff; margin-top:</span></span>
-<span><span class="co">#&gt;  0;'&gt;📊 Clinical Interpretation</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Analysis: This dot plot shows the distribution of hp across different</span></span>
-<span><span class="co">#&gt;  vs categories using a t-test for comparing means.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Sample: Group '0' (n=18), Group '1' (n=14)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Results: Group '0' shows a mean of 189.72 vs Group '1' with a mean of</span></span>
-<span><span class="co">#&gt;  91.36.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  *💡 Tip: The statistical significance and effect size will be</span></span>
-<span><span class="co">#&gt;  displayed in the plot subtitle when the analysis completes.*</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;div style='background-color: #fff3cd; padding: 15px; border-left: 4px</span></span>
-<span><span class="co">#&gt;  solid #ffc107; margin: 10px 0;'&gt;&lt;h4 style='color: #856404; margin-top:</span></span>
-<span><span class="co">#&gt;  0;'&gt;🔍 Data Assessment &amp; Recommendations</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ℹ️ Moderate sample sizes (n &lt; 30). Non-parametric tests may be more</span></span>
-<span><span class="co">#&gt;  appropriate.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ✓ Approximately normal distribution suitable for parametric tests.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  ✓ Parametric test is appropriate for your data.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;hr style='border-color: #ffeaa7;'&gt;</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Sample sizes by group:</span></span>
-<span><span class="co">#&gt;  0 : n = 18</span></span>
-<span><span class="co">#&gt;  1 : n = 14</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;div style='background-color: #e7f3ff; padding: 15px; border-left: 4px</span></span>
-<span><span class="co">#&gt;  solid #0066cc; margin: 10px 0;'&gt;&lt;h4 style='color: #0066cc; margin-top:</span></span>
-<span><span class="co">#&gt;  0;'&gt;📝 Copy-Ready Report Sentence</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  &lt;div style='background-color: white; padding: 10px; border: 1px dashed</span></span>
-<span><span class="co">#&gt;  #0066cc; font-family: "Times New Roman", serif;'&gt;</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  A independent samples t-test was performed to compare *hp* between</span></span>
-<span><span class="co">#&gt;  *vs* groups. The dot plot visualization shows the distribution and</span></span>
-<span><span class="co">#&gt;  central tendencies across groups, with statistical results displayed</span></span>
-<span><span class="co">#&gt;  in the plot subtitle including effect size and significance testing.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  *💡 Click to select the text above and copy to your report.</span></span>
-<span><span class="co">#&gt;  Statistical values will be automatically filled when the analysis</span></span>
-<span><span class="co">#&gt;  completes.*</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  Analysis summary: 2 groups, 32 total observations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; character(0)</span></span></code></pre></div>
-<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <p>Each function returns a results object whose <code>plot</code>
 element contains the <code>ggplot2</code> visualisation.</p>
 </div>
@@ -373,7 +244,7 @@ element contains the <code>ggplot2</code> visualisation.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

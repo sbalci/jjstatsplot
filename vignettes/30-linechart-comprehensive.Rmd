@@ -134,8 +134,9 @@ hemoglobin_data <- expand.grid(
   left_join(
     data.frame(
       patient_id = paste0("P", sprintf("%03d", 1:n_patients)),
-      treatment_group = sample(c("Control", "EPO_Low", "EPO_High"), n_patients, 
-                              replace = TRUE, prob = c(0.3, 0.4, 0.3)),
+      treatment_group = sample(c("Control", "EPO_Low", "EPO_High"), n_patients,
+        replace = TRUE, prob = c(0.3, 0.4, 0.3)
+      ),
       baseline_hgb = rnorm(n_patients, mean = 9.5, sd = 1.2)
     ),
     by = "patient_id"
@@ -149,7 +150,7 @@ for (i in 1:nrow(hemoglobin_data)) {
   week <- hemoglobin_data$visit_week[i]
   treatment <- hemoglobin_data$treatment_group[i]
   baseline <- hemoglobin_data$baseline_hgb[i]
-  
+
   # Treatment-specific trends
   if (treatment == "Control") {
     trend <- -0.03 * week + rnorm(1, 0, 0.3)
@@ -158,7 +159,7 @@ for (i in 1:nrow(hemoglobin_data)) {
   } else {
     trend <- 0.12 * week + rnorm(1, 0, 0.2)
   }
-  
+
   hemoglobin_data$hemoglobin_g_dl[i] <- baseline + trend
 }
 
@@ -221,7 +222,7 @@ This example shows hypertension management comparing lifestyle interventions, me
 set.seed(456)
 n_subjects <- 75
 n_months <- 8
-months <- 0:(n_months-1)
+months <- 0:(n_months - 1)
 
 bp_data <- expand.grid(
   subject_id = paste0("BP", sprintf("%03d", 1:n_subjects)),
@@ -230,8 +231,9 @@ bp_data <- expand.grid(
   left_join(
     data.frame(
       subject_id = paste0("BP", sprintf("%03d", 1:n_subjects)),
-      intervention = sample(c("Lifestyle", "Medication", "Combined"), n_subjects, 
-                           replace = TRUE, prob = c(0.35, 0.35, 0.3)),
+      intervention = sample(c("Lifestyle", "Medication", "Combined"), n_subjects,
+        replace = TRUE, prob = c(0.35, 0.35, 0.3)
+      ),
       baseline_sbp = rnorm(n_subjects, mean = 155, sd = 15)
     ),
     by = "subject_id"
@@ -245,7 +247,7 @@ for (i in 1:nrow(bp_data)) {
   month <- bp_data$month[i]
   intervention <- bp_data$intervention[i]
   baseline <- bp_data$baseline_sbp[i]
-  
+
   # Intervention-specific effects
   if (intervention == "Lifestyle") {
     reduction <- 2 * sqrt(month) + rnorm(1, 0, 2)
@@ -254,7 +256,7 @@ for (i in 1:nrow(bp_data)) {
   } else {
     reduction <- ifelse(month <= 2, 6 * (month / 2), 6 + 8 * ((month - 2) / 6)) + rnorm(1, 0, 2)
   }
-  
+
   bp_data$systolic_bp[i] <- baseline - reduction
 }
 
@@ -266,10 +268,14 @@ bp_data$systolic_bp <- round(bp_data$systolic_bp)
 cat("Blood Pressure Study Summary:\n")
 cat("Subjects:", length(unique(bp_data$subject_id)), "\n")
 cat("Interventions:", paste(unique(bp_data$intervention), collapse = ", "), "\n")
-cat("Baseline SBP range:", min(bp_data[bp_data$month == 0, "systolic_bp"]), "-", 
-    max(bp_data[bp_data$month == 0, "systolic_bp"]), "mmHg\n")
-cat("Final SBP range:", min(bp_data[bp_data$month == max(bp_data$month), "systolic_bp"]), "-", 
-    max(bp_data[bp_data$month == max(bp_data$month), "systolic_bp"]), "mmHg\n")
+cat(
+  "Baseline SBP range:", min(bp_data[bp_data$month == 0, "systolic_bp"]), "-",
+  max(bp_data[bp_data$month == 0, "systolic_bp"]), "mmHg\n"
+)
+cat(
+  "Final SBP range:", min(bp_data[bp_data$month == max(bp_data$month), "systolic_bp"]), "-",
+  max(bp_data[bp_data$month == max(bp_data$month), "systolic_bp"]), "mmHg\n"
+)
 ```
 
 ### Blood Pressure Analysis Setup
@@ -322,7 +328,8 @@ biomarker_data <- expand.grid(
     data.frame(
       patient_id = paste0("IMM", sprintf("%03d", 1:n_patients)),
       response_type = sample(c("Responder", "Non_Responder", "Progressive"), n_patients,
-                            replace = TRUE, prob = c(0.4, 0.35, 0.25)),
+        replace = TRUE, prob = c(0.4, 0.35, 0.25)
+      ),
       baseline_il6 = rlnorm(n_patients, meanlog = 2, sdlog = 0.8)
     ),
     by = "patient_id"
@@ -336,7 +343,7 @@ for (i in 1:nrow(biomarker_data)) {
   day <- biomarker_data$visit_day[i]
   response <- biomarker_data$response_type[i]
   baseline <- biomarker_data$baseline_il6[i]
-  
+
   # Response-specific patterns
   if (response == "Responder") {
     factor <- exp(-0.003 * day) * (1 + rnorm(1, 0, 0.2))
@@ -345,7 +352,7 @@ for (i in 1:nrow(biomarker_data)) {
   } else {
     factor <- 1 + 0.002 * day * (1 + rnorm(1, 0, 0.4))
   }
-  
+
   biomarker_data$il6_pg_ml[i] <- baseline * factor
 }
 
@@ -365,7 +372,7 @@ response_summary <- biomarker_data %>%
     mean_baseline = round(mean(day_0, na.rm = TRUE), 1),
     mean_final = round(mean(day_168, na.rm = TRUE), 1),
     mean_change = round(mean(percent_change, na.rm = TRUE), 1),
-    .groups = 'drop'
+    .groups = "drop"
   )
 
 print(response_summary)
@@ -377,10 +384,10 @@ print(response_summary)
 biomarker_result <- linechart(
   data = biomarker_data,
   xvar = "visit_day",
-  yvar = "il6_pg_ml", 
+  yvar = "il6_pg_ml",
   groupby = "response_type",
   confidence = TRUE,
-  smooth = TRUE,  # Use smoothed lines for biomarker data
+  smooth = TRUE, # Use smoothed lines for biomarker data
   xlabel = "Days Since Treatment Start",
   ylabel = "IL-6 (pg/mL)",
   title = "IL-6 Response Patterns During Immunotherapy",
@@ -412,8 +419,8 @@ result <- linechart(
   xvar = "time_point",
   yvar = "biomarker_level",
   groupby = "treatment",
-  confidence = TRUE,     # Shows 95% CI around lines
-  smooth = FALSE,        # Linear vs. smoothed confidence bands
+  confidence = TRUE, # Shows 95% CI around lines
+  smooth = FALSE, # Linear vs. smoothed confidence bands
   theme = "publication"
 )
 ```
@@ -431,10 +438,10 @@ result <- linechart(
 # Add clinical reference lines
 result <- linechart(
   data = lab_data,
-  xvar = "visit_week", 
+  xvar = "visit_week",
   yvar = "hemoglobin_g_dl",
-  refline = 12,                    # Normal hemoglobin threshold
-  reflineLabel = "Normal Range",   # Clear clinical labeling
+  refline = 12, # Normal hemoglobin threshold
+  reflineLabel = "Normal Range", # Clear clinical labeling
   title = "Hemoglobin Monitoring with Clinical Targets"
 )
 ```
@@ -442,7 +449,7 @@ result <- linechart(
 **Common Clinical References**:
 - **Laboratory normal ranges**: Hemoglobin, liver enzymes, kidney function
 - **Blood pressure targets**: <140/90 mmHg for hypertension
-- **Pain score thresholds**: ≤3/10 for adequate pain control
+- **Pain score thresholds**: <=3/10 for adequate pain control
 - **Quality metrics**: Infection rates, readmission benchmarks
 
 ## Statistical Trend Analysis
@@ -453,17 +460,17 @@ result <- linechart(
 linear_result <- linechart(
   data = longitudinal_data,
   xvar = "time",
-  yvar = "outcome", 
-  trendline = TRUE,    # Linear regression line
-  smooth = FALSE       # Straight line connections
+  yvar = "outcome",
+  trendline = TRUE, # Linear regression line
+  smooth = FALSE # Straight line connections
 )
 
 smooth_result <- linechart(
   data = longitudinal_data,
   xvar = "time",
   yvar = "outcome",
-  smooth = TRUE,       # LOESS smoothing
-  confidence = TRUE    # Smoothed confidence bands
+  smooth = TRUE, # LOESS smoothing
+  confidence = TRUE # Smoothed confidence bands
 )
 ```
 
@@ -480,7 +487,7 @@ smooth_result <- linechart(
 oncology_apps <- data.frame(
   `Clinical Scenario` = c(
     "Tumor marker trends",
-    "Chemotherapy response", 
+    "Chemotherapy response",
     "Quality of life during treatment",
     "Biomarker-guided therapy",
     "Survivorship monitoring"
@@ -488,7 +495,7 @@ oncology_apps <- data.frame(
   `X-axis Variable` = c(
     "Months since diagnosis",
     "Treatment cycles",
-    "Weeks since treatment start", 
+    "Weeks since treatment start",
     "Days since targeted therapy",
     "Years post-treatment"
   ),
@@ -543,7 +550,7 @@ cardiology_apps <- data.frame(
   ),
   `Typical Timeline` = c(
     "Months to years",
-    "3-6 month intervals", 
+    "3-6 month intervals",
     "Quarterly assessments",
     "6-12 months post-MI",
     "Continuous monitoring"
@@ -559,7 +566,7 @@ knitr::kable(cardiology_apps, caption = "Cardiology Monitoring Applications")
 icu_apps <- data.frame(
   `Monitoring Domain` = c(
     "Hemodynamic stability",
-    "Respiratory function", 
+    "Respiratory function",
     "Organ function recovery",
     "Sedation management",
     "Nutritional status"
@@ -567,7 +574,7 @@ icu_apps <- data.frame(
   `Key Variables` = c(
     "MAP, cardiac output",
     "P/F ratio, PEEP levels",
-    "Creatinine, liver enzymes", 
+    "Creatinine, liver enzymes",
     "RASS scores, delirium",
     "Albumin, weight changes"
   ),
@@ -600,16 +607,16 @@ clinical_data <- clinical_data %>%
   mutate(
     # Convert visit dates to study days
     study_day = as.numeric(visit_date - enrollment_date),
-    
+
     # Group irregular visits into windows
     visit_window = case_when(
       study_day <= 7 ~ "Week 1",
-      study_day <= 28 ~ "Month 1", 
+      study_day <= 28 ~ "Month 1",
       study_day <= 84 ~ "Month 3",
       study_day <= 168 ~ "Month 6",
       TRUE ~ "Later"
     ),
-    
+
     # Handle missing values appropriately
     outcome_clean = ifelse(is.na(lab_value), NA, lab_value)
   )
@@ -626,7 +633,7 @@ missing_analysis <- clinical_data %>%
     last_visit = max(study_day, na.rm = TRUE),
     dropout_pattern = case_when(
       n_missing == 0 ~ "Complete",
-      n_missing < n_visits/2 ~ "Sporadic missing",
+      n_missing < n_visits / 2 ~ "Sporadic missing",
       last_visit < 168 ~ "Early dropout",
       TRUE ~ "Late dropout"
     )
@@ -649,11 +656,11 @@ clinical_data <- clinical_data %>%
   group_by(visit_week) %>%
   mutate(
     # Calculate z-scores within time points
-    z_score = abs(scale(lab_value)[,1]),
-    
+    z_score = abs(scale(lab_value)[, 1]),
+
     # Flag extreme outliers
     outlier_flag = z_score > 3,
-    
+
     # Winsorize extreme values
     lab_value_winsorized = case_when(
       z_score > 3 ~ quantile(lab_value, 0.95, na.rm = TRUE),
@@ -674,8 +681,8 @@ publication_chart <- linechart(
   xvar = "time_point",
   yvar = "biomarker",
   groupby = "treatment",
-  colorPalette = "colorblind",  # Accessible to colorblind readers
-  theme = "publication",        # Clean, professional appearance
+  colorPalette = "colorblind", # Accessible to colorblind readers
+  theme = "publication", # Clean, professional appearance
   xlabel = "Time (weeks)",
   ylabel = "Biomarker Level (units)",
   title = "Treatment Response Over Time"
@@ -684,7 +691,7 @@ publication_chart <- linechart(
 # Specialty-specific color schemes
 cardiology_chart <- linechart(
   data = bp_data,
-  colorPalette = "clinical",    # Red/blue for medical contexts
+  colorPalette = "clinical", # Red/blue for medical contexts
   refline = 140,
   reflineLabel = "Hypertension Threshold"
 )
@@ -697,16 +704,16 @@ optimized_chart <- linechart(
   data = clinical_data,
   xvar = "visit_month",
   yvar = "hemoglobin_g_dl",
-  
+
   # Clear, clinical labels
   xlabel = "Months Since Treatment Initiation",
   ylabel = "Hemoglobin (g/dL)",
   title = "Hemoglobin Response to Iron Supplementation",
-  
+
   # Reference lines for clinical context
   refline = 12,
   reflineLabel = "Normal Lower Limit (Women)",
-  
+
   # Appropriate size for presentations
   width = 800,
   height = 600
@@ -726,8 +733,8 @@ trend_analysis <- linechart(
 )
 
 # Report format for publications:
-# "Hemoglobin levels showed a significant positive correlation with time 
-# (r = 0.78, 95% CI: 0.65-0.87, p < 0.001), with an average increase 
+# "Hemoglobin levels showed a significant positive correlation with time
+# (r = 0.78, 95% CI: 0.65-0.87, p < 0.001), with an average increase
 # of 0.45 g/dL per month (95% CI: 0.32-0.58)."
 ```
 
@@ -737,15 +744,15 @@ trend_analysis <- linechart(
 group_analysis <- linechart(
   data = treatment_data,
   xvar = "weeks",
-  yvar = "pain_score", 
+  yvar = "pain_score",
   groupby = "treatment_arm",
   trendline = TRUE
 )
 
 # Report format:
-# "Pain scores decreased significantly in both treatment groups over 12 weeks. 
-# The experimental group showed a steeper decline (slope = -0.8 points/week, 
-# r = -0.85, p < 0.001) compared to control (slope = -0.3 points/week, 
+# "Pain scores decreased significantly in both treatment groups over 12 weeks.
+# The experimental group showed a steeper decline (slope = -0.8 points/week,
+# r = -0.85, p < 0.001) compared to control (slope = -0.3 points/week,
 # r = -0.62, p = 0.003)."
 ```
 
@@ -760,9 +767,9 @@ group_analysis <- linechart(
 # Option 1: Use actual visit times
 irregular_chart <- linechart(
   data = visit_data,
-  xvar = "actual_visit_day",  # Use actual times
+  xvar = "actual_visit_day", # Use actual times
   yvar = "lab_result",
-  smooth = TRUE              # Smooth over irregular intervals
+  smooth = TRUE # Smooth over irregular intervals
 )
 
 # Option 2: Standardize to visit windows
@@ -794,9 +801,9 @@ smooth_chart <- linechart(
   data = noisy_data,
   xvar = "time",
   yvar = "variable_outcome",
-  smooth = TRUE,             # LOESS smoothing
-  confidence = TRUE,         # Show uncertainty
-  points = FALSE             # Hide individual points
+  smooth = TRUE, # LOESS smoothing
+  confidence = TRUE, # Show uncertainty
+  points = FALSE # Hide individual points
 )
 
 # Alternative: Moving averages
@@ -850,10 +857,10 @@ dbp_chart <- linechart(data = bp_data, xvar = "month", yvar = "diastolic_bp")
 small_sample_chart <- linechart(
   data = pilot_data,
   xvar = "time",
-  yvar = "outcome", 
-  points = TRUE,           # Show all data points
-  confidence = FALSE,      # Don't show CI with small n
-  smooth = FALSE,          # Use straight lines
+  yvar = "outcome",
+  points = TRUE, # Show all data points
+  confidence = FALSE, # Don't show CI with small n
+  smooth = FALSE, # Use straight lines
   title = "Individual Patient Trajectories (n=8)"
 )
 
@@ -862,7 +869,7 @@ individual_chart <- linechart(
   data = pilot_data,
   xvar = "time",
   yvar = "outcome",
-  groupby = "patient_id",  # Each patient as separate line
+  groupby = "patient_id", # Each patient as separate line
   theme = "minimal"
 )
 ```
@@ -879,20 +886,20 @@ publication_figure <- linechart(
   xvar = "time_weeks",
   yvar = "primary_endpoint",
   groupby = "treatment_arm",
-  
+
   # Professional appearance
   theme = "publication",
   colorPalette = "colorblind",
-  
+
   # Appropriate sizing
-  width = 800,   # Suitable for 2-column format
+  width = 800, # Suitable for 2-column format
   height = 600,
-  
+
   # Clear labeling
   xlabel = "Time (weeks)",
   ylabel = "Primary Endpoint (units)",
-  title = "",    # Usually caption provides title
-  
+  title = "", # Usually caption provides title
+
   # Statistical elements
   confidence = TRUE,
   trendline = TRUE
@@ -926,11 +933,11 @@ clinical_presentation <- linechart(
   data = clinical_data,
   colorPalette = "clinical",
   theme = "classic",
-  
+
   # Larger fonts for projection
   width = 1000,
   height = 700,
-  
+
   # Clear reference lines
   refline = clinical_threshold,
   reflineLabel = "Clinical Target"
@@ -940,9 +947,9 @@ clinical_presentation <- linechart(
 research_presentation <- linechart(
   data = research_data,
   theme = "publication",
-  confidence = TRUE,        # Show statistical rigor
+  confidence = TRUE, # Show statistical rigor
   trendline = TRUE,
-  colorPalette = "viridis"  # Professional color scheme
+  colorPalette = "viridis" # Professional color scheme
 )
 ```
 

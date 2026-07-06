@@ -460,7 +460,7 @@ print(colSums(treatment_data[, c("Surgery", "Chemotherapy", "Radiotherapy", "Imm
 ## Visualization Guidelines
 
 1. **Set Selection**: Use 3-8 sets for optimal readability
-2. **Minimum Size**: Filter small intersections (min_size ≥ 3-5)
+2. **Minimum Size**: Filter small intersections (min_size >= 3-5)
 3. **Sorting**: Choose appropriate sorting (size vs. degree vs. ratio)
 4. **Colors**: Use colorblind-friendly palettes
 5. **Annotations**: Add relevant statistical information
@@ -491,7 +491,7 @@ cat('This demonstrates set intersection analysis capabilities\n')
 #   color_palette = "viridis",
 #   text_size = 11,
 #   plot_title = "Optimized Treatment Combination Analysis",
-#   plot_subtitle = "Filtered for intersections with ≥8 patients"
+#   plot_subtitle = "Filtered for intersections with >=8 patients"
 # )
 ```
 

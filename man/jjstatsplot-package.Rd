@@ -18,6 +18,7 @@ For more documentation, see the
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://www.serdarbalci.com/jjstatsplot}
   \item \url{https://github.com/sbalci/jjstatsplot}
   \item Report bugs at \url{https://github.com/sbalci/ClinicoPathJamoviModule/issues/}
 }

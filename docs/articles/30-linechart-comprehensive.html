@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Line Charts for Clinical Time Series and Trend Analysis • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Line Charts for Clinical Time Series and Trend Analysis">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.47</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@
                         <h4 data-toc-skip class="author">ClinicoPath
 Package</h4>
             
-            <h4 data-toc-skip class="date">2025-10-09</h4>
+            <h4 data-toc-skip class="date">2026-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/30-linechart-comprehensive.Rmd" class="external-link"><code>vignettes/30-linechart-comprehensive.Rmd</code></a></small>
       <div class="d-none name"><code>30-linechart-comprehensive.Rmd</code></div>
@@ -395,8 +395,9 @@ patients receiving erythropoietin (EPO) therapy.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>      patient_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"P"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n_patients</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      treatment_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"EPO_Low"</span>, <span class="st">"EPO_High"</span><span class="op">)</span>, <span class="va">n_patients</span>, </span>
-<span>                              replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      treatment_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"EPO_Low"</span>, <span class="st">"EPO_High"</span><span class="op">)</span>, <span class="va">n_patients</span>,</span>
+<span>        replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      baseline_hgb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n_patients</span>, mean <span class="op">=</span> <span class="fl">9.5</span>, sd <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="st">"patient_id"</span></span>
@@ -410,7 +411,7 @@ patients receiving erythropoietin (EPO) therapy.</p>
 <span>  <span class="va">week</span> <span class="op">&lt;-</span> <span class="va">hemoglobin_data</span><span class="op">$</span><span class="va">visit_week</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">hemoglobin_data</span><span class="op">$</span><span class="va">treatment_group</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">baseline</span> <span class="op">&lt;-</span> <span class="va">hemoglobin_data</span><span class="op">$</span><span class="va">baseline_hgb</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Treatment-specific trends</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Control"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">trend</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.03</span> <span class="op">*</span> <span class="va">week</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span></span>
@@ -419,7 +420,7 @@ patients receiving erythropoietin (EPO) therapy.</p>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">trend</span> <span class="op">&lt;-</span> <span class="fl">0.12</span> <span class="op">*</span> <span class="va">week</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="va">hemoglobin_data</span><span class="op">$</span><span class="va">hemoglobin_g_dl</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseline</span> <span class="op">+</span> <span class="va">trend</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -520,7 +521,7 @@ interventions, medications, and combined therapy.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">456</span><span class="op">)</span></span>
 <span><span class="va">n_subjects</span> <span class="op">&lt;-</span> <span class="fl">75</span></span>
 <span><span class="va">n_months</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
-<span><span class="va">months</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">n_months</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">months</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">n_months</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bp_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span></span>
 <span>  subject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"BP"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n_subjects</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -529,8 +530,9 @@ interventions, medications, and combined therapy.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>      subject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"BP"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n_subjects</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      intervention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lifestyle"</span>, <span class="st">"Medication"</span>, <span class="st">"Combined"</span><span class="op">)</span>, <span class="va">n_subjects</span>, </span>
-<span>                           replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      intervention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lifestyle"</span>, <span class="st">"Medication"</span>, <span class="st">"Combined"</span><span class="op">)</span>, <span class="va">n_subjects</span>,</span>
+<span>        replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      baseline_sbp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n_subjects</span>, mean <span class="op">=</span> <span class="fl">155</span>, sd <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="st">"subject_id"</span></span>
@@ -544,7 +546,7 @@ interventions, medications, and combined therapy.</p>
 <span>  <span class="va">month</span> <span class="op">&lt;-</span> <span class="va">bp_data</span><span class="op">$</span><span class="va">month</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">intervention</span> <span class="op">&lt;-</span> <span class="va">bp_data</span><span class="op">$</span><span class="va">intervention</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">baseline</span> <span class="op">&lt;-</span> <span class="va">bp_data</span><span class="op">$</span><span class="va">baseline_sbp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Intervention-specific effects</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">intervention</span> <span class="op">==</span> <span class="st">"Lifestyle"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">reduction</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -553,7 +555,7 @@ interventions, medications, and combined therapy.</p>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">reduction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">month</span> <span class="op">&lt;=</span> <span class="fl">2</span>, <span class="fl">6</span> <span class="op">*</span> <span class="op">(</span><span class="va">month</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">6</span> <span class="op">+</span> <span class="fl">8</span> <span class="op">*</span> <span class="op">(</span><span class="op">(</span><span class="va">month</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="va">bp_data</span><span class="op">$</span><span class="va">systolic_bp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseline</span> <span class="op">-</span> <span class="va">reduction</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -568,11 +570,15 @@ interventions, medications, and combined therapy.</p>
 <span><span class="co">#&gt; Subjects: 75</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Interventions:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">$</span><span class="va">intervention</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Interventions: Medication, Combined, Lifestyle</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Baseline SBP range:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"-"</span>, </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"mmHg\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Baseline SBP range:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"-"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"mmHg\n"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; Baseline SBP range: 113 - 192 mmHg</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Final SBP range:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span><span class="op">)</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"-"</span>, </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span><span class="op">)</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"mmHg\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Final SBP range:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span><span class="op">)</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"-"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">[</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">bp_data</span><span class="op">$</span><span class="va">month</span><span class="op">)</span>, <span class="st">"systolic_bp"</span><span class="op">]</span><span class="op">)</span>, <span class="st">"mmHg\n"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; Final SBP range: 101 - 187 mmHg</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="blood-pressure-analysis-setup">Blood Pressure Analysis Setup<a class="anchor" aria-label="anchor" href="#blood-pressure-analysis-setup"></a>
@@ -641,7 +647,8 @@ cancer immunotherapy to assess treatment response.</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>      patient_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"IMM"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n_patients</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>      response_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Responder"</span>, <span class="st">"Non_Responder"</span>, <span class="st">"Progressive"</span><span class="op">)</span>, <span class="va">n_patients</span>,</span>
-<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.35</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.35</span>, <span class="fl">0.25</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      baseline_il6 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span><span class="va">n_patients</span>, meanlog <span class="op">=</span> <span class="fl">2</span>, sdlog <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="st">"patient_id"</span></span>
@@ -655,7 +662,7 @@ cancer immunotherapy to assess treatment response.</p>
 <span>  <span class="va">day</span> <span class="op">&lt;-</span> <span class="va">biomarker_data</span><span class="op">$</span><span class="va">visit_day</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">response</span> <span class="op">&lt;-</span> <span class="va">biomarker_data</span><span class="op">$</span><span class="va">response_type</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="va">baseline</span> <span class="op">&lt;-</span> <span class="va">biomarker_data</span><span class="op">$</span><span class="va">baseline_il6</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Response-specific patterns</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">response</span> <span class="op">==</span> <span class="st">"Responder"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.003</span> <span class="op">*</span> <span class="va">day</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
@@ -664,7 +671,7 @@ cancer immunotherapy to assess treatment response.</p>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">factor</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">0.002</span> <span class="op">*</span> <span class="va">day</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="va">biomarker_data</span><span class="op">$</span><span class="va">il6_pg_ml</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseline</span> <span class="op">*</span> <span class="va">factor</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -684,7 +691,7 @@ cancer immunotherapy to assess treatment response.</p>
 <span>    mean_baseline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">day_0</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    mean_final <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">day_168</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    mean_change <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">percent_change</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">'drop'</span></span>
+<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">response_summary</span><span class="op">)</span></span>
@@ -701,10 +708,10 @@ cancer immunotherapy to assess treatment response.</p>
 <code class="sourceCode R"><span><span class="va">biomarker_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">biomarker_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"visit_day"</span>,</span>
-<span>  yvar <span class="op">=</span> <span class="st">"il6_pg_ml"</span>, </span>
+<span>  yvar <span class="op">=</span> <span class="st">"il6_pg_ml"</span>,</span>
 <span>  groupby <span class="op">=</span> <span class="st">"response_type"</span>,</span>
 <span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># Use smoothed lines for biomarker data</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Use smoothed lines for biomarker data</span></span>
 <span>  xlabel <span class="op">=</span> <span class="st">"Days Since Treatment Start"</span>,</span>
 <span>  ylabel <span class="op">=</span> <span class="st">"IL-6 (pg/mL)"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"IL-6 Response Patterns During Immunotherapy"</span>,</span>
@@ -758,8 +765,8 @@ activity</li>
 <span>  xvar <span class="op">=</span> <span class="st">"time_point"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"biomarker_level"</span>,</span>
 <span>  groupby <span class="op">=</span> <span class="st">"treatment"</span>,</span>
-<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>,     <span class="co"># Shows 95% CI around lines</span></span>
-<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>,        <span class="co"># Linear vs. smoothed confidence bands</span></span>
+<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Shows 95% CI around lines</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># Linear vs. smoothed confidence bands</span></span>
 <span>  theme <span class="op">=</span> <span class="st">"publication"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><strong>Clinical Applications</strong>: - <strong>Uncertainty
@@ -780,16 +787,16 @@ differences</p>
 <code class="sourceCode R"><span><span class="co"># Add clinical reference lines</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">lab_data</span>,</span>
-<span>  xvar <span class="op">=</span> <span class="st">"visit_week"</span>, </span>
+<span>  xvar <span class="op">=</span> <span class="st">"visit_week"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"hemoglobin_g_dl"</span>,</span>
-<span>  refline <span class="op">=</span> <span class="fl">12</span>,                    <span class="co"># Normal hemoglobin threshold</span></span>
-<span>  reflineLabel <span class="op">=</span> <span class="st">"Normal Range"</span>,   <span class="co"># Clear clinical labeling</span></span>
+<span>  refline <span class="op">=</span> <span class="fl">12</span>, <span class="co"># Normal hemoglobin threshold</span></span>
+<span>  reflineLabel <span class="op">=</span> <span class="st">"Normal Range"</span>, <span class="co"># Clear clinical labeling</span></span>
 <span>  title <span class="op">=</span> <span class="st">"Hemoglobin Monitoring with Clinical Targets"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><strong>Common Clinical References</strong>: - <strong>Laboratory
 normal ranges</strong>: Hemoglobin, liver enzymes, kidney function -
 <strong>Blood pressure targets</strong>: &lt;140/90 mmHg for
-hypertension - <strong>Pain score thresholds</strong>: ≤3/10 for
+hypertension - <strong>Pain score thresholds</strong>: &lt;=3/10 for
 adequate pain control - <strong>Quality metrics</strong>: Infection
 rates, readmission benchmarks</p>
 </div>
@@ -805,17 +812,17 @@ rates, readmission benchmarks</p>
 <span><span class="va">linear_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">longitudinal_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>, </span>
-<span>  trendline <span class="op">=</span> <span class="cn">TRUE</span>,    <span class="co"># Linear regression line</span></span>
-<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>       <span class="co"># Straight line connections</span></span>
+<span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>,</span>
+<span>  trendline <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Linear regression line</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># Straight line connections</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">smooth_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">longitudinal_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>,</span>
-<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>,       <span class="co"># LOESS smoothing</span></span>
-<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>    <span class="co"># Smoothed confidence bands</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># LOESS smoothing</span></span>
+<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># Smoothed confidence bands</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><strong>When to Use Each</strong>: - <strong>Linear trends</strong>:
 Constant rate of change, dose-response relationships - <strong>Smoothed
@@ -1023,16 +1030,16 @@ patient-reported outcomes</li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="co"># Convert visit dates to study days</span></span>
 <span>    study_day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">visit_date</span> <span class="op">-</span> <span class="va">enrollment_date</span><span class="op">)</span>,</span>
-<span>    </span>
+<span></span>
 <span>    <span class="co"># Group irregular visits into windows</span></span>
-<span>    visit_window <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    visit_window <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">study_day</span> <span class="op">&lt;=</span> <span class="fl">7</span> <span class="op">~</span> <span class="st">"Week 1"</span>,</span>
-<span>      <span class="va">study_day</span> <span class="op">&lt;=</span> <span class="fl">28</span> <span class="op">~</span> <span class="st">"Month 1"</span>, </span>
+<span>      <span class="va">study_day</span> <span class="op">&lt;=</span> <span class="fl">28</span> <span class="op">~</span> <span class="st">"Month 1"</span>,</span>
 <span>      <span class="va">study_day</span> <span class="op">&lt;=</span> <span class="fl">84</span> <span class="op">~</span> <span class="st">"Month 3"</span>,</span>
 <span>      <span class="va">study_day</span> <span class="op">&lt;=</span> <span class="fl">168</span> <span class="op">~</span> <span class="st">"Month 6"</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Later"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    </span>
+<span></span>
 <span>    <span class="co"># Handle missing values appropriately</span></span>
 <span>    outcome_clean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">lab_value</span><span class="op">)</span>, <span class="cn">NA</span>, <span class="va">lab_value</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
@@ -1048,9 +1055,9 @@ patient-reported outcomes</li>
 <span>    n_visits <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    n_missing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">primary_outcome</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    last_visit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">study_day</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    dropout_pattern <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    dropout_pattern <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">n_missing</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="st">"Complete"</span>,</span>
-<span>      <span class="va">n_missing</span> <span class="op">&lt;</span> <span class="va">n_visits</span><span class="op">/</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"Sporadic missing"</span>,</span>
+<span>      <span class="va">n_missing</span> <span class="op">&lt;</span> <span class="va">n_visits</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">~</span> <span class="st">"Sporadic missing"</span>,</span>
 <span>      <span class="va">last_visit</span> <span class="op">&lt;</span> <span class="fl">168</span> <span class="op">~</span> <span class="st">"Early dropout"</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Late dropout"</span></span>
 <span>    <span class="op">)</span></span>
@@ -1074,13 +1081,13 @@ patient-reported outcomes</li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">visit_week</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="co"># Calculate z-scores within time points</span></span>
-<span>    z_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">lab_value</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    </span>
+<span>    z_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">lab_value</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span></span>
 <span>    <span class="co"># Flag extreme outliers</span></span>
 <span>    outlier_flag <span class="op">=</span> <span class="va">z_score</span> <span class="op">&gt;</span> <span class="fl">3</span>,</span>
-<span>    </span>
+<span></span>
 <span>    <span class="co"># Winsorize extreme values</span></span>
-<span>    lab_value_winsorized <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    lab_value_winsorized <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">z_score</span> <span class="op">&gt;</span> <span class="fl">3</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">lab_value</span>, <span class="fl">0.95</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>      <span class="va">z_score</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">3</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">lab_value</span>, <span class="fl">0.05</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">lab_value</span></span>
@@ -1102,8 +1109,8 @@ patient-reported outcomes</li>
 <span>  xvar <span class="op">=</span> <span class="st">"time_point"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"biomarker"</span>,</span>
 <span>  groupby <span class="op">=</span> <span class="st">"treatment"</span>,</span>
-<span>  colorPalette <span class="op">=</span> <span class="st">"colorblind"</span>,  <span class="co"># Accessible to colorblind readers</span></span>
-<span>  theme <span class="op">=</span> <span class="st">"publication"</span>,        <span class="co"># Clean, professional appearance</span></span>
+<span>  colorPalette <span class="op">=</span> <span class="st">"colorblind"</span>, <span class="co"># Accessible to colorblind readers</span></span>
+<span>  theme <span class="op">=</span> <span class="st">"publication"</span>, <span class="co"># Clean, professional appearance</span></span>
 <span>  xlabel <span class="op">=</span> <span class="st">"Time (weeks)"</span>,</span>
 <span>  ylabel <span class="op">=</span> <span class="st">"Biomarker Level (units)"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Treatment Response Over Time"</span></span>
@@ -1112,7 +1119,7 @@ patient-reported outcomes</li>
 <span><span class="co"># Specialty-specific color schemes</span></span>
 <span><span class="va">cardiology_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">bp_data</span>,</span>
-<span>  colorPalette <span class="op">=</span> <span class="st">"clinical"</span>,    <span class="co"># Red/blue for medical contexts</span></span>
+<span>  colorPalette <span class="op">=</span> <span class="st">"clinical"</span>, <span class="co"># Red/blue for medical contexts</span></span>
 <span>  refline <span class="op">=</span> <span class="fl">140</span>,</span>
 <span>  reflineLabel <span class="op">=</span> <span class="st">"Hypertension Threshold"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1126,16 +1133,16 @@ patient-reported outcomes</li>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"visit_month"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"hemoglobin_g_dl"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Clear, clinical labels</span></span>
 <span>  xlabel <span class="op">=</span> <span class="st">"Months Since Treatment Initiation"</span>,</span>
 <span>  ylabel <span class="op">=</span> <span class="st">"Hemoglobin (g/dL)"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Hemoglobin Response to Iron Supplementation"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Reference lines for clinical context</span></span>
 <span>  refline <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  reflineLabel <span class="op">=</span> <span class="st">"Normal Lower Limit (Women)"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Appropriate size for presentations</span></span>
 <span>  width <span class="op">=</span> <span class="fl">800</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">600</span></span>
@@ -1158,8 +1165,8 @@ patient-reported outcomes</li>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Report format for publications:</span></span>
-<span><span class="co"># "Hemoglobin levels showed a significant positive correlation with time </span></span>
-<span><span class="co"># (r = 0.78, 95% CI: 0.65-0.87, p &lt; 0.001), with an average increase </span></span>
+<span><span class="co"># "Hemoglobin levels showed a significant positive correlation with time</span></span>
+<span><span class="co"># (r = 0.78, 95% CI: 0.65-0.87, p &lt; 0.001), with an average increase</span></span>
 <span><span class="co"># of 0.45 g/dL per month (95% CI: 0.32-0.58)."</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -1170,15 +1177,15 @@ patient-reported outcomes</li>
 <span><span class="va">group_analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">treatment_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"weeks"</span>,</span>
-<span>  yvar <span class="op">=</span> <span class="st">"pain_score"</span>, </span>
+<span>  yvar <span class="op">=</span> <span class="st">"pain_score"</span>,</span>
 <span>  groupby <span class="op">=</span> <span class="st">"treatment_arm"</span>,</span>
 <span>  trendline <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Report format:</span></span>
-<span><span class="co"># "Pain scores decreased significantly in both treatment groups over 12 weeks. </span></span>
-<span><span class="co"># The experimental group showed a steeper decline (slope = -0.8 points/week, </span></span>
-<span><span class="co"># r = -0.85, p &lt; 0.001) compared to control (slope = -0.3 points/week, </span></span>
+<span><span class="co"># "Pain scores decreased significantly in both treatment groups over 12 weeks.</span></span>
+<span><span class="co"># The experimental group showed a steeper decline (slope = -0.8 points/week,</span></span>
+<span><span class="co"># r = -0.85, p &lt; 0.001) compared to control (slope = -0.3 points/week,</span></span>
 <span><span class="co"># r = -0.62, p = 0.003)."</span></span></code></pre></div>
 </div>
 </div>
@@ -1196,15 +1203,15 @@ intervals</p>
 <code class="sourceCode R"><span><span class="co"># Option 1: Use actual visit times</span></span>
 <span><span class="va">irregular_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">visit_data</span>,</span>
-<span>  xvar <span class="op">=</span> <span class="st">"actual_visit_day"</span>,  <span class="co"># Use actual times</span></span>
+<span>  xvar <span class="op">=</span> <span class="st">"actual_visit_day"</span>, <span class="co"># Use actual times</span></span>
 <span>  yvar <span class="op">=</span> <span class="st">"lab_result"</span>,</span>
-<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>              <span class="co"># Smooth over irregular intervals</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># Smooth over irregular intervals</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Option 2: Standardize to visit windows</span></span>
 <span><span class="va">standardized_data</span> <span class="op">&lt;-</span> <span class="va">visit_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    visit_period <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    visit_period <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">actual_visit_day</span> <span class="op">&lt;=</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Baseline"</span>,</span>
 <span>      <span class="va">actual_visit_day</span> <span class="op">&lt;=</span> <span class="fl">35</span> <span class="op">~</span> <span class="st">"Month 1"</span>,</span>
 <span>      <span class="va">actual_visit_day</span> <span class="op">&lt;=</span> <span class="fl">95</span> <span class="op">~</span> <span class="st">"Month 3"</span>,</span>
@@ -1230,9 +1237,9 @@ trends</p>
 <span>  data <span class="op">=</span> <span class="va">noisy_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"variable_outcome"</span>,</span>
-<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>,             <span class="co"># LOESS smoothing</span></span>
-<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>,         <span class="co"># Show uncertainty</span></span>
-<span>  points <span class="op">=</span> <span class="cn">FALSE</span>             <span class="co"># Hide individual points</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># LOESS smoothing</span></span>
+<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Show uncertainty</span></span>
+<span>  points <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># Hide individual points</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Alternative: Moving averages</span></span>
@@ -1284,10 +1291,10 @@ trends</p>
 <span><span class="va">small_sample_chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">pilot_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>, </span>
-<span>  points <span class="op">=</span> <span class="cn">TRUE</span>,           <span class="co"># Show all data points</span></span>
-<span>  confidence <span class="op">=</span> <span class="cn">FALSE</span>,      <span class="co"># Don't show CI with small n</span></span>
-<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>,          <span class="co"># Use straight lines</span></span>
+<span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>,</span>
+<span>  points <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Show all data points</span></span>
+<span>  confidence <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># Don't show CI with small n</span></span>
+<span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># Use straight lines</span></span>
 <span>  title <span class="op">=</span> <span class="st">"Individual Patient Trajectories (n=8)"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -1296,7 +1303,7 @@ trends</p>
 <span>  data <span class="op">=</span> <span class="va">pilot_data</span>,</span>
 <span>  xvar <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"outcome"</span>,</span>
-<span>  groupby <span class="op">=</span> <span class="st">"patient_id"</span>,  <span class="co"># Each patient as separate line</span></span>
+<span>  groupby <span class="op">=</span> <span class="st">"patient_id"</span>, <span class="co"># Each patient as separate line</span></span>
 <span>  theme <span class="op">=</span> <span class="st">"minimal"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1317,20 +1324,20 @@ trends</p>
 <span>  xvar <span class="op">=</span> <span class="st">"time_weeks"</span>,</span>
 <span>  yvar <span class="op">=</span> <span class="st">"primary_endpoint"</span>,</span>
 <span>  groupby <span class="op">=</span> <span class="st">"treatment_arm"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Professional appearance</span></span>
 <span>  theme <span class="op">=</span> <span class="st">"publication"</span>,</span>
 <span>  colorPalette <span class="op">=</span> <span class="st">"colorblind"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Appropriate sizing</span></span>
-<span>  width <span class="op">=</span> <span class="fl">800</span>,   <span class="co"># Suitable for 2-column format</span></span>
+<span>  width <span class="op">=</span> <span class="fl">800</span>, <span class="co"># Suitable for 2-column format</span></span>
 <span>  height <span class="op">=</span> <span class="fl">600</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Clear labeling</span></span>
 <span>  xlabel <span class="op">=</span> <span class="st">"Time (weeks)"</span>,</span>
 <span>  ylabel <span class="op">=</span> <span class="st">"Primary Endpoint (units)"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">""</span>,    <span class="co"># Usually caption provides title</span></span>
-<span>  </span>
+<span>  title <span class="op">=</span> <span class="st">""</span>, <span class="co"># Usually caption provides title</span></span>
+<span></span>
 <span>  <span class="co"># Statistical elements</span></span>
 <span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  trendline <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -1377,11 +1384,11 @@ mixed-effects models comparing slopes between groups.</code></pre>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
 <span>  colorPalette <span class="op">=</span> <span class="st">"clinical"</span>,</span>
 <span>  theme <span class="op">=</span> <span class="st">"classic"</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Larger fonts for projection</span></span>
 <span>  width <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">700</span>,</span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Clear reference lines</span></span>
 <span>  refline <span class="op">=</span> <span class="va">clinical_threshold</span>,</span>
 <span>  reflineLabel <span class="op">=</span> <span class="st">"Clinical Target"</span></span>
@@ -1391,9 +1398,9 @@ mixed-effects models comparing slopes between groups.</code></pre>
 <span><span class="va">research_presentation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/linechart.html">linechart</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">research_data</span>,</span>
 <span>  theme <span class="op">=</span> <span class="st">"publication"</span>,</span>
-<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>,        <span class="co"># Show statistical rigor</span></span>
+<span>  confidence <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Show statistical rigor</span></span>
 <span>  trendline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  colorPalette <span class="op">=</span> <span class="st">"viridis"</span>  <span class="co"># Professional color scheme</span></span>
+<span>  colorPalette <span class="op">=</span> <span class="st">"viridis"</span> <span class="co"># Professional color scheme</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -1522,7 +1529,7 @@ tutorials.</em></p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

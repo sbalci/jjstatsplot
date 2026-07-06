@@ -20,7 +20,7 @@ This comprehensive guide addresses common issues, error messages, and frequently
 ### Q: jjstatsplot doesn't appear in jamovi's module list
 
 **Solutions:**
-1. **Check jamovi version**: Requires jamovi ≥ 1.2.19
+1. **Check jamovi version**: Requires jamovi >= 1.2.19
    ```
    Help → About jamovi (check version number)
    ```

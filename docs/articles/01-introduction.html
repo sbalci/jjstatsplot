@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>jjStatsPlot 01: Statistical Visualization for Pathologists • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="jjStatsPlot 01: Statistical Visualization for Pathologists">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.47</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@
                         <h4 data-toc-skip class="author">ClinicoPath
 Development Team</h4>
             
-            <h4 data-toc-skip class="date">2025-10-09</h4>
+            <h4 data-toc-skip class="date">2026-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/01-introduction.Rmd" class="external-link"><code>vignettes/01-introduction.Rmd</code></a></small>
       <div class="d-none name"><code>01-introduction.Rmd</code></div>
@@ -223,7 +223,7 @@ visualization</li>
 <strong>Sankey Diagrams</strong>: Flow and pathway analysis</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sbalci/jjstatsplot" class="external-link">jjstatsplot</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.serdarbalci.com/jjstatsplot">jjstatsplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -251,14 +251,15 @@ datasets that represent real-world scenarios.</p>
 <span>    TStage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">TStage</span><span class="op">)</span>,</span>
 <span>    Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Group</span><span class="op">)</span>,</span>
 <span>    LVI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LVI</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FALSE"</span>, <span class="st">"TRUE"</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Absent"</span>, <span class="st">"Present"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    Age_Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Age</span> <span class="op">&gt;=</span> <span class="fl">65</span>, <span class="st">"≥65 years"</span>, <span class="st">"&lt;65 years"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    </span>
+<span>    Age_Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Age</span> <span class="op">&gt;=</span> <span class="fl">65</span>, <span class="st">"&gt;=65 years"</span>, <span class="st">"&lt;65 years"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span></span>
 <span>    <span class="co"># Create clinical outcome variables</span></span>
-<span>    High_Risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 3"</span> <span class="op">|</span> <span class="va">TStage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T3"</span>, <span class="st">"T4"</span><span class="op">)</span>, </span>
-<span>                             <span class="st">"High Risk"</span>, <span class="st">"Low Risk"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    Recurrence_Risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    High_Risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 3"</span> <span class="op">|</span> <span class="va">TStage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T3"</span>, <span class="st">"T4"</span><span class="op">)</span>,</span>
+<span>      <span class="st">"High Risk"</span>, <span class="st">"Low Risk"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span>,</span>
+<span>    Recurrence_Risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 1"</span> <span class="op">&amp;</span> <span class="va">TStage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>, <span class="st">"T2"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Low"</span>,</span>
-<span>      <span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 2"</span> <span class="op">~</span> <span class="st">"Intermediate"</span>, </span>
+<span>      <span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 2"</span> <span class="op">~</span> <span class="st">"Intermediate"</span>,</span>
 <span>      <span class="va">Grade</span> <span class="op">==</span> <span class="st">"Grade 3"</span> <span class="op">|</span> <span class="va">TStage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T3"</span>, <span class="st">"T4"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"High"</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Intermediate"</span></span>
 <span>    <span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"Intermediate"</span>, <span class="st">"High"</span><span class="op">)</span><span class="op">)</span></span>
@@ -302,8 +303,8 @@ groups.</p>
 <span><span class="co"># Basic bar chart with statistical testing</span></span>
 <span><span class="va">grade_by_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjbarstats.html">jjbarstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
-<span>  dep <span class="op">=</span> <span class="st">"Grade"</span>,              <span class="co"># Dependent variable (outcome)</span></span>
-<span>  group <span class="op">=</span> <span class="st">"Group"</span>,            <span class="co"># Grouping variable (treatment)</span></span>
+<span>  dep <span class="op">=</span> <span class="st">"Grade"</span>, <span class="co"># Dependent variable (outcome)</span></span>
+<span>  group <span class="op">=</span> <span class="st">"Group"</span>, <span class="co"># Grouping variable (treatment)</span></span>
 <span>  title <span class="op">=</span> <span class="st">"Tumor Grade Distribution by Treatment Group"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"Chi-square test for independence"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Treatment Group"</span>,</span>
@@ -344,9 +345,11 @@ groups.</p>
 <span><span class="va">risk_percentages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="va">risk_distribution</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Recurrence Risk Distribution:\n"</span><span class="op">)</span></span>
-<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">risk_distribution</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">risk_distribution</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">": "</span>, <span class="va">risk_distribution</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, </span>
-<span>            <span class="st">" patients ("</span>, <span class="va">risk_percentages</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">"%)\n"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">risk_distribution</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">risk_distribution</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">": "</span>, <span class="va">risk_distribution</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>    <span class="st">" patients ("</span>, <span class="va">risk_percentages</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">"%)\n"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\nClinical Utility:\n"</span><span class="op">)</span></span>
@@ -372,10 +375,10 @@ groups.</p>
 <span></span>
 <span><span class="va">age_by_risk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjbetweenstats.html">jjbetweenstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
-<span>  dep <span class="op">=</span> <span class="st">"Age"</span>,                    <span class="co"># Continuous outcome variable</span></span>
-<span>  group <span class="op">=</span> <span class="st">"High_Risk"</span>,            <span class="co"># Grouping variable</span></span>
-<span>  type <span class="op">=</span> <span class="st">"parametric"</span>,            <span class="co"># Statistical test type</span></span>
-<span>  pairwise.comparisons <span class="op">=</span> <span class="cn">TRUE</span>,    <span class="co"># Post-hoc comparisons</span></span>
+<span>  dep <span class="op">=</span> <span class="st">"Age"</span>, <span class="co"># Continuous outcome variable</span></span>
+<span>  group <span class="op">=</span> <span class="st">"High_Risk"</span>, <span class="co"># Grouping variable</span></span>
+<span>  type <span class="op">=</span> <span class="st">"parametric"</span>, <span class="co"># Statistical test type</span></span>
+<span>  pairwise.comparisons <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Post-hoc comparisons</span></span>
 <span>  title <span class="op">=</span> <span class="st">"Age Distribution by Risk Category"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"Two-sample t-test with effect size"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Risk Category"</span>,</span>
@@ -413,9 +416,9 @@ distributions.</p>
 <span><span class="va">age_histogram</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjhistostats.html">jjhistostats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
 <span>  dep <span class="op">=</span> <span class="st">"Age"</span>,</span>
-<span>  test.value <span class="op">=</span> <span class="fl">65</span>,               <span class="co"># Test against clinically relevant age</span></span>
+<span>  test.value <span class="op">=</span> <span class="fl">65</span>, <span class="co"># Test against clinically relevant age</span></span>
 <span>  type <span class="op">=</span> <span class="st">"parametric"</span>,</span>
-<span>  normal.curve <span class="op">=</span> <span class="cn">TRUE</span>,           <span class="co"># Overlay normal distribution</span></span>
+<span>  normal.curve <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Overlay normal distribution</span></span>
 <span>  title <span class="op">=</span> <span class="st">"Patient Age Distribution"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="st">"One-sample t-test against age 65"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Age (years)"</span>,</span>
@@ -440,7 +443,7 @@ distributions.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Median age:"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">median_age</span>, <span class="st">"years\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Standard deviation:"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">sd_age</span>, <span class="st">"years\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Age range:"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">min_age</span>, <span class="st">"-"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">max_age</span>, <span class="st">"years\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Elderly patients (≥65):"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">elderly_pct</span>, <span class="st">"%\n\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Elderly patients (&gt;=65):"</span>, <span class="va">age_stats</span><span class="op">$</span><span class="va">elderly_pct</span>, <span class="st">"%\n\n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Clinical Implications:\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Patient age distribution affects generalizability\n"</span><span class="op">)</span></span>
@@ -465,8 +468,8 @@ distributions.</p>
 <span><span class="co"># Using measurement variables from histopathology data</span></span>
 <span><span class="va">biomarker_scatter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">clinical_data</span>,</span>
-<span>  x <span class="op">=</span> <span class="st">"MeasurementA"</span>,           <span class="co"># First biomarker</span></span>
-<span>  y <span class="op">=</span> <span class="st">"MeasurementB"</span>,           <span class="co"># Second biomarker</span></span>
+<span>  x <span class="op">=</span> <span class="st">"MeasurementA"</span>, <span class="co"># First biomarker</span></span>
+<span>  y <span class="op">=</span> <span class="st">"MeasurementB"</span>, <span class="co"># Second biomarker</span></span>
 <span>  type <span class="op">=</span> <span class="st">"parametric"</span>,</span>
 <span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Biomarker A vs Biomarker B Correlation"</span>,</span>
@@ -478,10 +481,10 @@ distributions.</p>
 <span><span class="co"># Correlation strength interpretation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Correlation Strength Interpretation:\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Negligible: |r| &lt; 0.1\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Weak: 0.1 ≤ |r| &lt; 0.3\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Moderate: 0.3 ≤ |r| &lt; 0.5\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Strong: 0.5 ≤ |r| &lt; 0.7\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Very strong: |r| ≥ 0.7\n\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Weak: 0.1 &lt;= |r| &lt; 0.3\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Moderate: 0.3 &lt;= |r| &lt; 0.5\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Strong: 0.5 &lt;= |r| &lt; 0.7\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Very strong: |r| &gt;= 0.7\n\n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Clinical Applications:\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Biomarker co-expression patterns\n"</span><span class="op">)</span></span>
@@ -506,20 +509,20 @@ variables.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Age</span>, <span class="va">MeasurementA</span>, <span class="va">MeasurementB</span>, <span class="va">OverallTime</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">continuous_vars</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">continuous_vars</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">correlation_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjcorrmat.html">jjcorrmat</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">continuous_vars</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"parametric"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Clinical Variables Correlation Matrix"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Pearson correlations with significance testing"</span></span>
 <span>  <span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Matrix Interpretation:\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Diagonal elements are always 1.0 (self-correlation)\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Upper triangle shows correlation coefficients\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Lower triangle may show significance levels\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Color intensity indicates correlation strength\n\n"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Clinical Value:\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Identify multicollinearity in regression models\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Discover unexpected relationships between variables\n"</span><span class="op">)</span></span>
@@ -553,11 +556,13 @@ variables.</p>
 <span>    Patient_ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Patient_ID</span>, <span class="va">Pre_Treatment</span>, <span class="va">Post_Treatment</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Pre_Treatment</span>, <span class="va">Post_Treatment</span><span class="op">)</span>,</span>
-<span>                     names_to <span class="op">=</span> <span class="st">"Timepoint"</span>, </span>
-<span>                     values_to <span class="op">=</span> <span class="st">"Biomarker_Level"</span><span class="op">)</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Pre_Treatment</span>, <span class="va">Post_Treatment</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"Timepoint"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"Biomarker_Level"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">paired_data</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">paired_data</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">paired_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjwithinstats.html">jjwithinstats</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">paired_data</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">"Timepoint"</span>,</span>
@@ -570,13 +575,13 @@ variables.</p>
 <span>    xlab <span class="op">=</span> <span class="st">"Treatment Timepoint"</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Biomarker Level"</span></span>
 <span>  <span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Paired Analysis Advantages:\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Controls for individual patient baseline differences\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Higher statistical power than independent samples\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Shows individual patient trajectories\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Appropriate for longitudinal studies\n\n"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Clinical Applications:\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Treatment response monitoring\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- Before-after intervention studies\n"</span><span class="op">)</span></span>
@@ -595,14 +600,14 @@ variables.</p>
 <span><span class="co"># Subgroup analysis by tumor grade</span></span>
 <span><span class="va">subgroup_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw">for</span><span class="op">(</span><span class="va">grade_level</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade 1"</span>, <span class="st">"Grade 2"</span>, <span class="st">"Grade 3"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">grade_level</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Grade 1"</span>, <span class="st">"Grade 2"</span>, <span class="st">"Grade 3"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">subgroup_data</span> <span class="op">&lt;-</span> <span class="va">clinical_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Grade</span> <span class="op">==</span> <span class="va">grade_level</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">MeasurementA</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subgroup_data</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subgroup_data</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Analysis for "</span>, <span class="va">grade_level</span>, <span class="st">":\n"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Sample size: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subgroup_data</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    </span>
+<span></span>
 <span>    <span class="co"># Age comparison by group within grade</span></span>
 <span>    <span class="va">age_summary</span> <span class="op">&lt;-</span> <span class="va">subgroup_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -610,9 +615,9 @@ variables.</p>
 <span>        n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Age</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>        sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">Age</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>        .groups <span class="op">=</span> <span class="st">'drop'</span></span>
+<span>        .groups <span class="op">=</span> <span class="st">"drop"</span></span>
 <span>      <span class="op">)</span></span>
-<span>    </span>
+<span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">age_summary</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
@@ -641,14 +646,16 @@ variables.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="co"># Simulate QC metrics</span></span>
 <span>    Processing_Batch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    Staining_Quality <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Excellent"</span>, <span class="st">"Good"</span>, <span class="st">"Acceptable"</span>, <span class="st">"Poor"</span><span class="op">)</span>, </span>
-<span>                             <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    Measurement_CV <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Coefficient of variation</span></span>
+<span>    Staining_Quality <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Excellent"</span>, <span class="st">"Good"</span>, <span class="st">"Acceptable"</span>, <span class="st">"Poor"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    Measurement_CV <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Coefficient of variation</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">MeasurementA</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Batch effect analysis</span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">qc_data</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">qc_data</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Batch Effect Analysis:\n"</span><span class="op">)</span></span>
 <span>  <span class="va">batch_summary</span> <span class="op">&lt;-</span> <span class="va">qc_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Processing_Batch</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -657,14 +664,14 @@ variables.</p>
 <span>      mean_measurement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">MeasurementA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>      sd_measurement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">MeasurementA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>      cv_measurement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">sd_measurement</span> <span class="op">/</span> <span class="va">mean_measurement</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>      .groups <span class="op">=</span> <span class="st">'drop'</span></span>
+<span>      .groups <span class="op">=</span> <span class="st">"drop"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">batch_summary</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\nQuality Control Guidelines:\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- CV &lt;10%: Excellent reproducibility\n"</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- CV 10-15%: Good reproducibility\n"</span><span class="op">)</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- CV 10-15%: Good reproducibility\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- CV 15-20%: Acceptable reproducibility\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"- CV &gt;20%: Poor reproducibility, investigate\n\n"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -720,8 +727,8 @@ variables.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"==========================================\n\n"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"1. Figure Quality:\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - High resolution (≥300 DPI) for print\n"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - Clear, readable fonts (≥10 point)\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - High resolution (&gt;=300 DPI) for print\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - Clear, readable fonts (&gt;=10 point)\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - Appropriate color schemes (colorblind-friendly)\n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"   - Consistent styling across figures\n\n"</span><span class="op">)</span></span>
 <span></span>
@@ -808,7 +815,7 @@ techniques and advanced applications.</em></p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

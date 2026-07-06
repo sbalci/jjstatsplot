@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  comment = "#>", 
+  comment = "#>",
   collapse = TRUE,
   fig.width = 8,
   fig.height = 6,
@@ -83,14 +83,15 @@ clinical_data <- histopathology %>%
     TStage = factor(TStage),
     Group = factor(Group),
     LVI = factor(LVI, levels = c("FALSE", "TRUE"), labels = c("Absent", "Present")),
-    Age_Group = factor(ifelse(Age >= 65, "≥65 years", "<65 years")),
-    
+    Age_Group = factor(ifelse(Age >= 65, ">=65 years", "<65 years")),
+
     # Create clinical outcome variables
-    High_Risk = factor(ifelse(Grade == "Grade 3" | TStage %in% c("T3", "T4"), 
-                             "High Risk", "Low Risk")),
+    High_Risk = factor(ifelse(Grade == "Grade 3" | TStage %in% c("T3", "T4"),
+      "High Risk", "Low Risk"
+    )),
     Recurrence_Risk = factor(case_when(
       Grade == "Grade 1" & TStage %in% c("T1", "T2") ~ "Low",
-      Grade == "Grade 2" ~ "Intermediate", 
+      Grade == "Grade 2" ~ "Intermediate",
       Grade == "Grade 3" | TStage %in% c("T3", "T4") ~ "High",
       TRUE ~ "Intermediate"
     ), levels = c("Low", "Intermediate", "High"))
@@ -131,8 +132,8 @@ cat("==================================================\n\n")
 # Basic bar chart with statistical testing
 grade_by_group <- jjbarstats(
   data = clinical_data,
-  dep = "Grade",              # Dependent variable (outcome)
-  group = "Group",            # Grouping variable (treatment)
+  dep = "Grade", # Dependent variable (outcome)
+  group = "Group", # Grouping variable (treatment)
   title = "Tumor Grade Distribution by Treatment Group",
   subtitle = "Chi-square test for independence",
   xlab = "Treatment Group",
@@ -174,9 +175,11 @@ risk_distribution <- table(clinical_data$Recurrence_Risk)
 risk_percentages <- round(prop.table(risk_distribution) * 100, 1)
 
 cat("Recurrence Risk Distribution:\n")
-for(i in 1:length(risk_distribution)) {
-  cat(paste0(names(risk_distribution)[i], ": ", risk_distribution[i], 
-            " patients (", risk_percentages[i], "%)\n"))
+for (i in 1:length(risk_distribution)) {
+  cat(paste0(
+    names(risk_distribution)[i], ": ", risk_distribution[i],
+    " patients (", risk_percentages[i], "%)\n"
+  ))
 }
 
 cat("\nClinical Utility:\n")
@@ -200,10 +203,10 @@ cat("============================================\n\n")
 
 age_by_risk <- jjbetweenstats(
   data = clinical_data,
-  dep = "Age",                    # Continuous outcome variable
-  group = "High_Risk",            # Grouping variable
-  type = "parametric",            # Statistical test type
-  pairwise.comparisons = TRUE,    # Post-hoc comparisons
+  dep = "Age", # Continuous outcome variable
+  group = "High_Risk", # Grouping variable
+  type = "parametric", # Statistical test type
+  pairwise.comparisons = TRUE, # Post-hoc comparisons
   title = "Age Distribution by Risk Category",
   subtitle = "Two-sample t-test with effect size",
   xlab = "Risk Category",
@@ -241,9 +244,9 @@ cat("====================================\n\n")
 age_histogram <- jjhistostats(
   data = clinical_data,
   dep = "Age",
-  test.value = 65,               # Test against clinically relevant age
+  test.value = 65, # Test against clinically relevant age
   type = "parametric",
-  normal.curve = TRUE,           # Overlay normal distribution
+  normal.curve = TRUE, # Overlay normal distribution
   title = "Patient Age Distribution",
   subtitle = "One-sample t-test against age 65",
   xlab = "Age (years)",
@@ -268,7 +271,7 @@ cat("Mean age:", age_stats$mean_age, "years\n")
 cat("Median age:", age_stats$median_age, "years\n")
 cat("Standard deviation:", age_stats$sd_age, "years\n")
 cat("Age range:", age_stats$min_age, "-", age_stats$max_age, "years\n")
-cat("Elderly patients (≥65):", age_stats$elderly_pct, "%\n\n")
+cat("Elderly patients (>=65):", age_stats$elderly_pct, "%\n\n")
 
 cat("Clinical Implications:\n")
 cat("- Patient age distribution affects generalizability\n")
@@ -292,8 +295,8 @@ cat("=============================================\n\n")
 # Using measurement variables from histopathology data
 biomarker_scatter <- jjscatterstats(
   data = clinical_data,
-  x = "MeasurementA",           # First biomarker
-  y = "MeasurementB",           # Second biomarker
+  x = "MeasurementA", # First biomarker
+  y = "MeasurementB", # Second biomarker
   type = "parametric",
   conf.level = 0.95,
   title = "Biomarker A vs Biomarker B Correlation",
@@ -305,10 +308,10 @@ biomarker_scatter <- jjscatterstats(
 # Correlation strength interpretation
 cat("Correlation Strength Interpretation:\n")
 cat("- Negligible: |r| < 0.1\n")
-cat("- Weak: 0.1 ≤ |r| < 0.3\n")
-cat("- Moderate: 0.3 ≤ |r| < 0.5\n")
-cat("- Strong: 0.5 ≤ |r| < 0.7\n")
-cat("- Very strong: |r| ≥ 0.7\n\n")
+cat("- Weak: 0.1 <= |r| < 0.3\n")
+cat("- Moderate: 0.3 <= |r| < 0.5\n")
+cat("- Strong: 0.5 <= |r| < 0.7\n")
+cat("- Very strong: |r| >= 0.7\n\n")
 
 cat("Clinical Applications:\n")
 cat("- Biomarker co-expression patterns\n")
@@ -333,20 +336,20 @@ continuous_vars <- clinical_data %>%
   select(Age, MeasurementA, MeasurementB, OverallTime) %>%
   na.omit()
 
-if(nrow(continuous_vars) > 10) {
+if (nrow(continuous_vars) > 10) {
   correlation_matrix <- jjcorrmat(
     data = continuous_vars,
     type = "parametric",
     title = "Clinical Variables Correlation Matrix",
     subtitle = "Pearson correlations with significance testing"
   )
-  
+
   cat("Matrix Interpretation:\n")
   cat("- Diagonal elements are always 1.0 (self-correlation)\n")
   cat("- Upper triangle shows correlation coefficients\n")
   cat("- Lower triangle may show significance levels\n")
   cat("- Color intensity indicates correlation strength\n\n")
-  
+
   cat("Clinical Value:\n")
   cat("- Identify multicollinearity in regression models\n")
   cat("- Discover unexpected relationships between variables\n")
@@ -378,11 +381,13 @@ paired_data <- clinical_data %>%
     Patient_ID = paste0("PT", sprintf("%03d", 1:50))
   ) %>%
   select(Patient_ID, Pre_Treatment, Post_Treatment) %>%
-  tidyr::pivot_longer(cols = c(Pre_Treatment, Post_Treatment),
-                     names_to = "Timepoint", 
-                     values_to = "Biomarker_Level")
+  tidyr::pivot_longer(
+    cols = c(Pre_Treatment, Post_Treatment),
+    names_to = "Timepoint",
+    values_to = "Biomarker_Level"
+  )
 
-if(nrow(paired_data) > 0) {
+if (nrow(paired_data) > 0) {
   paired_comparison <- jjwithinstats(
     data = paired_data,
     x = "Timepoint",
@@ -395,13 +400,13 @@ if(nrow(paired_data) > 0) {
     xlab = "Treatment Timepoint",
     ylab = "Biomarker Level"
   )
-  
+
   cat("Paired Analysis Advantages:\n")
   cat("- Controls for individual patient baseline differences\n")
   cat("- Higher statistical power than independent samples\n")
   cat("- Shows individual patient trajectories\n")
   cat("- Appropriate for longitudinal studies\n\n")
-  
+
   cat("Clinical Applications:\n")
   cat("- Treatment response monitoring\n")
   cat("- Before-after intervention studies\n")
@@ -421,14 +426,14 @@ cat("=============================================\n\n")
 # Subgroup analysis by tumor grade
 subgroup_results <- list()
 
-for(grade_level in c("Grade 1", "Grade 2", "Grade 3")) {
+for (grade_level in c("Grade 1", "Grade 2", "Grade 3")) {
   subgroup_data <- clinical_data %>%
     filter(Grade == grade_level & !is.na(MeasurementA))
-  
-  if(nrow(subgroup_data) >= 10) {
+
+  if (nrow(subgroup_data) >= 10) {
     cat(paste0("Analysis for ", grade_level, ":\n"))
     cat(paste0("Sample size: ", nrow(subgroup_data), "\n"))
-    
+
     # Age comparison by group within grade
     age_summary <- subgroup_data %>%
       group_by(Group) %>%
@@ -436,9 +441,9 @@ for(grade_level in c("Grade 1", "Grade 2", "Grade 3")) {
         n = n(),
         mean_age = round(mean(Age, na.rm = TRUE), 1),
         sd_age = round(sd(Age, na.rm = TRUE), 1),
-        .groups = 'drop'
+        .groups = "drop"
       )
-    
+
     print(age_summary)
     cat("\n")
   }
@@ -466,14 +471,16 @@ qc_data <- clinical_data %>%
   mutate(
     # Simulate QC metrics
     Processing_Batch = sample(1:5, n(), replace = TRUE),
-    Staining_Quality = sample(c("Excellent", "Good", "Acceptable", "Poor"), 
-                             n(), replace = TRUE, prob = c(0.4, 0.3, 0.2, 0.1)),
-    Measurement_CV = abs(rnorm(n(), mean = 5, sd = 2))  # Coefficient of variation
+    Staining_Quality = sample(c("Excellent", "Good", "Acceptable", "Poor"),
+      n(),
+      replace = TRUE, prob = c(0.4, 0.3, 0.2, 0.1)
+    ),
+    Measurement_CV = abs(rnorm(n(), mean = 5, sd = 2)) # Coefficient of variation
   ) %>%
   filter(!is.na(MeasurementA))
 
 # Batch effect analysis
-if(nrow(qc_data) > 20) {
+if (nrow(qc_data) > 20) {
   cat("Batch Effect Analysis:\n")
   batch_summary <- qc_data %>%
     group_by(Processing_Batch) %>%
@@ -482,14 +489,14 @@ if(nrow(qc_data) > 20) {
       mean_measurement = round(mean(MeasurementA, na.rm = TRUE), 2),
       sd_measurement = round(sd(MeasurementA, na.rm = TRUE), 2),
       cv_measurement = round(sd_measurement / mean_measurement * 100, 1),
-      .groups = 'drop'
+      .groups = "drop"
     )
-  
+
   print(batch_summary)
-  
+
   cat("\nQuality Control Guidelines:\n")
   cat("- CV <10%: Excellent reproducibility\n")
-  cat("- CV 10-15%: Good reproducibility\n") 
+  cat("- CV 10-15%: Good reproducibility\n")
   cat("- CV 15-20%: Acceptable reproducibility\n")
   cat("- CV >20%: Poor reproducibility, investigate\n\n")
 }
@@ -543,8 +550,8 @@ cat("Publication-Ready Visualization Guidelines\n")
 cat("==========================================\n\n")
 
 cat("1. Figure Quality:\n")
-cat("   - High resolution (≥300 DPI) for print\n")
-cat("   - Clear, readable fonts (≥10 point)\n")
+cat("   - High resolution (>=300 DPI) for print\n")
+cat("   - Clear, readable fonts (>=10 point)\n")
 cat("   - Appropriate color schemes (colorblind-friendly)\n")
 cat("   - Consistent styling across figures\n\n")
 

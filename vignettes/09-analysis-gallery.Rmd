@@ -520,15 +520,15 @@ if (data_type == "one_continuous") {
 
 | Analysis | Dependent Variable | Grouping Variable | Sample Size |
 |----------|-------------------|-------------------|-------------|
-| Histogram | Continuous | Optional categorical | n ≥ 10 |
-| Scatter | 2 × Continuous | Optional categorical | n ≥ 10 |
-| Box-Violin | Continuous | Categorical (2+ levels) | n ≥ 5 per group |
-| Correlation Matrix | 2+ × Continuous | Optional categorical | n ≥ 10 |
-| Dot Chart | Continuous | Categorical (2+ levels) | n ≥ 3 per group |
-| Bar Chart | Categorical | Optional categorical | n ≥ 5 |
-| Pie Chart | Categorical | Optional categorical | n ≥ 5 |
-| Within-Subjects | 2+ × Continuous | Optional categorical | n ≥ 5 pairs |
-| Waffle Chart | Categorical | Optional categorical | n ≥ 10 |
+| Histogram | Continuous | Optional categorical | n >= 10 |
+| Scatter | 2 × Continuous | Optional categorical | n >= 10 |
+| Box-Violin | Continuous | Categorical (2+ levels) | n >= 5 per group |
+| Correlation Matrix | 2+ × Continuous | Optional categorical | n >= 10 |
+| Dot Chart | Continuous | Categorical (2+ levels) | n >= 3 per group |
+| Bar Chart | Categorical | Optional categorical | n >= 5 |
+| Pie Chart | Categorical | Optional categorical | n >= 5 |
+| Within-Subjects | 2+ × Continuous | Optional categorical | n >= 5 pairs |
+| Waffle Chart | Categorical | Optional categorical | n >= 10 |
 
 ## Best Practices Summary
 

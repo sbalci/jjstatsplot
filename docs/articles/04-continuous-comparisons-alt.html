@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Continuous Variable Comparisons • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Continuous Variable Comparisons">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.47</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,7 +140,7 @@ automatically performs appropriate statistical tests (parametric,
 non-parametric, robust, or Bayesian) and displays the results.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Underlying function that jjbetweenstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">cyl</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">mpg</span>,</span>
@@ -152,14 +152,14 @@ non-parametric, robust, or Bayesian) and displays the results.</p>
 <span>  xlab <span class="op">=</span> <span class="st">"Number of Cylinders"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"Miles per Gallon"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="768"></p>
 <div class="section level3">
 <h3 id="customizing-the-analysis-type">Customizing the analysis type<a class="anchor" aria-label="anchor" href="#customizing-the-analysis-type"></a>
 </h3>
 <p>You can choose different types of statistical analyses:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Non-parametric analysis with Kruskal-Wallis test</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">gear</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">hp</span>,</span>
@@ -170,7 +170,7 @@ non-parametric, robust, or Bayesian) and displays the results.</p>
 <span>  xlab <span class="op">=</span> <span class="st">"Number of Gears"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"Horsepower"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 </div>
 <div class="section level2">
@@ -181,7 +181,7 @@ overlaid density curves and statistical test results against a specified
 test value.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Underlying function that jjhistostats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html" class="external-link">gghistostats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/gghistostats.html" class="external-link">gghistostats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"parametric"</span>,</span>
@@ -190,14 +190,14 @@ test value.</p>
 <span>  title <span class="op">=</span> <span class="st">"Distribution of Fuel Efficiency"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Miles per Gallon"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="672"></p>
 <div class="section level3">
 <h3 id="grouped-histograms">Grouped histograms<a class="anchor" aria-label="anchor" href="#grouped-histograms"></a>
 </h3>
 <p>You can also create histograms split by a grouping variable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Grouped histogram</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_gghistostats.html" class="external-link">grouped_gghistostats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/grouped_gghistostats.html" class="external-link">grouped_gghistostats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">mpg</span>,</span>
 <span>  grouping.var <span class="op">=</span> <span class="va">am</span>,</span>
@@ -205,7 +205,7 @@ test value.</p>
 <span>  title.prefix <span class="op">=</span> <span class="st">"Transmission Type"</span>,</span>
 <span>  normal.curve <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-4-1.png" width="960"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="960"></p>
 </div>
 </div>
 <div class="section level2">
@@ -235,7 +235,7 @@ performs appropriate paired tests.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Underlying function that jjwithinstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggwithinstats.html" class="external-link">ggwithinstats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/ggwithinstats.html" class="external-link">ggwithinstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">paired_data</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">condition</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">value</span>,</span>
@@ -247,7 +247,7 @@ performs appropriate paired tests.</p>
 <span>  xlab <span class="op">=</span> <span class="st">"Measurement Time"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"Miles per Gallon"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="dot-plots-with-jjdotplotstats">Dot plots with <code>jjdotplotstats()</code><a class="anchor" aria-label="anchor" href="#dot-plots-with-jjdotplotstats"></a>
@@ -258,7 +258,7 @@ particularly useful for comparing multiple groups when you want to
 emphasize the central tendency and uncertainty.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Underlying function that jjdotplotstats() wraps</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggdotplotstats.html" class="external-link">ggdotplotstats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/ggdotplotstats.html" class="external-link">ggdotplotstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">hp</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">cyl</span>,</span>
@@ -268,7 +268,7 @@ emphasize the central tendency and uncertainty.</p>
 <span>  xlab <span class="op">=</span> <span class="st">"Horsepower"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"Number of Cylinders"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="statistical-details">Statistical details<a class="anchor" aria-label="anchor" href="#statistical-details"></a>
@@ -329,7 +329,7 @@ can access additional customization through the underlying ggstatsplot
 functions:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example with extensive customization</span></span>
-<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
+<span><span class="fu">ggstatsplot</span><span class="fu">::</span><span class="fu"><a href="https://www.indrapatil.com/ggstatsplot/reference/ggbetweenstats.html" class="external-link">ggbetweenstats</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
 <span>  x <span class="op">=</span> <span class="va">am</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">mpg</span>,</span>
@@ -350,7 +350,7 @@ functions:</p>
 <span>  ylab <span class="op">=</span> <span class="st">"Miles per Gallon"</span>,</span>
 <span>  caption <span class="op">=</span> <span class="st">"Data: Motor Trend Car Road Tests"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p><img src="04-continuous-comparisons-alt_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -378,7 +378,7 @@ and presentation.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -454,7 +454,7 @@ cat("   • Compare with separate analyses\n")
 - ✅ Verify data is in long format
 - ✅ Check for missing values and outliers  
 - ✅ Visualize biomarker trajectories
-- ✅ Ensure adequate sample size (≥50 patients, ≥20 events)
+- ✅ Ensure adequate sample size (>=50 patients, >=20 events)
 - ✅ Plan analysis with clinical collaborators
 
 ## During Analysis

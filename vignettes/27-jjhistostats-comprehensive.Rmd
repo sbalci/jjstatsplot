@@ -177,7 +177,7 @@ The function has been significantly optimized for performance:
 #| eval: false
 
 # Performance comparison (conceptual)
-# Before optimization: 
+# Before optimization:
 # - Data processed separately for each plot method
 # - Variable conversion repeated for each histogram
 # - Options processing duplicated
@@ -411,7 +411,7 @@ str(jjhistostats_test_data)
 
 # Manual binning considerations:
 # Small datasets (n < 50): 5-10 bins
-# Medium datasets (n = 50-200): 10-20 bins  
+# Medium datasets (n = 50-200): 10-20 bins
 # Large datasets (n > 200): 20+ bins
 
 # Rule of thumb for bin width:
@@ -431,7 +431,7 @@ str(jjhistostats_test_data)
 #### Normality Test Interpretation
 
 - **p > 0.05**: Fail to reject normality (data may be normal)
-- **p ≤ 0.05**: Reject normality (data significantly non-normal)
+- **p <= 0.05**: Reject normality (data significantly non-normal)
 - **Visual inspection**: Always combine with histogram visual assessment
 
 ## Troubleshooting
@@ -460,22 +460,25 @@ str(jjhistostats_test_data)
 #| eval: false
 
 # Example error handling
-tryCatch({
-  result <- jjhistostats(
-    data = my_data,
-    dep = "continuous_var",
-    typestatistics = "parametric"
-  )
-}, error = function(e) {
-  message("Error in histogram analysis: ", e$message)
-  message("Check your data structure and variable types")
-  
-  # Diagnostic information
-  cat("Data structure:\n")
-  str(my_data)
-  cat("\nVariable summary:\n")
-  summary(my_data$continuous_var)
-})
+tryCatch(
+  {
+    result <- jjhistostats(
+      data = my_data,
+      dep = "continuous_var",
+      typestatistics = "parametric"
+    )
+  },
+  error = function(e) {
+    message("Error in histogram analysis: ", e$message)
+    message("Check your data structure and variable types")
+
+    # Diagnostic information
+    cat("Data structure:\n")
+    str(my_data)
+    cat("\nVariable summary:\n")
+    summary(my_data$continuous_var)
+  }
+)
 ```
 
 ## Technical Details
@@ -497,7 +500,7 @@ The `jjhistostats` function is built on:
 # Internal caching structure (conceptual)
 # private$.processedData: Cached cleaned data with converted variables
 # private$.processedOptions: Cached option processing including binwidth
-# 
+#
 # Benefits:
 # - Eliminates redundant jmvcore::naOmit() calls
 # - Avoids repeated variable conversion
@@ -539,7 +542,7 @@ initial_assessment <- jjhistostats(
   centralityline = TRUE
 )
 
-# Step 2: Formal normality testing  
+# Step 2: Formal normality testing
 normality_test <- jjhistostats(
   data = clinical_data,
   dep = "primary_endpoint",

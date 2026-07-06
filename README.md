@@ -104,8 +104,8 @@ jjbetweenstats(
 
 ### Requirements
 
-- R (≥ 4.0.0)
-- jamovi (≥ 1.2.19)
+- R (>= 4.0.0)
+- jamovi (>= 1.2.19)
 - Core dependencies: `jmvcore`, `R6`, `ggstatsplot`
 
 ### Building from Source
@@ -156,7 +156,7 @@ Please also cite the underlying packages:
 
 ## 📝 License
 
-This project is licensed under the GPL (≥ 2) License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL (>= 2) License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 

@@ -1,3 +1,10 @@
+# jjstatsplot 0.0.47 (2026-07-05)
+
+## Bug Fixes
+
+* **Fixed a crash on labelled (SPSS/Stata) data.** `haven::as_factor()` is used by `jjwithinstats` and `jwaffle`, but `haven` was missing from the package `Imports`. Because jamovi installs only a package's `Imports`, those analyses crashed on labelled data on a clean install. `haven` is now declared.
+* Declared additional plotting dependencies used via `::` but previously undeclared: `car`, `cowplot`, `e1071`, `ggExtra`, `ggprism`, `ggrepel`, `patchwork`, `viridisLite`.
+
 # jjstatsplot 0.0.46 (2026-07-04)
 
 This release consolidates all work from 0.0.32.66 through 0.0.46 into a single entry. The main themes are: a new **"Important Information" notices system** surfacing typed diagnostic messages across analyses; extensive **input-validation and HTML-escaping hardening** of the backends; **multiple-endpoint-correction guidance** for group comparisons; and **dependency/infrastructure cleanup** that raises the minimum jamovi version to 2.7.27.

@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>jjstatsplot: Statistical Visualization with Oncology Data • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="jjstatsplot: Statistical Visualization with Oncology Data">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.32.01</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.47</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,8 +95,6 @@
     <li><a class="dropdown-item" href="../articles/35-jvisr-comprehensive.html">Clinical Research Visualization with jvisr</a></li>
     <li><a class="dropdown-item" href="../articles/36-jwaffle-comprehensive.html">Professional Waffle Charts with jwaffle</a></li>
     <li><a class="dropdown-item" href="../articles/jjstatsplot-01-oncodatasets-examples.html">jjstatsplot: Statistical Visualization with Oncology Data</a></li>
-    <li><a class="dropdown-item" href="../articles/jjstatsplot-10-jointmodeling-comprehensive.html">Joint Longitudinal-Survival Modeling: A Comprehensive Guide</a></li>
-    <li><a class="dropdown-item" href="../articles/jjstatsplot-11-jointmodeling-tutorial.html">Joint Modeling Tutorial: Step-by-Step Analysis Guide</a></li>
     <li><a class="dropdown-item" href="../articles/use-jjstatsplot-in-R.html">Use jjstatsplot in R</a></li>
   </ul>
 </li>
@@ -124,7 +122,7 @@
                         <h4 data-toc-skip class="author">ClinicoPath
 Team</h4>
             
-            <h4 data-toc-skip class="date">2025-10-09</h4>
+            <h4 data-toc-skip class="date">2026-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/jjstatsplot-01-oncodatasets-examples.Rmd" class="external-link"><code>vignettes/jjstatsplot-01-oncodatasets-examples.Rmd</code></a></small>
       <div class="d-none name"><code>jjstatsplot-01-oncodatasets-examples.Rmd</code></div>
@@ -144,49 +142,7 @@ beautiful visualizations with rigorous statistical testing.</p>
 <h2 id="loading-required-packages">Loading Required Packages<a class="anchor" aria-label="anchor" href="#loading-required-packages"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sbalci/jjstatsplot" class="external-link">jjstatsplot</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'dplyr::as_data_frame' by</span></span>
-<span><span class="co">#&gt; 'igraph::as_data_frame' when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'dplyr::groups' by 'igraph::groups' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'dplyr::union' by 'igraph::union' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'dplyr::select' by 'jmvcore::select' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'magrittr::set_names' by 'purrr::set_names'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'igraph::simplify' by 'purrr::simplify' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'igraph::compose' by 'purrr::compose' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading</span></span>
-<span><span class="co">#&gt; 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'igraph::is_named' by 'rlang::is_named' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'</span></span>
-<span><span class="co">#&gt; when loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::discard' by 'scales::discard' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'igraph::crossing' by 'tidyr::crossing' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'magrittr::extract' by 'tidyr::extract' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'jmvcore::select' by 'dplyr::select' when</span></span>
-<span><span class="co">#&gt; loading 'jjstatsplot'</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.serdarbalci.com/jjstatsplot">jjstatsplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lightbluetitan/oncodatasets" class="external-link">OncoDataSets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
@@ -288,12 +244,7 @@ beautiful visualizations with rigorous statistical testing.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"SmokingLungCancer_df"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Examine structure</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">SmokingLungCancer_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'data.frame':    63 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt;  $ yrs_smk : Factor w/ 9 levels "15-19","20-24",..: 1 2 3 4 5 6 7 8 9 1 ...</span></span>
-<span><span class="co">#&gt;  $ pys     : num  10366 8162 5969 4496 3512 ...</span></span>
-<span><span class="co">#&gt;  $ num_cigs: Factor w/ 7 levels "0","1-9","10-14",..: 1 1 1 1 1 1 1 1 1 2 ...</span></span>
-<span><span class="co">#&gt;  $ deaths  : num  1 0 0 0 0 0 0 0 2 0 ...</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">SmokingLungCancer_df</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="piedonut-chart-with-chi-square-test">Pie/Donut Chart with Chi-square Test<a class="anchor" aria-label="anchor" href="#piedonut-chart-with-chi-square-test"></a>
 </h3>
@@ -419,13 +370,7 @@ beautiful visualizations with rigorous statistical testing.</p>
 </h2>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"BrainCancerCases_df"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BrainCancerCases_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'data.frame':    1175 obs. of  5 variables:</span></span>
-<span><span class="co">#&gt;  $ county  : Factor w/ 31 levels "Bernalillo","Catron",..: 9 23 1 7 30 22 31 7 31 1 ...</span></span>
-<span><span class="co">#&gt;  $ cases   : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;  $ year    : int  1977 1974 1977 1977 1977 1977 1977 1977 1977 1975 ...</span></span>
-<span><span class="co">#&gt;  $ agegroup: int  2 8 13 14 16 11 17 11 7 13 ...</span></span>
-<span><span class="co">#&gt;  $ sex     : int  2 2 1 2 2 1 1 2 2 1 ...</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BrainCancerCases_df</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="matrix-scatter-plot">Matrix Scatter Plot<a class="anchor" aria-label="anchor" href="#matrix-scatter-plot"></a>
 </h3>
@@ -592,7 +537,7 @@ while maintaining statistical integrity.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

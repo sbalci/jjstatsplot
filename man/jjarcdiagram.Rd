@@ -106,7 +106,7 @@ direction from source to target) or undirected (edges represent
 bidirectional relationships).}
 
 \item{aggregateEdges}{"RECOMMENDED: Combine multiple edges between the same
-nodes by summing weights. Why it matters: Ensures network density ≤ 1.0
+nodes by summing weights. Why it matters: Ensures network density <= 1.0
 (without aggregation, density can exceed 1.0) Prevents inflated centrality
 measures Provides accurate statistical summaries Example: If Gene A→Gene B
 appears 3 times with weights (2, 3, 5), aggregation creates a single edge
@@ -171,65 +171,4 @@ A results object containing:
 \description{
 'Creates arc diagrams for network visualization using the arcdiagram
 package.'
-}
-\examples{
-\donttest{
-# Basic social network visualization
-data(jjarcdiagram_social_network, package = "ClinicoPath")
-jjarcdiagram(
-    data = social_network_data,
-    source = "source",
-    target = "target",
-    weight = "weight",
-    group = "group",
-    showNodes = TRUE,
-    nodeSize = "degree",
-    sortNodes = "group"
-)
-
-# Gene regulatory network
-data(jjarcdiagram_gene_network, package = "ClinicoPath")
-jjarcdiagram(
-    data = gene_network_data,
-    source = "regulator",
-    target = "target",
-    weight = "regulation_score",
-    group = "pathway",
-    nodeSize = "degree",
-    sortNodes = "group"
-)
-
-# Academic collaboration network
-data(jjarcdiagram_academic_network, package = "ClinicoPath")
-jjarcdiagram(
-    data = academic_network_data,
-    source = "author1",
-    target = "author2",
-    weight = "publications",
-    group = "department",
-    showNodes = TRUE,
-    nodeSize = "degree"
-)
-
-# Organizational hierarchy
-data(jjarcdiagram_org_hierarchy, package = "ClinicoPath")
-jjarcdiagram(
-    data = org_hierarchy_data,
-    source = "employee",
-    target = "reports_to",
-    weight = "relationship_strength",
-    group = "department",
-    nodeSize = "fixed",
-    nodeSizeValue = 3
-)
-
-# Simple minimal network
-data(jjarcdiagram_minimal_network, package = "ClinicoPath")
-jjarcdiagram(
-    data = minimal_network_data,
-    source = "from",
-    target = "to",
-    weight = "strength"
-)
-}
 }
