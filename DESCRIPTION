@@ -16,7 +16,8 @@ Description: Comprehensive statistical visualization package for jamovi
         charts. Features automatic plot selection, dual-mode operation
         (single/grouped variables), statistical annotations, and
         publication-ready visualizations with point-and-click
-        interface. For comments, suggestions, feature requests or reporting bugs, please open an issue <a href="https://github.com/sbalci/ClinicoPathJamoviModule/issues/" target="_blank">here</a>.
+        interface. For comments, suggestions, feature requests or reporting bugs,
+        please open an issue <a href="https://github.com/sbalci/ClinicoPathJamoviModule/issues/" target="_blank">here</a>.
 License: GPL (>= 2)
 URL: https://www.serdarbalci.com/jjstatsplot,
     https://github.com/sbalci/jjstatsplot
