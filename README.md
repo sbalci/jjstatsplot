@@ -156,7 +156,7 @@ Please also cite the underlying packages:
 
 ## 📝 License
 
-This project is licensed under the GPL (>= 2) License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL (>= 2) License - see the [LICENSE](https://github.com/sbalci/jjstatsplot/blob/master/LICENSE.md) file for details.
 
 ## 🙏 Acknowledgments
 

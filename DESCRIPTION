@@ -1,10 +1,10 @@
 Type: Package
 Package: jjstatsplot
-Title: Wrapper for ggstatsplot
-Version: 0.0.5
-Date: 2026-07-10
+Title: Wrapper for 'ggstatsplot'
+Version: 0.0.51
+Date: 2026-07-11
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
-        "cre"), email = "serdarbalci@serdarbalci.com", comment =
+        "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
         c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
 Description: Comprehensive statistical visualization package for jamovi
@@ -17,7 +17,7 @@ Description: Comprehensive statistical visualization package for jamovi
         (single/grouped variables), statistical annotations, and
         publication-ready visualizations with point-and-click
         interface. For comments, suggestions, feature requests or reporting bugs,
-        please open an issue <a href="https://github.com/sbalci/ClinicoPathJamoviModule/issues/" target="_blank">here</a>.
+        please open an issue at <https://github.com/sbalci/ClinicoPathJamoviModule/issues/>.
 License: GPL (>= 2)
 URL: https://www.serdarbalci.com/jjstatsplot,
     https://github.com/sbalci/jjstatsplot

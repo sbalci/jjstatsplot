@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 0.0.5
+version: 0.0.51
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2026-07-10'
+date: '2026-07-11'
 type: R
 description: >
   Comprehensive statistical visualization module for jamovi featuring 17+
@@ -28,9 +28,8 @@ description: >
   sophisticated data visualization without coding. For comments, suggestions,
   feature 
 
-  requests or reporting bugs, please open an issue <a
-  href="https://github.com/sbalci/ClinicoPathJamoviModule/issues/"
-  target="_blank">here</a>.
+  requests or reporting bugs, please open an issue at
+  https://github.com/sbalci/ClinicoPathJamoviModule/issues/.
 analyses:
   - title: Histogram
     name: jjhistostats
