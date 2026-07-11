@@ -25,11 +25,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Serdar Balci \email{serdarbalci@serdarbalci.com} (\href{https://orcid.org/0000-0002-7852-3851}{ORCID})
+\strong{Maintainer}: Serdar Balci \email{serdarbalci@serdarbalci.com} (\href{https://orcid.org/0000-0002-7852-3851}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Serdar Balci \email{serdarbalci@serdarbalci.com} (\href{https://orcid.org/0000-0002-7852-3851}{ORCID})
+  \item Serdar Balci \email{serdarbalci@serdarbalci.com} (\href{https://orcid.org/0000-0002-7852-3851}{ORCID}) [copyright holder]
 }
 
 }
