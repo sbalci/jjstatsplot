@@ -152,8 +152,6 @@
 #' @importFrom digest digest
 #' @importFrom ggstatsplot ggwithinstats theme_ggstatsplot
 #' @importFrom ggpubr ggpaired ggboxplot ggviolin ggline stat_compare_means theme_pubr
-
-
 jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     "jjwithinstatsClass",
     inherit = jjwithinstatsBase,

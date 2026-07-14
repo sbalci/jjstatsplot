@@ -15,7 +15,6 @@
 #' @importFrom viridis viridis
 #' @importFrom rlang .data
 #' @importFrom grid unit
-
 hullplotClass <- if (requireNamespace("jmvcore")) R6::R6Class("hullplotClass",
     inherit = hullplotBase,
     private = list(

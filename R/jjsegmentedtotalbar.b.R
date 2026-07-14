@@ -23,7 +23,7 @@
 #' @importFrom ggplot2 scale_fill_viridis_d geom_text element_text theme element_rect
 #' @importFrom ggplot2 element_line margin scale_y_continuous scale_fill_manual
 #' @importFrom ggplot2 position_fill facet_wrap
-#' @importFrom dplyr group_by summarise mutate arrange count ungroup filter slice pull select
+#' @importFrom dplyr group_by summarise mutate arrange count ungroup filter slice pull
 #' @importFrom stats chisq.test xtabs
 #' @importFrom tidyr pivot_wider
 #' @importFrom scales percent

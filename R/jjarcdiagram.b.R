@@ -1,7 +1,7 @@
 #' @title Arc Diagram
 #' @importFrom R6 R6Class
 #' @import jmvcore
-#' @import igraph
+#' @rawNamespace import(igraph, except = c(compose, crossing, is_named, simplify))
 #' @import grDevices
 #' @import RColorBrewer
 #' @return An \code{R6} class generator object for the \code{jjarcdiagramClass} backend; used internally by the jamovi analysis wrapper and not called directly.

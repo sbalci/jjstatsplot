@@ -77,7 +77,6 @@ Remotes:
 Encoding: UTF-8
 LazyData: true
 Suggests: concaveman, ggcorrplot, ggside, knitr, performance, PMCMRplus,
-        rmarkdown, V8
-VignetteBuilder: knitr
+        rmarkdown, testthat, V8
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.0.0
