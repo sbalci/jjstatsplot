@@ -222,7 +222,7 @@ This release consolidates all work from 0.0.32.66 through 0.0.46 into a single e
 
 ---
 
-# Earlier Versions
+## Earlier Versions
 
 ## jjstatsplot 0.0.3.91
 - Enhanced vignettes and reference documentation

@@ -4,12 +4,12 @@
 
 [![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)
 [![jamovi](https://img.shields.io/badge/jamovi-module-blue)](https://www.jamovi.org)
-[![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://indrajeetpatil.github.io/ggstatsplot/)
+[![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://www.indrapatil.com/ggstatsplot/)
 [![License: GPL (>= 2)](https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
 ## Statistical Visualization Made Simple
 
-**jjstatsplot** brings the power of [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code. With 18 analysis types, jjstatsplot covers everything from basic distributions to advanced cluster visualizations.
+**jjstatsplot** brings the power of [ggstatsplot](https://www.indrapatil.com/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code. With 18 analysis types, jjstatsplot covers everything from basic distributions to advanced cluster visualizations.
 
 ### 🎯 Why jjstatsplot?
 
@@ -126,8 +126,8 @@ jmvtools::install()
 
 ## 📚 Documentation
 
-- **Package Documentation**: [sbalci.github.io/jjstatsplot](https://sbalci.github.io/jjstatsplot/)
-- **ggstatsplot Guide**: [indrajeetpatil.github.io/ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/)
+- **Package Documentation**: [www.serdarbalci.com/jjstatsplot](https://www.serdarbalci.com/jjstatsplot/)
+- **ggstatsplot Guide**: [www.indrapatil.com/ggstatsplot](https://www.indrapatil.com/ggstatsplot/)
 - **jamovi Resources**: [jamovi.org](https://www.jamovi.org)
 
 ## 🤝 Contributing
@@ -137,7 +137,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ### Reporting Issues
 
 - **Bug Reports**: [GitHub Issues](https://github.com/sbalci/jjstatsplot/issues)
-- **Feature Requests**: [GitHub Discussions](https://github.com/sbalci/jjstatsplot/discussions)
+- **Feature Requests**: [GitHub Discussions](https://github.com/sbalci/jjstatsplot/issues)
 - **General Questions**: <serdarbalci@serdarbalci.com>
 
 ## 📄 Citation

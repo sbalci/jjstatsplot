@@ -4,79 +4,37 @@ Title: Wrapper for 'ggstatsplot'
 Version: 1.0.0
 Date: 2026-07-13
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
-        "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
-        c(ORCID = "0000-0002-7852-3851"))
+ "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
+ c(ORCID = "0000-0002-7852-3851"))
 Maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
 Description: Comprehensive statistical visualization package for jamovi
-        that wraps ggstatsplot functions and provides 17+ analysis
-        types including histograms, scatter plots, correlation
-        matrices, between/within-group comparisons, bar charts, pie
-        charts, waffle charts, raincloud plots, ridge plots, arc
-        diagrams, lollipop charts, line charts, and segmented bar
-        charts. Features automatic plot selection, dual-mode operation
-        (single/grouped variables), statistical annotations, and
-        publication-ready visualizations with point-and-click
-        interface. For comments, suggestions, feature requests or reporting bugs,
-        please open an issue at <https://github.com/sbalci/ClinicoPathJamoviModule/issues/>.
+ that wraps ggstatsplot functions and provides 17+ analysis
+ types including histograms, scatter plots, correlation
+ matrices, between/within-group comparisons, bar charts, pie
+ charts, waffle charts, raincloud plots, ridge plots, arc
+ diagrams, lollipop charts, line charts, and segmented bar
+ charts. Features automatic plot selection, dual-mode operation
+ (single/grouped variables), statistical annotations, and
+ publication-ready visualizations with point-and-click
+ interface. For comments, suggestions, feature requests or reporting bugs,
+ please open an issue at <https://github.com/sbalci/ClinicoPathJamoviModule/issues/>.
 License: GPL (>= 2)
-URL: https://www.serdarbalci.com/jjstatsplot,
-    https://github.com/sbalci/jjstatsplot
+URL: https://www.serdarbalci.com/jjstatsplot/,
+        https://github.com/sbalci/jjstatsplot
 BugReports: https://github.com/sbalci/ClinicoPathJamoviModule/issues/
 Depends: R (>= 4.0.0)
-Imports:
-    arcdiagram,
-    BayesFactor,
-    boot,
-    tools,
-    digest,
-    dplyr,
-    DT,
-    easyalluvial,
-    effectsize,
-    extrafont,
-    ggalluvial,
-    ggdist,
-    ggforce,
-    ggplot2,
-    ggpubr,
-    withr,
-    ggrain,
-    ggridges,
-    ggsegmentedtotalbar,
-    ggstatsplot,
-    glue,
-    grid,
-    haven,
-    htmltools,
-    igraph,
-    jmvcore,
-    magrittr,
-    moments,
-    purrr,
-    R6,
-    RColorBrewer,
-    rlang,
-    rstatix,
-    scales,
-    stringr,
-    tidyr,
-    car,
-    cowplot,
-    e1071,
-    ggExtra,
-    ggprism,
-    ggrepel,
-    patchwork,
-    viridis,
-    viridisLite,
-    waffle,
-    WRS2
-Remotes:
-    gastonstat/arcdiagram@7be212cd632f182d332eaae088cd6f1db55d5848,
-    ClinicoPath/waffle@f5150355d99521417cb406156b5ee0c626fe94a8
+Imports: arcdiagram, BayesFactor, boot, car, concaveman, cowplot, digest,
+        dplyr, DT, e1071, easyalluvial, effectsize, extrafont, ggalluvial,
+        ggcorrplot, ggdist, ggExtra, ggforce, ggplot2, ggprism, ggpubr, ggrain,
+        ggrepel, ggridges, ggsegmentedtotalbar, ggside, ggstatsplot, glue,
+        grid, haven, htmltools, igraph, jmvcore, magrittr, methods, moments,
+        patchwork, performance, PMCMRplus, purrr, R6, RColorBrewer, rlang,
+        rstatix, scales, stringr, tidyr, tools, V8, viridis, viridisLite,
+        waffle, withr, WRS2
+Remotes: gastonstat/arcdiagram@7be212cd632f182d332eaae088cd6f1db55d5848,
+        ClinicoPath/waffle@f5150355d99521417cb406156b5ee0c626fe94a8
 Encoding: UTF-8
 LazyData: true
-Suggests: concaveman, ggcorrplot, ggside, knitr, performance, PMCMRplus,
-        rmarkdown, testthat, V8
+Suggests: knitr, rmarkdown, testthat
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.0.0

@@ -10,7 +10,7 @@
 researchers to generate plots in jamovi based on ggstatsplot package.
 
 For more documentation, see the
-\href{https://sbalci.github.io/ClinicoPathJamoviModule/}{Website}.
+\href{https://www.serdarbalci.com/ClinicoPathJamoviModule/}{Website}.
 }
 \details{
 \code{jjstatsplot}
@@ -18,7 +18,7 @@ For more documentation, see the
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://www.serdarbalci.com/jjstatsplot}
+  \item \url{https://www.serdarbalci.com/jjstatsplot/}
   \item \url{https://github.com/sbalci/jjstatsplot}
   \item Report bugs at \url{https://github.com/sbalci/ClinicoPathJamoviModule/issues/}
 }

@@ -1011,7 +1011,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 <br><hr>",
                 welcome = .('Welcome to ClinicoPath'),
                 description = .('This tool will help you generate Pie Charts with statistical analysis.'),
-                documentation = .('This function uses ggplot2 and ggstatsplot packages. See documentations <a href = \'https://indrajeetpatil.github.io/ggstatsplot/reference/ggpiestats.html\' target=\'_blank\'>ggpiestats</a> and <a href = \'https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggpiestats.html\' target=\'_blank\'>grouped_ggpiestats</a>.'),
+                documentation = .('This function uses ggplot2 and ggstatsplot packages. See documentations <a href = \'https://www.indrapatil.com/ggstatsplot/reference/ggpiestats.html\' target=\'_blank\'>ggpiestats</a> and <a href = \'https://www.indrapatil.com/ggstatsplot/reference/grouped_ggpiestats.html\' target=\'_blank\'>grouped_ggpiestats</a>.'),
                 citation = .('Please cite jamovi and the packages as given below.')
                 )
 
@@ -1158,7 +1158,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
             # ggpiestats ----
-            # https://indrajeetpatil.github.io/ggstatsplot/reference/ggpiestats.html
+            # https://www.indrapatil.com/ggstatsplot/reference/ggpiestats.html
 
 
 
@@ -1256,7 +1256,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
             # ggpiestats ----
-            # https://indrajeetpatil.github.io/ggstatsplot/reference/ggpiestats.html
+            # https://www.indrapatil.com/ggstatsplot/reference/ggpiestats.html
 
             # Get counts variable if specified
             counts_var <- if (!is.null(options_data$counts) && options_data$counts != "") {
@@ -1396,7 +1396,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 
             # grouped_ggpiestats ----
-            # https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggpiestats.html
+            # https://www.indrapatil.com/ggstatsplot/reference/grouped_ggpiestats.html
 
             if ( !is.null(grvar) ) {
 

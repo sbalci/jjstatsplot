@@ -113,7 +113,6 @@ tododata
 ^.*\.omv$
 
 ### Other R codes
-^tests$
 ^data-raw$
 R/utils-pipe.R
 
