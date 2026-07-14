@@ -371,6 +371,23 @@ jwaffleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     }
                 }
 
+                # Labelled-logic parity: .validateInputs() converts haven_labelled
+                # groups to factors (levels = "both") for validation. Apply the same
+                # conversion to the data that actually feeds aggregation/plotting so
+                # labels (not raw numeric codes) reach aes(fill=)/scale_fill_manual and
+                # the natural-language summaries. Guarded by inherits(), so ordinary
+                # factor/character columns are left untouched.
+                cat_vars <- character(0)
+                if (!is.null(self$options$groups) && self$options$groups != "")
+                    cat_vars <- c(cat_vars, self$options$groups)
+                if (!is.null(self$options$facet) && self$options$facet != "")
+                    cat_vars <- c(cat_vars, self$options$facet)
+                for (v in cat_vars) {
+                    if (v %in% names(mydata) && inherits(mydata[[v]], "haven_labelled")) {
+                        mydata[[v]] <- haven::as_factor(mydata[[v]], levels = "both")
+                    }
+                }
+
                 private$.prepared_data <- mydata
                 private$.data_hash <- current_hash
             }

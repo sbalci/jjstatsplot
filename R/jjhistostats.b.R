@@ -673,7 +673,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     
                     # Generate clinical warnings and performance warnings
                     warnings <- private$.generateClinicalWarnings(mydata, self$options$dep)
-                    performance_warnings <- private$.generatePerformanceWarnings(mydata, self$options)
+                    # Use processed options so clinical-preset overrides to typestatistics
+                    # are honored here (consistent with all other reads via private$.option()).
+                    performance_warnings <- private$.generatePerformanceWarnings(mydata, private$.prepareOptions())
                     
                     all_warnings <- c(warnings, performance_warnings)
                     

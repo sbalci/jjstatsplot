@@ -146,11 +146,9 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
             # Show preset guidance if not custom
             if (self$options$analysis_preset != "custom") {
                 if (!is.null(self$results$preset_guidance)) self$results$preset_guidance$setVisible(TRUE)
-                if (!is.null(self$results$presetInfo)) self$results$presetInfo$setVisible(TRUE)
                 private$.updatePresetGuidance()
             } else {
                 if (!is.null(self$results$preset_guidance)) self$results$preset_guidance$setVisible(FALSE)
-                if (!is.null(self$results$presetInfo)) self$results$presetInfo$setVisible(FALSE)
             }
 
             # Note: Notices are collected in private$.noticeList and rendered as HTML
