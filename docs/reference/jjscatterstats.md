@@ -143,7 +143,7 @@ jjscatterstats(
 
 - conflevel:
 
-  Confidence level for confidence intervals (between 0 and 1).
+  Confidence level for confidence intervals (between 0.50 and 0.999).
 
 - bfmessage:
 
@@ -227,6 +227,7 @@ A results object containing:
 | `results$todo`         |     |     |     |     | a html   |
 | `results$presetInfo`   |     |     |     |     | a html   |
 | `results$explanations` |     |     |     |     | a html   |
+| `results$warnings`     |     |     |     |     | a html   |
 | `results$plot2`        |     |     |     |     | an image |
 | `results$plot`         |     |     |     |     | an image |
 | `results$plot3`        |     |     |     |     | an image |

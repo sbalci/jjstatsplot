@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@
                         <h4 data-toc-skip class="author">ClinicoPath
 Development Team</h4>
             
-            <h4 data-toc-skip class="date">2026-07-10</h4>
+            <h4 data-toc-skip class="date">2026-07-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/legacy/08-categorical-plots-legacy.Rmd" class="external-link"><code>vignettes/legacy/08-categorical-plots-legacy.Rmd</code></a></small>
       <div class="d-none name"><code>08-categorical-plots-legacy.Rmd</code></div>
@@ -144,12 +144,11 @@ cylinders (<code>cyl</code>) across transmission types
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/jjbarstats.html">jjbarstats</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, dep <span class="op">=</span> <span class="va">cyl</span>, group <span class="op">=</span> <span class="va">am</span>, grvar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect</span></span>
-<span><span class="co">#&gt; Warning in private$.validateStatisticalRequirements(dep_vars, group_var):</span></span>
-<span><span class="co">#&gt; Variable ' cyl ' vs ' am ': Chi-square expected count assumption violated (some</span></span>
-<span><span class="co">#&gt; cells &lt; 5).</span></span>
+<span><span class="co">#&gt; Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  BAR CHARTS</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; WARNING: Low Expected Counts</span></span>
+<span><span class="co">#&gt; Variable 'cyl' vs 'am': chi-square expected-count assumption violated (some cells &lt; 5). Results may be unreliable.</span></span>
 <span><span class="co">#&gt;  &lt;div style='padding: 15px; background-color: #f8f9fa; border-left: 4px</span></span>
 <span><span class="co">#&gt;  solid #007bff; margin: 10px 0;'&gt;&lt;h4 style='color: #007bff; margin-top:</span></span>
 <span><span class="co">#&gt;  0;'&gt; About Bar Chart Analysis</span></span>
@@ -171,11 +170,36 @@ cylinders (<code>cyl</code>) across transmission types
 <span><span class="co">#&gt;  statistical test resultsEffect size measures and confidence</span></span>
 <span><span class="co">#&gt;  intervalsPost-hoc pairwise comparisons (when &gt;2 groups)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  &lt;div style='padding: 15px; background-color: #e8f5e8; border-left: 4px</span></span>
+<span><span class="co">#&gt;  solid #28a745; margin: 10px 0;'&gt;&lt;h4 style='color: #28a745; margin-top:</span></span>
+<span><span class="co">#&gt;  0;'&gt; Analysis Summary</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  Variables Analyzed: cyl by am</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  Sample Size: 32 observations across 2 groups</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Statistical Method: Chi-square test of independence</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Confidence Level: 95%</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  &lt;div style='padding: 15px; background-color: #fff3cd; border-left: 4px</span></span>
+<span><span class="co">#&gt;  solid #ffc107; margin: 10px 0;'&gt;&lt;h4 style='color: #856404; margin-top:</span></span>
+<span><span class="co">#&gt;  0;'&gt; Statistical Assumptions &amp; Warnings</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  General Assumptions:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Variables are categorical or ordinalObservations are</span></span>
+<span><span class="co">#&gt;  independentExpected cell counts ≥ 5 for chi-square validity</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Detected Issues:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Chi-square Assumption Violated (cyl): 3 of 6 cells (50%) have expected</span></span>
+<span><span class="co">#&gt;  counts &lt; 5.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Recommendations:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Recommendation: Consider combining categories or using non-parametric</span></span>
+<span><span class="co">#&gt;  methods. Fisher's exact test is only available for 2×2 tables.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Bar chart analysis comparing cyl by am.</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -200,9 +224,42 @@ displays the results as a pie chart.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  PIE CHARTS</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  Pie Chart Analysis</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span>
+<span><span class="co">#&gt;  What this analysis does: Generates pie charts with statistical</span></span>
+<span><span class="co">#&gt;  analysis to compare categorical variables across groups. Performs</span></span>
+<span><span class="co">#&gt;  chi-square tests, Fisher's exact tests, or other appropriate</span></span>
+<span><span class="co">#&gt;  statistical tests based on your data.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  When to use: Use when you want to visualize proportions of categorical</span></span>
+<span><span class="co">#&gt;  outcomes and test for significant differences between groups. Ideal</span></span>
+<span><span class="co">#&gt;  for diagnostic test results, treatment responses, or biomarker</span></span>
+<span><span class="co">#&gt;  categories.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Current configuration: This analysis uses custom settings for pie</span></span>
+<span><span class="co">#&gt;  chart generation with statistical testing.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  What you'll get: Interactive pie charts with statistical test results,</span></span>
+<span><span class="co">#&gt;  confidence intervals, and effect sizes. Optional grouped analysis for</span></span>
+<span><span class="co">#&gt;  complex study designs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Copy-Ready Report Template</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  &lt;div style='background-color: #f8f9fa; padding: 15px; border: 1px</span></span>
+<span><span class="co">#&gt;  solid #dee2e6; border-radius: 5px;'&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Methods:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  We compared cyl distributions across am using chi-square test.</span></span>
+<span><span class="co">#&gt;  Statistical significance was set at p &lt; 0.05. All analyses were</span></span>
+<span><span class="co">#&gt;  performed using jamovi statistical software.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Results:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [Results will be automatically filled when analysis is complete]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Copy the text above and modify as needed for your manuscript or</span></span>
+<span><span class="co">#&gt;  report.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Pie chart analysis ready Variable: cyl, grouped by am.</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -228,7 +285,10 @@ configuration (<code>vs</code>).</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Analysis summary: 2 groups, 32 total observations</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; character(0)</span></span></code></pre></div>
+<span><span class="co">#&gt;  &lt;div style='background-color: #cce5ff; border-left: 4px solid #b8daff;</span></span>
+<span><span class="co">#&gt;  padding: 12px; margin: 8px 0; color: #004085;'&gt; INFO: Analysis</span></span>
+<span><span class="co">#&gt;  completed successfully using parametric (t-test/ANOVA) test. Compared</span></span>
+<span><span class="co">#&gt;  2 groups with N = 32 total observations.</span></span></code></pre></div>
 <p><img src="08-categorical-plots-legacy_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <p>Each function returns a results object whose <code>plot</code>
 element contains the <code>ggplot2</code> visualisation.</p>

@@ -80,7 +80,8 @@ hullplot(
 
 - point_size:
 
-  Size of scatter plot points.
+  Size of scatter plot points. Ignored when a Size Variable is selected,
+  because point size is then mapped to that variable's values.
 
 - point_alpha:
 

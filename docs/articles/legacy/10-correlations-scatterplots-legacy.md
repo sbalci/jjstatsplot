@@ -23,11 +23,14 @@ jjcorrmat(data = mtcars, dep = c(mpg, hp, wt), grvar = NULL)
 #> 
 #> character(0)
 #> 
-#>  Correlation Table                                                                             
-#>  ───────────────────────────────────────────────────────────────────────────────────────────── 
-#>    Variable 1    Variable 2    r / rho    p-value    CI Lower    CI Upper    Method    Group   
-#>  ───────────────────────────────────────────────────────────────────────────────────────────── 
-#>  ─────────────────────────────────────────────────────────────────────────────────────────────
+#>  Correlation Table                                                                                             
+#>  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+#>    Variable 1    Variable 2    r / rho       p-value         CI Lower      CI Upper      Method        Group   
+#>  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+#>    mpg           hp            -0.7800000    1.787835e -7    -0.8852686    -0.5860994    parametric    All     
+#>    mpg           wt            -0.8700000    1.293959e-10    -0.9338264    -0.7440872    parametric    All     
+#>    hp            wt             0.6600000    4.145827e -5     0.4025113     0.8192573    parametric    All     
+#>  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
 #> ℹ Please use the `linewidth` argument instead.
 #> ℹ The deprecated feature was likely used in the jmvcore package.

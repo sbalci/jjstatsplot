@@ -17,3 +17,8 @@ x %!in% table
 - table:
 
   Values to check against
+
+## Value
+
+A logical vector, `TRUE` where an element of `x` is not present in
+`table`.

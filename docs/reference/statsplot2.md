@@ -19,7 +19,8 @@ statsplot2(
   distribution = "p",
   alluvsty = "t1",
   excl = FALSE,
-  sampleLarge = FALSE
+  sampleLarge = FALSE,
+  seed = 42
 )
 ```
 
@@ -68,6 +69,12 @@ statsplot2(
 
   If TRUE, automatically samples large datasets (\>10,000 rows) to 5,000
   rows for improved performance.
+
+- seed:
+
+  Random seed for the reproducible sampling of large datasets (used when
+  'Sample Large Datasets' is enabled). Change it to draw a different
+  sample; the default (42) reproduces the previous fixed behaviour.
 
 ## Value
 

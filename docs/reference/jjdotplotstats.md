@@ -162,14 +162,9 @@ jjdotplotstats(
 
 A results object containing:
 
-|                           |     |     |     |     |          |
-|---------------------------|-----|-----|-----|-----|----------|
-| `results$todo`            |     |     |     |     | a html   |
-| `results$notices`         |     |     |     |     | a html   |
-| `results$plot2`           |     |     |     |     | an image |
-| `results$plot`            |     |     |     |     | an image |
-| `results$interpretation`  |     |     |     |     | a html   |
-| `results$assumptions`     |     |     |     |     | a html   |
-| `results$reportSentence`  |     |     |     |     | a html   |
-| `results$guidedSteps`     |     |     |     |     | a html   |
-| `results$recommendations` |     |     |     |     | a html   |
+|                   |     |     |     |     |          |
+|-------------------|-----|-----|-----|-----|----------|
+| `results$todo`    |     |     |     |     | a html   |
+| `results$notices` |     |     |     |     | a html   |
+| `results$plot2`   |     |     |     |     | an image |
+| `results$plot`    |     |     |     |     | an image |

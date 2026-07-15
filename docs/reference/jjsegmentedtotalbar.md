@@ -210,7 +210,6 @@ A results object containing:
 | `results$clinical_summary`  |     |     |     |     | a html   |
 | `results$statistical_tests` |     |     |     |     | a table  |
 | `results$preset_guidance`   |     |     |     |     | a html   |
-| `results$presetInfo`        |     |     |     |     | a html   |
 | `results$warnings`          |     |     |     |     | a html   |
 | `results$explanations`      |     |     |     |     | a html   |
 

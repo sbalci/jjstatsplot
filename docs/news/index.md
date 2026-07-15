@@ -111,10 +111,9 @@ minimum jamovi version to 2.7.27.
   `jjbarstats`, and others.
 - **Shared helpers** added to `R/utils.R`:
   [`.escapeVariableNames()`](https://www.serdarbalci.com/jjstatsplot/reference/dot-escapeVariableNames.md),
-  [`.asSurvivalFormula()`](https://www.serdarbalci.com/jjstatsplot/reference/dot-asSurvivalFormula.md)
-  (extends the jmvcore 2.7.27 `asFormula` allow-list),
-  [`.buildSurvivalFormula()`](https://www.serdarbalci.com/jjstatsplot/reference/dot-buildSurvivalFormula.md),
-  and the `%notin%` / `%!in%` operators.
+  `.asSurvivalFormula()` (extends the jmvcore 2.7.27 `asFormula`
+  allow-list), `.buildSurvivalFormula()`, and the `%notin%` / `%!in%`
+  operators.
 
 ### Bug Fixes
 
@@ -352,3 +351,27 @@ minimum jamovi version to 2.7.27.
   moments
 
 ------------------------------------------------------------------------
+
+### Earlier Versions
+
+### jjstatsplot 0.0.3.91
+
+- Enhanced vignettes and reference documentation
+- Improved package metadata
+
+### jjstatsplot 0.0.3.90
+
+- Added comprehensive vignette collection (40+ files)
+- Improved documentation structure
+
+### jjstatsplot 0.0.3.89
+
+- Release candidate for jamovi 2.7.2
+- Removed embedded images from vignettes
+- Performance improvements
+
+### jjstatsplot 0.0.3.70
+
+- Initial public release
+- Core ggstatsplot wrapper functionality
+- Basic jamovi module integration

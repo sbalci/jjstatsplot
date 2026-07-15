@@ -4,7 +4,7 @@
 generate plots in jamovi based on ggstatsplot package.
 
 For more documentation, see the
-[Website](https://sbalci.github.io/ClinicoPathJamoviModule/).
+[Website](https://www.serdarbalci.com/ClinicoPathJamoviModule/).
 
 ## Details
 
@@ -14,7 +14,7 @@ For more documentation, see the
 
 Useful links:
 
-- <https://www.serdarbalci.com/jjstatsplot>
+- <https://www.serdarbalci.com/jjstatsplot/>
 
 - <https://github.com/sbalci/jjstatsplot>
 
@@ -24,9 +24,9 @@ Useful links:
 ## Author
 
 **Maintainer**: Serdar Balci <serdarbalci@serdarbalci.com>
-([ORCID](https://orcid.org/0000-0002-7852-3851))
+([ORCID](https://orcid.org/0000-0002-7852-3851)) \[copyright holder\]
 
 Authors:
 
 - Serdar Balci <serdarbalci@serdarbalci.com>
-  ([ORCID](https://orcid.org/0000-0002-7852-3851))
+  ([ORCID](https://orcid.org/0000-0002-7852-3851)) \[copyright holder\]

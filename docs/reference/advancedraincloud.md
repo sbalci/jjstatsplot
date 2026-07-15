@@ -257,6 +257,7 @@ A results object containing:
 |                           |     |     |     |     |          |
 |---------------------------|-----|-----|-----|-----|----------|
 | `results$todo`            |     |     |     |     | a html   |
+| `results$analysisNotes`   |     |     |     |     | a html   |
 | `results$plot`            |     |     |     |     | an image |
 | `results$statistics`      |     |     |     |     | a html   |
 | `results$comparisons`     |     |     |     |     | a html   |

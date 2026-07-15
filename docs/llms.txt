@@ -4,14 +4,14 @@
 
 [![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)
 [![jamovi](https://img.shields.io/badge/jamovi-module-blue)](https://www.jamovi.org)
-[![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://indrajeetpatil.github.io/ggstatsplot/)
+[![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://www.indrapatil.com/ggstatsplot/)
 [![License: GPL (\>=
 2)](https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
 ## Statistical Visualization Made Simple
 
 **jjstatsplot** brings the power of
-[ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) to
+[ggstatsplot](https://www.indrapatil.com/ggstatsplot/) to
 [jamovi](https://www.jamovi.org), making publication-ready statistical
 visualizations accessible through an intuitive point-and-click
 interface. This R package bridges the gap between sophisticated
@@ -150,9 +150,9 @@ jmvtools::install()
 ## 📚 Documentation
 
 - **Package Documentation**:
-  [sbalci.github.io/jjstatsplot](https://sbalci.github.io/jjstatsplot/)
+  [www.serdarbalci.com/jjstatsplot](https://www.serdarbalci.com/jjstatsplot/)
 - **ggstatsplot Guide**:
-  [indrajeetpatil.github.io/ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/)
+  [www.indrapatil.com/ggstatsplot](https://www.indrapatil.com/ggstatsplot/)
 - **jamovi Resources**: [jamovi.org](https://www.jamovi.org)
 
 ## 🤝 Contributing
@@ -166,7 +166,7 @@ like to change.
 - **Bug Reports**: [GitHub
   Issues](https://github.com/sbalci/jjstatsplot/issues)
 - **Feature Requests**: [GitHub
-  Discussions](https://github.com/sbalci/jjstatsplot/discussions)
+  Discussions](https://github.com/sbalci/jjstatsplot/issues)
 - **General Questions**: <serdarbalci@serdarbalci.com>
 
 ## 📄 Citation
@@ -188,8 +188,8 @@ Please also cite the underlying packages:
 ## 📝 License
 
 This project is licensed under the GPL (\>= 2) License - see the
-[LICENSE](https://www.serdarbalci.com/jjstatsplot/LICENSE) file for
-details.
+[LICENSE](https://github.com/sbalci/jjstatsplot/blob/master/LICENSE.md)
+file for details.
 
 ## 🙏 Acknowledgments
 

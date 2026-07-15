@@ -208,7 +208,6 @@ A results object containing:
 |--------------------------|-----|-----|-----|-----|----------|
 | `results$todo`           |     |     |     |     | a html   |
 | `results$warnings`       |     |     |     |     | a html   |
-| `results$notices`        |     |     |     |     | a html   |
 | `results$interpretation` |     |     |     |     | a html   |
 | `results$explanations`   |     |     |     |     | a html   |
 | `results$plot`           |     |     |     |     | an image |

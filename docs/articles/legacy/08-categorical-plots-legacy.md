@@ -18,12 +18,11 @@ compares the number of cylinders (`cyl`) across transmission types
 
 jjbarstats(data = mtcars, dep = cyl, group = am, grvar = NULL)
 #> Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect
-#> Warning in private$.validateStatisticalRequirements(dep_vars, group_var):
-#> Variable ' cyl ' vs ' am ': Chi-square expected count assumption violated (some
-#> cells < 5).
+#> Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect
 #> 
 #>  BAR CHARTS
-#> 
+#> WARNING: Low Expected Counts
+#> Variable 'cyl' vs 'am': chi-square expected-count assumption violated (some cells < 5). Results may be unreliable.
 #>  <div style='padding: 15px; background-color: #f8f9fa; border-left: 4px
 #>  solid #007bff; margin: 10px 0;'><h4 style='color: #007bff; margin-top:
 #>  0;'> About Bar Chart Analysis
@@ -45,11 +44,36 @@ jjbarstats(data = mtcars, dep = cyl, group = am, grvar = NULL)
 #>  statistical test resultsEffect size measures and confidence
 #>  intervalsPost-hoc pairwise comparisons (when >2 groups)
 #> 
-#> character(0)
+#>  <div style='padding: 15px; background-color: #e8f5e8; border-left: 4px
+#>  solid #28a745; margin: 10px 0;'><h4 style='color: #28a745; margin-top:
+#>  0;'> Analysis Summary
 #> 
-#> character(0)
+#>  Variables Analyzed: cyl by am
 #> 
-#> character(0)
+#>  Sample Size: 32 observations across 2 groups
+#> 
+#>  Statistical Method: Chi-square test of independence
+#> 
+#>  Confidence Level: 95%
+#> 
+#>  <div style='padding: 15px; background-color: #fff3cd; border-left: 4px
+#>  solid #ffc107; margin: 10px 0;'><h4 style='color: #856404; margin-top:
+#>  0;'> Statistical Assumptions & Warnings
+#> 
+#>  General Assumptions:
+#> 
+#>  Variables are categorical or ordinalObservations are
+#>  independentExpected cell counts ≥ 5 for chi-square validity
+#> 
+#>  Detected Issues:
+#> 
+#>  Chi-square Assumption Violated (cyl): 3 of 6 cells (50%) have expected
+#>  counts < 5.
+#> 
+#>  Recommendations:
+#> 
+#>  Recommendation: Consider combining categories or using non-parametric
+#>  methods. Fisher's exact test is only available for 2×2 tables.
 #> 
 #>  Bar chart analysis comparing cyl by am.
 #> 
@@ -79,9 +103,42 @@ jjpiestats(data = mtcars, dep = cyl, group = am, grvar = NULL)
 #> 
 #>  PIE CHARTS
 #> 
-#> character(0)
+#>  Pie Chart Analysis
 #> 
-#> character(0)
+#>  What this analysis does: Generates pie charts with statistical
+#>  analysis to compare categorical variables across groups. Performs
+#>  chi-square tests, Fisher's exact tests, or other appropriate
+#>  statistical tests based on your data.
+#> 
+#>  When to use: Use when you want to visualize proportions of categorical
+#>  outcomes and test for significant differences between groups. Ideal
+#>  for diagnostic test results, treatment responses, or biomarker
+#>  categories.
+#> 
+#>  Current configuration: This analysis uses custom settings for pie
+#>  chart generation with statistical testing.
+#> 
+#>  What you'll get: Interactive pie charts with statistical test results,
+#>  confidence intervals, and effect sizes. Optional grouped analysis for
+#>  complex study designs.
+#> 
+#>  Copy-Ready Report Template
+#> 
+#>  <div style='background-color: #f8f9fa; padding: 15px; border: 1px
+#>  solid #dee2e6; border-radius: 5px;'>
+#> 
+#>  Methods:
+#> 
+#>  We compared cyl distributions across am using chi-square test.
+#>  Statistical significance was set at p < 0.05. All analyses were
+#>  performed using jamovi statistical software.
+#> 
+#>  Results:
+#> 
+#>  [Results will be automatically filled when analysis is complete]
+#> 
+#>  Copy the text above and modify as needed for your manuscript or
+#>  report.
 #> 
 #>  Pie chart analysis ready Variable: cyl, grouped by am.
 #> 
@@ -110,7 +167,10 @@ jjdotplotstats(data = mtcars, dep = hp, group = vs, grvar = NULL)
 #> 
 #>  Analysis summary: 2 groups, 32 total observations
 #> 
-#> character(0)
+#>  <div style='background-color: #cce5ff; border-left: 4px solid #b8daff;
+#>  padding: 12px; margin: 8px 0; color: #004085;'> INFO: Analysis
+#>  completed successfully using parametric (t-test/ANOVA) test. Compared
+#>  2 groups with N = 32 total observations.
 ```
 
 ![](08-categorical-plots-legacy_files/figure-html/unnamed-chunk-3-1.png)
