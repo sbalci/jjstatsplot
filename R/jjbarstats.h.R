@@ -43,6 +43,7 @@ jjbarstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..dep <- jmvcore::OptionVariables$new(
                 "dep",
                 dep,
+                default=NULL,
                 suggested=list(
                     "ordinal",
                     "nominal"),
@@ -51,6 +52,7 @@ jjbarstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..group <- jmvcore::OptionVariable$new(
                 "group",
                 group,
+                default=NULL,
                 suggested=list(
                     "ordinal",
                     "nominal"),
@@ -423,7 +425,7 @@ jjbarstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjbarstats",
-                version = c(1,0,1),
+                version = c(1,0,2),
                 options = options,
                 results = jjbarstatsResults$new(options=options),
                 data = data,
@@ -507,8 +509,8 @@ jjbarstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @export
 jjbarstats <- function(
     data,
-    dep,
-    group,
+    dep = NULL,
+    group = NULL,
     grvar = NULL,
     counts = NULL,
     excl = FALSE,

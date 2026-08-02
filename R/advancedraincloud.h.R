@@ -60,6 +60,7 @@ advancedraincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R
             private$..y_var <- jmvcore::OptionVariable$new(
                 "y_var",
                 y_var,
+                default=NULL,
                 suggested=list(
                     "continuous"),
                 permitted=list(
@@ -67,6 +68,7 @@ advancedraincloudOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R
             private$..x_var <- jmvcore::OptionVariable$new(
                 "x_var",
                 x_var,
+                default=NULL,
                 suggested=list(
                     "nominal",
                     "ordinal"),
@@ -579,7 +581,7 @@ advancedraincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             super$initialize(
                 package = "jjstatsplot",
                 name = "advancedraincloud",
-                version = c(1,0,1),
+                version = c(1,0,2),
                 options = options,
                 results = advancedraincloudResults$new(options=options),
                 data = data,
@@ -687,8 +689,8 @@ advancedraincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
 #' @export
 advancedraincloud <- function(
     data,
-    y_var,
-    x_var,
+    y_var = NULL,
+    x_var = NULL,
     fill_var = NULL,
     id_var = NULL,
     cov_var = NULL,

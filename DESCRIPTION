@@ -2,7 +2,7 @@ Type: Package
 Package: jjstatsplot
 Title: Wrapper for 'ggstatsplot'
 Version: 1.0.2
-Date: 2026-08-01
+Date: 2026-08-02
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
  "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
  c(ORCID = "0000-0002-7852-3851"))

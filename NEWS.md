@@ -1,3 +1,25 @@
+# jjstatsplot 1.0.2 (2026-08-02)
+
+## Fixed
+
+- **Optional variables were required arguments of the R function.** Ten analyses declared
+  variables with no default in their jamovi option definition, which compiles to a bare
+  parameter in the generated wrapper. Calling the analysis from R without one failed with
+  `argument "X" is missing, with no default` before the analysis could report its own message —
+  including for plainly optional inputs such as `jjhistostats(grvar =)`, the "Split By" grouping
+  variable. These now default to `NULL`: `advancedraincloud` (`x_var`, `y_var`), `jjarcdiagram`
+  (`source`, `target`), `jjbarstats` (`dep`, `group`), `jjcorrmat` (`grvar`), `jjdotplotstats`
+  (`grvar`), `jjhistostats` (`grvar`), `jjpiestats` (`dep`), `jjsegmentedtotalbar` (`fill_var`,
+  `x_var`, `y_var`), `jwaffle` (`groups`) and `statsplot2` (`dep`, `group`). Behaviour in the
+  jamovi GUI is unchanged; no statistical method was altered.
+
+## Added
+
+- **Automated GitHub release (`.github/workflows/release.yaml`).** A push to the default branch
+  touching `DESCRIPTION` or `jamovi/0000.yaml` cross-checks the two version strings, refuses to
+  proceed if they disagree, and — if the tag does not already exist — tags `v<version>` and
+  publishes a release whose notes are the matching section of this file.
+
 # jjstatsplot 0.0.47 (2026-07-05)
 
 ## Bug Fixes

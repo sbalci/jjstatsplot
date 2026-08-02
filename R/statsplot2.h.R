@@ -24,10 +24,12 @@ statsplot2Options <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 
             private$..dep <- jmvcore::OptionVariable$new(
                 "dep",
-                dep)
+                dep,
+                default=NULL)
             private$..group <- jmvcore::OptionVariable$new(
                 "group",
-                group)
+                group,
+                default=NULL)
             private$..grvar <- jmvcore::OptionVariable$new(
                 "grvar",
                 grvar,
@@ -187,7 +189,7 @@ statsplot2Base <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "statsplot2",
-                version = c(1,0,1),
+                version = c(1,0,2),
                 options = options,
                 results = statsplot2Results$new(options=options),
                 data = data,
@@ -239,8 +241,8 @@ statsplot2Base <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @export
 statsplot2 <- function(
     data,
-    dep,
-    group,
+    dep = NULL,
+    group = NULL,
     grvar = NULL,
     direction = "independent",
     distribution = "p",

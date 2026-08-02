@@ -35,6 +35,7 @@ jwaffleOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..groups <- jmvcore::OptionVariable$new(
                 "groups",
                 groups,
+                default=NULL,
                 suggested=list(
                     "nominal",
                     "ordinal"),
@@ -230,7 +231,7 @@ jwaffleBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jwaffle",
-                version = c(1,0,1),
+                version = c(1,0,2),
                 options = options,
                 results = jwaffleResults$new(options=options),
                 data = data,
@@ -290,7 +291,7 @@ jwaffleBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 jwaffle <- function(
     data,
     counts = NULL,
-    groups,
+    groups = NULL,
     facet = NULL,
     rows = 5,
     flip = FALSE,
