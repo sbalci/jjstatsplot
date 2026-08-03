@@ -1,4 +1,4 @@
-# jjstatsplot 1.0.2 (2026-08-02)
+# jjstatsplot 1.0.2 (2026-08-03)
 
 ## Fixed
 
@@ -12,6 +12,14 @@
   (`grvar`), `jjhistostats` (`grvar`), `jjpiestats` (`dep`), `jjsegmentedtotalbar` (`fill_var`,
   `x_var`, `y_var`), `jwaffle` (`groups`) and `statsplot2` (`dep`, `group`). Behaviour in the
   jamovi GUI is unchanged; no statistical method was altered.
+
+
+## Note
+
+- The pre-release review pass carried out this release covered the survival-family and
+  diagnostic-decision analyses (`jsurvival`, `meddecide`) and a package-wide `format()` namespace
+  fix in the umbrella package. **No analysis shipped here was changed** — none of the affected
+  files is distributed to this module.
 
 ## Added
 
