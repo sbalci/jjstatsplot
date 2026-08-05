@@ -31,3 +31,8 @@ build
 *.jmo
 .DS_Store
 # docs
+
+# local scratch copies - never commit (see main repo .gitignore)
+temp/
+temp*/
+backups/
