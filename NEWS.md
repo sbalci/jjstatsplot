@@ -1,3 +1,52 @@
+# jjstatsplot 1.0.4 (2026-08-07)
+
+## Note
+
+- **No shipped analysis changed in this release.** Between 1.0.2 and 1.0.4 every file
+  belonging to the eighteen analyses distributed here — the ggstatsplot wrappers and the
+  related plotting analyses (`advancedraincloud`, `hullplot`, `jjarcdiagram`, `jjbarstats`,
+  `jjbetweenstats`, `jjcorrmat`, `jjdotplotstats`, `jjhistostats`, `jjpiestats`, `jjridges`,
+  `jjscatterstats`, `jjsegmentedtotalbar`, `jjwithinstats`, `jwaffle`, `linechart`,
+  `lollipop`, `raincloud`, `statsplot2`) — was touched only by the version string. No backend
+  (`.b.R`) file, no option (`.a.yaml`), results (`.r.yaml`) or interface (`.u.yaml`)
+  definition was modified. Nothing a user can observe in the jamovi GUI or from the R
+  wrappers differs from 1.0.2; no statistical method, default, plot or output was altered.
+- The pre-release review pass carried out over this window covered the diagnostic-decision
+  family (`meddecide`) and the oncology-pathology family (`OncoPath`) — comparison of
+  diagnostic tests, interrater agreement, swimmer plots, IHC heterogeneity and diagnostic
+  meta-analysis. **None of those analyses is shipped by this module**, so none of the fixes
+  or the accompanying breaking option changes reaches users of `jjstatsplot`. They are
+  described in the NEWS files of the modules that own them.
+
+## Known issues
+
+- **The "Plot with Aesthetics" panel in Scatter Plot (`jjscatterstats`) is always shown.**
+  Its visibility rule in `jamovi/jjscatterstats.r.yaml` begins with `!`
+  (`(!is.null(colorvar) || ...)`), and a leading `!` fails jmvcore's expression-routing
+  pattern: instead of being evaluated, the expression is handed back as a raw string, which
+  is truthy, so the item is permanently visible. An empty aesthetics plot therefore sits
+  under the analysis even when no colour, size, shape, alpha or label variable has been
+  chosen. This is one instance of a defect confirmed across the umbrella package
+  (26 `visible:`/`enable:` expressions in 17 `.r.yaml` files); it is tracked and not yet
+  fixed here. Interface (`.u.yaml`) conditions are unaffected — those are evaluated by the
+  jamovi frontend, which handles `!` correctly.
+- **`jamovi/0000.yaml` advertises five analyses this module does not contain.**
+  `basegraphics`, `jjcoefstats`, `jjpubr`, `jjsyndromicplot` and `pcaloadingheatmap` were
+  added to the module manifest, but none of their backend, header or definition files is
+  distributed here, and all five still carry the `JJStatsPlotT` development menu group used
+  to route a function away from the production menu while it is under modification. They
+  cannot be instantiated and should be treated as absent.
+- `janitor` and `labelled` were added to DESCRIPTION `Imports`. Neither is called by any
+  file shipped in this module; they are collateral from the umbrella-wide dependency sync
+  and are candidates for removal rather than a new capability.
+
+# jjstatsplot 1.0.3 (2026-08-04)
+
+## Note
+
+- Version and release-date bump only, published without its own entry at the time. No file
+  of any shipped analysis changed. It is described together with 1.0.4 above.
+
 # jjstatsplot 1.0.2 (2026-08-03)
 
 ## Fixed
