@@ -1,7 +1,7 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 1.0.4
+version: 1.0.5
 jms: '1.0'
 authors:
   - Serdar Balci
@@ -293,73 +293,6 @@ analyses:
       clusters.
 
       Based on the geom_mark_hull() function from ggforce package.
-  - title: Base Graphics Visualization
-    name: basegraphics
-    ns: jjstatsplot
-    category: analyses
-    menuGroup: JJStatsPlotT
-    menuSubgroup: All-In-One
-    menuTitle: Base Graphics Visualization
-    menuSubtitle: Fast & Customizable Base R Plots
-    description: >-
-      Base R graphics visualization module providing fast, blazing fast, and
-      extremely customizable data visualization solutions using pure base R
-      graphics.
-  - title: Coefficient Forest Plot (ggcoefstats)
-    name: jjcoefstats
-    ns: jjstatsplot
-    category: analyses
-    menuGroup: JJStatsPlotT
-    menuSubgroup: Regression Plots
-    menuTitle: Coefficient Forest Plot (ggcoefstats)
-    description: >
-      Create publication-ready forest plots for regression coefficients and
-      meta-analysis results. Supports both pre-computed coefficients and
-      automatic model fitting from raw data. Uses ggstatsplot's ggcoefstats()
-      for professional visualization.
-  - title: Publication-Ready Plots (ggpubr)
-    name: jjpubr
-    ns: jjstatsplot
-    category: analyses
-    menuGroup: JJStatsPlotT
-    menuSubgroup: All-In-One
-    menuTitle: ggpubr Plots
-    menuSubtitle: Publication-ready visualizations
-    description: |-
-      Create publication-ready plots using the ggpubr package.
-      Provides easy-to-use functions for creating customized plots with
-      statistical annotations for scientific publications.
-  - title: Syndromic Plot (PCA Loadings)
-    name: jjsyndromicplot
-    ns: jjstatsplot
-    category: analyses
-    menuGroup: JJStatsPlotT
-    menuSubgroup: Multivariate Analysis
-    menuTitle: Syndromic Plot (PCA Loadings)
-    description: >-
-      Syndromic plots visualize Principal Component Analysis (PCA) loadings
-      using
-
-      a unique triangular design with directional arrows. This visualization
-      method
-
-      was developed by Ferguson et al. (2013) for interpreting complex disease
-      patterns.
-  - title: PCA Loading Heatmap & Barmap
-    name: pcaloadingheatmap
-    ns: jjstatsplot
-    category: analyses
-    menuGroup: JJStatsPlotT
-    menuSubgroup: Multivariate Analysis
-    menuTitle: PCA Loading Heatmap & Barmap
-    description: >-
-      Creates heatmap and barmap visualizations of PCA loadings for easy
-      interpretation
-
-      of component structure. Heatmaps show all loadings as a color-coded
-      matrix, while
-
-      barmaps display loading patterns as bar charts across components.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv

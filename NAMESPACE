@@ -46,107 +46,133 @@ importFrom(boot,boot)
 importFrom(car,leveneTest)
 importFrom(cowplot,plot_grid)
 importFrom(digest,digest)
-importFrom(dplyr,arrange)
-importFrom(dplyr,count)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,n)
-importFrom(dplyr,pull)
-importFrom(dplyr,slice)
-importFrom(dplyr,slice_tail)
-importFrom(dplyr,summarise)
-importFrom(dplyr,transmute)
-importFrom(dplyr,ungroup)
+importFrom(dplyr,
+  arrange,
+  count,
+  filter,
+  group_by,
+  inner_join,
+  mutate,
+  n,
+  pull,
+  slice,
+  slice_tail,
+  summarise,
+  transmute,
+  ungroup
+)
 importFrom(easyalluvial,alluvial_wide)
-importFrom(effectsize,cohens_d)
-importFrom(effectsize,eta_squared)
-importFrom(effectsize,hedges_g)
-importFrom(effectsize,omega_squared)
+importFrom(effectsize,
+  cohens_d,
+  eta_squared,
+  hedges_g,
+  omega_squared
+)
 importFrom(ggExtra,ggMarginal)
 importFrom(ggalluvial,StatStratum)
-importFrom(ggdist,stat_dots)
-importFrom(ggdist,stat_halfeye)
+importFrom(ggdist,
+  stat_dots,
+  stat_halfeye
+)
 importFrom(ggforce,geom_mark_hull)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,coord_flip)
-importFrom(ggplot2,element_line)
-importFrom(ggplot2,element_rect)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,facet_wrap)
-importFrom(ggplot2,geom_bar)
-importFrom(ggplot2,geom_boxplot)
-importFrom(ggplot2,geom_col)
-importFrom(ggplot2,geom_point)
-importFrom(ggplot2,geom_text)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,labs)
-importFrom(ggplot2,margin)
-importFrom(ggplot2,position_fill)
-importFrom(ggplot2,scale_color_manual)
-importFrom(ggplot2,scale_color_viridis_d)
-importFrom(ggplot2,scale_fill_brewer)
-importFrom(ggplot2,scale_fill_manual)
-importFrom(ggplot2,scale_fill_viridis_d)
-importFrom(ggplot2,scale_y_continuous)
-importFrom(ggplot2,stat_ellipse)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_bw)
-importFrom(ggplot2,theme_classic)
-importFrom(ggplot2,theme_dark)
-importFrom(ggplot2,theme_light)
-importFrom(ggplot2,theme_minimal)
+importFrom(ggplot2,
+  aes,
+  coord_flip,
+  element_line,
+  element_rect,
+  element_text,
+  facet_wrap,
+  geom_bar,
+  geom_boxplot,
+  geom_col,
+  geom_point,
+  geom_text,
+  ggplot,
+  labs,
+  margin,
+  position_fill,
+  scale_color_manual,
+  scale_color_viridis_d,
+  scale_fill_brewer,
+  scale_fill_manual,
+  scale_fill_viridis_d,
+  scale_y_continuous,
+  stat_ellipse,
+  theme,
+  theme_bw,
+  theme_classic,
+  theme_dark,
+  theme_light,
+  theme_minimal
+)
 importFrom(ggprism,prism_colour_pal)
-importFrom(ggpubr,ggboxplot)
-importFrom(ggpubr,ggline)
-importFrom(ggpubr,ggpaired)
-importFrom(ggpubr,ggviolin)
-importFrom(ggpubr,stat_compare_means)
-importFrom(ggpubr,theme_pubr)
+importFrom(ggpubr,
+  ggboxplot,
+  ggline,
+  ggpaired,
+  ggviolin,
+  stat_compare_means,
+  theme_pubr
+)
 importFrom(ggrain,geom_rain)
 importFrom(ggrepel,geom_text_repel)
 importFrom(ggsegmentedtotalbar,ggsegmentedtotalbar)
-importFrom(ggstatsplot,ggwithinstats)
-importFrom(ggstatsplot,theme_ggstatsplot)
+importFrom(ggstatsplot,
+  ggwithinstats,
+  theme_ggstatsplot
+)
 importFrom(glue,glue)
-importFrom(graphics,legend)
-importFrom(graphics,par)
-importFrom(graphics,title)
+importFrom(graphics,
+  legend,
+  par,
+  title
+)
 importFrom(grid,unit)
 importFrom(haven,as_factor)
 importFrom(htmltools,HTML)
 importFrom(magrittr,"%>%")
 importFrom(methods,hasArg)
-importFrom(moments,kurtosis)
-importFrom(moments,skewness)
+importFrom(moments,
+  kurtosis,
+  skewness
+)
 importFrom(patchwork,wrap_plots)
-importFrom(purrr,imap)
-importFrom(purrr,map)
-importFrom(rlang,"%||%")
-importFrom(rlang,.data)
-importFrom(rlang,sym)
-importFrom(scales,alpha)
-importFrom(scales,hue_pal)
-importFrom(scales,percent)
-importFrom(stats,aov)
-importFrom(stats,binomial)
-importFrom(stats,chisq.test)
-importFrom(stats,cov)
-importFrom(stats,glm)
-importFrom(stats,kruskal.test)
-importFrom(stats,predict)
-importFrom(stats,qbeta)
-importFrom(stats,quantile)
-importFrom(stats,t.test)
-importFrom(stats,var)
-importFrom(stats,wilcox.test)
-importFrom(stats,xtabs)
+importFrom(purrr,
+  imap,
+  map
+)
+importFrom(rlang,
+  "%||%",
+  .data,
+  sym
+)
+importFrom(scales,
+  alpha,
+  hue_pal,
+  percent
+)
+importFrom(stats,
+  aov,
+  binomial,
+  chisq.test,
+  cov,
+  glm,
+  kruskal.test,
+  predict,
+  qbeta,
+  quantile,
+  t.test,
+  var,
+  wilcox.test,
+  xtabs
+)
 importFrom(stringr,str_to_title)
 importFrom(tidyr,pivot_wider)
 importFrom(tools,toTitleCase)
-importFrom(utils,sessionInfo)
-importFrom(utils,tail)
+importFrom(utils,
+  sessionInfo,
+  tail
+)
 importFrom(viridis,viridis)
 importFrom(viridisLite,turbo)
 importFrom(withr,local_preserve_seed)
