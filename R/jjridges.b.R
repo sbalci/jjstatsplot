@@ -16,6 +16,12 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     
     # Constants for validation and defaults
     private = list(
+        # Fixed seed for the sampling-based paths. Bayesian output uses
+        # BayesFactor's MCMC and robust/effect-size CIs use bootstrapping, so
+        # without this the SAME analysis reported different numbers on every
+        # re-render - a credible interval that moves when nothing changed.
+        .STOCHASTIC_SEED = 20250101L,
+
         # Clinical constants
         .MIN_SAMPLE_SIZE = 10,
         .MIN_GROUP_SIZE = 3,
@@ -36,6 +42,9 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # single summarized notice is shown instead of one per pairwise comparison
         # (which floods the panel with many groups). Reset in .generateTests.
         .assumptionSwitches = character(0),
+        # Variance-heterogeneity notes: reported, but they do NOT trigger a test switch
+        # (Welch already covers unequal variances - see .performSingleTest).
+        .assumptionNotes = character(0),
 
         .addNotice = function(type, title, content) {
             private$.noticeList[[length(private$.noticeList) + 1]] <- list(
@@ -416,10 +425,35 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "statistical test"
                 )
 
-                # Get first row as example (multiple comparisons handled in full table)
+                # Report the tests that were actually RUN, not the one that was requested.
+                # When parametric assumptions fail, .performSingleTest silently switches that
+                # comparison to Wilcoxon, so the table can hold a mix. This block used to print
+                # the requested test_type regardless: on five groups drawn from one N(10, 2),
+                # a single chance Shapiro result (p = 0.031) switched 4 of 10 comparisons to
+                # Wilcoxon while this text still read "Method: Parametric". That paragraph is
+                # explicitly offered as copy-ready text for manuscripts, so it must not
+                # misdescribe the analysis.
                 if (self$results$tests$rowCount > 0) {
+                    methods_used <- tryCatch(self$results$tests$asDF$method,
+                                             error = function(e) character(0))
+                    methods_used <- methods_used[!is.na(methods_used) & nzchar(methods_used)]
+                    method_line <- if (length(methods_used) == 0) {
+                        tools::toTitleCase(gsub("_", " ", test_type))
+                    } else {
+                        tab <- sort(table(methods_used), decreasing = TRUE)
+                        if (length(tab) == 1) names(tab)[1]
+                        else paste0("mixed - ",
+                                    paste0(names(tab), " (", as.integer(tab), ")", collapse = ", "),
+                                    "; requested ", tools::toTitleCase(gsub("_", " ", test_type)))
+                    }
                     text_summary <- paste0(text_summary,
-                        "<p>Method: ", tools::toTitleCase(gsub("_", " ", test_type)), "</p>",
+                        "<p>Method: ", method_line, "</p>",
+                        if (length(unique(methods_used)) > 1)
+                            paste0("<p>Note: not every comparison used the same test. Comparisons ",
+                                   "whose normality or equal-variance check failed were switched ",
+                                   "to a rank-based test; the Method column of the statistical ",
+                                   "table records what each row used.</p>")
+                        else "",
                         "<p>See full statistical table for p-values, effect sizes, and confidence intervals.</p>"
                     )
                 }
@@ -548,7 +582,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "<li><strong>Homogeneity of Variance:</strong> Groups should have similar spread (variance). ",
                     "Ridge widths should be comparable across groups.</li>",
                     "</ul>",
-                    "<p><strong>Tests Used:</strong> Independent t-test (2 groups) or one-way ANOVA (3+ groups)</p>",
+                    "<p><strong>Tests Used:</strong> Independent t-test on every pair of groups. With 3 or more groups this analysis reports PAIRWISE comparisons, not an omnibus one-way ANOVA; the p-values are adjusted for multiplicity by the selected method.</p>",
                     "<p><strong>When Violated:</strong> Consider nonparametric tests if distributions are skewed, or robust tests if variances differ.</p>"
                 )
             } else if (test_type == "nonparametric") {
@@ -560,7 +594,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "<li><strong>Similar Distributions:</strong> For Mann-Whitney/Kruskal-Wallis, groups should have similar distribution shapes ",
                     "(ridges with similar shapes but different positions). If shapes differ, tests compare distributions rather than medians.</li>",
                     "</ul>",
-                    "<p><strong>Tests Used:</strong> Mann-Whitney U test (2 groups) or Kruskal-Wallis test (3+ groups)</p>",
+                    "<p><strong>Tests Used:</strong> Mann-Whitney U (Wilcoxon rank-sum) test on every pair of groups. With 3 or more groups this analysis reports PAIRWISE comparisons, not an omnibus Kruskal-Wallis test; the p-values are adjusted for multiplicity by the selected method.</p>",
                     "<p><strong>Advantages:</strong> Robust to outliers and skewed distributions common in pathology data (e.g., mitotic counts, lymph node involvement).</p>",
                     "<p><strong>Effect Sizes:</strong> Cliff's Delta shows probability one group has higher values; Hodges-Lehmann estimates typical difference.</p>"
                 )
@@ -572,7 +606,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "<li><strong>Outlier Resistance:</strong> Robust tests use trimmed means (default 20% trimming), reducing outlier influence.</li>",
                     "<li><strong>Heterogeneity Tolerance:</strong> Does not assume equal variances across groups.</li>",
                     "</ul>",
-                    "<p><strong>Tests Used:</strong> Yuen's trimmed means test (Welch-type robust alternative to t-test/ANOVA)</p>",
+                    "<p><strong>Tests Used:</strong> Yuen's trimmed-means test (a Welch-type robust alternative to the t-test) on every pair of groups; no omnibus test is computed.</p>",
                     "<p><strong>Best For:</strong> Data with unequal variances, mild outliers, or slight departures from normality.</p>",
                     "<p><strong>Clinical Scenarios:</strong> Laboratory values with occasional extreme results, tumor measurements with outliers.</p>"
                 )
@@ -849,7 +883,21 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     )
                 }
 
-                private$.generateTests(plot_data)
+                # The plot is built AFTER this call, so any exception raised while computing
+                # the statistics used to destroy the figure as well as the table. A failed
+                # table is a bad outcome; a failed table that also removes the ridge plot the
+                # user actually asked for is a worse one.
+                tryCatch(
+                    private$.generateTests(plot_data),
+                    error = function(e) {
+                        private$.addNotice(
+                            'ERROR', 'Statistical tests could not be computed',
+                            paste0(conditionMessage(e),
+                                   ". The ridge plot below is unaffected; switch off ",
+                                   "'Show statistics' to remove this message.")
+                        )
+                    }
+                )
             }
             
             # Create plot
@@ -897,7 +945,18 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "Ridge plot analysis completed successfully \u2022 ",
                 n_obs, " observations across ", n_groups, " groups \u2022 ",
                 "Plot type: ", private$.option("plot_type"),
-                if(private$.option("show_stats")) paste0(" \u2022 Statistical tests: ", private$.option("test_type")) else ""
+                # Name the requested test, and flag when the analysis did not actually use it
+                # throughout -- .performSingleTest switches a comparison to Wilcoxon whenever
+                # its normality/variance check fails, so "parametric" alone can be untrue.
+                if (private$.option("show_stats"))
+                    paste0(" \u2022 Statistical tests: ", private$.option("test_type"),
+                           if (length(private$.assumptionSwitches) > 0)
+                               paste0(" (", length(private$.assumptionSwitches),
+                                      " comparison",
+                                      if (length(private$.assumptionSwitches) == 1) "" else "s",
+                                      " switched to Wilcoxon - see the table's Method column)")
+                           else "")
+                else ""
             )
             private$.addNotice(
                 type = "INFO",
@@ -1317,19 +1376,38 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 self$options$y_var
             }
             
+            # scale_fill_manual() is a HARD ERROR when the palette is shorter than the number
+            # of levels -- "Insufficient values in manual scale. 7 needed but only 6 provided"
+            # -- and it takes the whole figure with it, not just the colours. The built-in
+            # colourblind-safe palette holds 6 and the shipped custom_colors default holds 4,
+            # so a 7-group comparison (or a 5-group one on the custom palette) produced no plot
+            # at all, while the About panel advertises support for about ten groups.
+            # Interpolating keeps every palette usable at any number of levels.
+            n_levels <- tryCatch({
+                fv <- if (!is.null(self$options$fill_var)) self$options$fill_var else self$options$y_var
+                length(unique(stats::na.omit(self$data[[fv]])))
+            }, error = function(e) 0L)
+            stretch <- function(cols) {
+                cols <- cols[nzchar(cols)]
+                if (length(cols) == 0) return(private$.CLINICAL_CB_SAFE_COLORS)
+                if (n_levels > length(cols))
+                    grDevices::colorRampPalette(cols)(n_levels)
+                else cols
+            }
+
             if (palette == "custom") {
                 colors <- strsplit(self$options$custom_colors, ",")[[1]]
                 colors <- trimws(colors)
-                p <- p + scale_fill_manual(values = colors, name = legend_title)
+                p <- p + scale_fill_manual(values = stretch(colors), name = legend_title)
             } else if (palette == "clinical_colorblind") {
                 # Clinical colorblind-safe palette
-                p <- p + scale_fill_manual(values = private$.CLINICAL_CB_SAFE_COLORS, name = legend_title)
+                p <- p + scale_fill_manual(values = stretch(private$.CLINICAL_CB_SAFE_COLORS), name = legend_title)
             } else if (palette %in% c("viridis", "plasma", "inferno", "magma")) {
                 if (requireNamespace("viridis", quietly = TRUE)) {
                     p <- p + scale_fill_viridis_d(option = tolower(palette), name = legend_title)
                 } else {
                     # Use constant instead of hardcoded values
-                    p <- p + scale_fill_manual(values = private$.VIRIDIS_FALLBACK, name = legend_title)
+                    p <- p + scale_fill_manual(values = stretch(private$.VIRIDIS_FALLBACK), name = legend_title)
                 }
             } else if (palette %in% c("Set1", "Set2", "Dark2", "Paired")) {
                 # Use RColorBrewer palettes
@@ -1337,11 +1415,11 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     p <- p + scale_fill_brewer(palette = palette, name = legend_title)
                 } else {
                     # Fallback to clinical colors
-                    p <- p + scale_fill_manual(values = private$.CLINICAL_CB_SAFE_COLORS, name = legend_title)
+                    p <- p + scale_fill_manual(values = stretch(private$.CLINICAL_CB_SAFE_COLORS), name = legend_title)
                 }
             } else {
                 # Default to clinical colorblind-safe palette
-                p <- p + scale_fill_manual(values = private$.CLINICAL_CB_SAFE_COLORS, name = legend_title)
+                p <- p + scale_fill_manual(values = stretch(private$.CLINICAL_CB_SAFE_COLORS), name = legend_title)
             }
             
             return(p)
@@ -1497,6 +1575,25 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 ))
             }
 
+            # A pair where BOTH groups are constant kills t.test() with "data are essentially
+            # constant". shapiro.test() also errors (swallowed by the tryCatch below) and
+            # Levene returns NaN, so nothing upstream catches it and the bare t.test() at the
+            # end of the parametric branch throws. .generateTests() is called from .run()
+            # before the plot is built, so the exception cost the ridge plot as well as the
+            # table. Return an explicit NA row instead.
+            if (stats::var(data1) == 0 && stats::var(data2) == 0) {
+                return(list(
+                    comparison = paste(group1, "vs", group2),
+                    statistic = NA, p_value = NA, ci_lower = NA, ci_upper = NA,
+                    effect_size = NA, effect_ci_lower = NA, effect_ci_upper = NA,
+                    test_method = "not testable (no variability)",
+                    warning = paste0("Comparison ", group1, " vs ", group2,
+                                     if (stratum_label != "") paste0(" (", stratum_label, ")") else "",
+                                     ": every value is identical within both groups, so there is ",
+                                     "no variability to test.")
+                ))
+            }
+
             if (test_type == "parametric") {
                 assumption_violations <- c()
 
@@ -1522,8 +1619,25 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     )
                     lv <- tryCatch(car::leveneTest(val ~ grp, data = df_lv, center = median), error = function(e) NULL)
                     if (!is.null(lv) && !is.na(lv$`Pr(>F)`[1]) && lv$`Pr(>F)`[1] < 0.05) {
-                        assumption_violations <- c(assumption_violations, paste0("Variance heterogeneity (Levene p=", round(lv$`Pr(>F)`[1], 3), ")"))
+                        # Recorded for the user, but deliberately NOT a reason to switch tests.
+                        # t.test() is called below without var.equal, so it is already Welch,
+                        # which is valid under unequal variances - that is the entire point of
+                        # Welch. Switching to Wilcoxon instead makes matters worse, because
+                        # Wilcoxon assumes equal shape/spread to test locations: simulated under
+                        # a true null with n = 40 (sd 1) vs n = 10 (sd 4), 3000 replicates,
+                        # Wilcoxon rejects at 0.146 against a nominal 0.05 while Welch holds at
+                        # 0.0487. Only non-normality is grounds for the rank-based switch.
+                        variance_note <- paste0("Variance heterogeneity (Levene p=",
+                                                round(lv$`Pr(>F)`[1], 3),
+                                                "); handled by Welch's t-test")
                     }
+                }
+
+                if (exists("variance_note", inherits = FALSE) && !is.null(variance_note)) {
+                    private$.assumptionNotes <- unique(c(private$.assumptionNotes,
+                        paste0(group1, " vs ", group2,
+                               if (stratum_label != "") paste0(" (", stratum_label, ")") else "",
+                               ": ", variance_note)))
                 }
 
                 if (length(assumption_violations) > 0) {
@@ -1709,7 +1823,17 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             group = factor(rep(c("g1", "g2"), c(n1, n2)))
                         )
                         model <- aov(value ~ group, data = df)
-                        result <- effectsize::eta_squared(model, ci = 0.95)
+                        # alternative = "two.sided" is essential here. effectsize defaults to
+                        # "greater" for variance-explained measures, which returns a ONE-SIDED
+                        # interval whose upper bound is always exactly 1. The table prints that
+                        # under columns headed "Effect CI Lower/Upper" alongside Cohen's d,
+                        # Hedges' g, Cliff's delta and Hodges-Lehmann, all of which ARE
+                        # two-sided -- so the same two columns silently mixed conventions.
+                        # Measured: eta2 = 0.137 was reported as [0.038, 1.000]; the two-sided
+                        # interval is [0.025, 0.288], which is a reportable result rather than
+                        # an apparently useless one.
+                        result <- effectsize::eta_squared(model, ci = 0.95,
+                                                          alternative = "two.sided")
                         effect_size <- as.numeric(result$Eta2)
                         ci_lower <- result$CI_low
                         ci_upper <- result$CI_high
@@ -1725,7 +1849,10 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             group = factor(rep(c("g1", "g2"), c(n1, n2)))
                         )
                         model <- aov(value ~ group, data = df)
-                        result <- effectsize::omega_squared(model, ci = 0.95)
+                        # See the eta-squared branch above: two.sided, so this column means the
+                        # same thing whichever effect size the user picked.
+                        result <- effectsize::omega_squared(model, ci = 0.95,
+                                                            alternative = "two.sided")
                         effect_size <- as.numeric(result$Omega2)
                         ci_lower <- result$CI_low
                         ci_upper <- result$CI_high
@@ -1748,6 +1875,9 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         # sizes stay fixed at (n1, n2). Without it boot draws a random
                         # group split (possibly empty -> NA), giving an invalid CI.
                         boot_result <- tryCatch({
+                            # Seeded: an unseeded bootstrap moved the Cliff's
+                            # delta confidence interval between identical runs.
+                            withr::local_seed(private$.STOCHASTIC_SEED)
                             boot::boot(c(data1, data2), boot_fn, R = 1000,
                                        strata = factor(rep(1:2, c(n1, n2))))
                         }, error = function(e) NULL)
@@ -1798,15 +1928,13 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # for independent samples, warn about possible repeated measures
             avg_obs_per_group <- mean(group_counts)
 
-            # Check 1: High replication rate (>30 obs per group on average)
-            # Suggests longitudinal data or repeated biopsies
-            if (avg_obs_per_group > 30 && n_groups <= 5) {
-                return(paste0(
-                    "Data shows high observation density (avg ", round(avg_obs_per_group, 1),
-                    " observations per group). This pattern is common in repeated measures designs ",
-                    "(e.g., multiple time points, repeated biopsies per patient)."
-                ))
-            }
+            # Check 1 REMOVED. It fired when avg_obs_per_group > 30 && n_groups <= 5, which
+            # describes an ordinary well-powered cross-sectional study, not clustering.
+            # Verified: 200 independent rows in 4 groups of 50 raised
+            # "Independence Assumption Violation ... treat statistics as exploratory only".
+            # A STRONG_WARNING that fires on clean data trains users to ignore all warnings,
+            # including the ones that matter. Group size carries no information about whether
+            # rows are independent.
 
             # Check 2: Look for integer-valued X variable with repeated values
             # Common pattern: time points, visit numbers, days post-treatment
@@ -1829,6 +1957,10 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Word-boundary anchors avoid substring false positives: a bare
             # "patient|subject|id|case" matched inside "candidate", "android",
             # "lowercase". \\b(...)\\b requires the token to stand alone.
+            # NOTE: by the time this runs, jmvcore has already reduced the frame to the
+            # analysis's own variables, so an ID column that exists in the user's spreadsheet
+            # is usually not visible here. This check therefore misses most genuinely
+            # clustered data; it is kept because a true hit is still informative.
             if (!is.null(self$data)) {
                 col_names <- tolower(names(self$data))
                 has_id_vars <- any(grepl("\\b(patient|subject|id|case)\\b", col_names))
@@ -1898,6 +2030,7 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             # Reset the assumption-switch accumulator for this run
             private$.assumptionSwitches <- character(0)
+            private$.assumptionNotes <- character(0)
 
             # Build stratification variables (facet and fill if present)
             strata_vars <- c()
@@ -2008,6 +2141,47 @@ jjridgesClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         " auto-switched from t-test to Wilcoxon due to assumption",
                         " violations (normality/variance): ",
                         paste(private$.assumptionSwitches, collapse = " | ")
+                    )
+                )
+            }
+
+            # Report variance heterogeneity where it was found. It no longer switches the test
+            # (Welch already handles it), but the user should still know.
+            if (length(private$.assumptionNotes) > 0) {
+                private$.addNotice(
+                    'INFO', 'Unequal variances (handled by Welch)',
+                    paste0(
+                        "Levene's test indicated unequal variances for ",
+                        length(private$.assumptionNotes),
+                        if (length(private$.assumptionNotes) == 1) " comparison" else " comparisons",
+                        ". These still used Welch's t-test, which does not assume equal ",
+                        "variances, so no change of method was needed: ",
+                        paste(private$.assumptionNotes, collapse = " | ")
+                    )
+                )
+            }
+
+            # Multiplicity. With k groups the table holds k(k-1)/2 pairwise tests, and
+            # p_adjust_method defaults to "none". The only existing mention of correction sits
+            # in the Statistical Assumptions panel, which is `showAssumptions: false` by
+            # default -- so a user comparing five stages saw ten unadjusted p-values with
+            # nothing on screen about it. Say it where it cannot be missed, and only when it
+            # actually applies.
+            n_comparisons <- self$results$tests$rowCount
+            if (n_comparisons > 1 &&
+                identical(private$.option("p_adjust_method"), "none")) {
+                private$.addNotice(
+                    'WARNING',
+                    'Unadjusted p-values',
+                    paste0(
+                        n_comparisons, " pairwise comparisons are reported and no correction ",
+                        "for multiple testing has been applied, so the P-adj column repeats the ",
+                        "unadjusted p-value. Across ", n_comparisons,
+                        " independent tests at the 0.05 level the chance of at least one false ",
+                        "positive is about ",
+                        round(100 * (1 - 0.95^n_comparisons)), "% when every null is true. ",
+                        "Choose Bonferroni, Holm or FDR under 'P-value adjustment' if these ",
+                        "comparisons are being screened rather than pre-specified."
                     )
                 )
             }
