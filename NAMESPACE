@@ -30,12 +30,9 @@ import(ggridges)
 import(ggstatsplot)
 import(glue)
 import(grDevices)
-import(igraph, except = c(compose, crossing, is_named, simplify))
 import(jmvcore)
 import(magrittr, except = c(extract, set_names))
-import(purrr, except = c(discard, flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl, flatten_raw, invoke, splice))
 import(rlang)
-import(scales)
 import(tidyr)
 import(waffle)
 importFrom(BayesFactor,ttestBF)
@@ -130,6 +127,13 @@ importFrom(graphics,
 importFrom(grid,unit)
 importFrom(haven,as_factor)
 importFrom(htmltools,HTML)
+importFrom(igraph,
+  betweenness,
+  blocks,
+  closeness,
+  is_connected,
+  max_degree
+)
 importFrom(magrittr,"%>%")
 importFrom(methods,hasArg)
 importFrom(moments,
@@ -142,7 +146,6 @@ importFrom(purrr,
   map
 )
 importFrom(rlang,
-  "%||%",
   .data,
   sym
 )
