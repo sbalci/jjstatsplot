@@ -1,1 +1,402 @@
----\ntitle: \"jjscatterstats: Comprehensive Scatter Plot Analysis\"\nauthor: \"ClinicoPath\"\ndate: \"`r Sys.Date()`\"\nformat: html\nvignette: >\n  %\\VignetteIndexEntry{jjscatterstats: Comprehensive Scatter Plot Analysis}\n  %\\VignetteEngine{quarto::html}\n  %\\VignetteEncoding{UTF-8}\n---\n\n```{r, include = FALSE}\nknitr::opts_chunk$set(\n  collapse = TRUE,\n  comment = \"#>\",\n  fig.width = 8,\n  fig.height = 6,\n  warning = FALSE,\n  message = FALSE\n)\n```\n\n# Introduction to jjscatterstats\n\nThe `jjscatterstats` function is a powerful wrapper around `ggstatsplot::ggscatterstats()` and `ggstatsplot::grouped_ggscatterstats()` that provides comprehensive scatter plot analysis with statistical testing capabilities. This function is particularly useful for exploring relationships between continuous variables in clinical and research settings.\n\n## Key Features\n\n- **Statistical Analysis**: Automatic correlation analysis with multiple statistical approaches\n- **Flexible Grouping**: Support for grouped analysis across categorical variables\n- **Multiple Statistical Types**: Parametric, non-parametric, robust, and Bayesian statistics\n- **Customizable Visualization**: Extensive theming and labeling options\n- **Performance Optimized**: Enhanced caching and data preparation for faster rendering\n\n## Loading Required Libraries\n\n```{r setup}\nlibrary(jjstatsplot)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Load example datasets\ndata(iris)\ndata(mtcars)\n```\n\n# Basic Scatter Plot Analysis\n\n## Simple Correlation Analysis\n\nLet's start with a basic scatter plot analyzing the relationship between sepal length and petal length in the iris dataset:\n\n```{r basic-example}\n# Basic scatter plot with parametric correlation\nresult_basic <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  mytitle = \"Sepal Length vs Petal Length\",\n  xtitle = \"Sepal Length (cm)\",\n  ytitle = \"Petal Length (cm)\"\n)\n\nprint(result_basic)\n```\n\n## Different Statistical Approaches\n\n### Non-parametric Analysis\n\n```{r nonparametric}\n# Non-parametric correlation (Spearman's rho)\nresult_nonparam <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Width\",\n  typestatistics = \"nonparametric\",\n  mytitle = \"Non-parametric Correlation Analysis\"\n)\n\nprint(result_nonparam)\n```\n\n### Robust Statistics\n\n```{r robust}\n# Robust correlation analysis\nresult_robust <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Width\",\n  group = \"Petal.Length\",\n  typestatistics = \"robust\",\n  mytitle = \"Robust Correlation Analysis\"\n)\n\nprint(result_robust)\n```\n\n### Bayesian Analysis\n\n```{r bayesian}\n# Bayesian correlation analysis\nresult_bayes <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Sepal.Width\",\n  typestatistics = \"bayes\",\n  mytitle = \"Bayesian Correlation Analysis\"\n)\n\nprint(result_bayes)\n```\n\n# Grouped Analysis\n\n## Scatter Plot by Species\n\nOne of the most powerful features is the ability to create grouped scatter plots:\n\n```{r grouped-analysis}\n# Grouped scatter plot by species\nresult_grouped <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  grvar = \"Species\",\n  typestatistics = \"parametric\",\n  mytitle = \"Correlation Analysis by Species\"\n)\n\nprint(result_grouped)\n```\n\n## Multiple Group Analysis with mtcars\n\n```{r mtcars-grouped}\n# Prepare mtcars data\nmtcars_modified <- mtcars %>%\n  mutate(\n    transmission = factor(am, levels = c(0, 1), labels = c(\"Automatic\", \"Manual\")),\n    cylinders = factor(cyl)\n  )\n\n# Grouped analysis of mpg vs horsepower by transmission type\nresult_mtcars <- jjscatterstats(\n  data = mtcars_modified,\n  dep = \"hp\",\n  group = \"mpg\",\n  grvar = \"transmission\",\n  typestatistics = \"parametric\",\n  mytitle = \"MPG vs Horsepower by Transmission Type\",\n  xtitle = \"Horsepower\",\n  ytitle = \"Miles per Gallon\"\n)\n\nprint(result_mtcars)\n```\n\n# Clinical Research Applications\n\n## Using Clinical Test Data\n\n```{r clinical-example, eval=FALSE}\n# Example with clinical data (if available)\n# This demonstrates typical clinical research scenarios\n\n# Load clinical test data\ndata(jjscatterstats_clinical)\n\n# Analyze tumor size vs Ki67 percentage\nclinical_result <- jjscatterstats(\n  data = jjscatterstats_clinical,\n  dep = \"tumor_size_mm\",\n  group = \"ki67_percentage\",\n  grvar = \"stage\",\n  typestatistics = \"parametric\",\n  mytitle = \"Tumor Size vs Ki67 by Cancer Stage\",\n  xtitle = \"Tumor Size (mm)\",\n  ytitle = \"Ki67 Percentage (%)\"\n)\n\nprint(clinical_result)\n```\n\n## Biomarker Correlation Analysis\n\n```{r biomarker-example, eval=FALSE}\n# Biomarker correlation analysis\nbiomarker_result <- jjscatterstats(\n  data = jjscatterstats_clinical,\n  dep = \"mutation_count\",\n  group = \"survival_months\",\n  grvar = \"histology\",\n  typestatistics = \"nonparametric\",\n  mytitle = \"Mutation Count vs Survival by Histology\",\n  xtitle = \"Mutation Count\",\n  ytitle = \"Survival (months)\"\n)\n\nprint(biomarker_result)\n```\n\n# Advanced Customization\n\n## Theme Customization\n\n```{r theme-custom}\n# Using original ggstatsplot theme\nresult_original_theme <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  originaltheme = TRUE,\n  mytitle = \"Original ggstatsplot Theme\"\n)\n\nprint(result_original_theme)\n```\n\n## Custom Labels and Titles\n\n```{r custom-labels}\n# Comprehensive labeling\nresult_labeled <- jjscatterstats(\n  data = mtcars,\n  dep = \"wt\",\n  group = \"mpg\",\n  typestatistics = \"parametric\",\n  mytitle = \"Vehicle Weight vs Fuel Efficiency\",\n  xtitle = \"Weight (1000 lbs)\",\n  ytitle = \"Miles per Gallon\",\n  resultssubtitle = TRUE\n)\n\nprint(result_labeled)\n```\n\n## Controlling Statistical Results Display\n\n```{r results-control}\n# Hide statistical results subtitle\nresult_no_stats <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Width\",\n  group = \"Petal.Width\",\n  typestatistics = \"parametric\",\n  mytitle = \"Clean Plot Without Statistics\",\n  resultssubtitle = FALSE\n)\n\nprint(result_no_stats)\n```\n\n# Performance Considerations\n\n## Large Dataset Handling\n\nThe function includes several performance optimizations:\n\n```{r performance-demo, eval=FALSE}\n# Performance test with larger dataset\ndata(jjscatterstats_performance)\n\n# This should render efficiently due to optimizations\nstart_time <- Sys.time()\nperformance_result <- jjscatterstats(\n  data = jjscatterstats_performance,\n  dep = \"measurement_1\",\n  group = \"measurement_2\",\n  grvar = \"lab_id\",\n  typestatistics = \"parametric\",\n  mytitle = \"Performance Test - Large Dataset\"\n)\nend_time <- Sys.time()\n\ncat(\"Rendering time:\", difftime(end_time, start_time, units = \"secs\"), \"seconds\\n\")\nprint(performance_result)\n```\n\n## Data Caching and Optimization\n\nThe function implements several performance enhancements:\n\n1. **Data Preparation Caching**: Processed data is cached to avoid recomputation\n2. **Option Preprocessing**: Common option processing is done once and cached\n3. **Hash-based Change Detection**: Only reprocesses data when inputs change\n4. **Efficient Memory Usage**: Minimizes data copying and transformation overhead\n\n# Edge Cases and Data Validation\n\n## Handling Missing Values\n\n```{r missing-values}\n# Create data with missing values\niris_with_na <- iris\niris_with_na[1:10, \"Sepal.Length\"] <- NA\niris_with_na[15:20, \"Petal.Length\"] <- NA\n\n# Function automatically handles missing values\nresult_na <- jjscatterstats(\n  data = iris_with_na,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  mytitle = \"Handling Missing Values\"\n)\n\nprint(result_na)\n```\n\n## Input Validation\n\n```{r validation-demo, error=TRUE}\n# Example of error handling\ntry({\n  result_error <- jjscatterstats(\n    data = data.frame(),  # Empty dataset\n    dep = \"nonexistent\",\n    group = \"variable\",\n    typestatistics = \"parametric\"\n  )\n})\n```\n\n# Best Practices and Recommendations\n\n## Statistical Type Selection\n\n- **Parametric**: Use when data is normally distributed (Pearson correlation)\n- **Non-parametric**: Use for non-normal data or ordinal variables (Spearman correlation)\n- **Robust**: Use when data has outliers (percentage bend correlation)\n- **Bayesian**: Use for incorporating prior knowledge or uncertainty quantification\n\n## Visualization Guidelines\n\n1. **Choose appropriate variables**: Both x and y should be continuous\n2. **Consider grouping**: Use grouping variables to reveal subgroup patterns\n3. **Label clearly**: Always provide meaningful titles and axis labels\n4. **Statistical reporting**: Include statistical results unless specifically hiding them\n\n## Performance Tips\n\n1. **Large datasets**: The function is optimized for datasets up to several thousand rows\n2. **Multiple analyses**: Reuse data objects when possible to benefit from caching\n3. **Grouping variables**: Limit grouping variables to reasonable numbers of levels (< 10)\n\n# Troubleshooting Common Issues\n\n## Variable Type Issues\n\n```{r variable-types}\n# Ensure variables are numeric\nstr(iris[c(\"Sepal.Length\", \"Petal.Length\")])\n\n# The function automatically converts to numeric, but it's good practice to check\n```\n\n## Memory and Performance\n\n```{r memory-tips, eval=FALSE}\n# For very large datasets, consider:\n# 1. Sampling your data first\nset.seed(123)\nsampled_data <- iris[sample(nrow(iris), 100), ]\n\nresult_sampled <- jjscatterstats(\n  data = sampled_data,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\"\n)\n\n# 2. Using simpler statistical methods for initial exploration\nresult_simple <- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  resultssubtitle = FALSE  # Faster rendering\n)\n```\n\n# Summary\n\nThe `jjscatterstats` function provides a comprehensive solution for scatter plot analysis with:\n\n- Multiple statistical testing approaches\n- Flexible grouping capabilities\n- Performance optimizations for larger datasets\n- Extensive customization options\n- Robust error handling and validation\n\nThis makes it an excellent choice for exploratory data analysis, clinical research, and statistical reporting in the jamovi environment.\n\n## Function Reference\n\nFor complete parameter documentation, see:\n\n- [ggstatsplot::ggscatterstats](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html)\n- [ggstatsplot::grouped_ggscatterstats](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggscatterstats.html)\n\n```{r session-info}\n# Session information\nsessionInfo()\n```
+---
+title: "jjscatterstats: Comprehensive Scatter Plot Analysis"
+author: "ClinicoPath"
+date: "`r Sys.Date()`"
+format: html
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 6,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+# Introduction to jjscatterstats
+
+The `jjscatterstats` function is a powerful wrapper around `ggstatsplot::ggscatterstats()` and `ggstatsplot::grouped_ggscatterstats()` that provides comprehensive scatter plot analysis with statistical testing capabilities. This function is particularly useful for exploring relationships between continuous variables in clinical and research settings.
+
+## Key Features
+
+- **Statistical Analysis**: Automatic correlation analysis with multiple statistical approaches
+- **Flexible Grouping**: Support for grouped analysis across categorical variables
+- **Multiple Statistical Types**: Parametric, non-parametric, robust, and Bayesian statistics
+- **Customizable Visualization**: Extensive theming and labeling options
+- **Performance Optimized**: Enhanced caching and data preparation for faster rendering
+
+## Loading Required Libraries
+
+```{r setup}
+library(jjstatsplot)
+library(ggplot2)
+library(dplyr)
+
+# Load example datasets
+data(iris)
+data(mtcars)
+```
+
+# Basic Scatter Plot Analysis
+
+## Simple Correlation Analysis
+
+Let's start with a basic scatter plot analyzing the relationship between sepal length and petal length in the iris dataset:
+
+```{r basic-example}
+# Basic scatter plot with parametric correlation
+result_basic <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  typestatistics = "parametric",
+  mytitle = "Sepal Length vs Petal Length",
+  xtitle = "Sepal Length (cm)",
+  ytitle = "Petal Length (cm)"
+)
+
+print(result_basic)
+```
+
+## Different Statistical Approaches
+
+### Non-parametric Analysis
+
+```{r nonparametric}
+# Non-parametric correlation (Spearman's rho)
+result_nonparam <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Petal.Width",
+  typestatistics = "nonparametric",
+  mytitle = "Non-parametric Correlation Analysis"
+)
+
+print(result_nonparam)
+```
+
+### Robust Statistics
+
+```{r robust}
+# Robust correlation analysis
+result_robust <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Width",
+  group = "Petal.Length",
+  typestatistics = "robust",
+  mytitle = "Robust Correlation Analysis"
+)
+
+print(result_robust)
+```
+
+### Bayesian Analysis
+
+```{r bayesian}
+# Bayesian correlation analysis
+result_bayes <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Sepal.Width",
+  typestatistics = "bayes",
+  mytitle = "Bayesian Correlation Analysis"
+)
+
+print(result_bayes)
+```
+
+# Grouped Analysis
+
+## Scatter Plot by Species
+
+One of the most powerful features is the ability to create grouped scatter plots:
+
+```{r grouped-analysis}
+# Grouped scatter plot by species
+result_grouped <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  grvar = "Species",
+  typestatistics = "parametric",
+  mytitle = "Correlation Analysis by Species"
+)
+
+print(result_grouped)
+```
+
+## Multiple Group Analysis with mtcars
+
+```{r mtcars-grouped}
+# Prepare mtcars data
+mtcars_modified <- mtcars %>%
+  mutate(
+    transmission = factor(am, levels = c(0, 1), labels = c("Automatic", "Manual")),
+    cylinders = factor(cyl)
+  )
+
+# Grouped analysis of mpg vs horsepower by transmission type
+result_mtcars <- jjscatterstats(
+  data = mtcars_modified,
+  dep = "hp",
+  group = "mpg",
+  grvar = "transmission",
+  typestatistics = "parametric",
+  mytitle = "MPG vs Horsepower by Transmission Type",
+  xtitle = "Horsepower",
+  ytitle = "Miles per Gallon"
+)
+
+print(result_mtcars)
+```
+
+# Clinical Research Applications
+
+## Using Clinical Test Data
+
+```{r clinical-example, eval=FALSE}
+# Example with clinical data (if available)
+# This demonstrates typical clinical research scenarios
+
+# Load clinical test data
+data(jjscatterstats_clinical)
+
+# Analyze tumor size vs Ki67 percentage
+clinical_result <- jjscatterstats(
+  data = jjscatterstats_clinical,
+  dep = "tumor_size_mm",
+  group = "ki67_percentage",
+  grvar = "stage",
+  typestatistics = "parametric",
+  mytitle = "Tumor Size vs Ki67 by Cancer Stage",
+  xtitle = "Tumor Size (mm)",
+  ytitle = "Ki67 Percentage (%)"
+)
+
+print(clinical_result)
+```
+
+## Biomarker Correlation Analysis
+
+```{r biomarker-example, eval=FALSE}
+# Biomarker correlation analysis
+biomarker_result <- jjscatterstats(
+  data = jjscatterstats_clinical,
+  dep = "mutation_count",
+  group = "survival_months",
+  grvar = "histology",
+  typestatistics = "nonparametric",
+  mytitle = "Mutation Count vs Survival by Histology",
+  xtitle = "Mutation Count",
+  ytitle = "Survival (months)"
+)
+
+print(biomarker_result)
+```
+
+# Advanced Customization
+
+## Theme Customization
+
+```{r theme-custom}
+# Using original ggstatsplot theme
+result_original_theme <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  originaltheme = TRUE,
+  mytitle = "Original ggstatsplot Theme"
+)
+
+print(result_original_theme)
+```
+
+## Custom Labels and Titles
+
+```{r custom-labels}
+# Comprehensive labeling
+result_labeled <- jjscatterstats(
+  data = mtcars,
+  dep = "wt",
+  group = "mpg",
+  typestatistics = "parametric",
+  mytitle = "Vehicle Weight vs Fuel Efficiency",
+  xtitle = "Weight (1000 lbs)",
+  ytitle = "Miles per Gallon",
+  resultssubtitle = TRUE
+)
+
+print(result_labeled)
+```
+
+## Controlling Statistical Results Display
+
+```{r results-control}
+# Hide statistical results subtitle
+result_no_stats <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Width",
+  group = "Petal.Width",
+  typestatistics = "parametric",
+  mytitle = "Clean Plot Without Statistics",
+  resultssubtitle = FALSE
+)
+
+print(result_no_stats)
+```
+
+# Performance Considerations
+
+## Large Dataset Handling
+
+The function includes several performance optimizations:
+
+```{r performance-demo, eval=FALSE}
+# Performance test with larger dataset
+data(jjscatterstats_performance)
+
+# This should render efficiently due to optimizations
+start_time <- Sys.time()
+performance_result <- jjscatterstats(
+  data = jjscatterstats_performance,
+  dep = "measurement_1",
+  group = "measurement_2",
+  grvar = "lab_id",
+  typestatistics = "parametric",
+  mytitle = "Performance Test - Large Dataset"
+)
+end_time <- Sys.time()
+
+cat("Rendering time:", difftime(end_time, start_time, units = "secs"), "seconds\n")
+print(performance_result)
+```
+
+## Data Caching and Optimization
+
+The function implements several performance enhancements:
+
+1. **Data Preparation Caching**: Processed data is cached to avoid recomputation
+2. **Option Preprocessing**: Common option processing is done once and cached
+3. **Hash-based Change Detection**: Only reprocesses data when inputs change
+4. **Efficient Memory Usage**: Minimizes data copying and transformation overhead
+
+# Edge Cases and Data Validation
+
+## Handling Missing Values
+
+```{r missing-values}
+# Create data with missing values
+iris_with_na <- iris
+iris_with_na[1:10, "Sepal.Length"] <- NA
+iris_with_na[15:20, "Petal.Length"] <- NA
+
+# Function automatically handles missing values
+result_na <- jjscatterstats(
+  data = iris_with_na,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  typestatistics = "parametric",
+  mytitle = "Handling Missing Values"
+)
+
+print(result_na)
+```
+
+## Input Validation
+
+```{r validation-demo, error=TRUE}
+# Example of error handling
+try({
+  result_error <- jjscatterstats(
+    data = data.frame(),  # Empty dataset
+    dep = "nonexistent",
+    group = "variable",
+    typestatistics = "parametric"
+  )
+})
+```
+
+# Best Practices and Recommendations
+
+## Statistical Type Selection
+
+- **Parametric**: Use when data is normally distributed (Pearson correlation)
+- **Non-parametric**: Use for non-normal data or ordinal variables (Spearman correlation)
+- **Robust**: Use when data has outliers (percentage bend correlation)
+- **Bayesian**: Use for incorporating prior knowledge or uncertainty quantification
+
+## Visualization Guidelines
+
+1. **Choose appropriate variables**: Both x and y should be continuous
+2. **Consider grouping**: Use grouping variables to reveal subgroup patterns
+3. **Label clearly**: Always provide meaningful titles and axis labels
+4. **Statistical reporting**: Include statistical results unless specifically hiding them
+
+## Performance Tips
+
+1. **Large datasets**: The function is optimized for datasets up to several thousand rows
+2. **Multiple analyses**: Reuse data objects when possible to benefit from caching
+3. **Grouping variables**: Limit grouping variables to reasonable numbers of levels (< 10)
+
+# Troubleshooting Common Issues
+
+## Variable Type Issues
+
+```{r variable-types}
+# Ensure variables are numeric
+str(iris[c("Sepal.Length", "Petal.Length")])
+
+# The function automatically converts to numeric, but it's good practice to check
+```
+
+## Memory and Performance
+
+```{r memory-tips, eval=FALSE}
+# For very large datasets, consider:
+# 1. Sampling your data first
+set.seed(123)
+sampled_data <- iris[sample(nrow(iris), 100), ]
+
+result_sampled <- jjscatterstats(
+  data = sampled_data,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  typestatistics = "parametric"
+)
+
+# 2. Using simpler statistical methods for initial exploration
+result_simple <- jjscatterstats(
+  data = iris,
+  dep = "Sepal.Length",
+  group = "Petal.Length",
+  typestatistics = "parametric",
+  resultssubtitle = FALSE  # Faster rendering
+)
+```
+
+# Summary
+
+The `jjscatterstats` function provides a comprehensive solution for scatter plot analysis with:
+
+- Multiple statistical testing approaches
+- Flexible grouping capabilities
+- Performance optimizations for larger datasets
+- Extensive customization options
+- Robust error handling and validation
+
+This makes it an excellent choice for exploratory data analysis, clinical research, and statistical reporting in the jamovi environment.
+
+## Function Reference
+
+For complete parameter documentation, see:
+
+- [ggstatsplot::ggscatterstats](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html)
+- [ggstatsplot::grouped_ggscatterstats](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggscatterstats.html)
+
+```{r session-info}
+# Session information
+sessionInfo()
+```

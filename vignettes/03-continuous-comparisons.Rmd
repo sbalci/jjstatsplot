@@ -1,10 +1,6 @@
 ---
 title: "Comparing Paired Data with Within-Subject Plots"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Comparing Paired Data with Within-Subject Plots}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -88,15 +84,12 @@ jamovi will generate the following plot, which shows the change in biomarker lev
 # Create the plot using jjwithinstats
 jjwithinstats(
   data = long_data,
-  x = "timepoint",
-  y = "biomarker_level",
-  id = "patient_id",
-  paired = TRUE,
-  type = "parametric",
-  title = "Biomarker Levels Before and After Treatment",
-  subtitle = "Paired t-test with individual trajectories",
-  xlab = "Timepoint",
-  ylab = "Biomarker Level"
+  dep1 = "timepoint",
+  dep2 = "biomarker_level",
+  typestatistics = "parametric",
+  mytitle = "Biomarker Levels Before and After Treatment",
+  xtitle = "Timepoint",
+  ytitle = "Biomarker Level"
 )
 ```
 

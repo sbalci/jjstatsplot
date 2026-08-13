@@ -1,10 +1,6 @@
 ---
 title: "Troubleshooting Guide for ClinicoPath"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Troubleshooting Guide for ClinicoPath}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

@@ -3,10 +3,6 @@ title: "Network Visualization with jjarcdiagram"
 author: "ClinicoPath Development Team"
 date: "`r Sys.Date()`"
 output: html_document
-vignette: >
-  %\VignetteIndexEntry{Network Visualization with jjarcdiagram}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

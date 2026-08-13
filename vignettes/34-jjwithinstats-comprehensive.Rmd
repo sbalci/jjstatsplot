@@ -3,10 +3,6 @@ title: "jjwithinstats: Comprehensive Within-Subjects Analysis"
 author: "ClinicoPath"
 date: "`r Sys.Date()`"
 output: html_document
-vignette: >
-  %\\VignetteIndexEntry{jjwithinstats: Comprehensive Within-Subjects Analysis}
-  %\\VignetteEngine{quarto::html}
-  %\\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

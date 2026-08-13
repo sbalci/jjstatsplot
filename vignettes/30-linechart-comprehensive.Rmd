@@ -5,6 +5,17 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+> ### Changed in 1.0.52 - reference lines
+>
+> The reference line now has its own switch, `showRefline`. Previously a value of
+> `0` meant "no line", which made the most common clinical reference impossible to
+> draw - zero is where change-from-baseline, a difference and a log fold-change all
+> sit. Set `showRefline = TRUE` and put any value, including `0`, in `refline`.
+>
+> Existing scripts that relied on `refline = <non-zero>` alone should add
+> `showRefline = TRUE`; all examples below have been updated.
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -187,6 +198,7 @@ hemoglobin_result <- linechart(
   confidence = TRUE,
   trendline = TRUE,
   points = TRUE,
+  showRefline = TRUE,
   refline = 12,
   reflineLabel = "Normal Lower Limit",
   xlabel = "Weeks Since Treatment Start",
@@ -288,6 +300,7 @@ bp_result <- linechart(
   groupby = "intervention",
   confidence = TRUE,
   trendline = TRUE,
+  showRefline = TRUE,
   refline = 140,
   reflineLabel = "Hypertension Threshold",
   xlabel = "Months Since Intervention Start",
@@ -440,6 +453,7 @@ result <- linechart(
   data = lab_data,
   xvar = "visit_week",
   yvar = "hemoglobin_g_dl",
+  showRefline = TRUE,
   refline = 12, # Normal hemoglobin threshold
   reflineLabel = "Normal Range", # Clear clinical labeling
   title = "Hemoglobin Monitoring with Clinical Targets"
@@ -692,6 +706,7 @@ publication_chart <- linechart(
 cardiology_chart <- linechart(
   data = bp_data,
   colorPalette = "clinical", # Red/blue for medical contexts
+  showRefline = TRUE,
   refline = 140,
   reflineLabel = "Hypertension Threshold"
 )
@@ -711,6 +726,7 @@ optimized_chart <- linechart(
   title = "Hemoglobin Response to Iron Supplementation",
 
   # Reference lines for clinical context
+  showRefline = TRUE,
   refline = 12,
   reflineLabel = "Normal Lower Limit (Women)",
 
@@ -939,6 +955,7 @@ clinical_presentation <- linechart(
   height = 700,
 
   # Clear reference lines
+  showRefline = TRUE,
   refline = clinical_threshold,
   reflineLabel = "Clinical Target"
 )

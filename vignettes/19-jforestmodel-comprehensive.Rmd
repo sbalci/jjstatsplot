@@ -1,10 +1,6 @@
 ---
 title: "Visualizing Regression Models with Forest Plots"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Visualizing Regression Models with Forest Plots}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

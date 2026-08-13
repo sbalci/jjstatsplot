@@ -3,11 +3,19 @@ title: "jjtreemap: Comprehensive Treemap Visualization"
 author: "ClinicoPath"
 date: "`r Sys.Date()`"
 output: html_document
-vignette: >
-  %\VignetteIndexEntry{jjtreemap: Comprehensive Treemap Visualization}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 ---
+
+> ## Not in the released module yet
+>
+> **`jjtreemap` is still in development and is not part of jjstatsplot 1.0.52.**
+> It does not appear in the jamovi menu when you install this release, and the
+> R function is not exported. Everything below describes the intended interface
+> and is published early so the design can be reviewed; option names and
+> defaults may still change before it ships.
+>
+> It is expected in a future release. For what is available today, see the
+> [analysis gallery](09-analysis-gallery.html).
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(

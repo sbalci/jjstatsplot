@@ -48,7 +48,7 @@ result <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "age_years",
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -87,7 +87,7 @@ result_grouped <- jjhistostats(
   dep = "psa_level",
   grvar = "disease_stage",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 2.0
 )
@@ -203,7 +203,7 @@ age_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "age_years",
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE,
   resultssubtitle = TRUE
 )
@@ -213,7 +213,7 @@ tumor_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "tumor_size_mm",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 5
 )
@@ -223,7 +223,7 @@ psa_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "psa_level",
   typestatistics = "robust",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 3
 )
@@ -245,7 +245,7 @@ biomarker_analysis <- jjhistostats(
   typestatistics = "parametric",
   centralityline = TRUE,
   resultssubtitle = TRUE,
-  normalcurve = TRUE
+  ggpubrAddDensity = TRUE
 )
 
 # Stratified analysis by treatment group
@@ -254,7 +254,7 @@ biomarker_by_treatment <- jjhistostats(
   dep = "crp_level",
   grvar = "treatment_group",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 5
 )
@@ -274,7 +274,7 @@ norm_parametric <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -283,7 +283,7 @@ norm_nonparametric <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -292,7 +292,7 @@ norm_robust <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "robust",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -301,7 +301,7 @@ norm_bayes <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "bayes",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 ```
@@ -538,7 +538,7 @@ Histograms are essential for:
 initial_assessment <- jjhistostats(
   data = clinical_data,
   dep = c("primary_endpoint", "key_biomarker"),
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 

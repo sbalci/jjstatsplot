@@ -1,10 +1,6 @@
 ---
 title: "Visualizing Categorical Data with Bar Charts"
 output: rmarkdown::html_vignette
-vignette:
-  - \"%VignetteIndexEntry{Visualizing Categorical Data with Bar Charts}\"
-  - \"%VignetteEngine{knitr::rmarkdown}\"
-  - \"%VignetteEncoding{UTF-8}\"
 ---
 
 ```{r setup, include=FALSE}
@@ -53,11 +49,7 @@ data("breast_cancer_data", package = "ClinicoPath")
 jjbarstats(
   data = breast_cancer_data,
   dep = "mammography",
-  group = "cancer_status",
-  title = "Mammography Results by Cancer Status",
-  subtitle = "Chi-square test for independence",
-  xlab = "Cancer Status",
-  ylab = "Count"
+  group = "cancer_status"
 )
 ``````
 

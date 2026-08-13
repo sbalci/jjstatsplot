@@ -1,10 +1,6 @@
 ---
 title: "Advanced Distribution Visualization with Raincloud Plots"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Advanced Distribution Visualization with Raincloud Plots}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -55,9 +51,9 @@ advancedraincloud_data$group <- factor(advancedraincloud_data$group)
 
 advancedraincloud(
   data = advancedraincloud_data,
-  dep = "score",
-  group = "group",
-  title = "Score Distribution by Group with Raincloud Plot"
+  y_var = "score",
+  x_var = "group",
+  plot_title = "Score Distribution by Group with Raincloud Plot"
 )
 ```
 

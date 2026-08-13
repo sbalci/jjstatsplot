@@ -1,3 +1,146 @@
+# jjstatsplot 1.0.52 (2026-08-13)
+
+A pre-release. The version carries a two-digit patch, so the release workflow publishes
+it as a GitHub **pre-release** rather than a full release.
+
+Most of this window was a per-analysis review pass, and several of the fixes change
+numbers or labels you may already be quoting. Read **Breaking changes** and
+**Corrected output** before upgrading a running project.
+
+## Added
+
+- **New analysis: Dot Chart (`jjdotchart`).** Collapses each group to a single summary
+  point and tests those points against a reference value. The panel states plainly that
+  *n is the number of groups, not the number of patients*, and the summary table reports
+  the per-group n so the aggregation stays auditable. Options include `testvalue`,
+  `typestatistics`, `grvar`, `centralityplotting`/`centralitytype` (a labelled centrality
+  line, distinct from the reference line), `conflevel` and `showSummaryTable`.
+- **Line Chart: `showRefline`.** The reference line has its own switch (see Breaking
+  changes).
+- **Automatic Plot Selection: `sampleThreshold` and `sampleSize`.** The subsampling
+  threshold and retained row count were hard-coded at 10,000 and 5,000; both are now
+  configurable, and asking to keep more rows than exist is clamped rather than erroring.
+- **Segmented Total Bar Charts: `y_is_count`.** Required before a chi-square test will
+  run (see Breaking changes), plus a `Rows Analysed` column alongside `Summed Value`.
+
+## Breaking changes
+
+- **Line Chart: `refline = 0` no longer draws a line by itself.** Zero used to mean "no
+  reference line", which made the most common clinical reference impossible to draw -
+  change-from-baseline, a difference and a log fold-change all sit at zero. Set
+  `showRefline = TRUE` and put any value, including `0`, in `refline`. Scripts relying on
+  a non-zero `refline` alone must add `showRefline = TRUE`.
+- **Segmented Total Bar Charts: statistical tests require `y_is_count = TRUE`.** The
+  chi-square is computed on the summed Value Variable, which is a contingency table only
+  when that variable counts cases. Integrality cannot establish this - a whole-number
+  measurement passes too, and the statistic then scales with the unit of measurement.
+  Existing analyses with tests enabled will show an explanation instead of a test until
+  the box is ticked.
+
+## Corrected output
+
+- **Bar Charts and Pie Charts no longer name a Fisher test that was never run.** On a
+  sparse 2x2 both analyses used to advise switching `typestatistics` to `"nonparametric"`
+  "to obtain Fisher's exact test". That switch produced the identical uncorrected Pearson
+  chi-square - the plotting package offers no exact test - and in Pie Charts the
+  copy-ready Methods sentence went as far as printing "using Fisher's exact test". The
+  chart subtitle now reports **Fisher's exact test itself**, with the odds ratio and its
+  interval, whenever the table is 2x2 with an expected count below 5; larger sparse tables
+  keep the chi-square and the panel supplies the exact p-value to quote instead. **If you
+  previously quoted a p-value from a sparse 2x2, re-check it** - the exact test can fall
+  on the other side of 0.05.
+- **Arc Diagram: weighted centrality used a non-standard transform.** Edge strengths were
+  converted to distances by a linear reflection rather than the reciprocal, so betweenness
+  and closeness could name a different node as the network hub. Now uses `1/w`, the
+  published convention. Negative and zero weights previously aborted the analysis with a
+  raw C-level igraph error and are now rejected with an explanation.
+- **Numbers were printed at full precision throughout the module.** `@import jmvcore`
+  places jmvcore's own `format()` - a string-template helper that ignores `digits`,
+  `big.mark` and friends - ahead of `base::format()` for the whole package. Summary tables
+  read "Y Mean 19.8349757678086" and trend text read "0.829075514952931 unit increase";
+  thousands separators were dropped. Corrected at 97 call sites.
+- **Line Chart and Automatic Plot Selection over-reported N.** Both counted rows rather
+  than usable observations, so 180 rows with 155 usable outcomes was reported as "180 of
+  180". Exclusions are now counted correctly and itemised.
+- **Automatic Plot Selection: random subsampling is disclosed.** With `sampleLarge`
+  enabled, every statistic is computed on a random subset; the panel previously showed
+  only a reduced row count, which reads like missing-data exclusion, and the explanation
+  went to the R console. Discarding rows costs power - measured over 300 replicates at
+  d = 0.05 with n = 30,000, full-data power 99.7% against 45.3% on the 5,000-row draw.
+
+## Fixed
+
+- **Line Chart crashed on infinite values.** `complete.cases()` keeps `Inf`, which reached
+  `var(y) == 0`, where `NaN == 0` is `NA` and `if (NA)` aborted the run with "missing value
+  where TRUE/FALSE needed". Non-finite rows are now excluded and the exclusion disclosed.
+- **Segmented Total Bar Charts crashed on any continuous Value Variable** - `sprintf("%d")`
+  on a fractional total, outside every guard, at default settings.
+- Degenerate inputs that used to run silently now explain themselves: a single distinct
+  X value (Line Chart), an empty dataset (Line Chart), a variable crossed with itself
+  (Pie Charts), a one-group comparison and a constant outcome (Automatic Plot Selection,
+  where a constant numeric was silently re-read as categorical and changed the analysis
+  type), and a counts variable summing to zero (Bar Charts).
+- **Malformed "Expected proportions" were applied silently.** In Bar Charts and Pie Charts
+  the validation ran during plot rendering, where jamovi discards notices, so a wrong
+  length, a non-numeric entry or a set that did not sum to 1 fell back to equal proportions
+  with nothing on screen.
+- **Generated syntax was invalid for awkward column names.** Pie Charts emitted
+  `dep = Tumor Grade ("high")` unquoted; variable names are now escaped.
+- **Two shipped datasets could not be loaded by name.** `statsplot2_repeated.rda` held an
+  object called `repeated_measures_data` and `statsplot2_clinical.rda` held
+  `clinical_trial_data`, so `data(statsplot2_repeated)` succeeded and the object still did
+  not exist. Fixed, along with 29 others across the umbrella package.
+
+## Documentation
+
+Vignettes are **pkgdown articles only** — `vignettes/` is in `.Rbuildignore`, so they are
+not built by `R CMD build`. The `%\Vignette*` directives and `vignette:` front-matter
+blocks have been removed from 17 files accordingly; four of them declared a
+`quarto::html` engine whose package was not even in `Suggests`.
+
+- New article **"What's New in jjstatsplot 1.0.52"**, covering the new analysis, the
+  breaking changes, and the analyses that do not yet have a walk-through of their own.
+- **`jjridges` documentation rewritten from scratch.** It had been written against the
+  option names of `jjridgestats` (`dep`, `group`, `plotStyle`, `scaling`, `colorscheme`,
+  `mytitle`), none of which exist in `jjridges` — every example on the page failed. The
+  replacement documents the real API, including the `x_var` (continuous) / `y_var`
+  (grouping) split that is the reverse of what a box plot uses.
+- **Upstream ggstatsplot argument names removed from 14 articles.** Examples used
+  `type`, `title`, `subtitle`, `xlab`, `ylab`, `pairwise.comparisons`, `conf.level`, `x`,
+  `y`, `id` and `paired` — the names of the *wrapped* functions, not of these wrappers —
+  so copying them into R failed. They now use `typestatistics`, `mytitle`, `xtitle`,
+  `ytitle`, `pairwisecomparisons`, `conflevel`, `dep`/`group` and `dep1`/`dep2`. The
+  mapping was applied per function: `jjhistostats` and `jjcorrmat` genuinely have `title`,
+  `subtitle` and `xlab`, and were left alone. Arguments with no equivalent at all
+  (`jjbarstats` and `jjpiestats` have no title options) were removed rather than renamed.
+- The Line Chart article uses `showRefline = TRUE` in every reference-line example.
+- Articles for analyses still in development — `bbcplots`, `advancedbarplot`,
+  `economistplots`, `jsjplot`, `jjtreemap`, `basegraphics` — each carry a notice saying so.
+
+### Articles removed or relocated
+
+| Article | Action |
+|---|---|
+| `jjridgestats` | **Removed** — superseded by `jjridges()`. Not drop-in replacements. |
+| `jjriverplot` | **Moved to ClinicoPathDescriptives**, where the analysis lives as `riverplot()` (13 of 14 documented arguments match). |
+| `advancedtree` | **Moved to meddecide**, where the analysis lives as `treeadvanced()`. The article documents more options than are implemented; the notice lists which. |
+| `jjsankeyfier`, `jjstreamgraph` | **Removed** — no analysis of either name exists in any module. |
+
+- `31-jjscatterstats-comprehensive.Rmd` was a single line of escaped text (literal `\n`
+  and `\"` throughout) and could not render at all. Restored to 407 lines.
+
+## Known issues
+
+- ~~The "Plot with Aesthetics" panel in Scatter Plot is always shown.~~ **Fixed.** The
+  `visible:` rule began with `!`, which fails jmvcore's expression routing: the expression
+  was handed back as a raw (truthy) string, so an empty aesthetics plot sat under every
+  analysis. Now `(colorvar || sizevar || shapevar || alphavar || labelvar)`. A sweep of all
+  19 shipped analyses found one more instance — `enable: (!resultssubtitle)` in
+  `jjhistostats.u.yaml`, which left that box permanently enabled — also fixed.
+- Five analyses have no dedicated vignette yet: `hullplot`, `jjdotchart`,
+  `jjsegmentedtotalbar`, `raincloud` and `statsplot2`. Their option lists are documented in
+  the new What's New vignette.
+
 # jjstatsplot 1.0.4 (2026-08-07)
 
 ## Note

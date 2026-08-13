@@ -11,10 +11,6 @@ output:
     highlight: tango
     fig_width: 10
     fig_height: 8
-vignette: >
-  %\VignetteIndexEntry{Scientific Visualization with Grafify: Comprehensive Guide}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

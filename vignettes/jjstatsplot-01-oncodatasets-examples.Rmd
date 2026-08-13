@@ -3,10 +3,6 @@ title: "jjstatsplot: Statistical Visualization with Oncology Data"
 author: "ClinicoPath Team"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{jjstatsplot: Statistical Visualization with Oncology Data}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}

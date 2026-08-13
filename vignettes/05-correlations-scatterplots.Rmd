@@ -1,10 +1,6 @@
 ---
 title: "Exploring Relationships with Scatter Plots"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Exploring Relationships with Scatter Plots}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -52,13 +48,12 @@ data("melanoma", package = "boot")
 # Create the plot
 jjscatterstats(
   data = melanoma,
-  x = "age",
-  y = "thickness",
-  type = "parametric", # Use Pearson correlation
-  title = "Correlation between Age and Tumor Thickness in Melanoma",
-  subtitle = "Pearson correlation with 95% confidence interval",
-  xlab = "Age (years)",
-  ylab = "Tumor Thickness (mm)"
+  dep = "age",
+  group = "thickness",
+  typestatistics = "parametric", # Use Pearson correlation
+  mytitle = "Correlation between Age and Tumor Thickness in Melanoma",
+  xtitle = "Age (years)",
+  ytitle = "Tumor Thickness (mm)"
 )
 ````
 
