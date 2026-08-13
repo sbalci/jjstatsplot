@@ -1,12 +1,12 @@
 ---
 title: Wrapper for ggstatsplot
 name: jjstatsplot
-version: 1.0.51
+version: 1.0.52
 jms: '1.0'
 authors:
   - Serdar Balci
 maintainer: Serdar Balci <serdarbalci@serdarbalci.com>
-date: '2026-08-12'
+date: '2026-08-13'
 type: R
 description: >
   Comprehensive statistical visualization module for jamovi featuring 17+
@@ -295,6 +295,17 @@ analyses:
       clusters.
 
       Based on the geom_mark_hull() function from ggforce package.
+  - title: Dot Chart (Summary vs Reference Value)
+    name: jjdotchart
+    ns: jjstatsplot
+    category: analyses
+    menuGroup: JJStatsPlot
+    menuSubgroup: Categorical vs Continuous
+    menuTitle: Dot Chart (Summary vs Reference Value)
+    description: |-
+      Cleveland dot chart: one summary point per group, ordered by value, with
+      a confidence interval and a reference line. Wraps
+      ggstatsplot::ggdotplotstats and ggstatsplot::grouped_ggdotplotstats.
 datasets:
   - name: histopathology including analysis
     path: histopathologyGraphsPlots.omv
