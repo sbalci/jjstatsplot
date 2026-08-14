@@ -1,6 +1,6 @@
 ---
 title: "jjstatsplot Plot Gallery"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,8 +8,6 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE
 library(jjstatsplot)
 library(ggplot2)
 ```
-
-# jjstatsplot Plot Gallery
 
 This gallery provides a quick visual reference for the main plots you can create with the `ClinicoPath` jamovi module. Each entry includes a brief description of when to use the plot and an example using clinical data.
 

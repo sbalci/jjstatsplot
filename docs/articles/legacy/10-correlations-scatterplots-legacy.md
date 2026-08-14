@@ -19,25 +19,27 @@ jjcorrmat(data = mtcars, dep = c(mpg, hp, wt), grvar = NULL)
 #> 
 #>  CORRELATION MATRIX
 #> 
-#>  Preparing correlation analysis options...
+#>  You have selected to use a correlation matrix to compare continuous
+#>  variables.
+#> 
+#>  <div style='margin: 10px 0;'><div style='background-color: #d1ecf1;
+#>  border-left: 4px solid #0c5460; padding: 10px; margin: 5px 0;
+#>  border-radius: 4px;'><strong style='color: #0c5460;'> INFO: <span
+#>  style='color: #0c5460;'>Computed 3 zero-order Pearson correlations of
+#>  3 variables.
 #> 
 #> character(0)
 #> 
-#>  Correlation Table                                                                                             
-#>  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-#>    Variable 1    Variable 2    r / rho       p-value         CI Lower      CI Upper      Method        Group   
-#>  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-#>    mpg           hp            -0.7800000    1.787835e -7    -0.8852686    -0.5860994    parametric    All     
-#>    mpg           wt            -0.8700000    1.293959e-10    -0.9338264    -0.7440872    parametric    All     
-#>    hp            wt             0.6600000    4.145827e -5     0.4025113     0.8192573    parametric    All     
-#>  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
-#> Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
-#> ℹ Please use the `linewidth` argument instead.
-#> ℹ The deprecated feature was likely used in the jmvcore package.
-#>   Please report the issue at <https://github.com/jamovi/jamovi/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
+#>  Correlation Table                                                                                                                  
+#>  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+#>    Variable 1    Variable 2    N     Coefficient    Lower         Upper         p             p (adjusted)    Method                
+#>  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+#>    mpg           hp            32     -0.7761684    -0.8852686    -0.5860994     0.0000002       0.0000004    Pearson correlation   
+#>    mpg           wt            32     -0.8676594    -0.9338264    -0.7440872    < .0000001    < .0000001    Pearson correlation   
+#>    hp            wt            32      0.6587479     0.4025113     0.8192573     0.0000415       0.0000415    Pearson correlation   
+#>  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+#>    Note. <b>p (adjusted)</b> applies the Holm correction across all pairwise tests. This is the p-value the plot uses to mark
+#>    cells as non-significant at 0.05.
 ```
 
 ![](10-correlations-scatterplots-legacy_files/figure-html/unnamed-chunk-1-1.png)

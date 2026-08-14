@@ -1,5 +1,18 @@
 # Advanced Bar Charts - 7 Professional Approaches
 
+> ## Not in the released module yet
+>
+> **`advancedbarplot` is still in development and is not part of
+> jjstatsplot 1.0.52.** It does not appear in the jamovi menu when you
+> install this release, and the R function is not exported. Everything
+> below describes the intended interface and is published early so the
+> design can be reviewed; option names and defaults may still change
+> before it ships.
+>
+> It is expected in a future release. For what is available today, see
+> the [analysis
+> gallery](https://www.serdarbalci.com/jjstatsplot/articles/09-analysis-gallery.md).
+
 ## Overview
 
 The `advancedbarplot` module provides **7 distinct professional
@@ -744,7 +757,7 @@ ggplot(data, aes(x = Group, y = Age)) +
 ### 1. Choosing the Right Approach
 
 - **Basic**: Quick exploration, learning ggplot2
-- **Polished**: Business presentations, dashboards  
+- **Polished**: Business presentations, dashboards\
 - **Statistical**: Research papers, hypothesis testing
 - **Interactive**: Web apps, exploration tools
 - **Publication**: Journal submissions, formal reports
@@ -831,5 +844,5 @@ use cases in clinical research and data presentation.
 
 For more advanced statistical plotting, see the related modules: -
 `jjhistogram` for distribution analysis - `jjscatter` for correlation
-visualization  
+visualization\
 - `survival` for time-to-event analysis

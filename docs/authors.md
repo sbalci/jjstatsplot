@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/DESCRIPTION)
 
 Balci S (2026). *jjstatsplot: Wrapper for 'ggstatsplot'*. R package
-version 1.0.0, <https://www.serdarbalci.com/jjstatsplot/>.
+version 1.0.53.01, <https://www.serdarbalci.com/jjstatsplot/>.
 
     @Manual{,
       title = {jjstatsplot: Wrapper for 'ggstatsplot'},
       author = {Serdar Balci},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.0.53.01},
       url = {https://www.serdarbalci.com/jjstatsplot/},
     }

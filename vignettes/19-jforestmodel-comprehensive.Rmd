@@ -1,6 +1,6 @@
 ---
 title: "Visualizing Regression Models with Forest Plots"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,8 +8,6 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE
 library(jjstatsplot)
 library(ggplot2)
 ```
-
-# Visualizing Regression Models with Forest Plots
 
 A forest plot is a powerful way to visualize the results of a statistical model. It allows you to see the effect of several different predictors on an outcome all at once. In clinical research, forest plots are often used to display the results of regression models, showing the odds ratios or hazard ratios for various risk factors.
 

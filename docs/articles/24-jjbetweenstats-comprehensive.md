@@ -223,10 +223,7 @@ Customize the visualization components:
 jjbetweenstats(
   data = exercise_physiology_data,
   dep = muscle_mass,
-  group = training_regimen,
-  violin = TRUE,
-  boxplot = FALSE,
-  point = FALSE
+  group = training_regimen
 )
 ```
 
@@ -236,10 +233,7 @@ jjbetweenstats(
 jjbetweenstats(
   data = exercise_physiology_data,
   dep = muscle_mass,
-  group = training_regimen,
-  violin = FALSE,
-  boxplot = TRUE,
-  point = FALSE
+  group = training_regimen
 )
 ```
 
@@ -249,10 +243,7 @@ jjbetweenstats(
 jjbetweenstats(
   data = exercise_physiology_data,
   dep = muscle_mass,
-  group = training_regimen,
-  violin = TRUE,
-  boxplot = TRUE,
-  point = TRUE
+  group = training_regimen
 )
 ```
 

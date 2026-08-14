@@ -17,8 +17,6 @@ compares the number of cylinders (`cyl`) across transmission types
 ``` r
 
 jjbarstats(data = mtcars, dep = cyl, group = am, grvar = NULL)
-#> Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect
-#> Warning in chisq.test(cross_table): Chi-squared approximation may be incorrect
 #> 
 #>  BAR CHARTS
 #> WARNING: Low Expected Counts
@@ -79,13 +77,6 @@ jjbarstats(data = mtcars, dep = cyl, group = am, grvar = NULL)
 #> 
 #>  Data prepared: 32 observations (missing values will be handled by
 #>  statistical functions) (cached).
-#> Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
-#> ℹ Please use the `linewidth` argument instead.
-#> ℹ The deprecated feature was likely used in the jmvcore package.
-#>   Please report the issue at <https://github.com/jamovi/jamovi/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](08-categorical-plots-legacy_files/figure-html/unnamed-chunk-1-1.png)
@@ -129,8 +120,8 @@ jjpiestats(data = mtcars, dep = cyl, group = am, grvar = NULL)
 #> 
 #>  Methods:
 #> 
-#>  We compared cyl distributions across am using chi-square test.
-#>  Statistical significance was set at p < 0.05. All analyses were
+#>  We compared cyl distributions across am using Pearson's chi-squared
+#>  test. Statistical significance was set at p < 0.05. All analyses were
 #>  performed using jamovi statistical software.
 #> 
 #>  Results:
@@ -159,7 +150,7 @@ shows group means using a dot plot. In this example we plot horsepower
 
 jjdotplotstats(data = mtcars, dep = hp, group = vs, grvar = NULL)
 #> 
-#>  DOT CHART
+#>  HORIZONTAL BOX-VIOLIN COMPARISON
 #> 
 #>  Processing data for dot plot analysis...
 #> 
@@ -168,9 +159,9 @@ jjdotplotstats(data = mtcars, dep = hp, group = vs, grvar = NULL)
 #>  Analysis summary: 2 groups, 32 total observations
 #> 
 #>  <div style='background-color: #cce5ff; border-left: 4px solid #b8daff;
-#>  padding: 12px; margin: 8px 0; color: #004085;'> INFO: Analysis
-#>  completed successfully using parametric (t-test/ANOVA) test. Compared
-#>  2 groups with N = 32 total observations.
+#>  padding: 12px; margin: 8px 0; color: #004085;'> INFO: Comparing 2
+#>  groups with N = 32 observations using a parametric (t-test/ANOVA)
+#>  test.
 ```
 
 ![](08-categorical-plots-legacy_files/figure-html/unnamed-chunk-3-1.png)

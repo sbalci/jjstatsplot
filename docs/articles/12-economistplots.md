@@ -1,5 +1,18 @@
 # Economist-Style Distribution Plots - Professional Data Visualization
 
+> ## Not in the released module yet
+>
+> **`economistplots` is still in development and is not part of
+> jjstatsplot 1.0.52.** It does not appear in the jamovi menu when you
+> install this release, and the R function is not exported. Everything
+> below describes the intended interface and is published early so the
+> design can be reviewed; option names and defaults may still change
+> before it ships.
+>
+> It is expected in a future release. For what is available today, see
+> the [analysis
+> gallery](https://www.serdarbalci.com/jjstatsplot/articles/09-analysis-gallery.md).
+
 ## Introduction to Economist-Style Distribution Plots
 
 The Economist magazine has revolutionized data visualization in

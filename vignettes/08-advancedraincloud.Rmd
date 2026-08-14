@@ -1,6 +1,6 @@
 ---
 title: "Advanced Distribution Visualization with Raincloud Plots"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,8 +8,6 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE
 library(jjstatsplot)
 library(ggplot2)
 ```
-
-# Advanced Distribution Visualization with Raincloud Plots
 
 A raincloud plot is a modern and informative way to visualize the distribution of data. It combines a violin plot, a box plot, and the raw data points into a single figure, providing a great deal of information at a glance.
 

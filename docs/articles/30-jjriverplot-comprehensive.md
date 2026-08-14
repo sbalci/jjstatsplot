@@ -166,7 +166,7 @@ Investment allocations over time
 #### Fill Patterns
 
 - **“first”**: Colors based on initial category (track origins)
-- **“last”**: Colors based on final category (track destinations)  
+- **“last”**: Colors based on final category (track destinations)\
 - **“frequency”**: Colors based on flow volume (emphasize major flows)
 
 #### Curve Types
@@ -771,7 +771,7 @@ The optimized `jjriverplot` function provides:
   different analytical needs
 - **High performance**: Significant speed improvements through caching
 - **Clinical relevance**: Designed for healthcare pathway and outcome
-  analysis  
+  analysis\
 - **Flexibility**: Extensive customization options for publication and
   presentation
 - **Usability**: Clear documentation and comprehensive examples

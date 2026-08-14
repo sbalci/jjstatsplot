@@ -436,7 +436,7 @@ width_scaling <- jviolin(
 
 Scaling options: - **Area**: Equal total area (default) - good for
 comparing shapes - **Count**: Area proportional to sample size -
-emphasizes group sizes  
+emphasizes group sizes\
 - **Width**: Equal maximum width - good for detailed shape comparison
 
 ### Trimming and Width

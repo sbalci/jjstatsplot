@@ -908,7 +908,7 @@ publication_km <- jvisr(
 
 Publication considerations: - **High resolution**: Ensure plots are 300+
 DPI for print - **Color accessibility**: Use colorblind-friendly
-palettes  
+palettes\
 - **Font sizes**: Readable at publication scale - **Statistical rigor**:
 Include all required statistical elements - **CONSORT compliance**:
 Follow reporting guidelines

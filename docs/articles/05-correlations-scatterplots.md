@@ -1,11 +1,9 @@
 # Exploring Relationships with Scatter Plots
 
-## Exploring Relationships with Scatter Plots
-
 This guide demonstrates how to explore the relationship between two
 continuous variables using a scatter plot.
 
-### The Clinical Scenario
+## The Clinical Scenario
 
 A pathologist is studying malignant melanoma and wants to know if there
 is a relationship between the patient's age and the thickness of the
@@ -17,7 +15,7 @@ tumor. The research question is:
 We will use the `melanoma` dataset, which is included in the `boot`
 package and re-exported by `ClinicoPath`, to investigate this question.
 
-### Step 1: The Analysis in jamovi
+## Step 1: The Analysis in jamovi
 
 1.  Load the `melanoma` dataset into jamovi.
 2.  From the main analysis ribbon, click on **JJStatsPlot** -\>
@@ -37,7 +35,7 @@ Scatter Plot.\] \*\*\*
 \[Screenshot of the analysis window showing the variables being
 assigned.\] \*\*\*
 
-### Step 2: The Output Plot
+## Step 2: The Output Plot
 
 jamovi will generate the following scatter plot, which shows the
 relationship between age and tumor thickness.
@@ -50,17 +48,16 @@ data("melanoma", package = "boot")
 # Create the plot
 jjscatterstats(
   data = melanoma,
-  x = "age",
-  y = "thickness",
-  type = "parametric", # Use Pearson correlation
-  title = "Correlation between Age and Tumor Thickness in Melanoma",
-  subtitle = "Pearson correlation with 95% confidence interval",
-  xlab = "Age (years)",
-  ylab = "Tumor Thickness (mm)"
+  dep = "age",
+  group = "thickness",
+  typestatistics = "parametric", # Use Pearson correlation
+  mytitle = "Correlation between Age and Tumor Thickness in Melanoma",
+  xtitle = "Age (years)",
+  ytitle = "Tumor Thickness (mm)"
 )
 ```
 
-### Step 3: Interpreting the Plot and Statistics
+## Step 3: Interpreting the Plot and Statistics
 
 - **The Plot**: Each point on the plot represents a single patient. The
   plot shows that there is a lot of variability in tumor thickness at
@@ -83,7 +80,7 @@ jjscatterstats(
     a statistically significant linear relationship between age and
     tumor thickness in this dataset.
 
-### Step 4: Reporting the Results
+## Step 4: Reporting the Results
 
 Here is an example of how to report these findings:
 

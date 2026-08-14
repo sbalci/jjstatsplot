@@ -1,14 +1,12 @@
 # Visualizing Regression Models with Forest Plots
 
-## Visualizing Regression Models with Forest Plots
-
 A forest plot is a powerful way to visualize the results of a
 statistical model. It allows you to see the effect of several different
 predictors on an outcome all at once. In clinical research, forest plots
 are often used to display the results of regression models, showing the
 odds ratios or hazard ratios for various risk factors.
 
-### The Clinical Scenario
+## The Clinical Scenario
 
 A researcher is working with the `BreastCancer` dataset and wants to
 understand which cellular characteristics are most strongly associated
@@ -20,7 +18,7 @@ with a tumor being malignant. The research question is:
 We will build a logistic regression model to answer this question and
 then visualize the results with a forest plot.
 
-### What is a Logistic Regression?
+## What is a Logistic Regression?
 
 Before we make the plot, it’s helpful to understand the model behind it.
 A **logistic regression** is a statistical method used to predict a
@@ -29,7 +27,7 @@ binary outcome (an outcome with only two possibilities, like “benign” or
 **odds ratio** for each predictor, which tells us how the odds of the
 outcome change with a one-unit increase in the predictor.
 
-### Step 1: The Analysis in jamovi
+## Step 1: The Analysis in jamovi
 
 1.  Load the `BreastCancer.omv` dataset into jamovi.
 2.  From the main analysis ribbon, click on **JJStatsPlot** -\>
@@ -53,7 +51,7 @@ Forest Plot.\] \*\*\*
 \[Screenshot of the analysis window showing the variables being
 assigned.\] \*\*\*
 
-### Step 2: The Output Plot
+## Step 2: The Output Plot
 
 jamovi will first fit a logistic regression model behind the scenes and
 then generate the following forest plot of the results:
@@ -77,7 +75,7 @@ jforestmodel(
 )
 ```
 
-### Step 3: Interpreting the Forest Plot
+## Step 3: Interpreting the Forest Plot
 
 The forest plot shows the **odds ratio** for each predictor variable.
 
@@ -104,7 +102,7 @@ The forest plot shows the **odds ratio** for each predictor variable.
   predictors of malignancy because none of their confidence intervals
   cross the vertical line at 1.0.
 
-### Step 4: Reporting the Results
+## Step 4: Reporting the Results
 
 When reporting the results from a forest plot, you should describe the
 model and then report the odds ratios and confidence intervals for the

@@ -1,5 +1,18 @@
 # Base Graphics Visualization - Fast & Customizable Base R Plots
 
+> ## Not in the released module yet
+>
+> **`basegraphics` is still in development and is not part of
+> jjstatsplot 1.0.52.** It does not appear in the jamovi menu when you
+> install this release, and the R function is not exported. Everything
+> below describes the intended interface and is published early so the
+> design can be reviewed; option names and defaults may still change
+> before it ships.
+>
+> It is expected in a future release. For what is available today, see
+> the [analysis
+> gallery](https://www.serdarbalci.com/jjstatsplot/articles/09-analysis-gallery.md).
+
 ## Introduction to Base Graphics Visualization
 
 The Base Graphics module provides comprehensive data visualization using
@@ -1041,7 +1054,7 @@ basegraphics(
 Base R graphics excel in performance compared to other plotting systems:
 
 - **Memory Usage**: ~50% less than ggplot2
-- **Rendering Speed**: ~2-3x faster than lattice graphics  
+- **Rendering Speed**: ~2-3x faster than lattice graphics\
 - **Load Time**: Instant (no package dependencies)
 - **Large Data**: Handles 100,000+ points efficiently
 - **Export Quality**: High-resolution vector output

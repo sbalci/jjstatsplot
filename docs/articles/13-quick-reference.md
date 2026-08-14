@@ -1,7 +1,5 @@
 # jjstatsplot Plot Gallery
 
-## jjstatsplot Plot Gallery
-
 This gallery provides a quick visual reference for the main plots you
 can create with the `ClinicoPath` jamovi module. Each entry includes a
 brief description of when to use the plot and an example using clinical
@@ -9,7 +7,7 @@ data.
 
 ------------------------------------------------------------------------
 
-### Histogram
+## Histogram
 
 **When to use it:** To explore the distribution of a single continuous
 variable (e.g., age, lab value).
@@ -29,7 +27,7 @@ jjhistostats(
 
 ------------------------------------------------------------------------
 
-### Box-Violin Plot (Between Groups)
+## Box-Violin Plot (Between Groups)
 
 **When to use it:** To compare a continuous variable between two or more
 independent groups.
@@ -41,9 +39,9 @@ jjbetweenstats(
   data = breast_cancer_data,
   dep = "age",
   group = "cancer_status",
-  title = "Age Distribution by Cancer Status",
-  xlab = "Cancer Status",
-  ylab = "Age (years)"
+  mytitle = "Age Distribution by Cancer Status",
+  xtitle = "Cancer Status",
+  ytitle = "Age (years)"
 )
 ```
 
@@ -52,7 +50,7 @@ jjbetweenstats(
 
 ------------------------------------------------------------------------
 
-### Bar Chart
+## Bar Chart
 
 **When to use it:** To show the relationship between two categorical
 variables.
@@ -63,9 +61,7 @@ data("breast_cancer_data", package = "ClinicoPath")
 jjbarstats(
   data = breast_cancer_data,
   dep = "mammography",
-  group = "cancer_status",
-  title = "Mammography Results by Cancer Status",
-  xlab = "Cancer Status"
+  group = "cancer_status"
 )
 ```
 
@@ -74,7 +70,7 @@ jjbarstats(
 
 ------------------------------------------------------------------------
 
-### Scatter Plot
+## Scatter Plot
 
 **When to use it:** To explore the relationship and correlation between
 two continuous variables.
@@ -84,11 +80,11 @@ two continuous variables.
 data("melanoma", package = "boot")
 jjscatterstats(
   data = melanoma,
-  x = "age",
-  y = "thickness",
-  title = "Correlation between Age and Tumor Thickness",
-  xlab = "Age (years)",
-  ylab = "Tumor Thickness (mm)"
+  dep = "age",
+  group = "thickness",
+  mytitle = "Correlation between Age and Tumor Thickness",
+  xtitle = "Age (years)",
+  ytitle = "Tumor Thickness (mm)"
 )
 ```
 
@@ -97,7 +93,7 @@ jjscatterstats(
 
 ------------------------------------------------------------------------
 
-### Correlation Matrix
+## Correlation Matrix
 
 **When to use it:** To visualize the correlations between multiple
 continuous variables at once.
@@ -117,7 +113,7 @@ jjcorrmat(
 
 ------------------------------------------------------------------------
 
-### Within-Subject Plot (Paired Data)
+## Within-Subject Plot (Paired Data)
 
 **When to use it:** To compare a continuous variable in the same
 subjects at two or more time points (e.g., before and after treatment).
@@ -134,12 +130,10 @@ long_data <- data.frame(
 
 jjwithinstats(
   data = long_data,
-  x = "timepoint",
-  y = "biomarker",
-  id = "patient_id",
-  paired = TRUE,
-  title = "Biomarker Levels Before and After Treatment",
-  ylab = "Biomarker Level"
+  dep1 = "timepoint",
+  dep2 = "biomarker",
+  mytitle = "Biomarker Levels Before and After Treatment",
+  ytitle = "Biomarker Level"
 )
 ```
 
@@ -147,7 +141,7 @@ jjwithinstats(
 
 ------------------------------------------------------------------------
 
-### Raincloud Plot
+## Raincloud Plot
 
 **When to use it:** To show the distribution, individual data points,
 and summary statistics all in one plot. It is an enhanced version of a
@@ -163,9 +157,9 @@ advancedraincloud_data$group <- factor(advancedraincloud_data$group)
 
 advancedraincloud(
   data = advancedraincloud_data,
-  dep = "score",
-  group = "group",
-  title = "Score Distribution by Group with Raincloud Plot"
+  y_var = "score",
+  x_var = "group",
+  plot_title = "Score Distribution by Group with Raincloud Plot"
 )
 ```
 

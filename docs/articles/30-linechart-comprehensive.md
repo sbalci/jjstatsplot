@@ -1,5 +1,16 @@
 # Line Charts for Clinical Time Series and Trend Analysis
 
+> ### Changed in 1.0.52 - reference lines
+>
+> The reference line now has its own switch, `showRefline`. Previously a
+> value of `0` meant “no line”, which made the most common clinical
+> reference impossible to draw - zero is where change-from-baseline, a
+> difference and a log fold-change all sit. Set `showRefline = TRUE` and
+> put any value, including `0`, in `refline`.
+>
+> Existing scripts that relied on `refline = <non-zero>` alone should
+> add `showRefline = TRUE`; all examples below have been updated.
+
 ## Introduction to Line Charts in Clinical Research
 
 ### What are Line Charts?
@@ -22,7 +33,7 @@ pathological research, line charts are essential for:
 1.  **Trend Identification**: Easily spot increasing, decreasing, or
     stable patterns
 2.  **Comparative Analysis**: Compare multiple groups or treatments
-    simultaneously  
+    simultaneously\
 3.  **Time Series Visualization**: Perfect for longitudinal and
     follow-up studies
 4.  **Statistical Integration**: Combine with trend lines, confidence
@@ -213,6 +224,7 @@ hemoglobin_result <- linechart(
   confidence = TRUE,
   trendline = TRUE,
   points = TRUE,
+  showRefline = TRUE,
   refline = 12,
   reflineLabel = "Normal Lower Limit",
   xlabel = "Weeks Since Treatment Start",
@@ -320,6 +332,7 @@ bp_result <- linechart(
   groupby = "intervention",
   confidence = TRUE,
   trendline = TRUE,
+  showRefline = TRUE,
   refline = 140,
   reflineLabel = "Hypertension Threshold",
   xlabel = "Months Since Intervention Start",
@@ -439,7 +452,7 @@ biomarker_result <- linechart(
 
 1.  **Response Patterns**:
     - **Responders**: Progressive decline in inflammatory markers
-    - **Non-responders**: Stable levels with minimal change  
+    - **Non-responders**: Stable levels with minimal change\
     - **Progressive disease**: Increasing inflammatory activity
 2.  **Predictive Value**:
     - Early biomarker changes may predict long-term response
@@ -483,6 +496,7 @@ result <- linechart(
   data = lab_data,
   xvar = "visit_week",
   yvar = "hemoglobin_g_dl",
+  showRefline = TRUE,
   refline = 12, # Normal hemoglobin threshold
   reflineLabel = "Normal Range", # Clear clinical labeling
   title = "Hemoglobin Monitoring with Clinical Targets"
@@ -678,6 +692,7 @@ publication_chart <- linechart(
 cardiology_chart <- linechart(
   data = bp_data,
   colorPalette = "clinical", # Red/blue for medical contexts
+  showRefline = TRUE,
   refline = 140,
   reflineLabel = "Hypertension Threshold"
 )
@@ -699,6 +714,7 @@ optimized_chart <- linechart(
   title = "Hemoglobin Response to Iron Supplementation",
 
   # Reference lines for clinical context
+  showRefline = TRUE,
   refline = 12,
   reflineLabel = "Normal Lower Limit (Women)",
 
@@ -943,6 +959,7 @@ clinical_presentation <- linechart(
   height = 700,
 
   # Clear reference lines
+  showRefline = TRUE,
   refline = clinical_threshold,
   reflineLabel = "Clinical Target"
 )
@@ -974,7 +991,7 @@ enable:
 ### Key Clinical Applications
 
 - **Longitudinal Analysis**: Track patient outcomes over time
-- **Treatment Monitoring**: Assess intervention effectiveness  
+- **Treatment Monitoring**: Assess intervention effectiveness\
 - **Biomarker Evolution**: Follow disease progression markers
 - **Quality Improvement**: Monitor healthcare performance metrics
 - **Comparative Research**: Compare treatments or populations
@@ -989,7 +1006,7 @@ enable:
 ### Best Practices Summary
 
 1.  **Design for audience**: Clinical vs. research presentations
-2.  **Include clinical context**: Reference lines and thresholds  
+2.  **Include clinical context**: Reference lines and thresholds\
 3.  **Handle missing data**: Transparent reporting of dropout patterns
 4.  **Statistical rigor**: Report correlations, confidence intervals,
     and p-values

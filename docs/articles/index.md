@@ -2,6 +2,9 @@
 
 ### All vignettes
 
+- [What's New in jjstatsplot
+  1.0.52](https://www.serdarbalci.com/jjstatsplot/articles/00-whats-new-1-0-52.md):
+
 - [jjStatsPlot 01: Statistical Visualization for
   Pathologists](https://www.serdarbalci.com/jjstatsplot/articles/01-introduction.md):
 
@@ -40,9 +43,6 @@
 
 - [Categorical Plot
   Functions](https://www.serdarbalci.com/jjstatsplot/articles/legacy/08-categorical-plots-legacy.md):
-
-- [Advanced Decision Tree Analysis in
-  ClinicoPath](https://www.serdarbalci.com/jjstatsplot/articles/09-advancedtree.md):
 
 - [Complete Analysis Gallery - All jjstatsplot
   Functions](https://www.serdarbalci.com/jjstatsplot/articles/09-analysis-gallery.md):
@@ -101,9 +101,6 @@
 - [Comprehensive Guide to Sankey & Alluvial Diagrams with
   jggsankeyfier](https://www.serdarbalci.com/jjstatsplot/articles/22-jggsankeyfier-comprehensive.md):
 
-- [Comprehensive Guide to Sankey & Alluvial Diagrams with
-  jjsankeyfier](https://www.serdarbalci.com/jjstatsplot/articles/22-jjsankeyfier-comprehensive.md):
-
 - [Comprehensive Guide to Enhanced Statistical Visualization with
   jggstats](https://www.serdarbalci.com/jjstatsplot/articles/23-jggstats-comprehensive.md):
 
@@ -132,17 +129,11 @@
   Visualization Best
   Practices](https://www.serdarbalci.com/jjstatsplot/articles/28-jjpiestats-comprehensive.md):
 
-- [jjridges: Comprehensive Ridgeline Plot
-  Analysis](https://www.serdarbalci.com/jjstatsplot/articles/29-jjridges-comprehensive.md):
-
-- [jjridgestats: Comprehensive Ridgeline Plot
-  Analysis](https://www.serdarbalci.com/jjstatsplot/articles/29-jjridgestats-comprehensive.md):
+- [jjridges: Ridgeline
+  Plots](https://www.serdarbalci.com/jjstatsplot/articles/29-jjridges-comprehensive.md):
 
 - [Quick Reference Guide for
   jjstatsplot](https://www.serdarbalci.com/jjstatsplot/articles/legacy/29-quick-reference-legacy.md):
-
-- [jjriverplot: Comprehensive River Plot and Flow
-  Visualization](https://www.serdarbalci.com/jjstatsplot/articles/30-jjriverplot-comprehensive.md):
 
 - [Line Charts for Clinical Time Series and Trend
   Analysis](https://www.serdarbalci.com/jjstatsplot/articles/30-linechart-comprehensive.md):
@@ -150,8 +141,8 @@
 - [R Programming Guide for
   jjstatsplot](https://www.serdarbalci.com/jjstatsplot/articles/legacy/30-r-programming-guide-legacy.md):
 
-- [UNKNOWN
-  TITLE](https://www.serdarbalci.com/jjstatsplot/articles/31-jjscatterstats-comprehensive.md):
+- [jjscatterstats: Comprehensive Scatter Plot
+  Analysis](https://www.serdarbalci.com/jjstatsplot/articles/31-jjscatterstats-comprehensive.md):
 
 - [Predictive Power Score (PPS) Analysis with
   jpps](https://www.serdarbalci.com/jjstatsplot/articles/31-jpps-comprehensive.md):
@@ -164,9 +155,6 @@
 
 - [Troubleshooting Guide and FAQ for
   jjstatsplot](https://www.serdarbalci.com/jjstatsplot/articles/legacy/31-troubleshooting-faq-legacy.md):
-
-- [jjstreamgraph: Comprehensive Interactive Stream Graph
-  Visualization](https://www.serdarbalci.com/jjstatsplot/articles/32-jjstreamgraph-comprehensive.md):
 
 - [Social Science Statistical Visualization with
   jsjplot](https://www.serdarbalci.com/jjstatsplot/articles/32-jsjplot-comprehensive.md):

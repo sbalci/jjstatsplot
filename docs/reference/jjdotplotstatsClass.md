@@ -1,6 +1,6 @@
-# Dot Chart
+# Horizontal Box-Violin Comparison
 
-Dot Chart
+Horizontal Box-Violin Comparison
 
 ## Value
 

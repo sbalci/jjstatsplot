@@ -128,11 +128,7 @@ cat("==================================================\n\n")
 grade_by_group <- jjbarstats(
   data = clinical_data,
   dep = "Grade", # Dependent variable (outcome)
-  group = "Group", # Grouping variable (treatment)
-  title = "Tumor Grade Distribution by Treatment Group",
-  subtitle = "Chi-square test for independence",
-  xlab = "Treatment Group",
-  ylab = "Count"
+  group = "Group" # Grouping variable (treatment)
 )
 
 # Results interpretation
@@ -152,7 +148,6 @@ cat("- Treatment group differences may indicate selection bias or treatment effe
 Useful for showing the composition of categorical variables.
 
 ``` r
-
 # Pie Chart Example - Recurrence Risk Distribution
 # In jamovi: JJStatsPlot > Categorical > Pie Charts
 
@@ -161,9 +156,7 @@ cat("================================================\n\n")
 
 recurrence_pie <- jjpiestats(
   data = clinical_data,
-  dep = "Recurrence_Risk",
-  title = "Patient Distribution by Recurrence Risk",
-  subtitle = "Low, Intermediate, and High Risk Categories"
+  dep = "Recurrence_Risk", Intermediate, and High Risk Categories"
 )
 
 # Risk stratification summary
@@ -202,12 +195,11 @@ age_by_risk <- jjbetweenstats(
   data = clinical_data,
   dep = "Age", # Continuous outcome variable
   group = "High_Risk", # Grouping variable
-  type = "parametric", # Statistical test type
-  pairwise.comparisons = TRUE, # Post-hoc comparisons
-  title = "Age Distribution by Risk Category",
-  subtitle = "Two-sample t-test with effect size",
-  xlab = "Risk Category",
-  ylab = "Age (years)"
+  typestatistics = "parametric", # Statistical test type
+  pairwisecomparisons = TRUE, # Post-hoc comparisons
+  mytitle = "Age Distribution by Risk Category",
+  xtitle = "Risk Category",
+  ytitle = "Age (years)"
 )
 
 # Effect size interpretation
@@ -244,8 +236,7 @@ age_histogram <- jjhistostats(
   data = clinical_data,
   dep = "Age",
   test.value = 65, # Test against clinically relevant age
-  type = "parametric",
-  normal.curve = TRUE, # Overlay normal distribution
+  typestatistics = "parametric", # Overlay normal distribution
   title = "Patient Age Distribution",
   subtitle = "One-sample t-test against age 65",
   xlab = "Age (years)",
@@ -295,14 +286,13 @@ cat("=============================================\n\n")
 # Using measurement variables from histopathology data
 biomarker_scatter <- jjscatterstats(
   data = clinical_data,
-  x = "MeasurementA", # First biomarker
-  y = "MeasurementB", # Second biomarker
-  type = "parametric",
-  conf.level = 0.95,
-  title = "Biomarker A vs Biomarker B Correlation",
-  subtitle = "Pearson correlation with 95% confidence interval",
-  xlab = "Biomarker A Expression",
-  ylab = "Biomarker B Expression"
+  dep = "MeasurementA", # First biomarker
+  group = "MeasurementB", # Second biomarker
+  typestatistics = "parametric",
+  conflevel = 0.95,
+  mytitle = "Biomarker A vs Biomarker B Correlation",
+  xtitle = "Biomarker A Expression",
+  ytitle = "Biomarker B Expression"
 )
 
 # Correlation strength interpretation
@@ -340,7 +330,7 @@ continuous_vars <- clinical_data %>%
 if (nrow(continuous_vars) > 10) {
   correlation_matrix <- jjcorrmat(
     data = continuous_vars,
-    type = "parametric",
+    typestatistics = "parametric",
     title = "Clinical Variables Correlation Matrix",
     subtitle = "Pearson correlations with significance testing"
   )
@@ -392,15 +382,12 @@ paired_data <- clinical_data %>%
 if (nrow(paired_data) > 0) {
   paired_comparison <- jjwithinstats(
     data = paired_data,
-    x = "Timepoint",
-    y = "Biomarker_Level",
-    id = "Patient_ID",
-    paired = TRUE,
-    type = "parametric",
-    title = "Pre vs Post-Treatment Biomarker Levels",
-    subtitle = "Paired t-test with individual trajectories",
-    xlab = "Treatment Timepoint",
-    ylab = "Biomarker Level"
+    dep1 = "Timepoint",
+    dep2 = "Biomarker_Level",
+    typestatistics = "parametric",
+    mytitle = "Pre vs Post-Treatment Biomarker Levels",
+    xtitle = "Treatment Timepoint",
+    ytitle = "Biomarker Level"
   )
 
   cat("Paired Analysis Advantages:\n")

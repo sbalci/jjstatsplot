@@ -2,7 +2,7 @@
 title: "jjstatsplot: Statistical Visualization with Oncology Data"
 author: "ClinicoPath Team"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include = FALSE}

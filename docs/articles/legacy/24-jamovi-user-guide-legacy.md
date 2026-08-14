@@ -29,7 +29,7 @@ with submenus for different analysis types.
 The jjstatsplot analyses are organized by data type:
 
 - **Continuous**: Histogram
-- **Continuous vs Continuous**: Scatter Plot, Correlation Matrix  
+- **Continuous vs Continuous**: Scatter Plot, Correlation Matrix\
 - **Categorical vs Continuous**: Box-Violin Plots, Dot Charts
 - **Categorical vs Categorical**: Bar Charts, Pie Charts
 - **Distribution**: Waffle Charts

@@ -1,6 +1,6 @@
 ---
 title: "Comparing Paired Data with Within-Subject Plots"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,8 +8,6 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE
 library(jjstatsplot)
 library(tidyr)
 ```
-
-# Comparing Paired Data with Within-Subject Plots
 
 This guide explains how to analyze paired data, such as before-and-after measurements, using the **Within-Subject Plots** function in jamovi.
 

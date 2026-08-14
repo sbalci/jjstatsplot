@@ -1,11 +1,9 @@
 # Visualizing Categorical Data with Bar Charts
 
-## Visualizing Categorical Data with Bar Charts
-
 This guide demonstrates how to visualize the relationship between two
 categorical variables using a bar chart in jamovi.
 
-### The Clinical Scenario
+## The Clinical Scenario
 
 A researcher is investigating the effectiveness of mammography as a
 screening tool. They want to answer the following question:
@@ -15,7 +13,7 @@ screening tool. They want to answer the following question:
 
 We will use the `breast_cancer_data` dataset to explore this question.
 
-### Step 1: The Analysis
+## Step 1: The Analysis
 
 1.  Load the `breast_cancer_data.omv` dataset into jamovi.
 2.  From the main analysis ribbon, click on **JJStatsPlot** -\>
@@ -36,7 +34,7 @@ Charts.\] \*\*\*
 \[Screenshot of the analysis window showing the variables being
 assigned.\] \*\*\*
 
-### Step 2: The Output Plot
+## Step 2: The Output Plot
 
 jamovi will generate the following bar chart, which shows the
 distribution of mammography results for patients with and without a
@@ -51,15 +49,11 @@ data("breast_cancer_data", package = "ClinicoPath")
 jjbarstats(
   data = breast_cancer_data,
   dep = "mammography",
-  group = "cancer_status",
-  title = "Mammography Results by Cancer Status",
-  subtitle = "Chi-square test for independence",
-  xlab = "Cancer Status",
-  ylab = "Count"
+  group = "cancer_status"
 )
 ```
 
-### Step 3: Interpreting the Plot and Statistics
+## Step 3: Interpreting the Plot and Statistics
 
 - **The Plot**: The bar chart shows the counts of patients for each
   combination of mammography result and cancer status.
@@ -82,7 +76,7 @@ jjbarstats(
     measure of the strength of the association. Here, *V* = 0.48, which
     is considered a **moderate to large** effect size.
 
-### Step 4: Reporting the Results
+## Step 4: Reporting the Results
 
 Here is an example of how to report these findings:
 

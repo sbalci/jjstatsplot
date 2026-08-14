@@ -1,6 +1,6 @@
 ---
 title: "Continuous Variable Comparisons"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}

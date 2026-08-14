@@ -13,8 +13,8 @@ for enhanced customization and connectivity features.
 ``` r
 advancedraincloud(
   data,
-  y_var,
-  x_var,
+  y_var = NULL,
+  x_var = NULL,
   fill_var = NULL,
   id_var = NULL,
   cov_var = NULL,

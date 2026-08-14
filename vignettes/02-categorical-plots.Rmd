@@ -1,14 +1,12 @@
 ---
 title: "Visualizing Categorical Data with Bar Charts"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE)
 library(jjstatsplot)
 ```
-
-# Visualizing Categorical Data with Bar Charts
 
 This guide demonstrates how to visualize the relationship between two categorical variables using a bar chart in jamovi.
 

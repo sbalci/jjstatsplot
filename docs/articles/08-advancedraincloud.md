@@ -1,13 +1,11 @@
 # Advanced Distribution Visualization with Raincloud Plots
 
-## Advanced Distribution Visualization with Raincloud Plots
-
 A raincloud plot is a modern and informative way to visualize the
 distribution of data. It combines a violin plot, a box plot, and the raw
 data points into a single figure, providing a great deal of information
 at a glance.
 
-### The Clinical Scenario
+## The Clinical Scenario
 
 A researcher is comparing the effectiveness of two different therapies.
 They have collected a “score” from patients in two groups: a control
@@ -19,7 +17,7 @@ group and a treatment group. They want to answer the question:
 A raincloud plot is an excellent way to visualize the answer to this
 question.
 
-### Step 1: The Analysis in jamovi
+## Step 1: The Analysis in jamovi
 
 1.  Load the `advancedraincloud_data.omv` dataset into jamovi.
 2.  From the main analysis ribbon, click on **JJStatsPlot** -\>
@@ -39,7 +37,7 @@ Raincloud Plot.\] \*\*\*
 \[Screenshot of the analysis window showing the variables being
 assigned.\] \*\*\*
 
-### Step 2: The Output Plot
+## Step 2: The Output Plot
 
 jamovi will generate the following raincloud plot:
 
@@ -53,13 +51,13 @@ advancedraincloud_data$group <- factor(advancedraincloud_data$group)
 
 advancedraincloud(
   data = advancedraincloud_data,
-  dep = "score",
-  group = "group",
-  title = "Score Distribution by Group with Raincloud Plot"
+  y_var = "score",
+  x_var = "group",
+  plot_title = "Score Distribution by Group with Raincloud Plot"
 )
 ```
 
-### Step 3: Interpreting the Plot
+## Step 3: Interpreting the Plot
 
 The raincloud plot has three components:
 
@@ -78,7 +76,7 @@ From this plot, we can see that the treatment group appears to have
 higher scores than the control group. The distribution of the treatment
 group is shifted to the right.
 
-### Advanced Feature: Longitudinal Connections
+## Advanced Feature: Longitudinal Connections
 
 The advanced raincloud plot has a powerful feature for visualizing
 paired or repeated-measures data. If you have data from the same
@@ -94,7 +92,7 @@ analysis window and turn on the `Show Longitudinal` option.
 \[Image of a raincloud plot with longitudinal connections, showing lines
 connecting the dots between two time points.\] \*\*\*
 
-### Step 4: Reporting the Results
+## Step 4: Reporting the Results
 
 When reporting the results of a raincloud plot, you should describe the
 visual findings and supplement them with the appropriate statistical

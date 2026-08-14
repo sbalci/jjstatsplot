@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.52</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.53.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,15 +123,12 @@
 
     
     
-<div class="section level2">
-<h2 id="comparing-paired-data-with-within-subject-plots">Comparing Paired Data with Within-Subject Plots<a class="anchor" aria-label="anchor" href="#comparing-paired-data-with-within-subject-plots"></a>
-</h2>
 <p>This guide explains how to analyze paired data, such as
 before-and-after measurements, using the <strong>Within-Subject
 Plots</strong> function in jamovi.</p>
-<div class="section level3">
-<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
-</h3>
+<div class="section level2">
+<h2 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h2>
 <p>A clinical researcher is testing a new drug. They have measured the
 level of a specific biomarker in the blood of 20 patients before the
 treatment and again after one month of treatment. They want to answer
@@ -143,9 +140,9 @@ the biomarker level?</strong></p>
 <p>This is a “paired” or “within-subject” design because we have two
 measurements for each patient.</p>
 </div>
-<div class="section level3">
-<h3 id="step-1-prepare-the-data">Step 1: Prepare the Data<a class="anchor" aria-label="anchor" href="#step-1-prepare-the-data"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-1-prepare-the-data">Step 1: Prepare the Data<a class="anchor" aria-label="anchor" href="#step-1-prepare-the-data"></a>
+</h2>
 <p>For a within-subject analysis in jamovi, the data needs to be in a
 <strong>long format</strong>. This means that each row represents a
 single observation. Our dataset should have three columns:</p>
@@ -186,9 +183,9 @@ measurement.</li>
 <span><span class="co"># View the first few rows of the long-format data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">long_data</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-2-the-analysis-in-jamovi">Step 2: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-2-the-analysis-in-jamovi"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-2-the-analysis-in-jamovi">Step 2: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-2-the-analysis-in-jamovi"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>Load your long-format data into jamovi.</li>
 <li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
@@ -214,9 +211,9 @@ box.</li>
 <p>[Screenshot of the analysis window showing the variables being
 assigned.] ***</p>
 </div>
-<div class="section level3">
-<h3 id="step-3-the-output-plot">Step 3: The Output Plot<a class="anchor" aria-label="anchor" href="#step-3-the-output-plot"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-3-the-output-plot">Step 3: The Output Plot<a class="anchor" aria-label="anchor" href="#step-3-the-output-plot"></a>
+</h2>
 <p>jamovi will generate the following plot, which shows the change in
 biomarker level for each patient.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -231,9 +228,9 @@ biomarker level for each patient.</p>
 <span>  ytitle <span class="op">=</span> <span class="st">"Biomarker Level"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-4-interpreting-the-plot-and-statistics">Step 4: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-4-interpreting-the-plot-and-statistics"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-4-interpreting-the-plot-and-statistics">Step 4: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-4-interpreting-the-plot-and-statistics"></a>
+</h2>
 <ul>
 <li><p><strong>The Plot</strong>: The plot shows the biomarker level for
 each patient at the two time points. The lines connecting the dots show
@@ -259,9 +256,9 @@ significant decrease in the biomarker level.</li>
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="step-5-reporting-the-results">Step 5: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-5-reporting-the-results"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-5-reporting-the-results">Step 5: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-5-reporting-the-results"></a>
+</h2>
 <p>Here is an example of how to report these findings:</p>
 <blockquote>
 <p>A paired-samples t-test was conducted to evaluate the impact of the
@@ -271,7 +268,6 @@ to after treatment (M = 78.3, SD = 16.8), <em>t</em>(19) = 8.5,
 <em>p</em> &lt; 0.001. The effect size was very large (Cohen’s d = 2.1),
 indicating a substantial treatment effect.</p>
 </blockquote>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

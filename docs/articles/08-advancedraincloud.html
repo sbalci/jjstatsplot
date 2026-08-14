@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.52</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.53.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,16 +123,13 @@
 
     
     
-<div class="section level2">
-<h2 id="advanced-distribution-visualization-with-raincloud-plots">Advanced Distribution Visualization with Raincloud Plots<a class="anchor" aria-label="anchor" href="#advanced-distribution-visualization-with-raincloud-plots"></a>
-</h2>
 <p>A raincloud plot is a modern and informative way to visualize the
 distribution of data. It combines a violin plot, a box plot, and the raw
 data points into a single figure, providing a great deal of information
 at a glance.</p>
-<div class="section level3">
-<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
-</h3>
+<div class="section level2">
+<h2 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h2>
 <p>A researcher is comparing the effectiveness of two different
 therapies. They have collected a “score” from patients in two groups: a
 control group and a treatment group. They want to answer the
@@ -144,9 +141,9 @@ the control and treatment groups?</strong></p>
 <p>A raincloud plot is an excellent way to visualize the answer to this
 question.</p>
 </div>
-<div class="section level3">
-<h3 id="step-1-the-analysis-in-jamovi">Step 1: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-1-the-analysis-in-jamovi"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-1-the-analysis-in-jamovi">Step 1: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-1-the-analysis-in-jamovi"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>Load the <code>advancedraincloud_data.omv</code> dataset into
 jamovi.</li>
@@ -171,9 +168,9 @@ Variable</strong> box.</li>
 <p>[Screenshot of the analysis window showing the variables being
 assigned.] ***</p>
 </div>
-<div class="section level3">
-<h3 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
+</h2>
 <p>jamovi will generate the following raincloud plot:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load raincloud data</span></span>
@@ -189,9 +186,9 @@ assigned.] ***</p>
 <span>  plot_title <span class="op">=</span> <span class="st">"Score Distribution by Group with Raincloud Plot"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-3-interpreting-the-plot">Step 3: Interpreting the Plot<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-plot"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-3-interpreting-the-plot">Step 3: Interpreting the Plot<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-plot"></a>
+</h2>
 <p>The raincloud plot has three components:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -212,9 +209,9 @@ show the range of the data.</li>
 higher scores than the control group. The distribution of the treatment
 group is shifted to the right.</p>
 </div>
-<div class="section level3">
-<h3 id="advanced-feature-longitudinal-connections">Advanced Feature: Longitudinal Connections<a class="anchor" aria-label="anchor" href="#advanced-feature-longitudinal-connections"></a>
-</h3>
+<div class="section level2">
+<h2 id="advanced-feature-longitudinal-connections">Advanced Feature: Longitudinal Connections<a class="anchor" aria-label="anchor" href="#advanced-feature-longitudinal-connections"></a>
+</h2>
 <p>The advanced raincloud plot has a powerful feature for visualizing
 paired or repeated-measures data. If you have data from the same
 patients at two different time points, you can connect the dots to see
@@ -227,9 +224,9 @@ ID variable. You would then assign the ID variable to the
 <p>[Image of a raincloud plot with longitudinal connections, showing
 lines connecting the dots between two time points.] ***</p>
 </div>
-<div class="section level3">
-<h3 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
+</h2>
 <p>When reporting the results of a raincloud plot, you should describe
 the visual findings and supplement them with the appropriate statistical
 test (e.g., a t-test or ANOVA).</p>
@@ -241,7 +238,6 @@ higher values compared to the control group. A two-sample t-test
 confirmed that this difference was statistically significant
 (<em>t</em>(98) = -5.4, <em>p</em> &lt; 0.001).</p>
 </blockquote>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

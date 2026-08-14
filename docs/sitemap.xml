@@ -1,6 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/404.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/CLAUDE.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/LICENSE.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/articles/00-whats-new-1-0-52.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/articles/01-introduction.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/articles/01-jamovi-user-guide.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/articles/02-categorical-plots.html</loc></url>
@@ -72,6 +74,8 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/authors.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/index.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/news/index.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/%!in%.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/%notin%.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/advancedraincloud.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/advancedraincloudClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/bootstrapIDI.html</loc></url>
@@ -98,6 +102,8 @@
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjbetweenstatsClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjcorrmat.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjcorrmatClass.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjdotchart.html</loc></url>
+<url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjdotchartClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjdotplotstats.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjdotplotstatsClass.html</loc></url>
 <url><loc>https://www.serdarbalci.com/jjstatsplot/reference/jjhistostats.html</loc></url>

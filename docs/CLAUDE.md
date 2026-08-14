@@ -112,7 +112,7 @@ jmvtools::install()  # Creates jjstatsplot.jmo in build/R4.4.2-macos/
 ### Core Statistical Plots
 
 1.  **jjhistostats** - Histograms with statistical annotations
-2.  **jjscatterstats** - Scatter plots with regression details  
+2.  **jjscatterstats** - Scatter plots with regression details\
 3.  **jjcorrmat** - Correlation matrices
 4.  **jjbetweenstats** - Between-groups comparisons (box-violin plots)
 5.  **jjdotplotstats** - Dot charts with summary statistics

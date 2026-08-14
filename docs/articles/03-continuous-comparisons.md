@@ -1,11 +1,9 @@
 # Comparing Paired Data with Within-Subject Plots
 
-## Comparing Paired Data with Within-Subject Plots
-
 This guide explains how to analyze paired data, such as before-and-after
 measurements, using the **Within-Subject Plots** function in jamovi.
 
-### The Clinical Scenario
+## The Clinical Scenario
 
 A clinical researcher is testing a new drug. They have measured the
 level of a specific biomarker in the blood of 20 patients before the
@@ -18,7 +16,7 @@ the question:
 This is a “paired” or “within-subject” design because we have two
 measurements for each patient.
 
-### Step 1: Prepare the Data
+## Step 1: Prepare the Data
 
 For a within-subject analysis in jamovi, the data needs to be in a
 **long format**. This means that each row represents a single
@@ -59,7 +57,7 @@ long_data$timepoint <- factor(long_data$timepoint,
 head(long_data)
 ```
 
-### Step 2: The Analysis in jamovi
+## Step 2: The Analysis in jamovi
 
 1.  Load your long-format data into jamovi.
 2.  From the main analysis ribbon, click on **JJStatsPlot** -\>
@@ -80,7 +78,7 @@ Within Subject plot.\] \*\*\*
 \[Screenshot of the analysis window showing the variables being
 assigned.\] \*\*\*
 
-### Step 3: The Output Plot
+## Step 3: The Output Plot
 
 jamovi will generate the following plot, which shows the change in
 biomarker level for each patient.
@@ -90,19 +88,16 @@ biomarker level for each patient.
 # Create the plot using jjwithinstats
 jjwithinstats(
   data = long_data,
-  x = "timepoint",
-  y = "biomarker_level",
-  id = "patient_id",
-  paired = TRUE,
-  type = "parametric",
-  title = "Biomarker Levels Before and After Treatment",
-  subtitle = "Paired t-test with individual trajectories",
-  xlab = "Timepoint",
-  ylab = "Biomarker Level"
+  dep1 = "timepoint",
+  dep2 = "biomarker_level",
+  typestatistics = "parametric",
+  mytitle = "Biomarker Levels Before and After Treatment",
+  xtitle = "Timepoint",
+  ytitle = "Biomarker Level"
 )
 ```
 
-### Step 4: Interpreting the Plot and Statistics
+## Step 4: Interpreting the Plot and Statistics
 
 - **The Plot**: The plot shows the biomarker level for each patient at
   the two time points. The lines connecting the dots show the trajectory
@@ -120,7 +115,7 @@ jjwithinstats(
   - **Effect Size**: The plot shows Cohen’s *d* = 2.1, which is a very
     large effect size.
 
-### Step 5: Reporting the Results
+## Step 5: Reporting the Results
 
 Here is an example of how to report these findings:
 

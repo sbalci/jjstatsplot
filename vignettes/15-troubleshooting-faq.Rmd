@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting Guide for ClinicoPath"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}

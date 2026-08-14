@@ -1,14 +1,12 @@
 ---
 title: "Exploring Relationships with Scatter Plots"
-output: rmarkdown::html_vignette
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE)
 library(jjstatsplot)
 ```
-
-# Exploring Relationships with Scatter Plots
 
 This guide demonstrates how to explore the relationship between two continuous variables using a scatter plot.
 

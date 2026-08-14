@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.52</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.53.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,14 +123,11 @@
 
     
     
-<div class="section level2">
-<h2 id="exploring-relationships-with-scatter-plots">Exploring Relationships with Scatter Plots<a class="anchor" aria-label="anchor" href="#exploring-relationships-with-scatter-plots"></a>
-</h2>
 <p>This guide demonstrates how to explore the relationship between two
 continuous variables using a scatter plot.</p>
-<div class="section level3">
-<h3 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
-</h3>
+<div class="section level2">
+<h2 id="the-clinical-scenario">The Clinical Scenario<a class="anchor" aria-label="anchor" href="#the-clinical-scenario"></a>
+</h2>
 <p>A pathologist is studying malignant melanoma and wants to know if
 there is a relationship between the patient's age and the thickness of
 the tumor. The research question is:</p>
@@ -142,9 +139,9 @@ patient age and tumor thickness in melanoma?</strong></p>
 the <code>boot</code> package and re-exported by
 <code>ClinicoPath</code>, to investigate this question.</p>
 </div>
-<div class="section level3">
-<h3 id="step-1-the-analysis-in-jamovi">Step 1: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-1-the-analysis-in-jamovi"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-1-the-analysis-in-jamovi">Step 1: The Analysis in jamovi<a class="anchor" aria-label="anchor" href="#step-1-the-analysis-in-jamovi"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>Load the <code>melanoma</code> dataset into jamovi.</li>
 <li>From the main analysis ribbon, click on <strong>JJStatsPlot</strong>
@@ -168,9 +165,9 @@ box.</li>
 <p>[Screenshot of the analysis window showing the variables being
 assigned.] ***</p>
 </div>
-<div class="section level3">
-<h3 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-2-the-output-plot">Step 2: The Output Plot<a class="anchor" aria-label="anchor" href="#step-2-the-output-plot"></a>
+</h2>
 <p>jamovi will generate the following scatter plot, which shows the
 relationship between age and tumor thickness.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -188,9 +185,9 @@ relationship between age and tumor thickness.</p>
 <span>  ytitle <span class="op">=</span> <span class="st">"Tumor Thickness (mm)"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-3-interpreting-the-plot-and-statistics">Step 3: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-plot-and-statistics"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-3-interpreting-the-plot-and-statistics">Step 3: Interpreting the Plot and Statistics<a class="anchor" aria-label="anchor" href="#step-3-interpreting-the-plot-and-statistics"></a>
+</h2>
 <ul>
 <li><p><strong>The Plot</strong>: Each point on the plot represents a
 single patient. The plot shows that there is a lot of variability in
@@ -220,9 +217,9 @@ tumor thickness in this dataset.</li>
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-4-reporting-the-results">Step 4: Reporting the Results<a class="anchor" aria-label="anchor" href="#step-4-reporting-the-results"></a>
+</h2>
 <p>Here is an example of how to report these findings:</p>
 <blockquote>
 <p>A Pearson correlation was run to determine the relationship between
@@ -232,7 +229,6 @@ two variables (<em>r</em> = 0.13, <em>p</em> = 0.06). This suggests that
 there is no statistically significant linear relationship between age
 and tumor thickness in this patient cohort.</p>
 </blockquote>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

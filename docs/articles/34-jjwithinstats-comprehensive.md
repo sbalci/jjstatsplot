@@ -874,7 +874,7 @@ The `jjwithinstats` function provides a comprehensive solution for
 within-subjects analysis with:
 
 - **Flexible Design Support**: 2-4 repeated measurements
-- **Statistical Rigor**: Multiple test types and correction methods  
+- **Statistical Rigor**: Multiple test types and correction methods\
 - **Visual Excellence**: Customizable publication-ready plots
 - **Performance Optimization**: Efficient rendering for large datasets
 - **Clinical Applicability**: Ideal for longitudinal and intervention

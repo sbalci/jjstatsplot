@@ -12,14 +12,16 @@ plots, bar charts, and alluvial diagrams.
 ``` r
 statsplot2(
   data,
-  dep,
-  group,
+  dep = NULL,
+  group = NULL,
   grvar = NULL,
   direction = "independent",
   distribution = "p",
   alluvsty = "t1",
   excl = FALSE,
   sampleLarge = FALSE,
+  sampleThreshold = 10000,
+  sampleSize = 5000,
   seed = 42
 )
 ```
@@ -69,6 +71,18 @@ statsplot2(
 
   If TRUE, automatically samples large datasets (\>10,000 rows) to 5,000
   rows for improved performance.
+
+- sampleThreshold:
+
+  Row count above which sampling is applied, when 'Sample large
+  datasets' is enabled. Datasets at or below this size are always
+  analysed in full.
+
+- sampleSize:
+
+  Number of rows to retain when sampling. Larger values keep more
+  statistical power at the cost of plotting speed. Statistics are
+  computed on the retained rows only.
 
 - seed:
 

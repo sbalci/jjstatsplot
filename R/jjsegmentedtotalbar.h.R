@@ -640,7 +640,7 @@ jjsegmentedtotalbarBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjsegmentedtotalbar",
-                version = c(1,0,52),
+                version = c(1,0,6),
                 options = options,
                 results = jjsegmentedtotalbarResults$new(options=options),
                 data = data,

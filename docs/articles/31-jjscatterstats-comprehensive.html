@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title> • jjstatsplot</title>
+<title>jjscatterstats: Comprehensive Scatter Plot Analysis • jjstatsplot</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="jjscatterstats: Comprehensive Scatter Plot Analysis">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">jjstatsplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.53.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
+<li><a class="dropdown-item" href="../articles/00-whats-new-1-0-52.html">What's New in jjstatsplot 1.0.52</a></li>
+    <li><a class="dropdown-item" href="../articles/01-introduction.html">jjStatsPlot 01: Statistical Visualization for Pathologists</a></li>
     <li><a class="dropdown-item" href="../articles/01-jamovi-user-guide.html">jamovi User Guide for ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/02-categorical-plots.html">Visualizing Categorical Data with Bar Charts</a></li>
     <li><a class="dropdown-item" href="../articles/03-continuous-comparisons.html">Comparing Paired Data with Within-Subject Plots</a></li>
@@ -45,7 +46,6 @@
     <li><a class="dropdown-item" href="../articles/legacy/07-continuous-comparisons-legacy.html">Continuous Variable Comparisons</a></li>
     <li><a class="dropdown-item" href="../articles/08-advancedraincloud.html">Advanced Distribution Visualization with Raincloud Plots</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/08-categorical-plots-legacy.html">Categorical Plot Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/09-advancedtree.html">Advanced Decision Tree Analysis in ClinicoPath</a></li>
     <li><a class="dropdown-item" href="../articles/09-analysis-gallery.html">Complete Analysis Gallery - All jjstatsplot Functions</a></li>
     <li><a class="dropdown-item" href="../articles/09-basegraphics.html">Base Graphics Visualization - Fast &amp; Customizable Base R Plots</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/09-continuous-comparisons-legacy.html">Categorical Plot Functions</a></li>
@@ -65,7 +65,6 @@
     <li><a class="dropdown-item" href="../articles/20-jggheatmap-comprehensive.html">Advanced Heatmap Visualization with jggheatmap</a></li>
     <li><a class="dropdown-item" href="../articles/21-jggridges-comprehensive.html">Ridge Plot Visualization with jggridges</a></li>
     <li><a class="dropdown-item" href="../articles/22-jggsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jggsankeyfier</a></li>
-    <li><a class="dropdown-item" href="../articles/22-jjsankeyfier-comprehensive.html">Comprehensive Guide to Sankey &amp; Alluvial Diagrams with jjsankeyfier</a></li>
     <li><a class="dropdown-item" href="../articles/23-jggstats-comprehensive.html">Comprehensive Guide to Enhanced Statistical Visualization with jggstats</a></li>
     <li><a class="dropdown-item" href="../articles/23-jjbarstats-comprehensive.html">Comprehensive Bar Chart Analysis with jjbarstats</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/24-jamovi-user-guide-legacy.html">Complete jamovi User Guide for jjstatsplot</a></li>
@@ -75,18 +74,15 @@
     <li><a class="dropdown-item" href="../articles/26-jjdotplotstats-comprehensive.html">jjdotplotstats: Comprehensive Dot Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/27-jjhistostats-comprehensive.html">jjhistostats: Comprehensive Histogram Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/28-jjpiestats-comprehensive.html">jjpiestats: Pie Charts with Performance Optimization and Visualization Best Practices</a></li>
-    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Comprehensive Ridgeline Plot Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/29-jjridgestats-comprehensive.html">jjridgestats: Comprehensive Ridgeline Plot Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/29-jjridges-comprehensive.html">jjridges: Ridgeline Plots</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/29-quick-reference-legacy.html">Quick Reference Guide for jjstatsplot</a></li>
-    <li><a class="dropdown-item" href="../articles/30-jjriverplot-comprehensive.html">jjriverplot: Comprehensive River Plot and Flow Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/30-linechart-comprehensive.html">Line Charts for Clinical Time Series and Trend Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/30-r-programming-guide-legacy.html">R Programming Guide for jjstatsplot</a></li>
-    <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">UNKNOWN TITLE</a></li>
+    <li><a class="dropdown-item" href="../articles/31-jjscatterstats-comprehensive.html">jjscatterstats: Comprehensive Scatter Plot Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/31-jpps-comprehensive.html">Predictive Power Score (PPS) Analysis with jpps</a></li>
     <li><a class="dropdown-item" href="../articles/31-jscattermore-comprehensive.html">High-Performance Scatter Plots with jscattermore</a></li>
     <li><a class="dropdown-item" href="../articles/31-lollipop-comprehensive.html">Lollipop Charts for Clinical Categorical Data Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/legacy/31-troubleshooting-faq-legacy.html">Troubleshooting Guide and FAQ for jjstatsplot</a></li>
-    <li><a class="dropdown-item" href="../articles/32-jjstreamgraph-comprehensive.html">jjstreamgraph: Comprehensive Interactive Stream Graph Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/32-jsjplot-comprehensive.html">Social Science Statistical Visualization with jsjplot</a></li>
     <li><a class="dropdown-item" href="../articles/33-jjtreemap-comprehensive.html">jjtreemap: Comprehensive Treemap Visualization</a></li>
     <li><a class="dropdown-item" href="../articles/33-jsummarytools-comprehensive.html">Comprehensive Descriptive Statistics with jsummarytools</a></li>
@@ -118,8 +114,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1></h1>
+      <h1>jjscatterstats: Comprehensive Scatter Plot Analysis</h1>
+                        <h4 data-toc-skip class="author">ClinicoPath</h4>
             
+            <h4 data-toc-skip class="date">2026-08-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sbalci/ClinicoPathJamoviModule/blob/HEAD/vignettes/31-jjscatterstats-comprehensive.Rmd" class="external-link"><code>vignettes/31-jjscatterstats-comprehensive.Rmd</code></a></small>
       <div class="d-none name"><code>31-jjscatterstats-comprehensive.Rmd</code></div>
@@ -127,95 +125,626 @@
 
     
     
-<p>—: "jjscatterstats: Comprehensive Scatter Plot Analysis":
-"ClinicoPath": "2026-07-15": html:
-&gt;%\VignetteIndexEntry{jjscatterstats: Comprehensive Scatter Plot
-Analysis}%\VignetteEngine{quarto::html}%\VignetteEncoding{UTF-8}—<code>{r, include = FALSE}\nknitr::opts_chunk$set(\n  collapse = TRUE,\n  comment = \"#&gt;\",\n  fig.width = 8,\n  fig.height = 6,\n  warning = FALSE,\n  message = FALSE\n)\n</code>#
-Introduction to jjscatterstats<code>jjscatterstats</code> function is a
-powerful wrapper around <code><a href="https://www.indrapatil.com/ggstatsplot/reference/ggscatterstats.html" class="external-link">ggstatsplot::ggscatterstats()</a></code> and
+<div class="section level2">
+<h2 id="introduction-to-jjscatterstats">Introduction to jjscatterstats<a class="anchor" aria-label="anchor" href="#introduction-to-jjscatterstats"></a>
+</h2>
+<p>The <code>jjscatterstats</code> function is a powerful wrapper around
+<code><a href="https://www.indrapatil.com/ggstatsplot/reference/ggscatterstats.html" class="external-link">ggstatsplot::ggscatterstats()</a></code> and
 <code><a href="https://www.indrapatil.com/ggstatsplot/reference/grouped_ggscatterstats.html" class="external-link">ggstatsplot::grouped_ggscatterstats()</a></code> that provides
 comprehensive scatter plot analysis with statistical testing
 capabilities. This function is particularly useful for exploring
 relationships between continuous variables in clinical and research
-settings.## Key Features- <strong>Statistical Analysis</strong>:
-Automatic correlation analysis with multiple statistical approaches-
-<strong>Flexible Grouping</strong>: Support for grouped analysis across
-categorical variables- <strong>Multiple Statistical Types</strong>:
-Parametric, non-parametric, robust, and Bayesian statistics-
+settings.</p>
+<div class="section level3">
+<h3 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
+</h3>
+<ul>
+<li>
+<strong>Statistical Analysis</strong>: Automatic correlation
+analysis with multiple statistical approaches</li>
+<li>
+<strong>Flexible Grouping</strong>: Support for grouped analysis
+across categorical variables</li>
+<li>
+<strong>Multiple Statistical Types</strong>: Parametric,
+non-parametric, robust, and Bayesian statistics</li>
+<li>
 <strong>Customizable Visualization</strong>: Extensive theming and
-labeling options- <strong>Performance Optimized</strong>: Enhanced
-caching and data preparation for faster rendering## Loading Required
-Libraries<code>{r setup}\nlibrary(jjstatsplot)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Load example datasets\ndata(iris)\ndata(mtcars)\n</code>#
-Basic Scatter Plot Analysis## Simple Correlation Analysis’s start with a
-basic scatter plot analyzing the relationship between sepal length and
-petal length in the iris
-dataset:<code>{r basic-example}\n# Basic scatter plot with parametric correlation\nresult_basic &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  mytitle = \"Sepal Length vs Petal Length\",\n  xtitle = \"Sepal Length (cm)\",\n  ytitle = \"Petal Length (cm)\"\n)\n\nprint(result_basic)\n</code>##
-Different Statistical Approaches### Non-parametric
-Analysis<code>{r nonparametric}\n# Non-parametric correlation (Spearman's rho)\nresult_nonparam &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Width\",\n  typestatistics = \"nonparametric\",\n  mytitle = \"Non-parametric Correlation Analysis\"\n)\n\nprint(result_nonparam)\n</code>###
-Robust
-Statistics<code>{r robust}\n# Robust correlation analysis\nresult_robust &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Width\",\n  group = \"Petal.Length\",\n  typestatistics = \"robust\",\n  mytitle = \"Robust Correlation Analysis\"\n)\n\nprint(result_robust)\n</code>###
-Bayesian
-Analysis<code>{r bayesian}\n# Bayesian correlation analysis\nresult_bayes &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Sepal.Width\",\n  typestatistics = \"bayes\",\n  mytitle = \"Bayesian Correlation Analysis\"\n)\n\nprint(result_bayes)\n</code>#
-Grouped Analysis## Scatter Plot by Speciesof the most powerful features
-is the ability to create grouped scatter
-plots:<code>{r grouped-analysis}\n# Grouped scatter plot by species\nresult_grouped &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  grvar = \"Species\",\n  typestatistics = \"parametric\",\n  mytitle = \"Correlation Analysis by Species\"\n)\n\nprint(result_grouped)\n</code>##
-Multiple Group Analysis with
-mtcars<code>{r mtcars-grouped}\n# Prepare mtcars data\nmtcars_modified &lt;- mtcars %&gt;%\n  mutate(\n    transmission = factor(am, levels = c(0, 1), labels = c(\"Automatic\", \"Manual\")),\n    cylinders = factor(cyl)\n  )\n\n# Grouped analysis of mpg vs horsepower by transmission type\nresult_mtcars &lt;- jjscatterstats(\n  data = mtcars_modified,\n  dep = \"hp\",\n  group = \"mpg\",\n  grvar = \"transmission\",\n  typestatistics = \"parametric\",\n  mytitle = \"MPG vs Horsepower by Transmission Type\",\n  xtitle = \"Horsepower\",\n  ytitle = \"Miles per Gallon\"\n)\n\nprint(result_mtcars)\n</code>#
-Clinical Research Applications## Using Clinical Test
-Data<code>{r clinical-example, eval=FALSE}\n# Example with clinical data (if available)\n# This demonstrates typical clinical research scenarios\n\n# Load clinical test data\ndata(jjscatterstats_clinical)\n\n# Analyze tumor size vs Ki67 percentage\nclinical_result &lt;- jjscatterstats(\n  data = jjscatterstats_clinical,\n  dep = \"tumor_size_mm\",\n  group = \"ki67_percentage\",\n  grvar = \"stage\",\n  typestatistics = \"parametric\",\n  mytitle = \"Tumor Size vs Ki67 by Cancer Stage\",\n  xtitle = \"Tumor Size (mm)\",\n  ytitle = \"Ki67 Percentage (%)\"\n)\n\nprint(clinical_result)\n</code>##
-Biomarker Correlation
-Analysis<code>{r biomarker-example, eval=FALSE}\n# Biomarker correlation analysis\nbiomarker_result &lt;- jjscatterstats(\n  data = jjscatterstats_clinical,\n  dep = \"mutation_count\",\n  group = \"survival_months\",\n  grvar = \"histology\",\n  typestatistics = \"nonparametric\",\n  mytitle = \"Mutation Count vs Survival by Histology\",\n  xtitle = \"Mutation Count\",\n  ytitle = \"Survival (months)\"\n)\n\nprint(biomarker_result)\n</code>#
-Advanced Customization## Theme
-Customization<code>{r theme-custom}\n# Using original ggstatsplot theme\nresult_original_theme &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  originaltheme = TRUE,\n  mytitle = \"Original ggstatsplot Theme\"\n)\n\nprint(result_original_theme)\n</code>##
-Custom Labels and
-Titles<code>{r custom-labels}\n# Comprehensive labeling\nresult_labeled &lt;- jjscatterstats(\n  data = mtcars,\n  dep = \"wt\",\n  group = \"mpg\",\n  typestatistics = \"parametric\",\n  mytitle = \"Vehicle Weight vs Fuel Efficiency\",\n  xtitle = \"Weight (1000 lbs)\",\n  ytitle = \"Miles per Gallon\",\n  resultssubtitle = TRUE\n)\n\nprint(result_labeled)\n</code>##
-Controlling Statistical Results
-Display<code>{r results-control}\n# Hide statistical results subtitle\nresult_no_stats &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Width\",\n  group = \"Petal.Width\",\n  typestatistics = \"parametric\",\n  mytitle = \"Clean Plot Without Statistics\",\n  resultssubtitle = FALSE\n)\n\nprint(result_no_stats)\n</code>#
-Performance Considerations## Large Dataset Handlingfunction includes
-several performance
-optimizations:<code>{r performance-demo, eval=FALSE}\n# Performance test with larger dataset\ndata(jjscatterstats_performance)\n\n# This should render efficiently due to optimizations\nstart_time &lt;- Sys.time()\nperformance_result &lt;- jjscatterstats(\n  data = jjscatterstats_performance,\n  dep = \"measurement_1\",\n  group = \"measurement_2\",\n  grvar = \"lab_id\",\n  typestatistics = \"parametric\",\n  mytitle = \"Performance Test - Large Dataset\"\n)\nend_time &lt;- Sys.time()\n\ncat(\"Rendering time:\", difftime(end_time, start_time, units = \"secs\"), \"seconds\\n\")\nprint(performance_result)\n</code>##
-Data Caching and Optimizationfunction implements several performance
-enhancements:. <strong>Data Preparation Caching</strong>: Processed data
-is cached to avoid recomputation. <strong>Option Preprocessing</strong>:
-Common option processing is done once and cached. <strong>Hash-based
-Change Detection</strong>: Only reprocesses data when inputs change.
+labeling options</li>
+<li>
+<strong>Performance Optimized</strong>: Enhanced caching and data
+preparation for faster rendering</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="loading-required-libraries">Loading Required Libraries<a class="anchor" aria-label="anchor" href="#loading-required-libraries"></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.serdarbalci.com/jjstatsplot/">jjstatsplot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load example datasets</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="basic-scatter-plot-analysis">Basic Scatter Plot Analysis<a class="anchor" aria-label="anchor" href="#basic-scatter-plot-analysis"></a>
+</h2>
+<div class="section level3">
+<h3 id="simple-correlation-analysis">Simple Correlation Analysis<a class="anchor" aria-label="anchor" href="#simple-correlation-analysis"></a>
+</h3>
+<p>Let’s start with a basic scatter plot analyzing the relationship
+between sepal length and petal length in the iris dataset:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Basic scatter plot with parametric correlation</span></span>
+<span><span class="va">result_basic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Sepal Length vs Petal Length"</span>,</span>
+<span>  xtitle <span class="op">=</span> <span class="st">"Sepal Length (cm)"</span>,</span>
+<span>  ytitle <span class="op">=</span> <span class="st">"Petal Length (cm)"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_basic</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/basic-example-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="different-statistical-approaches">Different Statistical Approaches<a class="anchor" aria-label="anchor" href="#different-statistical-approaches"></a>
+</h3>
+<div class="section level4">
+<h4 id="non-parametric-analysis">Non-parametric Analysis<a class="anchor" aria-label="anchor" href="#non-parametric-analysis"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Non-parametric correlation (Spearman's rho)</span></span>
+<span><span class="va">result_nonparam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Width"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"nonparametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Non-parametric Correlation Analysis"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_nonparam</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/nonparametric-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level4">
+<h4 id="robust-statistics">Robust Statistics<a class="anchor" aria-label="anchor" href="#robust-statistics"></a>
+</h4>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Robust correlation analysis</span></span>
+<span><span class="va">result_robust</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Width"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"robust"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Robust Correlation Analysis"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_robust</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/robust-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level4">
+<h4 id="bayesian-analysis">Bayesian Analysis<a class="anchor" aria-label="anchor" href="#bayesian-analysis"></a>
+</h4>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Bayesian correlation analysis</span></span>
+<span><span class="va">result_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Sepal.Width"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"bayes"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Bayesian Correlation Analysis"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_bayes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/bayesian-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="grouped-analysis">Grouped Analysis<a class="anchor" aria-label="anchor" href="#grouped-analysis"></a>
+</h2>
+<div class="section level3">
+<h3 id="scatter-plot-by-species">Scatter Plot by Species<a class="anchor" aria-label="anchor" href="#scatter-plot-by-species"></a>
+</h3>
+<p>One of the most powerful features is the ability to create grouped
+scatter plots:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Grouped scatter plot by species</span></span>
+<span><span class="va">result_grouped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  grvar <span class="op">=</span> <span class="st">"Species"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Correlation Analysis by Species"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_grouped</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/grouped-analysis-1.png" class="r-plt" alt="" width="768"><img src="31-jjscatterstats-comprehensive_files/figure-html/grouped-analysis-2.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="multiple-group-analysis-with-mtcars">Multiple Group Analysis with mtcars<a class="anchor" aria-label="anchor" href="#multiple-group-analysis-with-mtcars"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare mtcars data</span></span>
+<span><span class="va">mtcars_modified</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Automatic"</span>, <span class="st">"Manual"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    cylinders <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Grouped analysis of mpg vs horsepower by transmission type</span></span>
+<span><span class="va">result_mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mtcars_modified</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"hp"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"mpg"</span>,</span>
+<span>  grvar <span class="op">=</span> <span class="st">"transmission"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"MPG vs Horsepower by Transmission Type"</span>,</span>
+<span>  xtitle <span class="op">=</span> <span class="st">"Horsepower"</span>,</span>
+<span>  ytitle <span class="op">=</span> <span class="st">"Miles per Gallon"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_mtcars</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/mtcars-grouped-1.png" class="r-plt" alt="" width="768"><img src="31-jjscatterstats-comprehensive_files/figure-html/mtcars-grouped-2.png" class="r-plt" alt="" width="768"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="clinical-research-applications">Clinical Research Applications<a class="anchor" aria-label="anchor" href="#clinical-research-applications"></a>
+</h2>
+<div class="section level3">
+<h3 id="using-clinical-test-data">Using Clinical Test Data<a class="anchor" aria-label="anchor" href="#using-clinical-test-data"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example with clinical data (if available)</span></span>
+<span><span class="co"># This demonstrates typical clinical research scenarios</span></span>
+<span></span>
+<span><span class="co"># Load clinical test data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jjscatterstats_clinical</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Analyze tumor size vs Ki67 percentage</span></span>
+<span><span class="va">clinical_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">jjscatterstats_clinical</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"tumor_size_mm"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"ki67_percentage"</span>,</span>
+<span>  grvar <span class="op">=</span> <span class="st">"stage"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Tumor Size vs Ki67 by Cancer Stage"</span>,</span>
+<span>  xtitle <span class="op">=</span> <span class="st">"Tumor Size (mm)"</span>,</span>
+<span>  ytitle <span class="op">=</span> <span class="st">"Ki67 Percentage (%)"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">clinical_result</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="biomarker-correlation-analysis">Biomarker Correlation Analysis<a class="anchor" aria-label="anchor" href="#biomarker-correlation-analysis"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Biomarker correlation analysis</span></span>
+<span><span class="va">biomarker_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">jjscatterstats_clinical</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"mutation_count"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"survival_months"</span>,</span>
+<span>  grvar <span class="op">=</span> <span class="st">"histology"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"nonparametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Mutation Count vs Survival by Histology"</span>,</span>
+<span>  xtitle <span class="op">=</span> <span class="st">"Mutation Count"</span>,</span>
+<span>  ytitle <span class="op">=</span> <span class="st">"Survival (months)"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">biomarker_result</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="advanced-customization">Advanced Customization<a class="anchor" aria-label="anchor" href="#advanced-customization"></a>
+</h2>
+<div class="section level3">
+<h3 id="theme-customization">Theme Customization<a class="anchor" aria-label="anchor" href="#theme-customization"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Using original ggstatsplot theme</span></span>
+<span><span class="va">result_original_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  originaltheme <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Original ggstatsplot Theme"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_original_theme</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/theme-custom-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="custom-labels-and-titles">Custom Labels and Titles<a class="anchor" aria-label="anchor" href="#custom-labels-and-titles"></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Comprehensive labeling</span></span>
+<span><span class="va">result_labeled</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"wt"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"mpg"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Vehicle Weight vs Fuel Efficiency"</span>,</span>
+<span>  xtitle <span class="op">=</span> <span class="st">"Weight (1000 lbs)"</span>,</span>
+<span>  ytitle <span class="op">=</span> <span class="st">"Miles per Gallon"</span>,</span>
+<span>  resultssubtitle <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_labeled</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/custom-labels-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="controlling-statistical-results-display">Controlling Statistical Results Display<a class="anchor" aria-label="anchor" href="#controlling-statistical-results-display"></a>
+</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Hide statistical results subtitle</span></span>
+<span><span class="va">result_no_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Width"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Width"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Clean Plot Without Statistics"</span>,</span>
+<span>  resultssubtitle <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_no_stats</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/results-control-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="performance-considerations">Performance Considerations<a class="anchor" aria-label="anchor" href="#performance-considerations"></a>
+</h2>
+<div class="section level3">
+<h3 id="large-dataset-handling">Large Dataset Handling<a class="anchor" aria-label="anchor" href="#large-dataset-handling"></a>
+</h3>
+<p>The function includes several performance optimizations:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Performance test with larger dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">jjscatterstats_performance</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># This should render efficiently due to optimizations</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">performance_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">jjscatterstats_performance</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"measurement_1"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"measurement_2"</span>,</span>
+<span>  grvar <span class="op">=</span> <span class="st">"lab_id"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Performance Test - Large Dataset"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">end_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Rendering time:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime</a></span><span class="op">(</span><span class="va">end_time</span>, <span class="va">start_time</span>, units <span class="op">=</span> <span class="st">"secs"</span><span class="op">)</span>, <span class="st">"seconds\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">performance_result</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="data-caching-and-optimization">Data Caching and Optimization<a class="anchor" aria-label="anchor" href="#data-caching-and-optimization"></a>
+</h3>
+<p>The function implements several performance enhancements:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Data Preparation Caching</strong>: Processed data is cached
+to avoid recomputation</li>
+<li>
+<strong>Option Preprocessing</strong>: Common option processing is
+done once and cached</li>
+<li>
+<strong>Hash-based Change Detection</strong>: Only reprocesses data
+when inputs change</li>
+<li>
 <strong>Efficient Memory Usage</strong>: Minimizes data copying and
-transformation overhead# Edge Cases and Data Validation## Handling
-Missing
-Values<code>{r missing-values}\n# Create data with missing values\niris_with_na &lt;- iris\niris_with_na[1:10, \"Sepal.Length\"] &lt;- NA\niris_with_na[15:20, \"Petal.Length\"] &lt;- NA\n\n# Function automatically handles missing values\nresult_na &lt;- jjscatterstats(\n  data = iris_with_na,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  mytitle = \"Handling Missing Values\"\n)\n\nprint(result_na)\n</code>##
-Input
-Validation<code>{r validation-demo, error=TRUE}\n# Example of error handling\ntry({\n  result_error &lt;- jjscatterstats(\n    data = data.frame(),  # Empty dataset\n    dep = \"nonexistent\",\n    group = \"variable\",\n    typestatistics = \"parametric\"\n  )\n})\n</code>#
-Best Practices and Recommendations## Statistical Type Selection-
+transformation overhead</li>
+</ol>
+</div>
+</div>
+<div class="section level2">
+<h2 id="edge-cases-and-data-validation">Edge Cases and Data Validation<a class="anchor" aria-label="anchor" href="#edge-cases-and-data-validation"></a>
+</h2>
+<div class="section level3">
+<h3 id="handling-missing-values">Handling Missing Values<a class="anchor" aria-label="anchor" href="#handling-missing-values"></a>
+</h3>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create data with missing values</span></span>
+<span><span class="va">iris_with_na</span> <span class="op">&lt;-</span> <span class="va">iris</span></span>
+<span><span class="va">iris_with_na</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="st">"Sepal.Length"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="va">iris_with_na</span><span class="op">[</span><span class="fl">15</span><span class="op">:</span><span class="fl">20</span>, <span class="st">"Petal.Length"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="co"># Function automatically handles missing values</span></span>
+<span><span class="va">result_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris_with_na</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  mytitle <span class="op">=</span> <span class="st">"Handling Missing Values"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_na</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  SCATTER PLOT</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  You have selected to use a scatter plot with correlation analysis.</span></span></code></pre></div>
+<p><img src="31-jjscatterstats-comprehensive_files/figure-html/missing-values-1.png" class="r-plt" alt="" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="input-validation">Input Validation<a class="anchor" aria-label="anchor" href="#input-validation"></a>
+</h3>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example of error handling</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">result_error</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span>,  <span class="co"># Empty dataset</span></span>
+<span>    dep <span class="op">=</span> <span class="st">"nonexistent"</span>,</span>
+<span>    group <span class="op">=</span> <span class="st">"variable"</span>,</span>
+<span>    typestatistics <span class="op">=</span> <span class="st">"parametric"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error : Argument 'dep' contains 'nonexistent' which is not present in the dataset</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="best-practices-and-recommendations">Best Practices and Recommendations<a class="anchor" aria-label="anchor" href="#best-practices-and-recommendations"></a>
+</h2>
+<div class="section level3">
+<h3 id="statistical-type-selection">Statistical Type Selection<a class="anchor" aria-label="anchor" href="#statistical-type-selection"></a>
+</h3>
+<ul>
+<li>
 <strong>Parametric</strong>: Use when data is normally distributed
-(Pearson correlation)- <strong>Non-parametric</strong>: Use for
-non-normal data or ordinal variables (Spearman correlation)-
+(Pearson correlation)</li>
+<li>
+<strong>Non-parametric</strong>: Use for non-normal data or ordinal
+variables (Spearman correlation)</li>
+<li>
 <strong>Robust</strong>: Use when data has outliers (percentage bend
-correlation)- <strong>Bayesian</strong>: Use for incorporating prior
-knowledge or uncertainty quantification## Visualization Guidelines.
-<strong>Choose appropriate variables</strong>: Both x and y should be
-continuous. <strong>Consider grouping</strong>: Use grouping variables
-to reveal subgroup patterns. <strong>Label clearly</strong>: Always
-provide meaningful titles and axis labels. <strong>Statistical
-reporting</strong>: Include statistical results unless specifically
-hiding them## Performance Tips. <strong>Large datasets</strong>: The
-function is optimized for datasets up to several thousand rows.
-<strong>Multiple analyses</strong>: Reuse data objects when possible to
-benefit from caching. <strong>Grouping variables</strong>: Limit
-grouping variables to reasonable numbers of levels (&lt; 10)#
-Troubleshooting Common Issues## Variable Type
-Issues<code>{r variable-types}\n# Ensure variables are numeric\nstr(iris[c(\"Sepal.Length\", \"Petal.Length\")])\n\n# The function automatically converts to numeric, but it's good practice to check\n</code>##
-Memory and
-Performance<code>{r memory-tips, eval=FALSE}\n# For very large datasets, consider:\n# 1. Sampling your data first\nset.seed(123)\nsampled_data &lt;- iris[sample(nrow(iris), 100), ]\n\nresult_sampled &lt;- jjscatterstats(\n  data = sampled_data,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\"\n)\n\n# 2. Using simpler statistical methods for initial exploration\nresult_simple &lt;- jjscatterstats(\n  data = iris,\n  dep = \"Sepal.Length\",\n  group = \"Petal.Length\",\n  typestatistics = \"parametric\",\n  resultssubtitle = FALSE  # Faster rendering\n)\n</code>#
-Summary<code>jjscatterstats</code> function provides a comprehensive
-solution for scatter plot analysis with:- Multiple statistical testing
-approaches- Flexible grouping capabilities- Performance optimizations
-for larger datasets- Extensive customization options- Robust error
-handling and validationmakes it an excellent choice for exploratory data
-analysis, clinical research, and statistical reporting in the jamovi
-environment.## Function Referencecomplete parameter documentation, see:-
-<a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html" class="external-link">ggstatsplot::ggscatterstats</a>-
-<a href="https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggscatterstats.html" class="external-link">ggstatsplot::grouped_ggscatterstats</a><code>{r session-info}\n# Session information\nsessionInfo()\n</code></p>
-  </main>
+correlation)</li>
+<li>
+<strong>Bayesian</strong>: Use for incorporating prior knowledge or
+uncertainty quantification</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="visualization-guidelines">Visualization Guidelines<a class="anchor" aria-label="anchor" href="#visualization-guidelines"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Choose appropriate variables</strong>: Both x and y should
+be continuous</li>
+<li>
+<strong>Consider grouping</strong>: Use grouping variables to reveal
+subgroup patterns</li>
+<li>
+<strong>Label clearly</strong>: Always provide meaningful titles and
+axis labels</li>
+<li>
+<strong>Statistical reporting</strong>: Include statistical results
+unless specifically hiding them</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="performance-tips">Performance Tips<a class="anchor" aria-label="anchor" href="#performance-tips"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Large datasets</strong>: The function is optimized for
+datasets up to several thousand rows</li>
+<li>
+<strong>Multiple analyses</strong>: Reuse data objects when possible
+to benefit from caching</li>
+<li>
+<strong>Grouping variables</strong>: Limit grouping variables to
+reasonable numbers of levels (&lt; 10)</li>
+</ol>
+</div>
+</div>
+<div class="section level2">
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues<a class="anchor" aria-label="anchor" href="#troubleshooting-common-issues"></a>
+</h2>
+<div class="section level3">
+<h3 id="variable-type-issues">Variable Type Issues<a class="anchor" aria-label="anchor" href="#variable-type-issues"></a>
+</h3>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Ensure variables are numeric</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    150 obs. of  2 variables:</span></span>
+<span><span class="co">#&gt;  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span><span class="co">#&gt;  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span></span>
+<span><span class="co"># The function automatically converts to numeric, but it's good practice to check</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="memory-and-performance">Memory and Performance<a class="anchor" aria-label="anchor" href="#memory-and-performance"></a>
+</h3>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For very large datasets, consider:</span></span>
+<span><span class="co"># 1. Sampling your data first</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">sampled_data</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">result_sampled</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">sampled_data</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 2. Using simpler statistical methods for initial exploration</span></span>
+<span><span class="va">result_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jjscatterstats.html">jjscatterstats</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">iris</span>,</span>
+<span>  dep <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"Petal.Length"</span>,</span>
+<span>  typestatistics <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  resultssubtitle <span class="op">=</span> <span class="cn">FALSE</span>  <span class="co"># Faster rendering</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>The <code>jjscatterstats</code> function provides a comprehensive
+solution for scatter plot analysis with:</p>
+<ul>
+<li>Multiple statistical testing approaches</li>
+<li>Flexible grouping capabilities</li>
+<li>Performance optimizations for larger datasets</li>
+<li>Extensive customization options</li>
+<li>Robust error handling and validation</li>
+</ul>
+<p>This makes it an excellent choice for exploratory data analysis,
+clinical research, and statistical reporting in the jamovi
+environment.</p>
+<div class="section level3">
+<h3 id="function-reference">Function Reference<a class="anchor" aria-label="anchor" href="#function-reference"></a>
+</h3>
+<p>For complete parameter documentation, see:</p>
+<ul>
+<li><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html" class="external-link">ggstatsplot::ggscatterstats</a></li>
+<li><a href="https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggscatterstats.html" class="external-link">ggstatsplot::grouped_ggscatterstats</a></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Session information</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
+<span><span class="co">#&gt; Platform: aarch64-apple-darwin23</span></span>
+<span><span class="co">#&gt; Running under: macOS Tahoe 26.5.2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib </span></span>
+<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; locale:</span></span>
+<span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: Europe/Istanbul</span></span>
+<span><span class="co">#&gt; tzcode source: internal</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attached base packages:</span></span>
+<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; other attached packages:</span></span>
+<span><span class="co">#&gt; [1] dplyr_1.2.1           ggplot2_4.0.3         jjstatsplot_1.0.53.01</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span><span class="co">#&gt;   [1] ggstatsplot_1.0.0         splines_4.6.0            </span></span>
+<span><span class="co">#&gt;   [3] later_1.4.8               tibble_3.3.1             </span></span>
+<span><span class="co">#&gt;   [5] ggpp_0.6.1                jmvcore_2.7.38           </span></span>
+<span><span class="co">#&gt;   [7] polyclip_1.10-7           datawizard_1.3.1         </span></span>
+<span><span class="co">#&gt;   [9] hardhat_1.4.3             rpart_4.1.27             </span></span>
+<span><span class="co">#&gt;  [11] ggExtra_0.11.0            lifecycle_1.0.5          </span></span>
+<span><span class="co">#&gt;  [13] rstatix_1.1.0             globals_0.19.1           </span></span>
+<span><span class="co">#&gt;  [15] lattice_0.22-9            MASS_7.3-66              </span></span>
+<span><span class="co">#&gt;  [17] insight_1.5.2             ggdist_3.3.3             </span></span>
+<span><span class="co">#&gt;  [19] backports_1.5.1           magrittr_2.0.5           </span></span>
+<span><span class="co">#&gt;  [21] sass_0.4.10               rmarkdown_2.31           </span></span>
+<span><span class="co">#&gt;  [23] jquerylib_0.1.4           yaml_2.3.12              </span></span>
+<span><span class="co">#&gt;  [25] httpuv_1.6.17             otel_0.2.0               </span></span>
+<span><span class="co">#&gt;  [27] cowplot_1.2.0             pbapply_1.7-4            </span></span>
+<span><span class="co">#&gt;  [29] RColorBrewer_1.1-3        easyalluvial_0.4.1       </span></span>
+<span><span class="co">#&gt;  [31] lubridate_1.9.5           multcomp_1.4-31          </span></span>
+<span><span class="co">#&gt;  [33] abind_1.4-8               purrr_1.2.2              </span></span>
+<span><span class="co">#&gt;  [35] nnet_7.3-21               TH.data_1.1-5            </span></span>
+<span><span class="co">#&gt;  [37] tweenr_2.0.3              sandwich_3.1-3           </span></span>
+<span><span class="co">#&gt;  [39] ipred_0.9-15              lava_1.9.2               </span></span>
+<span><span class="co">#&gt;  [41] ggrepel_0.9.8             listenv_1.0.0            </span></span>
+<span><span class="co">#&gt;  [43] correlation_0.8.8         moments_0.14.1           </span></span>
+<span><span class="co">#&gt;  [45] MatrixModels_0.5-4        parallelly_1.48.0        </span></span>
+<span><span class="co">#&gt;  [47] pkgdown_2.2.1             codetools_0.2-20         </span></span>
+<span><span class="co">#&gt;  [49] DT_0.34.0                 ggforce_0.5.0            </span></span>
+<span><span class="co">#&gt;  [51] tidyselect_1.2.1          farver_2.1.2             </span></span>
+<span><span class="co">#&gt;  [53] viridis_0.6.5             effectsize_1.0.3         </span></span>
+<span><span class="co">#&gt;  [55] WRS2_1.1-7                jsonlite_2.0.0           </span></span>
+<span><span class="co">#&gt;  [57] progressr_1.0.0           Formula_1.2-6            </span></span>
+<span><span class="co">#&gt;  [59] ggridges_0.5.7            ggalluvial_0.12.6        </span></span>
+<span><span class="co">#&gt;  [61] survival_3.8-9            emmeans_2.0.4            </span></span>
+<span><span class="co">#&gt;  [63] systemfonts_1.3.2         tools_4.6.0              </span></span>
+<span><span class="co">#&gt;  [65] waffle_1.0.2              ragg_1.5.2               </span></span>
+<span><span class="co">#&gt;  [67] Rcpp_1.1.2                glue_1.8.1               </span></span>
+<span><span class="co">#&gt;  [69] prodlim_2026.03.11        gridExtra_2.3.1          </span></span>
+<span><span class="co">#&gt;  [71] Rttf2pt1_1.3.14           xfun_0.60                </span></span>
+<span><span class="co">#&gt;  [73] mgcv_1.9-4                distributional_0.8.1     </span></span>
+<span><span class="co">#&gt;  [75] ggsegmentedtotalbar_0.1.0 withr_3.0.3              </span></span>
+<span><span class="co">#&gt;  [77] fastmap_1.2.0             boot_1.3-32              </span></span>
+<span><span class="co">#&gt;  [79] digest_0.6.39             timechange_0.4.0         </span></span>
+<span><span class="co">#&gt;  [81] R6_2.6.1                  mime_0.13                </span></span>
+<span><span class="co">#&gt;  [83] estimability_2.0.0        ggprism_1.0.7            </span></span>
+<span><span class="co">#&gt;  [85] textshaping_1.0.5         ggrain_0.1.2             </span></span>
+<span><span class="co">#&gt;  [87] tidyr_1.3.2               generics_0.1.4           </span></span>
+<span><span class="co">#&gt;  [89] data.table_1.18.4         recipes_1.3.3            </span></span>
+<span><span class="co">#&gt;  [91] class_7.3-24              htmlwidgets_1.6.4        </span></span>
+<span><span class="co">#&gt;  [93] parameters_0.29.2         pkgconfig_2.0.3          </span></span>
+<span><span class="co">#&gt;  [95] gtable_0.3.6              timeDate_4052.112        </span></span>
+<span><span class="co">#&gt;  [97] statsExpressions_2.0.0    S7_0.2.2                 </span></span>
+<span><span class="co">#&gt;  [99] BayesFactor_0.9.12-4.8    htmltools_0.5.9          </span></span>
+<span><span class="co">#&gt; [101] carData_3.0-6             scales_1.4.0             </span></span>
+<span><span class="co">#&gt; [103] gower_1.0.2               knitr_1.51               </span></span>
+<span><span class="co">#&gt; [105] coda_0.19-4.1             nlme_3.1-170             </span></span>
+<span><span class="co">#&gt; [107] curl_7.1.0                cachem_1.1.0             </span></span>
+<span><span class="co">#&gt; [109] zoo_1.9-0                 stringr_1.6.0            </span></span>
+<span><span class="co">#&gt; [111] parallel_4.6.0            miniUI_0.1.2             </span></span>
+<span><span class="co">#&gt; [113] extrafont_0.20            desc_1.4.3               </span></span>
+<span><span class="co">#&gt; [115] pillar_1.11.1             grid_4.6.0               </span></span>
+<span><span class="co">#&gt; [117] reshape_0.8.10            vctrs_0.7.3              </span></span>
+<span><span class="co">#&gt; [119] promises_1.5.0            ggpubr_1.0.0             </span></span>
+<span><span class="co">#&gt; [121] car_3.1-5                 xtable_1.8-8             </span></span>
+<span><span class="co">#&gt; [123] extrafontdb_1.1           paletteer_1.7.0          </span></span>
+<span><span class="co">#&gt; [125] evaluate_1.0.5            mvtnorm_1.4-2            </span></span>
+<span><span class="co">#&gt; [127] cli_3.6.6                 compiler_4.6.0           </span></span>
+<span><span class="co">#&gt; [129] rlang_1.3.0               rstantools_2.7.0         </span></span>
+<span><span class="co">#&gt; [131] future.apply_1.20.2       ggsignif_0.6.4           </span></span>
+<span><span class="co">#&gt; [133] labeling_0.4.3            rematch2_2.1.2           </span></span>
+<span><span class="co">#&gt; [135] plyr_1.8.9                forcats_1.0.1            </span></span>
+<span><span class="co">#&gt; [137] fs_2.1.0                  stringi_1.8.9            </span></span>
+<span><span class="co">#&gt; [139] viridisLite_0.4.3         bayestestR_0.18.1        </span></span>
+<span><span class="co">#&gt; [141] Matrix_1.7-6              hms_1.1.4                </span></span>
+<span><span class="co">#&gt; [143] patchwork_1.3.2           future_1.75.0            </span></span>
+<span><span class="co">#&gt; [145] shiny_1.14.0              haven_2.5.5              </span></span>
+<span><span class="co">#&gt; [147] igraph_2.3.3              broom_1.0.13             </span></span>
+<span><span class="co">#&gt; [149] RcppParallel_6.2.0        bslib_0.12.0             </span></span>
+<span><span class="co">#&gt; [151] polynom_1.4-1</span></span></code></pre></div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
@@ -225,7 +754,7 @@ environment.## Function Referencecomplete parameter documentation, see:-
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

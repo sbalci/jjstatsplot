@@ -107,12 +107,11 @@ jjbetweenstats(
   data = breast_cancer_data,
   dep = "age",
   group = "cancer_status",
-  type = "parametric",            # Statistical test type
-  pairwise.comparisons = TRUE,    # Post-hoc comparisons
-  title = "Age Distribution by Cancer Status",
-  subtitle = "Two-sample t-test with effect size",
-  xlab = "Cancer Status",
-  ylab = "Age (years)"
+  typestatistics = "parametric",            # Statistical test type
+  pairwisecomparisons = TRUE,    # Post-hoc comparisons
+  mytitle = "Age Distribution by Cancer Status",
+  xtitle = "Cancer Status",
+  ytitle = "Age (years)"
 )
 ```
 

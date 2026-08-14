@@ -54,7 +54,7 @@ result <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "age_years",
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -89,7 +89,7 @@ result_grouped <- jjhistostats(
   dep = "psa_level",
   grvar = "disease_stage",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 2.0
 )
@@ -198,7 +198,7 @@ age_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "age_years",
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE,
   resultssubtitle = TRUE
 )
@@ -208,7 +208,7 @@ tumor_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "tumor_size_mm",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 5
 )
@@ -218,7 +218,7 @@ psa_hist <- jjhistostats(
   data = jjhistostats_test_data,
   dep = "psa_level",
   typestatistics = "robust",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 3
 )
@@ -238,7 +238,7 @@ biomarker_analysis <- jjhistostats(
   typestatistics = "parametric",
   centralityline = TRUE,
   resultssubtitle = TRUE,
-  normalcurve = TRUE
+  ggpubrAddDensity = TRUE
 )
 
 # Stratified analysis by treatment group
@@ -247,7 +247,7 @@ biomarker_by_treatment <- jjhistostats(
   dep = "crp_level",
   grvar = "treatment_group",
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   changebinwidth = TRUE,
   binwidth = 5
 )
@@ -265,7 +265,7 @@ norm_parametric <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "parametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -274,7 +274,7 @@ norm_nonparametric <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "nonparametric",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -283,7 +283,7 @@ norm_robust <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "robust",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -292,7 +292,7 @@ norm_bayes <- jjhistostats(
   data = jjhistostats_test_data,
   dep = variable_of_interest,
   typestatistics = "bayes",
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 ```
@@ -524,7 +524,7 @@ Histograms are essential for:
 initial_assessment <- jjhistostats(
   data = clinical_data,
   dep = c("primary_endpoint", "key_biomarker"),
-  normalcurve = TRUE,
+  ggpubrAddDensity = TRUE,
   centralityline = TRUE
 )
 
@@ -572,14 +572,14 @@ sessionInfo()
 
     ## R version 4.6.0 (2026-04-24)
     ## Platform: aarch64-apple-darwin23
-    ## Running under: macOS Tahoe 26.5.1
+    ## Running under: macOS Tahoe 26.5.2
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib 
     ## LAPACK: /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
     ## 
     ## locale:
-    ## [1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
+    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
     ## 
     ## time zone: Europe/Istanbul
     ## tzcode source: internal
@@ -589,9 +589,9 @@ sessionInfo()
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] digest_0.6.39     desc_1.4.3        R6_2.6.1          fastmap_1.2.0    
-    ##  [5] xfun_0.59         cachem_1.1.0      knitr_1.51        htmltools_0.5.9  
+    ##  [5] xfun_0.60         cachem_1.1.0      knitr_1.51        htmltools_0.5.9  
     ##  [9] rmarkdown_2.31    lifecycle_1.0.5   cli_3.6.6         sass_0.4.10      
-    ## [13] pkgdown_2.2.0     textshaping_1.0.5 jquerylib_0.1.4   systemfonts_1.3.2
-    ## [17] compiler_4.6.0    tools_4.6.0       ragg_1.5.2        bslib_0.11.0     
+    ## [13] pkgdown_2.2.1     textshaping_1.0.5 jquerylib_0.1.4   systemfonts_1.3.2
+    ## [17] compiler_4.6.0    tools_4.6.0       ragg_1.5.2        bslib_0.12.0     
     ## [21] evaluate_1.0.5    yaml_2.3.12       otel_0.2.0        jsonlite_2.0.0   
     ## [25] rlang_1.3.0       fs_2.1.0          htmlwidgets_1.6.4

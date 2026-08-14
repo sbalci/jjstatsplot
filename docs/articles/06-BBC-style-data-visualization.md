@@ -1,5 +1,18 @@
 # BBC-Style Data Visualization - Professional News Graphics
 
+> ## Not in the released module yet
+>
+> **`bbcplots` is still in development and is not part of jjstatsplot
+> 1.0.52.** It does not appear in the jamovi menu when you install this
+> release, and the R function is not exported. Everything below
+> describes the intended interface and is published early so the design
+> can be reviewed; option names and defaults may still change before it
+> ships.
+>
+> It is expected in a future release. For what is available today, see
+> the [analysis
+> gallery](https://www.serdarbalci.com/jjstatsplot/articles/09-analysis-gallery.md).
+
 ## Introduction to BBC-Style Data Visualization
 
 The BBC Visual and Data Journalism team has established world-class
@@ -313,7 +326,7 @@ Multiple format support
 
 For data with multiple categories, BBC provides a carefully balanced
 palette: - Primary: BBC Blue (#1380A1) - Secondary: BBC Orange
-(#FAAB18)  
+(#FAAB18)\
 - Tertiary: BBC Teal (#007f7f) - Quaternary: BBC Gray (#333333) -
 Additional: Deep Red (#990000), Forest Green (#007A54)
 
@@ -330,7 +343,7 @@ Additional: Deep Red (#990000), Forest Green (#007A54)
 #### **Font Hierarchy**
 
 - **Main Title**: 28pt Helvetica Bold
-- **Subtitle**: 22pt Helvetica Regular  
+- **Subtitle**: 22pt Helvetica Regular\
 - **Body Text**: 18pt Helvetica Regular
 - **Caption/Source**: 14pt Helvetica Regular
 
