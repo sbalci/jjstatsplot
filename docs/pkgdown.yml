@@ -1,7 +1,8 @@
-pandoc: 3.8.2.1
-pkgdown: 2.2.0
+pandoc: '3.10'
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  00-whats-new-1-0-52: 00-whats-new-1-0-52.html
   01-introduction: 01-introduction.html
   01-jamovi-user-guide: 01-jamovi-user-guide.html
   02-categorical-plots: 02-categorical-plots.html
@@ -14,7 +15,6 @@ articles:
   legacy/07-continuous-comparisons-legacy: legacy/07-continuous-comparisons-legacy.html
   08-advancedraincloud: 08-advancedraincloud.html
   legacy/08-categorical-plots-legacy: legacy/08-categorical-plots-legacy.html
-  09-advancedtree: 09-advancedtree.html
   09-analysis-gallery: 09-analysis-gallery.html
   09-basegraphics: 09-basegraphics.html
   legacy/09-continuous-comparisons-legacy: legacy/09-continuous-comparisons-legacy.html
@@ -34,7 +34,6 @@ articles:
   20-jggheatmap-comprehensive: 20-jggheatmap-comprehensive.html
   21-jggridges-comprehensive: 21-jggridges-comprehensive.html
   22-jggsankeyfier-comprehensive: 22-jggsankeyfier-comprehensive.html
-  22-jjsankeyfier-comprehensive: 22-jjsankeyfier-comprehensive.html
   23-jggstats-comprehensive: 23-jggstats-comprehensive.html
   23-jjbarstats-comprehensive: 23-jjbarstats-comprehensive.html
   legacy/24-jamovi-user-guide-legacy: legacy/24-jamovi-user-guide-legacy.html
@@ -45,9 +44,7 @@ articles:
   27-jjhistostats-comprehensive: 27-jjhistostats-comprehensive.html
   28-jjpiestats-comprehensive: 28-jjpiestats-comprehensive.html
   29-jjridges-comprehensive: 29-jjridges-comprehensive.html
-  29-jjridgestats-comprehensive: 29-jjridgestats-comprehensive.html
   legacy/29-quick-reference-legacy: legacy/29-quick-reference-legacy.html
-  30-jjriverplot-comprehensive: 30-jjriverplot-comprehensive.html
   30-linechart-comprehensive: 30-linechart-comprehensive.html
   legacy/30-r-programming-guide-legacy: legacy/30-r-programming-guide-legacy.html
   31-jjscatterstats-comprehensive: 31-jjscatterstats-comprehensive.html
@@ -55,7 +52,6 @@ articles:
   31-jscattermore-comprehensive: 31-jscattermore-comprehensive.html
   31-lollipop-comprehensive: 31-lollipop-comprehensive.html
   legacy/31-troubleshooting-faq-legacy: legacy/31-troubleshooting-faq-legacy.html
-  32-jjstreamgraph-comprehensive: 32-jjstreamgraph-comprehensive.html
   32-jsjplot-comprehensive: 32-jsjplot-comprehensive.html
   33-jjtreemap-comprehensive: 33-jjtreemap-comprehensive.html
   33-jsummarytools-comprehensive: 33-jsummarytools-comprehensive.html
@@ -65,7 +61,7 @@ articles:
   36-jwaffle-comprehensive: 36-jwaffle-comprehensive.html
   jjstatsplot-01-oncodatasets-examples: jjstatsplot-01-oncodatasets-examples.html
   use-jjstatsplot-in-R: use-jjstatsplot-in-R.html
-last_built: 2026-07-15T11:03Z
+last_built: 2026-08-14T13:06Z
 urls:
   reference: https://www.serdarbalci.com/jjstatsplot/reference
   article: https://www.serdarbalci.com/jjstatsplot/articles
