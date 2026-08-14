@@ -140,3 +140,4 @@ README_badges.md
 .claude
 ^data/.*\.omv$
 ^inst/extdata/.*\.omv$
+^data/.*\.csv$

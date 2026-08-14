@@ -1,7 +1,7 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for 'ggstatsplot'
-Version: 1.0.52
+Version: 1.0.53.01
 Date: 2026-08-13
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
  "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
@@ -51,9 +51,7 @@ Imports:
     haven,
     htmltools,
     igraph,
-    janitor,
     jmvcore,
-    labelled,
     magrittr,
     methods,
     moments,
@@ -62,7 +60,6 @@ Imports:
     R6,
     RColorBrewer,
     rlang,
-    rstatix,
     scales,
     statsExpressions,
     stringr,
