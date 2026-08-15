@@ -33,7 +33,7 @@ pathological research, line charts are essential for:
 1.  **Trend Identification**: Easily spot increasing, decreasing, or
     stable patterns
 2.  **Comparative Analysis**: Compare multiple groups or treatments
-    simultaneously\
+    simultaneously  
 3.  **Time Series Visualization**: Perfect for longitudinal and
     follow-up studies
 4.  **Statistical Integration**: Combine with trend lines, confidence
@@ -452,7 +452,7 @@ biomarker_result <- linechart(
 
 1.  **Response Patterns**:
     - **Responders**: Progressive decline in inflammatory markers
-    - **Non-responders**: Stable levels with minimal change\
+    - **Non-responders**: Stable levels with minimal change  
     - **Progressive disease**: Increasing inflammatory activity
 2.  **Predictive Value**:
     - Early biomarker changes may predict long-term response
@@ -991,7 +991,7 @@ enable:
 ### Key Clinical Applications
 
 - **Longitudinal Analysis**: Track patient outcomes over time
-- **Treatment Monitoring**: Assess intervention effectiveness\
+- **Treatment Monitoring**: Assess intervention effectiveness  
 - **Biomarker Evolution**: Follow disease progression markers
 - **Quality Improvement**: Monitor healthcare performance metrics
 - **Comparative Research**: Compare treatments or populations
@@ -1006,7 +1006,7 @@ enable:
 ### Best Practices Summary
 
 1.  **Design for audience**: Clinical vs. research presentations
-2.  **Include clinical context**: Reference lines and thresholds\
+2.  **Include clinical context**: Reference lines and thresholds  
 3.  **Handle missing data**: Transparent reporting of dropout patterns
 4.  **Statistical rigor**: Report correlations, confidence intervals,
     and p-values

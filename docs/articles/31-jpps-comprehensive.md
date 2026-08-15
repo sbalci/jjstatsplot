@@ -31,7 +31,7 @@ The `jpps()` function in ClinicoPath provides a comprehensive interface
 for PPS analysis with four analysis types:
 
 1.  **Single**: One predictor → one target
-2.  **Predictors**: Multiple predictors → one target\
+2.  **Predictors**: Multiple predictors → one target  
 3.  **Matrix**: All variables → all variables
 4.  **Compare**: PPS vs correlation comparison
 
@@ -752,17 +752,17 @@ The `jpps()` function provides a powerful, modern approach to
 relationship detection that goes beyond traditional correlation
 analysis. Key advantages include:
 
-✅ **Detects non-linear relationships**\
-✅ **Works with mixed data types**\
-✅ **Provides asymmetric insights**\
-✅ **Uses robust machine learning**\
-✅ **Includes performance optimizations**\
+✅ **Detects non-linear relationships**  
+✅ **Works with mixed data types**  
+✅ **Provides asymmetric insights**  
+✅ **Uses robust machine learning**  
+✅ **Includes performance optimizations**  
 ✅ **Offers comprehensive visualization**
 
 ### Next Steps
 
 1.  **Explore your data** with matrix analysis
-2.  **Compare with correlation** to identify missed relationships\
+2.  **Compare with correlation** to identify missed relationships  
 3.  **Focus on high-PPS predictors** for modeling
 4.  **Validate findings** with domain knowledge
 5.  **Use for feature selection** in machine learning pipelines

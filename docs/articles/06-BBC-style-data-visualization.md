@@ -326,7 +326,7 @@ Multiple format support
 
 For data with multiple categories, BBC provides a carefully balanced
 palette: - Primary: BBC Blue (#1380A1) - Secondary: BBC Orange
-(#FAAB18)\
+(#FAAB18)  
 - Tertiary: BBC Teal (#007f7f) - Quaternary: BBC Gray (#333333) -
 Additional: Deep Red (#990000), Forest Green (#007A54)
 
@@ -343,7 +343,7 @@ Additional: Deep Red (#990000), Forest Green (#007A54)
 #### **Font Hierarchy**
 
 - **Main Title**: 28pt Helvetica Bold
-- **Subtitle**: 22pt Helvetica Regular\
+- **Subtitle**: 22pt Helvetica Regular  
 - **Body Text**: 18pt Helvetica Regular
 - **Caption/Source**: 14pt Helvetica Regular
 

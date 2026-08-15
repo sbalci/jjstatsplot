@@ -540,7 +540,7 @@ integration with the `ggstatsplot` ecosystem ensures both statistical
 rigor and visual appeal, making it an excellent choice for:
 
 - Clinical trial analysis
-- Quality improvement studies\
+- Quality improvement studies  
 - Survey research
 - Diagnostic test evaluation
 - Healthcare outcomes research

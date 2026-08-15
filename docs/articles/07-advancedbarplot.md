@@ -757,7 +757,7 @@ ggplot(data, aes(x = Group, y = Age)) +
 ### 1. Choosing the Right Approach
 
 - **Basic**: Quick exploration, learning ggplot2
-- **Polished**: Business presentations, dashboards\
+- **Polished**: Business presentations, dashboards  
 - **Statistical**: Research papers, hypothesis testing
 - **Interactive**: Web apps, exploration tools
 - **Publication**: Journal submissions, formal reports
@@ -844,5 +844,5 @@ use cases in clinical research and data presentation.
 
 For more advanced statistical plotting, see the related modules: -
 `jjhistogram` for distribution analysis - `jjscatter` for correlation
-visualization\
+visualization  
 - `survival` for time-to-event analysis

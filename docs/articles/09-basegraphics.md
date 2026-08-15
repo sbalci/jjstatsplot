@@ -1054,7 +1054,7 @@ basegraphics(
 Base R graphics excel in performance compared to other plotting systems:
 
 - **Memory Usage**: ~50% less than ggplot2
-- **Rendering Speed**: ~2-3x faster than lattice graphics\
+- **Rendering Speed**: ~2-3x faster than lattice graphics  
 - **Load Time**: Instant (no package dependencies)
 - **Large Data**: Handles 100,000+ points efficiently
 - **Export Quality**: High-resolution vector output

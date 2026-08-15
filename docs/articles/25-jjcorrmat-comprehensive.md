@@ -241,7 +241,7 @@ str(jjcorrmat_test_data)
 
 - **Correlation strength**:
   - 0.00-0.30: Weak
-  - 0.30-0.70: Moderate\
+  - 0.30-0.70: Moderate  
   - 0.70-1.00: Strong
 - **Statistical significance**: Consider both p-values and effect sizes
 - **Clinical significance**: Strong statistical correlation may not be

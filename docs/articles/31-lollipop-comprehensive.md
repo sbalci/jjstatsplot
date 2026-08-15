@@ -100,7 +100,7 @@ Lollipop charts are particularly effective for displaying **ranked
 data**:
 
 - **Ascending Order**: Lowest to highest values
-- **Descending Order**: Highest to lowest values\
+- **Descending Order**: Highest to lowest values  
 - **Alphabetical Order**: Categorical ordering
 - **Clinical Significance**: Custom ordering based on clinical
   importance

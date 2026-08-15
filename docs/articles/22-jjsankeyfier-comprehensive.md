@@ -11,7 +11,7 @@ different stages. This guide covers three main diagram types:
 - **Sankey Diagrams**: Visualize flows between source and target nodes
   with thickness proportional to flow magnitude
 - **Alluvial Diagrams**: Show how categorical variables change across
-  multiple dimensions or time points\
+  multiple dimensions or time points  
 - **Parallel Sets**: Alternative representation using straight lines
   instead of curves
 
@@ -552,7 +552,7 @@ identify optimization opportunities.
 Key takeaways:
 
 - Choose diagram type based on data structure and analysis goals
-- Use appropriate aggregation for complex datasets\
+- Use appropriate aggregation for complex datasets  
 - Customize visual elements to enhance clarity
 - Validate visualizations against source data
 - Focus on actionable insights from flow patterns

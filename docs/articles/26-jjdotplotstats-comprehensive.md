@@ -317,7 +317,7 @@ str(jjdotplotstats_test_data)
 
 - **Cohen’s d / Hedge’s g**:
   - 0.2: Small effect
-  - 0.5: Medium effect\
+  - 0.5: Medium effect  
   - 0.8: Large effect
 - **Eta-squared / Omega-squared**:
   - 0.01: Small effect (1% variance explained)
