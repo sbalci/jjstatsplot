@@ -67,7 +67,7 @@ build_site_clean <- function() {
             paste(hidden, collapse = ", "))
   }
 
-  pkgdown::build_site()
+  pkgdown::build_site(lazy = TRUE)
 }
 
 build_site_clean()
