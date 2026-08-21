@@ -144,10 +144,7 @@
 #' @keywords hplot htest
 #'
 #' @importFrom R6 R6Class
-#' @import jmvcore
-#' @import glue
-#' @import tidyr
-#' @import ggplot2
+#' @importFrom jmvcore .
 #' @importFrom rlang sym
 #' @importFrom digest digest
 #' @importFrom ggstatsplot ggwithinstats theme_ggstatsplot
@@ -618,7 +615,12 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             missing_vars <- vars[!vars %in% names(mydata)]
             if (length(missing_vars) > 0) {
                 private$.accumulateDataMessage(
-                    paste0(.("<br> Variables not found in dataset: "), private$.safeHtmlOutput(paste(missing_vars, collapse = ", ")), "<br>")
+                    paste0(
+                        "<br>",
+                        jmvcore::format(
+                            .("Variables not found in the dataset: {vars}."),
+                            vars = private$.safeHtmlOutput(paste(missing_vars, collapse = ", "))),
+                        "<br>")
                 )
                 private$.prepared_data <- NULL
                 return(NULL)
@@ -677,7 +679,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             if (complete_cases < 3) {
                 warning_msg <- paste0(
-                    "<div style='background:#fff3cd; border-left:4px solid #ff9800; padding:15px; margin:10px 0;'>",
+                    "<div style='background-color: rgba(255, 202, 33, 0.23); border-left:4px solid #ff9800; padding:15px; margin:10px 0; color: inherit;'>",
                     "<h4 style='color:#ff6f00; margin-top:0;'> Insufficient Complete Cases for Paired Analysis</h4>",
                     "<p><strong>Within-subjects analysis requires complete data across all measurements.</strong></p>",
                     "<p>Current status:</p>",
@@ -696,7 +698,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             if (missing_pct > 50) {
                 warning_msg <- paste0(
-                    "<div style='background:#fff3cd; border-left:4px solid #ffc107; padding:15px; margin:10px 0;'>",
+                    "<div style='background-color: rgba(255, 202, 33, 0.23); border-left:4px solid #ffc107; padding:15px; margin:10px 0; color: inherit;'>",
                     "<h4 style='color:#ff9800; margin-top:0;'> High Missing Data Rate</h4>",
                     "<p><strong>Warning:</strong> ", round(missing_pct, 1), "% of subjects have incomplete measurements.</p>",
                     "<p>Paired analysis will only use the ", complete_cases, " subjects with complete data.</p>",
@@ -915,7 +917,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             guidance <- .(" <strong>What to look for:</strong><br>\u2022 Statistical significance (p < 0.05) indicates real changes over time<br>\u2022 Effect sizes show practical importance<br>\u2022 Individual trajectories reveal response patterns<br>\u2022 Outliers may indicate treatment non-responders or measurement errors")
             
             interpretation_parts <- list(
-                paste0("<div style='background-color:#f8f9fa;padding:15px;margin:10px 0;border-left:4px solid #007bff;'>"),
+                paste0("<div style='background-color: rgba(138, 155, 172, 0.06);padding:15px;margin:10px 0;border-left:4px solid #007bff; color: inherit;'>"),
                 paste0("<h4 style='margin-top:0;color:#007bff;'>", .("Clinical Context"), "</h4>"),
                 paste0("<p>", clinical_context, "</p>"),
                 paste0("<p><strong>", .("Test Used:"), "</strong> ", test_explanation, "</p>"),
@@ -958,7 +960,7 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
             
             summary_parts <- list(
-                paste0("<div style='background-color:#f0f8f0;padding:10px;border:1px solid #28a745;'>"),
+                paste0("<div style='background-color: rgba(33, 152, 33, 0.07);padding:10px;border:1px solid #28a745; color: inherit;'>"),
                 summary_header,
                 config_summary,
                 "</div>"
@@ -1214,7 +1216,10 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }, error = function(e) {
                 # htmlEscape e$message - ggwithinstats errors may include user column-name fragments
                 error_msg <- paste0(
-                    .("<br>Error creating within-subjects plot: "), private$.safeHtmlOutput(e$message),
+                    "<br>",
+                    jmvcore::format(
+                        .("The within-subjects plot could not be created: {error}"),
+                        error = private$.safeHtmlOutput(e$message)),
                     .("<br><br>Please check that:"),
                     .("<br>\u2022 All measurement variables contain numeric values"),
                     .("<br>\u2022 Data has at least 2 complete rows"),
@@ -1441,8 +1446,10 @@ jjwithinstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 # Surface the (html-escaped) error instead of failing silently.
                 # ggpubr messages may embed user column-name fragments.
                 error_msg <- paste0(
-                    .("<br>Error creating ggpubr plot: "),
-                    private$.safeHtmlOutput(e$message),
+                    "<br>",
+                    jmvcore::format(
+                        .("The ggpubr plot could not be created: {error}"),
+                        error = private$.safeHtmlOutput(e$message)),
                     .("<br>The primary within-subjects plot above is unaffected.<br><hr>")
                 )
                 self$results$todo$setContent(error_msg)

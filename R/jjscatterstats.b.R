@@ -1,7 +1,6 @@
 #' @title Scatter Plot
 #' @importFrom R6 R6Class
-#' @import jmvcore
-#' @import glue
+#' @importFrom jmvcore .
 #'
 #' @return An \code{R6} class generator object for the \code{jjscatterstatsClass} backend; used internally by the jamovi analysis wrapper and not called directly.
 
@@ -168,7 +167,7 @@ jjscatterstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         # so no HTML escaping is required.
         .presetMessage = function(title, items) {
             paste0(
-                "<div style='background:#e3f2fd; border-left:4px solid #2196F3; padding:15px; margin:10px 0;'>",
+                "<div style='background-color: rgba(33, 152, 239, 0.13); border-left:4px solid #2196F3; padding:15px; margin:10px 0; color: inherit;'>",
                 "<h4 style='color:#1976D2; margin-top:0;'> Clinical Preset Applied: ", title, "</h4>",
                 "<p><strong>The following settings have been automatically configured:</strong></p>",
                 "<ul>", paste0(items, collapse = ""), "</ul>",

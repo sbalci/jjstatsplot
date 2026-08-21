@@ -1,8 +1,6 @@
 #' @title Violin Plots to Compare Between Groups
 #' @importFrom R6 R6Class
-#' @import jmvcore
-#' @import glue
-#' @import ggplot2
+#' @importFrom jmvcore .
 #' @importFrom digest digest
 #'
 #' @return An \code{R6} class generator object for the \code{jjbetweenstatsClass} backend; used internally by the jamovi analysis wrapper and not called directly.
@@ -103,7 +101,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.null(private$.accumulated_messages) && length(private$.accumulated_messages) > 0) {
                 body <- paste(private$.accumulated_messages, collapse = "")
                 private$.diagnosticsHtml <- paste0(
-                    "<div style='padding: 12px 15px; background-color: #eef2f7; ",
+                    "<div style='padding: 12px 15px; background-color: rgba(33, 85, 151, 0.08); color: inherit; ",
                     "border-left: 4px solid #6c757d; margin: 10px 0;'>",
                     "<strong>Data Diagnostics &amp; Assumptions</strong>", body, "</div>"
                 )
@@ -475,7 +473,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             else
                 .("See the plot subtitle for the test statistic, p-value, and effect size.")
             clinical_text <- sprintf(
-                .("<div style='padding: 12px 15px; background-color: #eef7ee; border-left: 4px solid #28a745; margin: 10px 0;'><h4 style='margin-top:0;'>Results Summary</h4><p>%s comparing %s across %d group(s) (n = %d). %s</p></div>"),
+                .("<div style='padding: 12px 15px; background-color: rgba(33, 151, 33, 0.08); border-left: 4px solid #28a745; margin: 10px 0; color: inherit;'><h4 style='margin-top:0;'>Results Summary</h4><p>%s comparing %s across %d group(s) (n = %d). %s</p></div>"),
                 test_name,
                 vars,
                 n_groups,
@@ -938,7 +936,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             diag_html <- if (nzchar(diag_html))
                 sub("</div>$", paste0(sub_html, "</div>"), diag_html)
             else paste0(
-                "<div style='padding: 12px 15px; background-color: #eef2f7; ",
+                "<div style='padding: 12px 15px; background-color: rgba(33, 85, 151, 0.08); color: inherit; ",
                 "border-left: 4px solid #6c757d; margin: 10px 0;'>",
                 "<strong>Data Diagnostics &amp; Assumptions</strong>", sub_html, "</div>")
         }
@@ -951,7 +949,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 },
 .generateAboutContent = function() {
     about_content <- paste0(
-        "<div style='padding: 15px; background-color: #f8f9fa; border-left: 4px solid #007bff; margin: 10px 0;'>",
+        "<div style='padding: 15px; background-color: rgba(138, 155, 172, 0.06); border-left: 4px solid #007bff; margin: 10px 0; color: inherit;'>",
         "<h4 style='color: #007bff; margin-top: 0;'> About Between-Group Comparison</h4>",
         "<p><strong>Purpose:</strong> Compare a continuous variable across different groups to identify significant differences.</p>",
         "<p><strong>When to Use:</strong></p>",
@@ -998,7 +996,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     }
 
     summary_content <- paste0(
-        "<div style='padding: 15px; background-color: #e8f5e8; border-left: 4px solid #28a745; margin: 10px 0;'>",
+        "<div style='padding: 15px; background-color: rgba(33, 159, 33, 0.1); border-left: 4px solid #28a745; margin: 10px 0; color: inherit;'>",
         "<h4 style='color: #28a745; margin-top: 0;'> Analysis Summary</h4>",
         "<p><strong>Variables Analyzed:</strong> ", dep_vars, " by ", htmltools::htmlEscape(self$options$group), "</p>",
         multi_var_note,  # Add multi-variable clarification
@@ -1034,7 +1032,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     multi_endpoint_note <- ""
     if (length(self$options$dep) > 1) {
         multi_endpoint_note <- paste0(
-            "<div style='background-color: #ffe5e5; border-left: 4px solid #dc3545; padding: 10px; margin: 10px 0;'>",
+            "<div style='background-color: rgba(255, 33, 33, 0.12); border-left: 4px solid #dc3545; padding: 10px; margin: 10px 0; color: inherit;'>",
             "<p><strong> Multiple Endpoint Testing:</strong> You are analyzing ",
             length(self$options$dep), " dependent variables. Each test uses the standard \u03b1 = 0.05 threshold. ",
             "The 'Multiple Endpoint Correction Guidance' option above provides instructions for manual p-value adjustment. ",
@@ -1044,7 +1042,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     }
 
     assumptions_content <- paste0(
-        "<div style='padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; margin: 10px 0;'>",
+        "<div style='padding: 15px; background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ffc107; margin: 10px 0; color: inherit;'>",
         "<h4 style='color: #856404; margin-top: 0;'> Statistical Assumptions & Warnings</h4>",
 
         multi_endpoint_note,
@@ -1069,14 +1067,31 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     self$results$assumptions$setContent(assumptions_content)
 },
 .generateInterpretationGuide = function() {
+    # The effect size and its confidence interval are rendered only inside the
+    # ggstatsplot subtitle, and `resultssubtitle` is FALSE by default - so any
+    # pointer to them has to be conditional or it sends the reader to an empty
+    # corner of the plot (same trap already handled in .generateClinicalSummary).
+    subtitle_on <- isTRUE(self$options$resultssubtitle)
+
+    compatible_effects <- if (subtitle_on)
+        "the effect size and its confidence interval in the plot subtitle show which effect sizes are still compatible with these data, and that range may include effects large enough to matter clinically"
+    else
+        "an effect size with its confidence interval shows which effect sizes are still compatible with these data, and that range may include effects large enough to matter clinically - switch on 'Statistical results' to display it in the plot subtitle"
+
+    precision_note <- if (subtitle_on)
+        "<li>Read the width of the confidence interval next to the effect size in the plot subtitle: a wide interval means this sample locates the effect only loosely, which is usually a matter of how many observations each group contributes.</li>"
+    else
+        "<li>Precision matters as much as the point estimate: a wide confidence interval means the sample locates the effect only loosely, which is usually a matter of how many observations each group contributes. Switch on 'Statistical results' to display the effect size and its interval in the plot subtitle.</li>"
+
     interpretation_content <- paste0(
-        "<div style='padding: 15px; background-color: #d1ecf1; border-left: 4px solid #17a2b8; margin: 10px 0;'>",
+        "<div style='padding: 15px; background-color: rgba(33, 163, 188, 0.21); border-left: 4px solid #17a2b8; margin: 10px 0; color: inherit;'>",
         "<h4 style='color: #0c5460; margin-top: 0;'> How to Interpret Results</h4>",
         
         "<p><strong>Statistical Significance:</strong></p>",
         "<ul>",
         "<li><strong>p < 0.05:</strong> Significant difference between groups.</li>",
-        "<li><strong>p \u2265 0.05:</strong> No significant difference detected.</li>",
+        paste0("<li><strong>p >= 0.05:</strong> No significant difference was detected. This is an absence of evidence for a difference, not evidence that the groups are the same: ", compatible_effects, ".</li>"),
+        "<li>When several pairwise comparisons are displayed, read the adjusted p-values: the chance of at least one false positive rises with the number of comparisons.</li>",
         "</ul>",
         
         "<p><strong>Effect Size Interpretation:</strong></p>",
@@ -1088,7 +1103,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         "<p><strong>Clinical Context:</strong></p>",
         "<ul>",
         "<li>Consider if the observed difference is clinically meaningful, not just statistically significant.</li>",
-        "<li>Look at the confidence intervals to understand the precision of the effect size estimate.</li>",
+        precision_note,
         "<li>Examine the plots to understand the distribution and overlap between groups.</li>",
         "</ul>",
         "</div>"
@@ -1119,12 +1134,19 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     }
     
     test_method <- private$.testLabel(n_groups)
-    
+
+    # Same trap as .generateInterpretationGuide: the numbers this template asks
+    # the user to paste in exist only in the plot subtitle, which is off by default.
+    stats_source <- if (isTRUE(self$options$resultssubtitle))
+        "the plot subtitle"
+    else
+        "the plot subtitle - switch on 'Statistical results' to display it"
+
     report_template <- paste0(
-        "<div style='padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; margin: 10px 0;'>",
+        "<div style='padding: 15px; background-color: rgba(138, 155, 172, 0.06); border: 1px solid #dee2e6; margin: 10px 0; color: inherit;'>",
         "<h4 style='color: #495057; margin-top: 0;'> Copy-Ready Report Template</h4>",
         
-        "<div style='background-color: #ffffff; padding: 15px; border: 1px dashed #6c757d; margin: 10px 0;'>",
+        "<div style='background-color: rgba(255, 255, 255, 0.06); padding: 15px; border: 1px dashed #6c757d; margin: 10px 0; color: inherit;'>",
         "<h5>Methods:</h5>",
         "<p>A between-groups analysis was conducted to compare the levels of ", dep_vars,
         " across ", n_groups, " groups of ", htmltools::htmlEscape(self$options$group), ". A ", test_method,
@@ -1140,11 +1162,11 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         "</p>",
         
         "<h5>Results:</h5>",
-        "<p>[Insert the statistics shown in the plot subtitle: test statistic, p-value, effect size with CI]</p>",
+        paste0("<p>[Insert the statistics shown in ", stats_source, ": test statistic, p-value, effect size with CI]</p>"),
         # The example used to assert a significant difference, an F statistic and
         # post-hoc tests unconditionally - wrong whenever the result was null,
         # the test was not an F test, or pairwise comparisons were not requested.
-        "<p>Template (fill in from the plot subtitle; state the direction only if the test was significant): ",
+        paste0("<p>Template (fill in from ", stats_source, "; state the direction only if the test was significant): "),
         "\"", htmltools::htmlEscape(test_method), " showed [a / no] statistically significant difference in [dependent variable] ",
         "between the ", n_groups, " groups ([statistic] = [value], p = [value], [effect size] = [value], ",
         round(100 * self$options$conflevel), "% CI [lower, upper]).\"</p>",
@@ -1154,7 +1176,7 @@ jjbetweenstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         "</div>",
         
         "<button onclick='navigator.clipboard.writeText(this.parentElement.querySelector(\"div\").innerText)' ",
-        "style='background-color: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;'>",
+        "style='background-color: #007bff; color: #ffffff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;'>",
         " Copy Template to Clipboard</button>",
         "</div>"
     )

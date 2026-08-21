@@ -57,7 +57,7 @@
 #' }
 #'
 #' @importFrom R6 R6Class
-#' @import jmvcore
+#' @importFrom jmvcore .
 #' @return An \code{R6} class generator object for the \code{linechartClass} backend; used internally by the jamovi analysis wrapper and not called directly.
 
 linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
@@ -65,12 +65,8 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
     inherit = linechartBase,
     private = list(
 
-        # base::format() is MASKED in this file. `@import jmvcore` brings jmvcore's
-        # own format() into scope, and that one is a string-template helper which
-        # ignores `digits` and stringifies at full precision - so every
-        # format(x, digits = 3) here silently produced 15-16 significant digits,
-        # e.g. "Each unit increase in X corresponds to 0.829075514952931 unit
-        # increase in Y". Round explicitly instead of relying on a masked generic.
+        # Use one explicit formatter for result text so numeric precision is
+        # stable regardless of namespace imports or the caller's print options.
         .fmtNum = function(x, digits = 3) {
             if (length(x) != 1 || !is.finite(x)) return("NA")
             formatC(signif(x, digits), format = "fg", flag = "#", digits = digits)
@@ -102,6 +98,30 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             # .validateParameters() and by min/max in linechart.a.yaml).
             self$results$plot$setSize(self$options$width, self$options$height)
 
+            # The summary table has a fixed row set, so build the skeleton (rowKey
+            # + statistic label) here; .populateSummary() then only fills `value`.
+            # Group Names is gated on the groupby option - the SAME condition
+            # .populateSummary() uses - so every rowKey it sets exists on every
+            # path (setRow() on a missing rowKey aborts the analysis).
+            summaryTable <- self$results$summary
+            summaryTable$addRow(rowKey = "n_obs", values = list(
+                statistic = .("Number of Observations")))
+            summaryTable$addRow(rowKey = "n_x", values = list(
+                statistic = .("Number of X-axis Points")))
+            summaryTable$addRow(rowKey = "n_groups", values = list(
+                statistic = .("Number of Groups")))
+            if (!is.null(self$options$groupby))
+                summaryTable$addRow(rowKey = "group_names", values = list(
+                    statistic = .("Group Names")))
+            summaryTable$addRow(rowKey = "y_mean", values = list(
+                statistic = .("Y Mean")))
+            summaryTable$addRow(rowKey = "y_median", values = list(
+                statistic = .("Y Median")))
+            summaryTable$addRow(rowKey = "y_sd", values = list(
+                statistic = .("Y Standard Deviation")))
+            summaryTable$addRow(rowKey = "y_range", values = list(
+                statistic = .("Y Range")))
+
             # Initialize with enhanced welcome message if no variables selected
             if (is.null(self$options$xvar) || is.null(self$options$yvar)) {
                 private$.showWelcomeMessage()
@@ -119,17 +139,11 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             #
             # A bare return() here left the panel completely blank - no welcome
             # text (variables ARE selected, so .init() did not write one) and no
-            # explanation - while the plot still rendered as an empty frame.
+            # explanation. reject() states the reason; setVisible() is reserved
+            # for option-driven visibility, not for signalling failure.
             if (is.null(self$data) || nrow(self$data) == 0) {
-                if (!is.null(self$options$xvar) && !is.null(self$options$yvar)) {
-                    self$results$todo$setContent(paste0(
-                        "<div class='alert alert-warning'><h6>",
-                        .("No rows to plot"), "</h6><p>",
-                        .("The dataset has no rows, so there is nothing to chart. If a row filter is active, it may be excluding every case."),
-                        "</p></div>"))
-                    self$results$todo$setVisible(TRUE)
-                    self$results$plot$setVisible(FALSE)
-                }
+                if (!is.null(self$options$xvar) && !is.null(self$options$yvar))
+                    jmvcore::reject(.("The dataset has no rows, so there is nothing to chart. If a row filter is active, it may be excluding every case."))
                 return()
             }
 
@@ -258,17 +272,10 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     data[[groupby]] <- factor(group_data)
                 }
 
-                # Check number of groups
-                n_groups <- length(unique(data[[groupby]]))
-                if (n_groups > 10) {
-                    # TODO (UX): migrate warning() calls to the .addNotice() HTML pattern from
-                    #   R/waterfall.b.R + docs/NOTICE_TO_HTML_CONVERSION_GUIDE.md so messages
-                    #   surface as a structured panel rather than R warnings (which jamovi
-                    #   collapses into a generic banner). Sites in this file:
-                    #   L208 (groups > 10), L223 (rows removed), L244 (refline non-numeric),
-                    #   L315 (grouped-data independence), L325 (repeated-measures independence).
-                    warning(.("Grouping variable has more than 10 levels. Consider reducing groups for clarity."))
-                }
+                # A high group count reaches the user through .checkDataQuality()
+                # ("Many groups detected ..."), which writes into the results panel.
+                # A warning() here only reached the R console, which jamovi never
+                # shows, so it was a duplicate of an invisible message.
             }
 
             # Remove rows with missing values.
@@ -303,23 +310,16 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             private$.n_excluded_nonfinite <- n_nonfinite
             private$.n_rows_analysed      <- complete_after
 
-            if (complete_after < complete_before) {
-                warning(paste(complete_before - complete_after,
-                              .("rows with missing or infinite values were removed from analysis.")))
-            }
-
             # Enhanced minimum data requirements with suggestions
             if (nrow(data) < 3) {
-                jmvcore::reject(paste0(.("At least 3 complete observations are required for line chart analysis. "),
-                           .("Current dataset has "), nrow(data), .(" observations. "),
-                           .("Consider checking for missing values or selecting different variables.")))
+                jmvcore::reject(jmvcore::format(
+                    .("At least 3 complete observations are required for line chart analysis. The current dataset has {n} observation(s). Consider checking for missing values or selecting different variables."),
+                    n = nrow(data)))
             }
 
             # Enhanced variation check with suggestions
             if (var(data[[yvar]], na.rm = TRUE) == 0) {
-                jmvcore::reject(paste0(.("Y-axis variable has no variation (all values are identical). "),
-                           .("Line charts require variation in the Y variable. "),
-                           .("Please select a different variable with varying values.")))
+                jmvcore::reject(.("The Y-axis variable has no variation (all values are identical). Line charts require variation in the Y variable. Please select a different variable with varying values."))
             }
 
             # (refline is a numeric Number option: no non-numeric validation needed here)
@@ -394,17 +394,19 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             #   true within-subject replication, or document the heuristic in the panel.
             has_repeated_measures <- avg_obs_per_x > 1.5  # More than 1.5 obs per x on average
 
-            # Issue warnings for statistical validity (translatable via .())
+            # No warning() here: the independence caveat reaches the user through
+            # correlation_stats$independence_note (the "Statistical Validity" row of
+            # the correlation table), through .interpretCorrelation(), and through
+            # the Independence bullet in the assumptions panel.
             if (!is.null(groupby)) {
-                warning(.("Correlation statistics treat all observations as independent, which may not be appropriate for grouped data. For more rigorous analysis of grouped longitudinal data, consider mixed-effects models using additional software."))
                 correlation_stats$has_grouping <- TRUE
             }
 
             if (has_repeated_measures) {
                 # Only naive (independence-assuming) statistics are computed and
                 # shown; no patient-level aggregate statistics are produced. The
-                # message describes exactly what is reported to avoid over-claiming.
-                warning(.("Data appears to have repeated measures (multiple observations per time point). The correlation and regression statistics shown treat all observations as independent and may overstate statistical significance for longitudinal data. Interpret them as exploratory descriptives, and consider mixed-effects models in specialized software for formal inference."))
+                # caveat is carried to the user by independence_note and the
+                # interpretation columns below, not by warning().
                 correlation_stats$has_repeated_measures <- TRUE
             }
 
@@ -422,9 +424,20 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 correlation_stats$pearson_ci_upper_naive <- cor_result$conf.int[2]
 
                 # Spearman correlation (rank-based)
-                cor_spearman <- cor.test(x_data, y_data, method = "spearman")
+                # Tied ranks make the exact Spearman test unavailable. Request
+                # the asymptotic calculation explicitly in that case so the
+                # backend does not emit a console-only warning, and carry the
+                # inferential limitation into the visible results table.
+                has_spearman_ties <- anyDuplicated(x_data) > 0L ||
+                    anyDuplicated(y_data) > 0L
+                cor_spearman <- cor.test(
+                    x_data,
+                    y_data,
+                    method = "spearman",
+                    exact = if (has_spearman_ties) FALSE else NULL)
                 correlation_stats$spearman_r_naive <- cor_spearman$estimate
                 correlation_stats$spearman_p_naive <- cor_spearman$p.value
+                correlation_stats$spearman_has_ties <- has_spearman_ties
 
                 # Linear regression statistics
                 lm_result <- lm(y_data ~ x_data)
@@ -432,6 +445,11 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 correlation_stats$intercept_naive <- coef(lm_result)[1]
                 correlation_stats$r_squared_naive <- summary(lm_result)$r.squared
                 correlation_stats$regression_p_naive <- summary(lm_result)$coefficients[2, 4]
+                slope_scale <- stats::sd(y_data) / stats::sd(x_data)
+                correlation_stats$slope_is_zero <-
+                    is.finite(slope_scale) &&
+                    abs(correlation_stats$slope_naive) <=
+                        sqrt(.Machine$double.eps) * slope_scale
 
                 # Set "display" values - use naive with clear labeling
                 correlation_stats$pearson_r <- correlation_stats$pearson_r_naive
@@ -471,64 +489,36 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             return(correlation_stats)
         },
 
-        # Populate summary table
+        # Populate summary table. Rows are created in .init(); only the `value`
+        # cells are written here.
         .populateSummary = function(summary_stats) {
             table <- self$results$summary
-            table$deleteRows()
 
-            row_num <- 1
+            table$setRow(rowKey = "n_obs", values = list(
+                value = as.character(summary_stats$n_observations)))
 
-            # Data characteristics
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Number of Observations"),
-                value = as.character(summary_stats$n_observations)
-            ))
-            row_num <- row_num + 1
+            table$setRow(rowKey = "n_x", values = list(
+                value = as.character(summary_stats$n_x_points)))
 
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Number of X-axis Points"),
-                value = as.character(summary_stats$n_x_points)
-            ))
-            row_num <- row_num + 1
+            table$setRow(rowKey = "n_groups", values = list(
+                value = as.character(summary_stats$n_groups)))
 
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Number of Groups"),
-                value = as.character(summary_stats$n_groups)
-            ))
-            row_num <- row_num + 1
+            if (!is.null(self$options$groupby))
+                table$setRow(rowKey = "group_names", values = list(
+                    value = summary_stats$group_names))
 
-            if (summary_stats$n_groups > 1) {
-                table$addRow(rowKey = row_num, values = list(
-                    statistic = .("Group Names"),
-                    value = summary_stats$group_names
-                ))
-                row_num <- row_num + 1
-            }
+            table$setRow(rowKey = "y_mean", values = list(
+                value = private$.fmtNum(summary_stats$y_mean)))
 
-            # Y variable statistics
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Y Mean"),
-                value = private$.fmtNum(summary_stats$y_mean)
-            ))
-            row_num <- row_num + 1
+            table$setRow(rowKey = "y_median", values = list(
+                value = private$.fmtNum(summary_stats$y_median)))
 
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Y Median"),
-                value = private$.fmtNum(summary_stats$y_median)
-            ))
-            row_num <- row_num + 1
+            table$setRow(rowKey = "y_sd", values = list(
+                value = private$.fmtNum(summary_stats$y_sd)))
 
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Y Standard Deviation"),
-                value = private$.fmtNum(summary_stats$y_sd)
-            ))
-            row_num <- row_num + 1
-
-            table$addRow(rowKey = row_num, values = list(
-                statistic = .("Y Range"),
+            table$setRow(rowKey = "y_range", values = list(
                 value = paste(private$.fmtNum(summary_stats$y_min), "-",
-                             private$.fmtNum(summary_stats$y_max))
-            ))
+                              private$.fmtNum(summary_stats$y_max))))
         },
 
         # Enhanced correlation table with copy-ready interpretations
@@ -560,20 +550,26 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 table$addRow(rowKey = row_num, values = list(
                     measure = .("R-squared (Effect Size)"),
                     value = correlation_stats$r_squared,
-                    interpretation = paste0(round(correlation_stats$r_squared * 100, 1),
-                                          .("% of variance explained. "),
-                                          private$.interpretEffectSize(correlation_stats$r_squared))
+                    interpretation = jmvcore::format(
+                        .("{percent}% of variance explained. {interpretation}"),
+                        percent = round(correlation_stats$r_squared * 100, 1),
+                        interpretation = private$.interpretEffectSize(correlation_stats$r_squared))
                 ))
                 row_num <- row_num + 1
 
                 # Enhanced slope interpretation
-                slope_interpretation <- paste0(
-                    if (correlation_stats$slope > 0) .("Positive trend: ") else .("Negative trend: "),
-                    .("Each unit increase in X corresponds to "),
-                    private$.fmtNum(abs(correlation_stats$slope)),
-                    if (correlation_stats$slope > 0) .(" unit increase") else .(" unit decrease"),
-                    .(" in Y on average.")
-                )
+                slope_is_zero <- isTRUE(correlation_stats$slope_is_zero)
+                slope_interpretation <- if (slope_is_zero) {
+                    .("No linear trend: The estimated regression slope is effectively zero at numerical precision.")
+                } else if (correlation_stats$slope > 0) {
+                    jmvcore::format(
+                        .("Positive trend: Each unit increase in X corresponds to an average {slope} unit increase in Y."),
+                        slope = private$.fmtNum(abs(correlation_stats$slope)))
+                } else {
+                    jmvcore::format(
+                        .("Negative trend: Each unit increase in X corresponds to an average {slope} unit decrease in Y."),
+                        slope = private$.fmtNum(abs(correlation_stats$slope)))
+                }
 
                 table$addRow(rowKey = row_num, values = list(
                     measure = .("Regression Slope"),
@@ -593,7 +589,7 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 # Add independence assumption warning if applicable
                 if (!is.null(correlation_stats$independence_note)) {
                     table$addRow(rowKey = row_num, values = list(
-                        measure = .(" Statistical Validity"),
+                        measure = .("Statistical Validity"),
                         value = "",
                         interpretation = correlation_stats$independence_note
                     ))
@@ -603,6 +599,13 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
 
             # Spearman correlation with enhanced interpretation
             if (!is.null(correlation_stats$spearman_r)) {
+                spearman_note <- if (isTRUE(correlation_stats$spearman_has_ties)) {
+                    paste0(
+                        " ",
+                        .("The p-value uses an asymptotic approximation because tied ranks prevent exact inference."))
+                } else {
+                    ""
+                }
                 table$addRow(rowKey = row_num, values = list(
                     measure = .("Spearman Correlation (Rank-based)"),
                     value = correlation_stats$spearman_r,
@@ -610,7 +613,8 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                                                          correlation_stats$spearman_p,
                                                                          has_repeated_measures,
                                                                          has_grouping),
-                                          " ", .("This non-parametric measure is robust to outliers."))
+                                          " ", .("This rank-based measure is less sensitive to extreme values than Pearson correlation."),
+                                          spearman_note)
                 ))
                 row_num <- row_num + 1
             }
@@ -618,11 +622,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             # ANOVA for categorical X with enhanced interpretation
             if (!is.null(correlation_stats$anova_f)) {
                 anova_interpretation <- if (correlation_stats$anova_p < 0.05) {
-                    paste0(.("Significant differences between groups detected (p < 0.05). "),
-                          .("Post-hoc testing recommended to identify specific group differences."))
+                    .("Significant differences between groups were detected (p < 0.05). Post-hoc testing is recommended to identify specific group differences.")
                 } else {
-                    paste0(.("No significant differences between groups detected (p \u2265 0.05). "),
-                          .("Groups show similar mean values."))
+                    .("No statistically significant differences between groups were detected (p \u2265 0.05). This result does not establish equivalence between the group means.")
                 }
 
                 table$addRow(rowKey = row_num, values = list(
@@ -647,19 +649,27 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             is_significant <- p < 0.05
 
             # Build copy-ready sentence
+            correlation_is_zero <- isTRUE(all.equal(
+                unname(r), 0, tolerance = sqrt(.Machine$double.eps)))
             direction <- if (r > 0) .("positive") else .("negative")
             strength <- private$.correlationStrength(r)
 
-            copy_ready <- paste0(
-                .("Analysis revealed a "), strength, " ", direction, " ", .("correlation between the variables "),
-                "(r = ", round(r, 3), ", ", sig_level, "). ",
-                .("The correlation explains "), round(r_squared * 100, 1), .("% of the variance. "),
-                if (is_significant) {
-                    .("This relationship is statistically significant.")
-                } else {
-                    .("This relationship is not statistically significant.")
-                }
-            )
+            copy_ready <- if (correlation_is_zero) {
+                jmvcore::format(
+                    .("The analysis found a negligible correlation between the variables (r = {r}, {p}). The correlation explains {variance}% of the variance, and the relationship is not statistically significant."),
+                    r = round(r, 3), p = sig_level,
+                    variance = round(r_squared * 100, 1))
+            } else if (is_significant) {
+                jmvcore::format(
+                    .("The analysis found a {strength} {direction} correlation between the variables (r = {r}, {p}). The correlation explains {variance}% of the variance, and the relationship is statistically significant."),
+                    strength = strength, direction = direction, r = round(r, 3),
+                    p = sig_level, variance = round(r_squared * 100, 1))
+            } else {
+                jmvcore::format(
+                    .("The analysis found a {strength} {direction} correlation between the variables (r = {r}, {p}). The correlation explains {variance}% of the variance, and the relationship is not statistically significant."),
+                    strength = strength, direction = direction, r = round(r, 3),
+                    p = sig_level, variance = round(r_squared * 100, 1))
+            }
             
             # Add caution if needed
             if (has_repeated_measures) {
@@ -667,7 +677,7 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             } else if (has_grouping) {
                 copy_ready <- paste0(copy_ready, " ", .("Note: Results should be interpreted with caution as grouped data may mask within-group patterns."))
             } else if (is_significant) {
-                copy_ready <- paste0(copy_ready, " ", .("This finding may have clinical relevance."))
+                copy_ready <- paste0(copy_ready, " ", .("Statistical significance reflects sample size as well as the size of the association; the magnitude of r and the R-squared value reported above describe the strength of the relationship. Correlation does not imply causation."))
             }
 
             return(copy_ready)
@@ -703,15 +713,18 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
         # distinct from .correlationStrength() (which labels |r|). The R-squared
         # thresholds below are intentionally conservative for clinical reporting.
         .interpretEffectSize = function(r_squared) {
-            if (r_squared >= 0.5) {
-                return(.("Large effect size - clinically meaningful association."))
+            label <- if (r_squared >= 0.5) {
+                .("Large effect size")
             } else if (r_squared >= 0.25) {
-                return(.("Medium effect size - moderate practical significance."))
+                .("Medium effect size")
             } else if (r_squared >= 0.1) {
-                return(.("Small effect size - limited practical significance."))
+                .("Small effect size")
             } else {
-                return(.("Very small effect size - minimal practical significance."))
+                .("Very small effect size")
             }
+            jmvcore::format(
+                .("{label}. Whether an association of this magnitude matters in a given setting depends on the outcome and the context, and cannot be read off R-squared alone."),
+                label = label)
         },
 
         # Enhanced correlation interpretation with clinical context
@@ -722,26 +735,28 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             sig_text <- if (p_value < 0.001) "***" else if (p_value < 0.01) "**" else if (p_value < 0.05) "*" else "ns"
             clinical_sig <- if (p_value < 0.05) .("statistically significant") else .("not statistically significant")
 
-            # Strength interpretation with clinical relevance
-            abs_r <- abs(r)
+            # Strength label (single source of truth: .correlationStrength)
             strength <- private$.correlationStrength(r)
 
-            direction <- if (r > 0) .("positive") else .("negative")
-
             # Create copy-ready interpretation
-            base_interpretation <- paste0(strength, " ", direction, " ", .("correlation"), " (", sig_text, ")")
+            correlation_is_zero <- isTRUE(all.equal(
+                unname(r), 0, tolerance = sqrt(.Machine$double.eps)))
+            base_interpretation <- if (correlation_is_zero) {
+                paste0(.("negligible correlation"), " (", sig_text, ")")
+            } else {
+                direction <- if (r > 0) .("positive") else .("negative")
+                paste0(
+                    strength, " ", direction, " ", .("correlation"),
+                    " (", sig_text, ")")
+            }
 
             # Add clinical context
             if (has_repeated_measures) {
                 clinical_note <- .("Caution: Repeated measures detected. Standard correlation assumes independence and may overstate significance.")
             } else if (has_grouping) {
                 clinical_note <- .("Caution: Grouped data detected. Correlation across groups may mask within-group patterns (Simpson's paradox).")
-            } else if (abs_r >= 0.5) {
-                clinical_note <- .("This suggests a clinically meaningful relationship.")
-            } else if (abs_r >= 0.3) {
-                clinical_note <- .("This suggests a moderate association worth investigating.")
             } else {
-                clinical_note <- .("This suggests a weak association with limited clinical significance.")
+                clinical_note <- .("Correlation does not imply causation.")
             }
 
             return(paste0(base_interpretation, " - ", clinical_note))
@@ -821,9 +836,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                         quad_r2 <- summary(quadratic_model)$r.squared
                         improvement <- quad_r2 - linear_r2
                         if (improvement > 0.05) {
-                            .(" Potential non-linear relationship detected. Consider polynomial or spline fitting.")
+                            .("Potential non-linear relationship detected. Consider polynomial or spline fitting.")
                         } else {
-                            .(" Linear relationship assumption appears reasonable.")
+                            .("The linear relationship assumption appears reasonable.")
                         }
                     } else {
                         .("Unable to assess linearity automatically.")
@@ -843,9 +858,9 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
 
                         if (!is.null(shapiro_result)) {
                             if (shapiro_result$p.value > 0.05) {
-                                .(" Residuals appear normally distributed (Shapiro-Wilk p > 0.05).")
+                                .("Residuals appear normally distributed (Shapiro-Wilk p > 0.05).")
                             } else {
-                                .(" Residuals may not be normally distributed (Shapiro-Wilk p \u2264 0.05). Consider robust methods.")
+                                .("Residuals may not be normally distributed (Shapiro-Wilk p \u2264 0.05). Consider robust methods.")
                             }
                         } else {
                             .("Unable to test normality of residuals.")
@@ -885,10 +900,10 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 "<div class='card-body'>",
                 "<h6>", .("Effect Size Interpretation:"), "</h6>",
                 "<ul>",
-                "<li>", .("<strong>R\u00b2 \u2265 0.50:</strong> Large effect - clinically significant relationship"), "</li>",
-                "<li>", .("<strong>R\u00b2 = 0.25-0.49:</strong> Medium effect - moderate clinical relevance"), "</li>",
-                "<li>", .("<strong>R\u00b2 = 0.10-0.24:</strong> Small effect - limited clinical significance"), "</li>",
-                "<li>", .("<strong>R\u00b2 < 0.10:</strong> Very small effect - minimal clinical importance"), "</li>",
+                "<li>", .("<strong>R\u00b2 \u2265 0.50:</strong> Large effect - at least 50% of the variance accounted for"), "</li>",
+                "<li>", .("<strong>R\u00b2 = 0.25-0.49:</strong> Medium effect - 25% to 49% of the variance accounted for"), "</li>",
+                "<li>", .("<strong>R\u00b2 = 0.10-0.24:</strong> Small effect - 10% to 24% of the variance accounted for"), "</li>",
+                "<li>", .("<strong>R\u00b2 < 0.10:</strong> Very small effect - under 10% of the variance accounted for"), "</li>",
                 "</ul>",
                 "<h6>", .("Confidence Intervals:"), "</h6>",
                 "<p>", .("When displayed, confidence intervals show the uncertainty around trend lines. Wider intervals indicate greater uncertainty."), "</p>",
@@ -1201,15 +1216,29 @@ linechartClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     correlation_stats <- private$.calculateCorrelation(data)
                 }
                 if (!is.null(correlation_stats$slope)) {
-                    trend_direction <- if (correlation_stats$slope > 0) .("increasing") else .("decreasing")
-                    # Use the shared |r|-based strength convention for consistency
-                    # with the correlation table and copy-ready summary.
-                    trend_strength <- private$.correlationStrength(correlation_stats$pearson_r)
+                    slope_is_zero <- isTRUE(correlation_stats$slope_is_zero)
+                    trend_sentence <- if (slope_is_zero) {
+                        jmvcore::format(
+                            .("No clear linear trend was detected (R\u00b2 = {r2})."),
+                            r2 = round(correlation_stats$r_squared, 3))
+                    } else {
+                        trend_direction <- if (correlation_stats$slope > 0) {
+                            .("increasing")
+                        } else {
+                            .("decreasing")
+                        }
+                        jmvcore::format(
+                            .("A {strength} {direction} trend was detected (R\u00b2 = {r2})."),
+                            strength = private$.correlationStrength(
+                                correlation_stats$pearson_r),
+                            direction = trend_direction,
+                            r2 = round(correlation_stats$r_squared, 3))
+                    }
 
-                    summary_text <- paste0(summary_text,
-                        "<p><strong>", .("Trend:"), "</strong> ", trend_strength, " ", trend_direction, " ", .("trend detected"),
-                        " (R\u00b2 = ", round(correlation_stats$r_squared, 3), ")</p>"
-                    )
+                    summary_text <- paste0(
+                        summary_text,
+                        "<p><strong>", .("Trend:"), "</strong> ",
+                        trend_sentence, "</p>")
                 }
             }
 

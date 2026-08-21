@@ -1,7 +1,6 @@
 #' @title Correlation Matrix
 #' @importFrom R6 R6Class
-#' @import jmvcore
-#' @import glue
+#' @importFrom jmvcore .
 #' @importFrom rlang sym
 #'
 #' @return An \code{R6} class generator object for the \code{jjcorrmatClass} backend; used internally by the jamovi analysis wrapper and not called directly.
@@ -66,22 +65,22 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             for (warning in private$.warnings) {
                 if (warning$type == "ERROR") {
                     warning_html <- paste0(warning_html,
-                        "<div style='background-color: #f8d7da; border-left: 4px solid #dc3545; padding: 10px; margin: 5px 0; border-radius: 4px;'>",
+                        "<div style='background-color: rgba(216, 33, 50, 0.18); border-left: 4px solid #dc3545; padding: 10px; margin: 5px 0; border-radius: 4px; color: inherit;'>",
                         "<strong style='color: #721c24;'> ERROR:</strong> <span style='color: #721c24;'>", warning$message, "</span>",
                         "</div>")
                 } else if (warning$type == "STRONG_WARNING") {
                     warning_html <- paste0(warning_html,
-                        "<div style='background-color: #fff3cd; border-left: 4px solid #ff9800; padding: 10px; margin: 5px 0; border-radius: 4px;'>",
+                        "<div style='background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ff9800; padding: 10px; margin: 5px 0; border-radius: 4px; color: inherit;'>",
                         "<strong style='color: #856404;'> STRONG WARNING:</strong> <span style='color: #856404;'>", warning$message, "</span>",
                         "</div>")
                 } else if (warning$type == "WARNING") {
                     warning_html <- paste0(warning_html,
-                        "<div style='background-color: #fff8e1; border-left: 4px solid #ffc107; padding: 10px; margin: 5px 0; border-radius: 4px;'>",
+                        "<div style='background-color: rgba(255, 203, 33, 0.14); border-left: 4px solid #ffc107; padding: 10px; margin: 5px 0; border-radius: 4px; color: inherit;'>",
                         "<strong style='color: #664d03;'> WARNING:</strong> <span style='color: #664d03;'>", warning$message, "</span>",
                         "</div>")
                 } else if (warning$type == "INFO") {
                     warning_html <- paste0(warning_html,
-                        "<div style='background-color: #d1ecf1; border-left: 4px solid #0c5460; padding: 10px; margin: 5px 0; border-radius: 4px;'>",
+                        "<div style='background-color: rgba(33, 163, 188, 0.21); border-left: 4px solid #0c5460; padding: 10px; margin: 5px 0; border-radius: 4px; color: inherit;'>",
                         "<strong style='color: #0c5460;'> INFO:</strong> <span style='color: #0c5460;'>", warning$message, "</span>",
                         "</div>")
                 }
@@ -401,7 +400,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.na(bf) && is.na(p_value)) {
                 is_notable <- bf >= 3
                 significance <- sprintf(.("supported by a Bayes factor of %s"),
-                                        format(signif(bf, 3), scientific = bf >= 1e5))
+                                        base::format(signif(bf, 3), scientific = bf >= 1e5))
             } else if (is.na(p_value)) {
                 is_notable <- FALSE
                 significance <- .("of undetermined significance")
@@ -585,7 +584,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     parts <- c(parts, sprintf(
                         .("<li><strong>%s</strong> (n = %s): %d of %d pairs strong (|%s| \u2265 0.5), %d meeting the significance threshold. Strongest: %s = %s (%s vs %s).</li>"),
                         htmltools::htmlEscape(as.character(lvl)),
-                        format(max(sub_res$n, na.rm = TRUE)),
+                        base::format(max(sub_res$n, na.rm = TRUE)),
                         sum(strong), nrow(sub_res),
                         private$.coefSymbol(options_data$typestatistics),
                         sum(sig),
@@ -600,7 +599,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "<p>", sprintf(.("Correlations are computed separately within each level of <strong>%s</strong>, matching the figure and the table. Pooling the groups would be misleading whenever they differ in direction."),
                                    htmltools::htmlEscape(self$options$grvar)), "</p>",
                     "<ul>", paste(parts, collapse = ""), "</ul>",
-                    "<p><strong>", .("Clinical Recommendations:"), "</strong><br>",
+                    "<p><strong>", .("Interpretation Notes:"), "</strong><br>",
                     "\u2022 ", .("Compare the groups deliberately: a correlation present in one group and absent (or reversed) in another is a finding in itself, not noise."),
                     "<br>\u2022 ", .("Remember that correlation does not imply causation."), "</p>"))
                 return()
@@ -641,10 +640,10 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             sig_label <- if (is_bayes)
                 .("Pairs with at least moderate evidence (BF<sub>10</sub> \u2265 3)")
             else if (options_data$padjustmethod == "none")
-                sprintf(.("Significant correlations (unadjusted p &lt; %s)"), format(alpha))
+                sprintf(.("Significant correlations (unadjusted p &lt; %s)"), base::format(alpha))
             else
                 sprintf(.("Significant correlations (%s-adjusted p &lt; %s)"),
-                        private$.padjustLabel(options_data$padjustmethod), format(alpha))
+                        private$.padjustLabel(options_data$padjustmethod), base::format(alpha))
 
             n_label <- if (n_min == n_obs) sprintf(.("%d observations"), n_obs)
                        else if (identical(options_data$naHandling, "pairwise"))
@@ -713,9 +712,9 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
             interpretation <- paste0(
                 interpretation,
-                "<p><strong>", .("Clinical Recommendations:"), "</strong><br>",
+                "<p><strong>", .("Interpretation Notes:"), "</strong><br>",
                 if (sum(sig) > 0) {
-                    .("\u2022 Consider these correlations in your clinical interpretation and hypothesis generation.")
+                    .("\u2022 These correlations are exploratory and hypothesis-generating; they describe association within this sample only.")
                 } else {
                     .("\u2022 No correlations reached the chosen threshold. Consider a larger sample size or different variables.")
                 },
@@ -797,7 +796,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             private$.addWarning("WARNING", sprintf(
                 .('%d of %d rows (%s%%) were excluded because they had a missing value in at least one selected variable. %d rows were analysed.'),
                 n_dropped, private$.n_before,
-                format(round(100 * n_dropped / private$.n_before, 1)),
+                base::format(round(100 * n_dropped / private$.n_before, 1)),
                 private$.n_after))
         } else if (identical(self$options$naHandling, "pairwise") &&
                    length(private$.pair_n) > 0 &&
@@ -1025,7 +1024,7 @@ jjcorrmatClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         table$setNote("padj", sprintf(
             .("<b>p (adjusted)</b> applies the %s correction across all pairwise tests. This is the p-value the plot uses to mark cells as non-significant at %s."),
             private$.padjustLabel(options_data$padjustmethod),
-            format(options_data$siglevel)))
+            base::format(options_data$siglevel)))
     }
 },
 

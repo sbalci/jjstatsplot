@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for 'ggstatsplot'
-Version: 1.0.6
-Date: 2026-08-15
+Version: 1.0.6.02
+Date: 2026-08-21
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
  "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
  c(ORCID = "0000-0002-7852-3851"))
@@ -47,6 +47,8 @@ Imports:
     ggsegmentedtotalbar,
     ggstatsplot,
     glue,
+    graphics,
+    grDevices,
     grid,
     haven,
     htmltools,
@@ -61,10 +63,12 @@ Imports:
     RColorBrewer,
     rlang,
     scales,
+    stats,
     statsExpressions,
     stringr,
     tidyr,
     tools,
+    utils,
     V8,
     viridis,
     viridisLite,

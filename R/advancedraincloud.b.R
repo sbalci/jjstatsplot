@@ -2,7 +2,7 @@
 #' @return Advanced raincloud plots using ggrain package
 #'
 #' @importFrom R6 R6Class
-#' @import jmvcore
+#' @importFrom jmvcore .
 #' @importFrom rlang .data
 #' @importFrom ggplot2 ggplot aes labs theme_minimal theme element_text
 #' @importFrom ggplot2 scale_fill_manual scale_color_manual
@@ -37,20 +37,25 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             .validate_numeric_range = function(value, name, min, max) {
                 if (!is.null(value)) {
                     if (!is.numeric(value) || value < min || value > max) {
-                        jmvcore::reject(paste(name, .("must be a numeric value between"), min, .("and"), max), code = "")
+                        jmvcore::reject(jmvcore::format(
+                            .("{name} must be a numeric value between {min} and {max}."),
+                            name = name, min = min, max = max), code = "")
                     }
                 }
             },
             .validate_numeric_positive = function(value, name) {
                 if (!is.null(value)) {
                     if (!is.numeric(value) || value <= 0) {
-                        jmvcore::reject(paste(name, .("must be a positive numeric value")), code = "")
+                        jmvcore::reject(jmvcore::format(
+                            .("{name} must be a positive numeric value."), name = name),
+                            code = "")
                     }
                 }
             },
             .validate_numeric_type = function(value, name) {
                 if (!is.null(value) && !is.numeric(value)) {
-                    jmvcore::reject(paste(name, .("must be a numeric value")), code = "")
+                    jmvcore::reject(jmvcore::format(
+                        .("{name} must be a numeric value."), name = name), code = "")
                 }
             },
 
@@ -104,6 +109,15 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             .addAnalysisNote = function(msg) {
                 private$.analysis_notes <- c(private$.analysis_notes, msg)
             },
+            .appendPlotNote = function(plot, note) {
+                current <- plot$labels$caption
+                caption <- if (is.null(current) || !nzchar(current)) {
+                    note
+                } else {
+                    paste(current, note, sep = "\n")
+                }
+                plot + ggplot2::labs(caption = caption)
+            },
             .renderAnalysisNotes = function() {
                 notes <- private$.analysis_notes
                 if (is.null(notes) || length(notes) == 0) {
@@ -115,7 +129,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     collapse = ""
                 )
                 html <- paste0(
-                    "<div style='background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>",
+                    "<div style='background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 15px; color: inherit;'>",
                     "<h4 style='color: #856404; margin-top: 0;'>", .("Analysis Notes"), "</h4>",
                     "<ul style='margin-bottom: 0;'>", items, "</ul>",
                     "</div>"
@@ -148,7 +162,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     "<div style='background-color: ", bg_color, "; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
                     "<h3 style='color: ", title_color, "; margin-top: 0;'>", title, "</h3>",
                     "<table style='width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;'>",
-                    "<thead><tr style='background-color: #6c757d; color: white;'>", header_html, "</tr></thead>",
+                    "<thead><tr style='background-color: #6c757d; color: #ffffff; color: white;'>", header_html, "</tr></thead>",
                     "<tbody>", paste(rows_html, collapse = ""), "</tbody></table></div>"
                 )
             },
@@ -181,7 +195,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     self$options$y_var == "" || self$options$x_var == "" ||
                     length(self$options$y_var) == 0 || length(self$options$x_var) == 0) {
                     intro_msg <- "
-                <div style='background-color: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0;'>
+                <div style='background-color: rgba(33, 152, 239, 0.13); padding: 20px; border-radius: 8px; margin: 20px 0; color: inherit;'>
                 <h3 style='color: #1976d2; margin-top: 0;'> Welcome to Advanced Raincloud Plots!</h3>
                 <p><strong>Enhanced distribution visualization with longitudinal connections</strong> using ggrain</p>
                 <p>Complements the existing Raincloud Plot module with advanced features and customization</p>
@@ -242,7 +256,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 # never be hidden by unchecking the 'Usage guide' option.
                 if (!requireNamespace("ggrain", quietly = TRUE)) {
                     error_msg <- "
-                <div style='color: red; background-color: #ffebee; padding: 20px; border-radius: 8px;'>
+                <div style='color: red; background-color: rgba(255, 33, 67, 0.09); padding: 20px; border-radius: 8px;'>
                 <h4>ggrain Package Required</h4>
                 <p>The ggrain package is required for advanced raincloud plot functionality.</p>
                 <p>Please install it using: <code>install.packages('ggrain')</code></p>
@@ -410,9 +424,11 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 if (self$options$show_change_scores) {
                     private$.checkpoint() # Before change score analysis
                     if (is.null(id_var) || id_var == "") {
-                        warning(.("Change score analysis requires an ID variable."))
+                        # No warning() here: jamovi never surfaces one, and the same
+                        # message is written to change_analysis just below, where the
+                        # user actually sees it.
                         warning_html <- paste0(
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; color: inherit;'>",
                             "<p>", .("Please provide an ID variable to compute change scores."), "</p>",
                             "</div>"
                         )
@@ -457,19 +473,23 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 if (self$options$show_longitudinal && !is.null(id_var) && id_var != "" &&
                     id_var %in% names(analysis_data)) {
                     id_counts <- table(analysis_data[[id_var]])
-                    if (sum(id_counts > 1) == 0) {
+                    repeated_ids <- sum(id_counts > 1)
+                    if (repeated_ids == 0) {
                         private$.addAnalysisNote(.("Longitudinal connections were requested but no subject has repeated observations, so no connections were drawn."))
+                    } else if (repeated_ids < 3) {
+                        private$.addAnalysisNote(sprintf(
+                            .("Only %d subject(s) have repeated observations, so the longitudinal connections shown may not be meaningful."),
+                            repeated_ids))
                     }
                 }
 
                 if (!is.null(self$options$trial_arms) && self$options$trial_arms != "") {
                     arm_labels <- trimws(strsplit(self$options$trial_arms, ",")[[1]])
                     if (length(arm_labels) != length(x_levels)) {
-                        private$.addAnalysisNote(paste0(
-                            .("Treatment arm labels were ignored: "), length(arm_labels),
-                            .(" label(s) provided for "), length(x_levels),
-                            .(" group(s). Provide one comma-separated label per group.")
-                        ))
+                        private$.addAnalysisNote(jmvcore::format(
+                            .("Treatment arm labels were ignored: {n_labels} label(s) were provided for {n_groups} group(s). Provide one comma-separated label per group."),
+                            n_labels = length(arm_labels),
+                            n_groups = length(x_levels)))
                     }
                 }
 
@@ -477,11 +497,47 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     self$options$show_longitudinal && !is.null(id_var) && id_var != "") {
                     time_labels <- trimws(strsplit(self$options$time_labels, ",")[[1]])
                     if (length(time_labels) != length(x_levels)) {
-                        private$.addAnalysisNote(paste0(
-                            .("Time point labels were ignored: "), length(time_labels),
-                            .(" label(s) provided for "), length(x_levels),
-                            .(" time point(s). Provide one comma-separated label per time point.")
-                        ))
+                        private$.addAnalysisNote(jmvcore::format(
+                            .("Time point labels were ignored: {n_labels} label(s) were provided for {n_points} time point(s). Provide one comma-separated label per time point."),
+                            n_labels = length(time_labels),
+                            n_points = length(x_levels)))
+                    }
+                }
+
+                # Plot-time fallbacks that make the figure differ from what was requested.
+                # .plot() cannot write to a results element, so the cheap, data-only
+                # conditions are re-detected here and disclosed as notes; the matching
+                # warning() calls in .plot() remain as console-only diagnostics.
+                n_groups <- length(x_levels)
+                if (n_groups > private$.constants$MAX_GROUPS_FOR_DISPLAY) {
+                    private$.addAnalysisNote(sprintf(
+                        .("'%s' has %d groups, which may crowd the plot and make it hard to read. Consider collapsing categories."),
+                        x_var, n_groups))
+                }
+
+                n_fill_levels <- if (!is.null(fill_var) && fill_var != "" &&
+                                     fill_var %in% names(analysis_data))
+                    length(unique(analysis_data[[fill_var]])) else 0L
+                if (n_groups > 15 || n_fill_levels > 5) {
+                    private$.addAnalysisNote(sprintf(
+                        .("This analysis has %d group(s) and %d fill level(s). The raincloud (ggrain) layer is skipped above 15 groups or 5 fill levels to keep the plot readable, in which case standard violin, boxplot and point layers are drawn instead."),
+                        n_groups, n_fill_levels))
+                }
+
+                if (!is.null(cov_var) && cov_var != "" && cov_var %in% names(dataset)) {
+                    # Only rows that would otherwise have been kept: a row missing y or x
+                    # is dropped regardless, and blaming the covariate for it overstates
+                    # the covariate's cost.
+                    other_vars <- Filter(function(v) !is.null(v) && v != "" && v %in% names(dataset),
+                                         list(y_var, x_var))
+                    kept_otherwise <- if (length(other_vars) > 0)
+                        stats::complete.cases(dataset[, unlist(other_vars), drop = FALSE])
+                    else rep(TRUE, nrow(dataset))
+                    n_cov_missing <- sum(is.na(dataset[[cov_var]]) & kept_otherwise)
+                    if (n_cov_missing > 0) {
+                        private$.addAnalysisNote(sprintf(
+                            .("%d row(s) were excluded because the covariate '%s' was missing; those observations do not appear in the plot or in the statistics."),
+                            n_cov_missing, cov_var))
                     }
                 }
 
@@ -543,7 +599,9 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         ))
                     },
                     error = function(e) {
-                        stop(.("Failed to create base plot: "), htmltools::htmlEscape(e$message), .("Please check your variable selections."))
+                        stop(jmvcore::format(
+                            .("Failed to create the base plot: {error}. Please check your variable selections."),
+                            error = conditionMessage(e)))
                     }
                 )
 
@@ -555,7 +613,10 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 # Validate data structure for ggrain compatibility
                 n_groups <- length(unique(analysis_data[[x_var]]))
                 if (n_groups > private$.constants$MAX_GROUPS_FOR_DISPLAY) {
-                    warning(.("Large number of groups ("), n_groups, .("may cause display issues. Consider grouping your data."))
+                    # Console-only; the user-facing note is added in .run().
+                    warning(jmvcore::format(
+                        .("A large number of groups ({n}) may cause display issues. Consider grouping your data."),
+                        n = n_groups))
                 }
 
                 # Ensure no NA values in grouping variable
@@ -590,11 +651,10 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                         # Inform user about exclusions
                         if (excluded_n > 0) {
-                            message(paste0(
-                                .("Longitudinal Analysis: Excluded "), excluded_n,
-                                .(" observations with missing ID values ("),
-                                round((excluded_n / original_n) * 100, 1), .("%)")
-                            ))
+                            message(jmvcore::format(
+                                .("Longitudinal analysis excluded {n} observation(s) with missing ID values ({percent}%)."),
+                                n = excluded_n,
+                                percent = round((excluded_n / original_n) * 100, 1)))
                         }
                     }
 
@@ -605,20 +665,20 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         total_ids <- length(id_counts)
 
                         if (repeated_ids == 0) {
+                            # Console-only; the user-facing note is added in .run().
                             warning(.("No repeated IDs found after data cleaning. Longitudinal connections require subjects with multiple observations."))
                         } else if (repeated_ids < 3) {
-                            warning(paste0(
-                                .("Very few subjects with repeated measures ("), repeated_ids,
-                                .(") after data cleaning. Longitudinal connections may not be meaningful.")
-                            ))
+                            # Console-only; the user-facing note is added in .run().
+                            warning(jmvcore::format(
+                                .("Very few subjects with repeated measures ({n}) remain after data cleaning. Longitudinal connections may not be meaningful."),
+                                n = repeated_ids))
                             rain_params$id.long.var <- id_var
                         } else {
                             # Proper longitudinal structure detected
                             rain_params$id.long.var <- id_var
-                            message(paste0(
-                                .("Longitudinal connections enabled for "), repeated_ids,
-                                .("/"), total_ids, .(" subjects with repeated measures.")
-                            ))
+                            message(jmvcore::format(
+                                .("Longitudinal connections were enabled for {repeated}/{total} subjects with repeated measures."),
+                                repeated = repeated_ids, total = total_ids))
                         }
                     } else {
                         warning(.("All observations excluded due to missing ID values. Longitudinal connections disabled."))
@@ -639,6 +699,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     if (!any(is.na(analysis_data[[cov_var]]))) {
                         rain_params$cov <- cov_var
                     } else {
+                        # Console-only; .run() notes the rows dropped for a missing covariate.
                         warning(.("Covariate variable contains NA values. Covariate mapping disabled."))
                     }
                 }
@@ -651,6 +712,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 if (n_groups > 15 ||
                     (!is.null(fill_var) && fill_var != "" && length(unique(analysis_data[[fill_var]])) > 5)) {
                     use_fallback <- TRUE
+                    # Console-only; the user-facing note is added in .run().
                     warning(.("Using standard geom fallback due to high data complexity."))
                 }
 
@@ -665,6 +727,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             valid_sides <- c("l", "r", "f", "f1x1", "f2x2")
                             if (!self$options$rain_side %in% valid_sides) {
                                 rain_params$rain.side <- "l" # Default fallback
+                                # Console-only; the user-facing note is added in .run().
                                 warning(.("Invalid rain.side value. Using default 'l' (left)."))
                             }
 
@@ -676,7 +739,9 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     if (!is.null(rain_err)) {
                         # Set fallback flag for any ggrain error
                         use_fallback <- TRUE
-                        warning(.("ggrain failed with error: "), rain_err$message, .("Using standard geom fallback."))
+                        warning(jmvcore::format(
+                            .("ggrain failed with error: {error}. Using the standard-geometry fallback."),
+                            error = conditionMessage(rain_err)))
                     }
                 }
 
@@ -759,7 +824,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                                     ifelse(is.null(p$labels$caption) || p$labels$caption == "", "",
                                         paste0(p$labels$caption, "\n")
                                     ),
-                                    "Note: Standard geom fallback used due to data compatibility"
+                                    .("Note: Standard-geometry fallback used because the requested raincloud layer was incompatible with the data.")
                                 )
                             )
                         },
@@ -781,32 +846,40 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 }
 
                 # Apply color palette with error handling
-                tryCatch(
+                p <- tryCatch(
                     {
                         colors <- private$.get_color_palette(fill_mapping, analysis_data)
-                        p <- p + ggplot2::scale_fill_manual(values = colors)
+                        p + ggplot2::scale_fill_manual(values = colors)
                     },
                     error = function(e) {
                         # Fallback to default ggplot2 colors if palette generation fails
-                        warning(.("Color palette generation failed, using default colors: "), e$message)
-                        # ggplot2 will use default colors automatically
+                        warning(jmvcore::format(
+                            .("Color palette generation failed, so default colors were used: {error}"),
+                            error = conditionMessage(e)))
+                        private$.appendPlotNote(
+                            p,
+                            .("Note: The requested fill palette could not be generated, so default colors were used."))
                     }
                 )
 
                 # Apply covariate color scale if needed with error handling
                 if (!is.null(cov_var) && cov_var != "") {
-                    tryCatch(
+                    p <- tryCatch(
                         {
                             if (is.numeric(analysis_data[[cov_var]])) {
-                                p <- p + ggplot2::scale_color_viridis_c()
+                                p + ggplot2::scale_color_viridis_c()
                             } else {
                                 cov_colors <- private$.get_color_palette(cov_var, analysis_data)
-                                p <- p + ggplot2::scale_color_manual(values = cov_colors)
+                                p + ggplot2::scale_color_manual(values = cov_colors)
                             }
                         },
                         error = function(e) {
-                            warning(.("Covariate color scale generation failed, using defaults: "), e$message)
-                            # ggplot2 will use default colors automatically
+                            warning(jmvcore::format(
+                                .("Covariate color-scale generation failed, so defaults were used: {error}"),
+                                error = conditionMessage(e)))
+                            private$.appendPlotNote(
+                                p,
+                                .("Note: The requested covariate color scale could not be generated, so default colors were used."))
                         }
                     )
                 }
@@ -970,11 +1043,10 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         names(arm_labels) <- x_levels
                         p <- p + ggplot2::scale_x_discrete(labels = arm_labels)
                     } else {
-                        warning(paste(
-                            .("Number of trial arm labels ("), length(arm_labels),
-                            .("does not match number of groups ("), length(x_levels),
-                            .("Using default labels.")
-                        ))
+                        warning(jmvcore::format(
+                            .("The number of trial-arm labels ({n_labels}) does not match the number of groups ({n_groups}), so default labels were used."),
+                            n_labels = length(arm_labels),
+                            n_groups = length(x_levels)))
                     }
                 }
 
@@ -990,11 +1062,10 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             names(time_labels) <- x_levels
                             p <- p + ggplot2::scale_x_discrete(labels = time_labels)
                         } else {
-                            warning(paste(
-                                .("Number of time point labels ("), length(time_labels),
-                                .("does not match number of time points ("), length(x_levels),
-                                .("Using default labels.")
-                            ))
+                            warning(jmvcore::format(
+                                .("The number of time-point labels ({n_labels}) does not match the number of time points ({n_points}), so default labels were used."),
+                                n_labels = length(time_labels),
+                                n_points = length(x_levels)))
                         }
                     }
                 }
@@ -1143,7 +1214,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 stats_html <- private$.build_html_table(
                     table_data,
-                    .(" Advanced Raincloud Statistics"),
+                    .("Advanced Raincloud Statistics"),
                     headers
                 )
 
@@ -1202,7 +1273,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 post_hoc_warning <- ""
                 if (n_groups > 2) {
                     post_hoc_warning <- paste0(
-                        "<div style='background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin-top: 10px;'>",
+                        "<div style='background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ffc107; padding: 10px; margin-top: 10px; color: inherit;'>",
                         "<p style='margin: 0;'><strong> IMPORTANT:</strong> This is an <strong>omnibus test only</strong>. ",
                         "A significant result indicates <em>at least one</em> group differs, but does NOT identify which specific groups differ. ",
                         "For pairwise comparisons, use post-hoc tests with multiplicity adjustment (e.g., Dunn's test with Holm or Bonferroni correction) ",
@@ -1212,7 +1283,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 }
 
                 comparison_html <- paste0(
-                    "<div style='background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                    "<div style='background-color: rgba(153, 33, 170, 0.12); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                     "<h3 style='color: #7b1fa2; margin-top: 0;'> Group Comparison Results</h3>",
                     "<table style='width: 100%; border-collapse: collapse;'>",
                     "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>Test Method:</strong></td><td style='padding: 8px; border: 1px solid #ddd;'>", test_name, "</td></tr>",
@@ -1244,7 +1315,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 has_likert <- self$options$likert_mode
 
                 interpretation_html <- paste0(
-                    "<div style='background-color: #e8f5e8; padding: 20px; border-radius: 8px;'>",
+                    "<div style='background-color: rgba(33, 159, 33, 0.1); padding: 20px; border-radius: 8px; color: inherit;'>",
                     "<h3 style='color: #2e7d32; margin-top: 0;'> Advanced Raincloud Plot Guide</h3>",
                     "<h4 style='color: #2e7d32;'>Current Configuration:</h4>",
                     "<ul>",
@@ -1338,20 +1409,20 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 # Implement performance optimization: limit pairwise comparisons
                 if (n_groups > private$.constants$MAX_GROUPS_FOR_PAIRWISE) {
-                    warning(
-                        .("Too many groups ("), n_groups, .("for pairwise comparisons. Limiting to first "),
-                        private$.constants$MAX_GROUPS_FOR_PAIRWISE, .("groups.")
-                    )
+                    # Called from .run(), so the truncation can be disclosed to the user.
+                    private$.addAnalysisNote(sprintf(
+                        .("Effect sizes were computed for the first %d of %d groups only; pairwise comparisons are limited to keep the analysis responsive."),
+                        private$.constants$MAX_GROUPS_FOR_PAIRWISE, n_groups))
                     groups <- groups[1:private$.constants$MAX_GROUPS_FOR_PAIRWISE]
                     n_groups <- length(groups)
                 }
 
                 html <- paste0(
-                    "<div style='background-color: #e8f5e9; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                    "<div style='background-color: rgba(33, 159, 43, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                     "<h3 style='color: #2e7d32; margin-top: 0;'> Effect Size Analysis</h3>",
                     "<p>Effect size type: <strong>", effect_type, "</strong></p>",
                     "<table style='width: 100%; border-collapse: collapse;'>",
-                    "<thead><tr style='background-color: #4caf50; color: white;'>",
+                    "<thead><tr style='background-color: #4caf50; color: #ffffff; color: white;'>",
                     "<th style='padding: 8px; border: 1px solid #ddd;'>Comparison</th>",
                     "<th style='padding: 8px; border: 1px solid #ddd;'>Effect Size</th>",
                     "<th style='padding: 8px; border: 1px solid #ddd;'>95% CI</th>",
@@ -1386,7 +1457,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             error_msg <- if (!is.null(effect_result$error)) effect_result$error else "Unable to calculate"
                             html <- paste0(
                                 html,
-                                "<tr style='background-color: #fff3cd;'>",
+                                "<tr style='background-color: rgba(255, 202, 33, 0.23); color: inherit;'>",
                                 "<td style='padding: 8px; border: 1px solid #ddd;'>",
                                 htmltools::htmlEscape(groups[i]), " vs ", htmltools::htmlEscape(groups[j]), "</td>",
                                 "<td colspan='3' style='padding: 8px; border: 1px solid #ddd; text-align: center;'>",
@@ -1551,7 +1622,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 if (is.null(id_var) || id_var == "" || is.null(baseline_group) || baseline_group == "") {
                     return(list(
                         html = paste0(
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
                             "<p>", .("Change analysis requires both a longitudinal ID variable and a baseline group specification."), "</p>",
                             "</div>"
@@ -1570,7 +1641,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 cleaning_report <- ""
                 if (excluded_n > 0) {
                     cleaning_report <- paste0(
-                        "<div style='background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>",
+                        "<div style='background-color: rgba(33, 152, 239, 0.13); padding: 15px; border-radius: 5px; margin-bottom: 15px; color: inherit;'>",
                         "<h4 style='color: #1976d2; margin-top: 0;'> ", .("Data Cleaning Summary"), "</h4>",
                         # The translation keys used to be ") observations", which
                         # rendered as "900) observations" - an unopened bracket in
@@ -1591,9 +1662,12 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     return(list(
                         html = paste0(
                             cleaning_report,
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
-                            "<p>", .("Baseline group '"), htmltools::htmlEscape(baseline_group), .("' not found in complete data. Available groups: "), available_groups, "</p>",
+                            "<p>", jmvcore::format(
+                                .("Baseline group '{group}' was not found in the complete data. Available groups: {available}."),
+                                group = htmltools::htmlEscape(baseline_group),
+                                available = available_groups), "</p>",
                             "</div>"
                         ),
                         summary = NULL
@@ -1605,7 +1679,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     return(list(
                         html = paste0(
                             cleaning_report,
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
                             "<p>", .("No repeated observations found in complete data. Change analysis requires subjects with multiple measurements."), "</p>",
                             "</div>"
@@ -1622,7 +1696,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     return(list(
                         html = paste0(
                             cleaning_report,
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
                             "<p>", .("Insufficient baseline or follow-up observations to compute change scores."), "</p>",
                             "</div>"
@@ -1652,7 +1726,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     return(list(
                         html = paste0(
                             cleaning_report,
-                            "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
                             "<p>", .("No paired observations found for change analysis in complete data."), "</p>",
                             "</div>"
@@ -1710,7 +1784,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 html <- paste0(
                     cleaning_report,
-                    "<div style='background-color: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                    "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                     "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
                     "<h4>", .("Analysis Parameters"), "</h4>",
                     "<table style='width: 100%; border-collapse: collapse;'>",
@@ -1790,18 +1864,20 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 itt_warning <- if (identical(pop_type, "itt") && !is.na(n_dropped) && n_dropped > 0)
                     paste0(
-                        "<div style='background-color:#f8d7da;color:#721c24;padding:12px;border-radius:6px;margin:10px 0;'>",
+                        "<div style='background-color: rgba(216, 33, 50, 0.18);color: inherit;padding:12px;border-radius:6px;margin:10px 0;'>",
                         sprintf(.("%d of %d supplied rows (%.1f%%) were excluded before analysis because of missing values in the selected variables. An intention-to-treat analysis retains all randomised participants, so these results are a COMPLETE-CASE analysis and should not be reported as ITT without imputation or another accounting for the missing outcomes."),
                                 n_dropped, n_supplied, 100 * n_dropped / n_supplied),
                         "</div>")
                 else ""
 
                 html <- paste0(
-                    "<div style='background-color: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                    "<div style='background-color: rgba(33, 152, 239, 0.13); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                     "<h3 style='color: #1565c0; margin-top: 0;'> Clinical Analysis Report</h3>",
                     "<h4>Study Population</h4>",
                     "<p>Analysis population as declared: <strong>", pop_label, "</strong>",
-                    if (!is.na(n_dropped)) sprintf(.(" - %d of %d supplied rows analysed"), n_analysed, n_supplied) else "",
+                    if (!is.na(n_dropped)) paste0(
+                        " - ",
+                        sprintf(.("%d of %d supplied rows analysed"), n_analysed, n_supplied)) else "",
                     "</p>",
                     pop_caveat,
                     itt_warning,
@@ -1821,7 +1897,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             },
             .generate_methods_text = function(options) {
                 html <- paste0(
-                    "<div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;'>",
+                    "<div style='background-color: rgba(138, 155, 172, 0.06); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                     "<h3 style='color: #495057; margin-top: 0;'> Methods Section</h3>",
                     "<p style='text-align: justify;'>",
                     "Data were visualized using advanced raincloud plots, which combine ",
@@ -1919,7 +1995,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 }
 
                 html <- paste0(
-                    "<div style='background-color: #fff3e0; padding: 20px; border-radius: 8px; margin-top: 20px;'>",
+                    "<div style='background-color: rgba(255, 169, 33, 0.14); padding: 20px; border-radius: 8px; margin-top: 20px; color: inherit;'>",
                     "<h3 style='color: #e65100; margin-top: 0;'> ", .("Missing Data Information"), "</h3>",
                     "<h4>", .("Data Exclusions"), "</h4>",
                     "<p><strong>", .("Original dataset:"), "</strong> ", n_original, " ", .("observations"), "</p>",
@@ -1932,7 +2008,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     html <- paste0(
                         html, "<h4>", .("Missing Data by Variable"), "</h4>",
                         "<table style='width: 100%; border-collapse: collapse;'>",
-                        "<thead><tr style='background-color: #ff9800; color: white;'>",
+                        "<thead><tr style='background-color: #ff9800; color: #111111; color: white;'>",
                         "<th style='padding: 8px; border: 1px solid #ddd;'>", .("Variable"), "</th>",
                         "<th style='padding: 8px; border: 1px solid #ddd;'>", .("Missing (n)"), "</th>",
                         "<th style='padding: 8px; border: 1px solid #ddd;'>", .("Missing (%)"), "</th>",

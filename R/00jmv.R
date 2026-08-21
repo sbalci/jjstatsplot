@@ -45,6 +45,13 @@
         `title`="The R Graph Gallery", 
         `publisher`="A website that displays hundreds of R charts https://www.r-graph-gallery.com", 
         `url`="https://github.com/holtzy/R-graph-gallery"), 
+    `RCorTestDocumentation`=list(
+        `type`="website", 
+        `author`="R Core Team", 
+        `year`=2026, 
+        `title`="cor.test: Test for Association/Correlation Between Paired Samples", 
+        `publisher`="R Documentation, stats package", 
+        `url`="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.test.html"), 
     `ClinicoPathJamoviModule`=list(
         `type`="software", 
         `author`="Serdar Balci", 
@@ -93,8 +100,8 @@
         `author`="Gaston Sanchez", 
         `year`=2018, 
         `title`="arcdiagram: R package", 
-        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=arcdiagram", 
-        `url`="https://CRAN.R-project.org/package=arcdiagram"), 
+        `publisher`="[R package]. Retrieved from https://github.com/gastonstat/arcdiagram", 
+        `url`="https://github.com/gastonstat/arcdiagram"), 
     `ggpubr`=list(
         `type`="software", 
         `author`="Alboukadel Kassambara", 
@@ -132,4 +139,5 @@
         `volume`=6, 
         `issue`=61, 
         `pages`="3236", 
-        `doi`="10.21105/joss.03236"))
+        `doi`="10.21105/joss.03236", 
+        `url`="https://doi.org/10.21105/joss.03236"))

@@ -1,7 +1,7 @@
 #' @title Bar Charts
 #'
 #' @importFrom R6 R6Class
-#' @import jmvcore
+#' @importFrom jmvcore .
 #' @importFrom digest digest
 #' @importFrom purrr map imap
 #' @importFrom rlang sym
@@ -338,7 +338,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
             .generateAboutContent = function() {
                 about_content <- paste0(
-                    "<div style='padding: 15px; background-color: #f8f9fa; border-left: 4px solid #007bff; margin: 10px 0;'>",
+                    "<div style='padding: 15px; background-color: rgba(138, 155, 172, 0.06); border-left: 4px solid #007bff; margin: 10px 0; color: inherit;'>",
                     "<h4 style='color: #007bff; margin-top: 0;'> About Bar Chart Analysis</h4>",
                     "<p><strong>Purpose:</strong> Compare the distribution of categorical variables across groups using statistical testing.</p>",
                     "<p><strong>When to Use:</strong></p>",
@@ -384,7 +384,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                 )
 
                 summary_content <- paste0(
-                    "<div style='padding: 15px; background-color: #e8f5e8; border-left: 4px solid #28a745; margin: 10px 0;'>",
+                    "<div style='padding: 15px; background-color: rgba(33, 159, 33, 0.1); border-left: 4px solid #28a745; margin: 10px 0; color: inherit;'>",
                     "<h4 style='color: #28a745; margin-top: 0;'> Analysis Summary</h4>",
                     "<p><strong>Variables Analyzed:</strong> ", dep_vars, " by ", htmltools::htmlEscape(self$options$group), "</p>",
                     "<p><strong>Sample Size:</strong> ", n_total, " observations across ", n_groups, " groups</p>",
@@ -638,7 +638,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 # Generate assumptions content
                 assumptions_content <- paste0(
-                    "<div style='padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; margin: 10px 0;'>",
+                    "<div style='padding: 15px; background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ffc107; margin: 10px 0; color: inherit;'>",
                     "<h4 style='color: #856404; margin-top: 0;'> Statistical Assumptions & Warnings</h4>",
 
                     "<p><strong>General Assumptions:</strong></p>",
@@ -667,14 +667,24 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
             },
 
             .generateInterpretationGuide = function() {
+                # There is no results table in jjbarstats.r.yaml: Cramer's V and its
+                # confidence interval exist only inside the ggstatsplot subtitle, and
+                # `resultssubtitle` is FALSE by default - so the pointer must be
+                # conditional, read through the same .option() the plot uses.
+                effect_pointer <- if (isTRUE(private$.option("resultssubtitle")))
+                    "Cram\u00e9r's V, reported with the test in the plot subtitle, measures how strong the association is on a scale from 0 (none) to 1 (perfect), and its confidence interval shows how loosely this sample pins that value down."
+                else
+                    "Cram\u00e9r's V measures how strong the association is on a scale from 0 (none) to 1 (perfect), and its confidence interval shows how loosely this sample pins that value down; switch on 'Statistical results in subtitle' to display them."
+
                 interpretation_content <- paste0(
-                    "<div style='padding: 15px; background-color: #d1ecf1; border-left: 4px solid #17a2b8; margin: 10px 0;'>",
+                    "<div style='padding: 15px; background-color: rgba(33, 163, 188, 0.21); border-left: 4px solid #17a2b8; margin: 10px 0; color: inherit;'>",
                     "<h4 style='color: #0c5460; margin-top: 0;'> How to Interpret Results</h4>",
                     
                     "<p><strong>Statistical Significance:</strong></p>",
                     "<ul>",
                     "<li><strong>p < 0.05:</strong> Significant association between variables</li>",
-                    "<li><strong>p \u2265 0.05:</strong> No significant association detected</li>",
+                    paste0("<li><strong>p \u2265 0.05:</strong> No significant association was detected. This is an absence of evidence for an association, not evidence that the variables are independent - an association of small or moderate size may simply be undetectable at this sample size. ", effect_pointer, "</li>"),
+                    "<li>When several tables are tested, use adjusted p-values: the chance of at least one false positive rises with the number of comparisons.</li>",
                     "</ul>",
                     
                     "<p><strong>Effect Size Interpretation:</strong></p>",
@@ -702,7 +712,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                         "biomarker" = paste0(
                             "<ul>",
                             "<li><strong>Expression Patterns:</strong> Compare distribution across clinical groups</li>",
-                            "<li><strong>Prognostic Value:</strong> Association with outcomes indicates potential clinical utility</li>",
+                            "<li><strong>Prognostic Value:</strong> Association with outcomes is a starting point only; prognostic or predictive value has to be established in an independent cohort</li>",
                             "<li><strong>Validation:</strong> Consider external validation and clinical correlation</li>",
                             "</ul>"
                         ),
@@ -736,10 +746,10 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
 
                 # Generate template report
                 report_template <- paste0(
-                    "<div style='padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; margin: 10px 0;'>",
+                    "<div style='padding: 15px; background-color: rgba(138, 155, 172, 0.06); border: 1px solid #dee2e6; margin: 10px 0; color: inherit;'>",
                     "<h4 style='color: #495057; margin-top: 0;'> Copy-Ready Report Template</h4>",
 
-                    "<div style='background-color: #ffffff; padding: 15px; border: 1px dashed #6c757d; margin: 10px 0;'>",
+                    "<div style='background-color: rgba(255, 255, 255, 0.06); padding: 15px; border: 1px dashed #6c757d; margin: 10px 0; color: inherit;'>",
                     "<h5>Methods:</h5>",
                     "<p>Bar chart analysis was performed to examine the association between ", dep_vars,
                     " and ", htmltools::htmlEscape(self$options$group), " using ",
@@ -761,16 +771,22 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                     
                     "<h5>Results:</h5>",
                     "<p>[Insert specific results here: test statistic, p-value, effect size with 95% CI]</p>",
-                    "<p>Example: \"There was a statistically significant association between [variable 1] and [variable 2] ",
-                    "(\u03c7\u00b2 = [value], p = [value], Cram\u00e9r's V = [value], 95% CI [lower, upper]). ",
-                    "Post-hoc analysis revealed significant differences between [specific groups].\"</p>",
+                    # The example used to assert a significant association, and a
+                    # post-hoc sentence, unconditionally - wrong whenever the result
+                    # was null or pairwise comparisons were not requested.
+                    "<p>Template (state the direction only if the test was significant): ",
+                    "\"There was [a / no] statistically significant association between [variable 1] and [variable 2] ",
+                    "(\u03c7\u00b2 = [value], p = [value], Cram\u00e9r's V = [value], 95% CI [lower, upper]).",
+                    if (isTRUE(private$.option("pairwisecomparisons")) && n_groups > 2)
+                        " Post-hoc comparisons differed between [specific groups]." else "",
+                    "\"</p>",
                     
                     "<h5>Conclusion:</h5>",
                     "<p>[Interpret findings in clinical context, considering both statistical significance and clinical relevance]</p>",
                     "</div>",
                     
                     "<button onclick='navigator.clipboard.writeText(this.parentElement.querySelector(\"div\").innerText)' ",
-                    "style='background-color: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;'>",
+                    "style='background-color: #007bff; color: #ffffff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;'>",
                     " Copy Template to Clipboard</button>",
                     "</div>"
                 )
@@ -1202,7 +1218,7 @@ jjbarstatsClass <- if (requireNamespace('jmvcore'))
                     is.null(self$options$group)) {
                     
                     todo <- glue::glue(
-                        "<div style='padding: 15px; background-color: #e7f3ff; border-left: 4px solid #0066cc; margin: 10px 0;'>",
+                        "<div style='padding: 15px; background-color: rgba(33, 144, 255, 0.11); border-left: 4px solid #0066cc; margin: 10px 0; color: inherit;'>",
                         "<h4 style='color: #0066cc; margin-top: 0;'> Getting Started</h4>",
                         "<p><strong>Step 1:</strong> Select your <strong>Outcome Variable</strong> (what you want to analyze)</p>",
                         "<p><strong>Step 2:</strong> Choose a <strong>Group Variable</strong> (what you want to compare)</p>",

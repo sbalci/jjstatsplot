@@ -24,18 +24,6 @@ export(lollipop)
 export(raincloud)
 export(raw_to_prob)
 export(statsplot2)
-import(RColorBrewer)
-import(dplyr, except = c(as_data_frame, groups, select, union))
-import(ggplot2)
-import(ggridges)
-import(ggstatsplot)
-import(glue)
-import(grDevices)
-import(jmvcore)
-import(magrittr, except = c(extract, set_names))
-import(rlang)
-import(tidyr)
-import(waffle)
 importFrom(BayesFactor,ttestBF)
 importFrom(R6,R6Class)
 importFrom(RColorBrewer,brewer.pal)
@@ -45,8 +33,11 @@ importFrom(car,leveneTest)
 importFrom(cowplot,plot_grid)
 importFrom(digest,digest)
 importFrom(dplyr,
+  across,
+  all_of,
   arrange,
   count,
+  distinct,
   filter,
   group_by,
   inner_join,
@@ -75,7 +66,10 @@ importFrom(ggdist,
 importFrom(ggforce,geom_mark_hull)
 importFrom(ggplot2,
   aes,
+  after_stat,
+  annotate,
   coord_flip,
+  element_blank,
   element_line,
   element_rect,
   element_text,
@@ -85,13 +79,16 @@ importFrom(ggplot2,
   geom_col,
   geom_point,
   geom_text,
+  geom_vline,
   ggplot,
+  labeller,
   labs,
   margin,
   position_fill,
   scale_color_manual,
   scale_color_viridis_d,
   scale_fill_brewer,
+  scale_fill_gradient,
   scale_fill_manual,
   scale_fill_viridis_d,
   scale_y_continuous,
@@ -120,6 +117,12 @@ importFrom(ggstatsplot,
   theme_ggstatsplot
 )
 importFrom(glue,glue)
+importFrom(grDevices,
+  adjustcolor,
+  col2rgb,
+  hsv,
+  rgb
+)
 importFrom(graphics,
   legend,
   par,
@@ -135,6 +138,7 @@ importFrom(igraph,
   is_connected,
   max_degree
 )
+importFrom(jmvcore,.)
 importFrom(magrittr,"%>%")
 importFrom(methods,hasArg)
 importFrom(moments,

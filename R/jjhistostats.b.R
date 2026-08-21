@@ -1,10 +1,6 @@
 #' @title Histogram
 #' @importFrom R6 R6Class
-#' @import jmvcore
-#' @import ggplot2
-#' @import rlang
-#' @import glue
-#' @import ggstatsplot
+#' @importFrom jmvcore .
 #' @importFrom digest digest
 #' @return An \code{R6} class generator object for the \code{jjhistostatsClass} backend; used internally by the jamovi analysis wrapper and not called directly.
 
@@ -368,11 +364,11 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         n_bins <- rng / self$options$binwidth
                         if (n_bins > max_bins)
                             return(list(valid = FALSE, message = paste0(
-                                "Bin width ", format(self$options$binwidth), " would split '", v,
-                                "' into ", format(round(n_bins), big.mark = ","),
+                                "Bin width ", base::format(self$options$binwidth), " would split '", v,
+                                "' into ", base::format(round(n_bins), big.mark = ","),
                                 " bins, so the histogram would be unreadable (or blank). '", v,
-                                "' ranges over ", format(signif(rng, 4)),
-                                "; a bin width of about ", format(signif(rng / 30, 3)),
+                                "' ranges over ", base::format(signif(rng, 4)),
+                                "; a bin width of about ", base::format(signif(rng / 30, 3)),
                                 " gives roughly 30 bins.")))
                     }
                 }
@@ -505,7 +501,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     if (length(unique(var_data)) == 1) {
                         warnings <- c(warnings, paste0(
                             " <strong>Variable '", htmltools::htmlEscape(var), "' has constant values</strong> (every row is ",
-                            htmltools::htmlEscape(format(var_data[1])), "). There is no range to bin, so the histogram ",
+                            htmltools::htmlEscape(base::format(var_data[1])), "). There is no range to bin, so the histogram ",
                             "panel for this variable will be empty. Check the variable selection and any active row filters."
                         ))
                     }
@@ -694,7 +690,16 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         } else if (!is.na(shapiro_p) && shapiro_p <= 0.05) {
                             "Symmetric but not normal - e.g. bimodal, or heavier/lighter tails than a normal curve; inspect the histogram before using parametric tests"
                         } else {
-                            "Approximately symmetric (suitable for parametric tests)"
+                            # Must agree with `is_normal`: at n = 2 the skewness is exactly 0
+                            # and Shapiro-Wilk cannot run, so the old unconditional
+                            # "parametric tests are reasonable" contradicted the
+                            # "Non-normal distribution" bullet three lines below.
+                            paste0("Approximately symmetric",
+                                   if (is_normal)
+                                       " (parametric tests are reasonable; symmetry alone does not rule out bimodality or heavy tails, so check the histogram)"
+                                   else
+                                       paste0(" - but with n = ", n,
+                                              " the normality check below could not be run, so symmetry here is not evidence of a normal distribution"))
                         }, "</li>",
                         if (!is.na(shapiro_p))
                             paste0("<li><strong>Normality (Shapiro-Wilk):</strong> W-test p = ",
@@ -710,7 +715,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         if (sd_val == 0) {
                             "This variable is constant - every observation has the same value. There is no distribution to summarise and no test to run on it."
                         } else if (is_normal) {
-                            "Normal distribution allows use of parametric statistics (t-tests, ANOVA). Mean and SD are appropriate summary measures."
+                            "No evidence of a departure from normality was found, so parametric statistics (t-tests, ANOVA) are reasonable here. Absence of evidence against normality does not establish that the distribution is normal, particularly at small n or when the Shapiro-Wilk test could not be run. Mean and SD are appropriate summary measures."
                         } else {
                             "Non-normal distribution: prefer rank-based methods. Within this analysis that is the Wilcoxon signed-rank option; if you go on to compare groups, the rank-based equivalents are Mann-Whitney (two groups) and Kruskal-Wallis (three or more). Median and IQR are the more appropriate summary measures here."
                         }, "</li>",
@@ -722,9 +727,9 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                 
                 if (length(interpretation_parts) > 0) {
                     full_interpretation <- paste0(
-                        "<div style='background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; margin: 10px 0;'>",
+                        "<div style='background-color: rgba(138, 155, 172, 0.06); border: 1px solid #dee2e6; padding: 15px; margin: 10px 0; color: inherit;'>",
                         "<h3>Clinical Interpretation</h3>",
-                        "<div style='background-color: #fff3cd; border-left: 3px solid #ffc107; padding: 10px; margin: 10px 0;'>",
+                        "<div style='background-color: rgba(255, 202, 33, 0.23); border-left: 3px solid #ffc107; padding: 10px; margin: 10px 0; color: inherit;'>",
                         "<strong> Note:</strong> Normality is judged by the <strong>Shapiro-Wilk test</strong> (p &gt; 0.05 and ",
                         "|skewness| &lt; 1) whenever it is applicable (3 \u2264 n \u2264 5000); outside that range the skewness ",
                         "<strong>rule-of-thumb</strong> (|skewness| &lt; 0.5 and n \u2265 30) is used instead and the bullet says so. ",
@@ -842,14 +847,14 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     ## todo ----
 
                     todo <- glue::glue(
-                    "<div style='background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 20px; margin: 10px 0; border-radius: 5px;'>
+                    "<div style='background-color: rgba(138, 155, 172, 0.06); border: 1px solid #dee2e6; padding: 20px; margin: 10px 0; border-radius: 5px; color: inherit;'>
                     <h2 style='color: #495057; margin-top: 0;'> Histogram Analysis</h2>
                     <p style='font-size: 16px; color: #6c757d; margin: 15px 0;'>
                     <strong>Welcome to ClinicoPath Histogram Tool!</strong><br>
                     Create statistical histograms with clinical interpretation and advanced visualization options.
                     </p>
                     
-                    <div style='background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 15px 0;'>
+                    <div style='background-color: rgba(33, 152, 239, 0.13); border-left: 4px solid #2196f3; padding: 15px; margin: 15px 0; color: inherit;'>
                     <h4 style='color: #1976d2; margin-top: 0;'> Getting Started:</h4>
                     <ol style='margin: 10px 0; padding-left: 20px;'>
                     <li><strong>Select Variables:</strong> Choose one or more continuous variables from the left panel</li>
@@ -858,7 +863,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                     </ol>
                     </div>
                     
-                    <div style='background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0;'>
+                    <div style='background-color: rgba(255, 202, 33, 0.23); border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; color: inherit;'>
                     <h4 style='color: #856404; margin-top: 0;'> Clinical Examples:</h4>
                     <ul style='margin: 10px 0; padding-left: 20px;'>
                     <li><strong>Lab Values:</strong> Cholesterol levels, blood glucose, biomarker concentrations</li>
@@ -912,7 +917,7 @@ jjhistostatsClass <- if (requireNamespace('jmvcore'))
                         warning_text <- paste(all_warnings, collapse = "<br>")
                         todo <- glue::glue(
                             "<br>You have selected to make a histogram.<br><hr>",
-                            "<div style='background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 5px 0;'>",
+                            "<div style='background-color: rgba(255, 202, 33, 0.23); border: 1px solid #ffeaa7; padding: 10px; margin: 5px 0; color: inherit;'>",
                             "<strong>Clinical & Performance Considerations:</strong><br>",
                             "{warning_text}",
                             "</div><hr>"
