@@ -141,3 +141,4 @@ README_badges.md
 ^data/.*\.omv$
 ^inst/extdata/.*\.omv$
 ^data/.*\.csv$
+^.*\.tar\.gz$
