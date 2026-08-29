@@ -85,11 +85,11 @@ utils::globalVariables(c(
 #' placeholder name hangs; a value containing a DIFFERENT supplied name substitutes and
 #' terminates; an UNKNOWN `{name}` renders as an ellipsis; a bare `{ }` is left literal.
 #'
-#' @param fmt Format string, normally wrapped in `.()`.
+#' @param .format_string Format string, normally wrapped in `.()`.
 #' @param ... Named placeholder values.
 #' @return The interpolated string.
 #' @keywords internal
-.fmt <- function(fmt, ...) {
+.fmt <- function(.format_string, ...) {
     values <- list(...)
     risky <- vapply(values, function(v) {
         v <- tryCatch(as.character(v), error = function(e) "")
@@ -105,10 +105,10 @@ utils::globalVariables(c(
             v <- gsub("{", "(", v, fixed = TRUE)
             gsub("}", ")", v, fixed = TRUE)
         })
-        return(do.call(jmvcore::format, c(list(fmt), values)))
+        return(do.call(jmvcore::format, c(list(.format_string), values)))
     }
 
-    do.call(jmvcore::format, c(list(fmt), values))
+    do.call(jmvcore::format, c(list(.format_string), values))
 }
 
 #' Escape variable names containing special characters for formulas
