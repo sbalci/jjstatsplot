@@ -29,6 +29,14 @@ children:
             name: grvar
             maxItemCount: 1
             isTarget: true
+      - type: TargetLayoutBox
+        label: Subject ID (Repeated Continuous Outcomes)
+        children:
+          - type: VariablesListBox
+            name: subjectID
+            maxItemCount: 1
+            isTarget: true
+            enable: (direction:repeated)
   - type: LayoutBox
     margin: large
     children:
@@ -46,10 +54,29 @@ children:
     margin: large
     children:
       - type: Label
+        label: Output
+        children:
+          - type: CheckBox
+            name: showSummary
+          - type: CheckBox
+            name: showExplanations
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: Label
         label: Data Handling
         children:
           - type: CheckBox
             name: excl
+  - type: CollapseBox
+    label: Advanced
+    collapsed: true
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: CheckBox
+            name: forceContinuous
           - type: CheckBox
             name: sampleLarge
           - type: TextBox

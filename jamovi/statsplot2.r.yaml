@@ -12,10 +12,33 @@ items:
           - dep
           - group
           - direction
+          - subjectID
           - distribution
+          - forceContinuous
           - excl
           - grvar
           - sampleLarge
+          - sampleThreshold
+          - sampleSize
+          - seed
+
+    - name:  summary
+      title: Result sentence
+      type:  Html
+      visible: (showSummary)
+      clearWith:
+          - dep
+          - group
+          - direction
+          - subjectID
+          - distribution
+          - forceContinuous
+          - alluvsty
+          - excl
+          - grvar
+          - sampleLarge
+          - sampleThreshold
+          - sampleSize
           - seed
 
     - name:  todo
@@ -25,23 +48,32 @@ items:
           - dep
           - group
           - direction
+          - subjectID
           - distribution
+          - forceContinuous
           - excl
           - grvar
           - sampleLarge
+          - sampleThreshold
+          - sampleSize
 
 
     - name:  ExplanationMessage
       title: Explanation
       type:  Html
+      visible: (showExplanations)
       clearWith:
           - dep
           - group
           - direction
+          - subjectID
           - distribution
+          - forceContinuous
           - excl
           - grvar
           - sampleLarge
+          - sampleThreshold
+          - sampleSize
           - seed
 
 
@@ -57,11 +89,15 @@ items:
           - dep
           - group
           - direction
+          - subjectID
           - distribution
+          - forceContinuous
           - alluvsty
           - excl
           - grvar
           - sampleLarge
+          - sampleThreshold
+          - sampleSize
           - seed
 
 
