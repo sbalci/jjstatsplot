@@ -95,7 +95,8 @@ importFrom(ggplot2,
   theme_classic,
   theme_dark,
   theme_light,
-  theme_minimal
+  theme_minimal,
+  vars
 )
 importFrom(ggprism,prism_colour_pal)
 importFrom(ggpubr,

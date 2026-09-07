@@ -37,7 +37,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             .validate_numeric_range = function(value, name, min, max) {
                 if (!is.null(value)) {
                     if (!is.numeric(value) || value < min || value > max) {
-                        jmvcore::reject(jmvcore::format(
+                        jmvcore::reject(.fmt(
                             .("{name} must be a numeric value between {min} and {max}."),
                             name = name, min = min, max = max), code = "")
                     }
@@ -46,7 +46,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             .validate_numeric_positive = function(value, name) {
                 if (!is.null(value)) {
                     if (!is.numeric(value) || value <= 0) {
-                        jmvcore::reject(jmvcore::format(
+                        jmvcore::reject(.fmt(
                             .("{name} must be a positive numeric value."), name = name),
                             code = "")
                     }
@@ -54,7 +54,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
             },
             .validate_numeric_type = function(value, name) {
                 if (!is.null(value) && !is.numeric(value)) {
-                    jmvcore::reject(jmvcore::format(
+                    jmvcore::reject(.fmt(
                         .("{name} must be a numeric value."), name = name), code = "")
                 }
             },
@@ -481,12 +481,19 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             .("Only %d subject(s) have repeated observations, so the longitudinal connections shown may not be meaningful."),
                             repeated_ids))
                     }
+                    n_timepoints <- length(x_levels)
+                    incomplete_ids <- sum(id_counts < n_timepoints)
+                    if (incomplete_ids > 0 && repeated_ids > 0) {
+                        private$.addAnalysisNote(sprintf(
+                            .("%d subject(s) have missing intermediate or follow-up time points and are partially connected or unconnected without imputation."),
+                            incomplete_ids))
+                    }
                 }
 
                 if (!is.null(self$options$trial_arms) && self$options$trial_arms != "") {
                     arm_labels <- trimws(strsplit(self$options$trial_arms, ",")[[1]])
                     if (length(arm_labels) != length(x_levels)) {
-                        private$.addAnalysisNote(jmvcore::format(
+                        private$.addAnalysisNote(.fmt(
                             .("Treatment arm labels were ignored: {nLabels} label(s) were provided for {nGroups} group(s). Provide one comma-separated label per group."),
                             nLabels = length(arm_labels),
                             nGroups = length(x_levels)))
@@ -497,11 +504,32 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     self$options$show_longitudinal && !is.null(id_var) && id_var != "") {
                     time_labels <- trimws(strsplit(self$options$time_labels, ",")[[1]])
                     if (length(time_labels) != length(x_levels)) {
-                        private$.addAnalysisNote(jmvcore::format(
+                        private$.addAnalysisNote(.fmt(
                             .("Time point labels were ignored: {nLabels} label(s) were provided for {nPoints} time point(s). Provide one comma-separated label per time point."),
                             nLabels = length(time_labels),
                             nPoints = length(x_levels)))
                     }
+                }
+
+                # Large dataset jitter points performance advisory
+                if (nrow(analysis_data) > 20000 && isTRUE(self$options$show_dots)) {
+                    private$.addAnalysisNote(sprintf(
+                        .("The dataset contains %d observations. Rendering individual raw jitter points with transparency may increase render times; consider disabling data points or using boxplot/violin mode for faster display."),
+                        nrow(analysis_data)))
+                }
+
+                # Population declaration advisory
+                if (!is.null(self$options$population_type) && self$options$population_type != "itt" &&
+                    self$options$population_type != "all") {
+                    pop_decl <- switch(self$options$population_type,
+                        "pp" = "Per-Protocol",
+                        "mitt" = "Modified ITT",
+                        "at" = "As-Treated",
+                        self$options$population_type
+                    )
+                    private$.addAnalysisNote(sprintf(
+                        .("Population is declared as '%s'. This setting applies an analytical label to the study report; adherence and protocol deviations are assumed as specified by the investigator."),
+                        pop_decl))
                 }
 
                 # Plot-time fallbacks that make the figure differ from what was requested.
@@ -599,7 +627,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         ))
                     },
                     error = function(e) {
-                        stop(jmvcore::format(
+                        stop(.fmt(
                             .("Failed to create the base plot: {error}. Please check your variable selections."),
                             error = conditionMessage(e)))
                     }
@@ -614,7 +642,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 n_groups <- length(unique(analysis_data[[x_var]]))
                 if (n_groups > private$.constants$MAX_GROUPS_FOR_DISPLAY) {
                     # Console-only; the user-facing note is added in .run().
-                    warning(jmvcore::format(
+                    warning(.fmt(
                         .("A large number of groups ({n}) may cause display issues. Consider grouping your data."),
                         n = n_groups))
                 }
@@ -651,7 +679,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                         # Inform user about exclusions
                         if (excluded_n > 0) {
-                            message(jmvcore::format(
+                            message(.fmt(
                                 .("Longitudinal analysis excluded {n} observation(s) with missing ID values ({percent}%)."),
                                 n = excluded_n,
                                 percent = round((excluded_n / original_n) * 100, 1)))
@@ -669,14 +697,14 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             warning(.("No repeated IDs found after data cleaning. Longitudinal connections require subjects with multiple observations."))
                         } else if (repeated_ids < 3) {
                             # Console-only; the user-facing note is added in .run().
-                            warning(jmvcore::format(
+                            warning(.fmt(
                                 .("Very few subjects with repeated measures ({n}) remain after data cleaning. Longitudinal connections may not be meaningful."),
                                 n = repeated_ids))
                             rain_params$id.long.var <- id_var
                         } else {
                             # Proper longitudinal structure detected
                             rain_params$id.long.var <- id_var
-                            message(jmvcore::format(
+                            message(.fmt(
                                 .("Longitudinal connections were enabled for {repeated}/{total} subjects with repeated measures."),
                                 repeated = repeated_ids, total = total_ids))
                         }
@@ -739,7 +767,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     if (!is.null(rain_err)) {
                         # Set fallback flag for any ggrain error
                         use_fallback <- TRUE
-                        warning(jmvcore::format(
+                        warning(.fmt(
                             .("ggrain failed with error: {error}. Using the standard-geometry fallback."),
                             error = conditionMessage(rain_err)))
                     }
@@ -853,7 +881,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     },
                     error = function(e) {
                         # Fallback to default ggplot2 colors if palette generation fails
-                        warning(jmvcore::format(
+                        warning(.fmt(
                             .("Color palette generation failed, so default colors were used: {error}"),
                             error = conditionMessage(e)))
                         private$.appendPlotNote(
@@ -874,7 +902,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             }
                         },
                         error = function(e) {
-                            warning(jmvcore::format(
+                            warning(.fmt(
                                 .("Covariate color-scale generation failed, so defaults were used: {error}"),
                                 error = conditionMessage(e)))
                             private$.appendPlotNote(
@@ -884,10 +912,21 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     )
                 }
 
-                # Add clinical cutoff line only when a non-zero cutoff is actually set
-                # (0 is the "unset" default; drawing a threshold at y=0 by default is wrong).
-                if (!is.null(self$options$clinical_cutoff) && is.numeric(self$options$clinical_cutoff) &&
+                # Add clinical cutoff line
+                show_cutoff <- FALSE
+                has_cutoff_toggle <- tryCatch(
+                    !is.null(self$options$show_clinical_cutoff) && isTRUE(self$options$show_clinical_cutoff),
+                    error = function(e) FALSE
+                )
+                if (has_cutoff_toggle) {
+                    show_cutoff <- TRUE
+                } else if (!is.null(self$options$clinical_cutoff) && is.numeric(self$options$clinical_cutoff) &&
                     !is.na(self$options$clinical_cutoff) && self$options$clinical_cutoff != 0) {
+                    show_cutoff <- TRUE
+                }
+
+                if (show_cutoff && !is.null(self$options$clinical_cutoff) &&
+                    is.numeric(self$options$clinical_cutoff) && !is.na(self$options$clinical_cutoff)) {
                     p <- p + ggplot2::geom_hline(
                         yintercept = self$options$clinical_cutoff,
                         linetype = "dashed",
@@ -907,7 +946,22 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 }
 
                 # Add reference range shading if specified
-                if (!is.null(self$options$reference_range_min) && !is.null(self$options$reference_range_max) &&
+                show_ref <- FALSE
+                has_ref_toggle <- tryCatch(
+                    !is.null(self$options$show_reference_range) && isTRUE(self$options$show_reference_range),
+                    error = function(e) FALSE
+                )
+                if (has_ref_toggle) {
+                    show_ref <- TRUE
+                } else if (!is.null(self$options$reference_range_min) && !is.null(self$options$reference_range_max) &&
+                    is.numeric(self$options$reference_range_min) && is.numeric(self$options$reference_range_max) &&
+                    !is.na(self$options$reference_range_min) && !is.na(self$options$reference_range_max) &&
+                    self$options$reference_range_min < self$options$reference_range_max &&
+                    !(self$options$reference_range_min == 0 && self$options$reference_range_max == 0)) {
+                    show_ref <- TRUE
+                }
+
+                if (show_ref && !is.null(self$options$reference_range_min) && !is.null(self$options$reference_range_max) &&
                     is.numeric(self$options$reference_range_min) && is.numeric(self$options$reference_range_max) &&
                     !is.na(self$options$reference_range_min) && !is.na(self$options$reference_range_max) &&
                     self$options$reference_range_min < self$options$reference_range_max) {
@@ -1043,7 +1097,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         names(arm_labels) <- x_levels
                         p <- p + ggplot2::scale_x_discrete(labels = arm_labels)
                     } else {
-                        warning(jmvcore::format(
+                        warning(.fmt(
                             .("The number of trial-arm labels ({nLabels}) does not match the number of groups ({nGroups}), so default labels were used."),
                             nLabels = length(arm_labels),
                             nGroups = length(x_levels)))
@@ -1062,7 +1116,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             names(time_labels) <- x_levels
                             p <- p + ggplot2::scale_x_discrete(labels = time_labels)
                         } else {
-                            warning(jmvcore::format(
+                            warning(.fmt(
                                 .("The number of time-point labels ({nLabels}) does not match the number of time points ({nPoints}), so default labels were used."),
                                 nLabels = length(time_labels),
                                 nPoints = length(x_levels)))
@@ -1228,7 +1282,15 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 return(stats_html)
             },
+            .hasRepeatedSubjects = function(data) {
+                id <- self$options$id_var
+                !is.null(id) && nzchar(id) && id %in% names(data) &&
+                    anyDuplicated(data[[id]][!is.na(data[[id]])]) > 0
+            },
             .generate_comparisons = function(data, y_var, x_var, fill_var) {
+                if (private$.hasRepeatedSubjects(data))
+                    return(list(html = "<p>Repeated subject IDs detected. Independent-group tests are not appropriate. Use jjwithinstats or a repeated-measures model for inference; the descriptive plot and change scores remain available.</p>", stats = NULL))
+
                 group_var <- if (!is.null(fill_var) && fill_var != "") fill_var else x_var
                 groups <- levels(as.factor(data[[group_var]]))
                 n_groups <- length(groups)
@@ -1251,7 +1313,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     test_name <- "Wilcoxon rank-sum test"
                     test_stat <- round(test_result$statistic, 4)
                     raw_p <- test_result$p.value
-                    p_value <- round(raw_p, 4)
+                    p_value <- private$.format_p_value(raw_p)
                     test_details <- paste0("W = ", test_stat)
                 } else {
                     # Multiple groups - use Kruskal-Wallis
@@ -1261,13 +1323,13 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     test_name <- "Kruskal-Wallis test (omnibus only)"
                     test_stat <- round(kw_result$statistic, 4)
                     raw_p <- kw_result$p.value
-                    p_value <- round(raw_p, 4)
+                    p_value <- private$.format_p_value(raw_p)
                     test_details <- paste0("\u{03C7}\u{00B2} = ", test_stat, ", df = ", kw_result$parameter)
                     df_value <- kw_result$parameter
                 }
 
                 # Format results
-                significance <- if (p_value < 0.001) "Highly significant (***)" else if (p_value < 0.01) "Very significant (**)" else if (p_value < 0.05) "Significant (*)" else "Not significant"
+                significance <- if (!is.finite(raw_p)) "Not estimable" else if (raw_p < 0.05) "Evidence against the null at 0.05" else "No evidence against the null at 0.05"
 
                 # Add warning for Kruskal-Wallis about missing post-hoc tests
                 post_hoc_warning <- ""
@@ -1400,6 +1462,9 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 return(data)
             },
             .generate_effect_sizes = function(data, y_var, x_var, effect_type) {
+                if (private$.hasRepeatedSubjects(data))
+                    return("<p>Independent-group effect-size intervals are omitted because subject IDs repeat. Use a paired effect-size analysis that accounts for within-subject covariance.</p>")
+
                 groups <- unique(data[[x_var]])
                 n_groups <- length(groups)
 
@@ -1546,8 +1611,8 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     # Small sample correction factor
                     J <- 1 - (3 / (4 * (n1 + n2 - 2) - 1))
                     effect_size <- d * J
-                    # Standard error for Hedges' g (same as Cohen's d)
-                    se <- sqrt((n1 + n2) / (n1 * n2) + effect_size^2 / (2 * (n1 + n2)))
+                    # Scale the entire approximate standard error by the correction J.
+                    se <- J * sqrt((n1 + n2) / (n1 * n2) + d^2 / (2 * (n1 + n2)))
                 } else if (type == "glass_delta") {
                     # Glass's delta uses ONLY control group (group2) SD
 
@@ -1561,18 +1626,11 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     }
 
                     effect_size <- (mean1 - mean2) / sd2
-                    # Glass's delta standardises by the CONTROL SD only, but both
-                    # group means still carry sampling error, so the first term is
-                    # (n1+n2)/(n1*n2) = 1/n1 + 1/n2 - not 1/n2 alone. The previous
-                    # `n1/(n1*n2)` simplifies to 1/n2 and dropped the treatment
-                    # group's contribution entirely, and the second denominator
-                    # used 2*n2 rather than 2*(n2-1). Measured at n1=n2=20,
-                    # delta=0.8: SE 0.2569 against the correct 0.3418, i.e. a
-                    # confidence interval only 75% as wide as it should be, so the
-                    # estimate looked far more precise than it is.
-                    # Hedges & Olkin (1985), Statistical Methods for Meta-Analysis.
+                    # Delta-method variance: both mean variances divided by
+                    # the control variance, plus uncertainty in the control SD.
                     se <- if (n2 > 1)
-                        sqrt((n1 + n2) / (n1 * n2) + effect_size^2 / (2 * (n2 - 1)))
+                        sqrt(sd1^2 / (n1 * sd2^2) + 1 / n2 +
+                             effect_size^2 / (2 * (n2 - 1)))
                     else NA_real_
                 }
 
@@ -1635,7 +1693,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 original_n <- nrow(data)
                 required_vars <- c(id_var, x_var, y_var)
-                complete_data <- data[complete.cases(data[required_vars]), ]
+                complete_data <- data[complete.cases(data[required_vars]) & is.finite(data[[y_var]]), , drop = FALSE]
                 excluded_n <- original_n - nrow(complete_data)
 
                 cleaning_report <- ""
@@ -1664,7 +1722,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                             cleaning_report,
                             "<div style='background-color: rgba(255, 202, 33, 0.23); padding: 20px; border-radius: 8px; margin-bottom: 20px; color: inherit;'>",
                             "<h3 style='color: #856404; margin-top: 0;'> Change Score Analysis</h3>",
-                            "<p>", jmvcore::format(
+                            "<p>", .fmt(
                                 .("Baseline group '{group}' was not found in the complete data. Available groups: {available}."),
                                 group = htmltools::htmlEscape(baseline_group),
                                 available = available_groups), "</p>",
@@ -1672,6 +1730,12 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                         ),
                         summary = NULL
                     ))
+                }
+
+                if (anyDuplicated(complete_data[c(id_var, x_var)]) > 0) {
+                    return(list(html = paste0(cleaning_report,
+                        "<p>Change scores require one observation per subject and time point. Resolve duplicate subject/time records before analysis.</p>"),
+                        summary = NULL))
                 }
 
                 id_counts <- table(complete_data[[id_var]])
@@ -1690,7 +1754,9 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
 
                 level_index <- setNames(seq_along(levels(complete_data[[x_var]])), levels(complete_data[[x_var]]))
                 baseline_data <- complete_data[complete_data[[x_var]] == baseline_group, ]
-                followup_data <- complete_data[complete_data[[x_var]] != baseline_group, ]
+                followup_data <- complete_data[
+                    level_index[as.character(complete_data[[x_var]])] > level_index[[baseline_group]],
+                    , drop = FALSE]
 
                 if (nrow(baseline_data) == 0 || nrow(followup_data) == 0) {
                     return(list(
@@ -1750,7 +1816,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 responders <- paired_data %>%
                     dplyr::mutate(
                         responder = dplyr::case_when(
-                            is.na(.data$percent_change) ~ FALSE,
+                            is.na(.data$percent_change) ~ NA,
                             threshold >= 0 ~ .data$percent_change >= threshold_value,
                             TRUE ~ .data$percent_change <= -threshold_value
                         ),
@@ -1768,6 +1834,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     )
 
                 n_total <- nrow(responders)
+                n_evaluable <- sum(!is.na(responders$responder))
                 n_responders <- sum(responders$responder, na.rm = TRUE)
                 n_improvers <- sum(responders$increased, na.rm = TRUE)
                 n_decliners <- sum(responders$decreased, na.rm = TRUE)
@@ -1780,7 +1847,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                 median_change <- round(median(responders$change_score, na.rm = TRUE), 3)
                 sd_change <- round(sd(responders$change_score, na.rm = TRUE), 3)
 
-                threshold_label <- paste0(ifelse(threshold >= 0, ">=", "<="), threshold_value)
+                threshold_label <- paste0(ifelse(threshold >= 0, ">=", "<="), threshold)
 
                 html <- paste0(
                     cleaning_report,
@@ -1805,7 +1872,9 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     "<h4>", .("Response Categories"), "</h4>",
                     "<table style='width: 100%; border-collapse: collapse;'>",
                     "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>", .("Responders ("), threshold_label, "% change):</strong></td>",
-                    "<td style='padding: 8px; border: 1px solid #ddd;'>", n_responders, " (", pct_fmt(n_responders), "%)</td></tr>",
+                    "<td style='padding: 8px; border: 1px solid #ddd;'>", n_responders, " / ", n_evaluable, " evaluable (",
+                    if (n_evaluable > 0) round(100 * n_responders / n_evaluable, 1) else "not estimable",
+                    "%)</td></tr>",
                     "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>", .("Increased from baseline:"), "</strong></td>",
                     "<td style='padding: 8px; border: 1px solid #ddd;'>", n_improvers, " (", pct_fmt(n_improvers), "%)</td></tr>",
                     "<tr><td style='padding: 8px; border: 1px solid #ddd;'><strong>", .("Decreased from baseline:"), "</strong></td>",
@@ -1814,7 +1883,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     "<td style='padding: 8px; border: 1px solid #ddd;'>", n_stable, " (", pct_fmt(n_stable), "%)</td></tr>",
                     "</table>",
                     "<p style='font-size: 12px; color: #856404; margin-top: 15px;'>",
-                    "<em>", .("Analysis based on complete paired observations. Change scores calculated as (Follow-up - Baseline) values."), "</em>",
+                    "<em>", .("Analysis uses each subject’s last available level after baseline, according to the group factor order. Change = follow-up minus baseline; percent change = 100 × change / absolute baseline. Zero baselines are excluded from the response percentage denominator. These thresholds describe change and do not establish clinical benefit."), "</em>",
                     "</p></div>"
                 )
 
@@ -1822,6 +1891,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     baseline_group = baseline_group,
                     n_total = n_total,
                     n_responders = n_responders,
+                    n_evaluable = n_evaluable,
                     n_improvers = n_improvers,
                     n_decliners = n_decliners,
                     n_stable = n_stable,
@@ -2045,7 +2115,7 @@ advancedraincloudClass <- if (requireNamespace("jmvcore")) {
                     return(p)
                 }
 
-                label <- paste0("p = ", stats$label)
+                label <- paste0("p ", if (startsWith(as.character(stats$label), "<")) "" else "= ", stats$label)
                 if (position == "above") {
                     y_max <- max(data[[y_var]], na.rm = TRUE)
                     y_pos <- y_max + diff(range(data[[y_var]], na.rm = TRUE)) * 0.1

@@ -14,11 +14,9 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
         # Cache for processed data and options to avoid redundant computation
         .processedData = NULL,
-        .processedOptions = NULL,
         .data_hash = NULL,
         .validation_passed = FALSE,
         .plotTheme = NULL,
-        .effectiveOptions = NULL,
 
         # Memoized Fisher's-exact decision, keyed on the same data+option hash
         # as .processedData so the chi-square assumption check (an independent
@@ -114,7 +112,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 grvar = self$options$grvar,
                 typestatistics = self$options$typestatistics,
                 counts = self$options$counts,
-                ratio_raw = self$options$ratio,
+                raw_ratio = self$options$ratio,
                 paired = self$options$paired %||% FALSE,
                 label = self$options$label %||% "percentage",
                 digits = self$options$digits %||% 2L,
@@ -144,40 +142,21 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 }
             }
 
-            # Parse ratio once; capture and muffle warnings to avoid noisy console output.
-            # Accumulate into an environment (not `<<-`) so the handler does not
-            # write to an enclosing/global scope.
-            rw_env <- new.env(parent = emptyenv())
-            rw_env$ratio_warnings <- character()
-            opts$ratio <- withCallingHandlers(
-                private$.parseRatio(opts$ratio_raw),
-                warning = function(w) {
-                    rw_env$ratio_warnings <- c(rw_env$ratio_warnings, conditionMessage(w))
-                    invokeRestart("muffleWarning")
-                }
-            )
-            ratio_warnings <- rw_env$ratio_warnings
-            # TODO (cleanup): File-wide pattern - many commented-out jmvcore::Notice
-            #   blocks preserved as dead code. Sites: L122-130 (here), L401-408,
-            #   L425-434, L676-691, L832-839, L1108-1119, L1209-1218, L1226-1240,
-            #   L1353-1364, L1373-1386. Either delete or revive. If revived, the
-            #   sprintf'd column-name interpolations (e.g. L686 `diseased_level`
-            #   factor-level value, L1232 `fisher_check$low_count_cells` numeric)
-            #   must apply htmltools::htmlEscape on user-controlled tokens IF
-            #   migrated to Html-typed result items per project's notice-to-HTML
-            #   conversion guide. Notice plain-text rendering is safe today.
-            if (length(ratio_warnings) > 0 && isTRUE(self$options$messages)) {
-                ratio_warnings <- unique(ratio_warnings)
-                # notice <- jmvcore::Notice$new(
-                #     options = self$options,
-                #     name = 'ratioParseNotice',
-                #     type = jmvcore::NoticeType$INFO
-                # )
-                # notice$setContent(paste(ratio_warnings, collapse = "<br>"))
-                # self$results$insert(999, notice)
-            }
+            # Parse the ratio once. .parseRatio() coerces with as.numeric(), which
+            # warns on non-numeric input; jamovi shows raw R warnings in the
+            # undifferentiated Analysis Notes panel, so muffle them here. The
+            # user-facing complaint is raised properly from .emitRunNotices(),
+            # which re-derives the reason and states it in a notice.
+            #
+            # Assign through `[` rather than `$`: .parseRatio() returns NULL for an
+            # empty or invalid ratio, and `opts$ratio <- NULL` would DELETE the
+            # element, after which `opts$ratio` partial-matches the sibling
+            # `raw_ratio` and yields "" instead of NULL.
+            opts["ratio"] <- list(withCallingHandlers(
+                private$.parseRatio(opts$raw_ratio),
+                warning = function(w) invokeRestart("muffleWarning")
+            ))
 
-            private$.effectiveOptions <- opts
             opts
         },
         
@@ -285,7 +264,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 paste(.('Comparing across groups:'), htmltools::htmlEscape(self$options$group))
             } else { .('No grouping variable - single pie chart') }
             
-            method_info <- paste(.('Statistical method:'), tools::toTitleCase(self$options$typestatistics))
+            method_info <- paste(.('Statistical method:'), if (private$.effectiveOptionsList()$paired) 'McNemar' else tools::toTitleCase(private$.effectiveOptionsList()$typestatistics))
             
             glue::glue(
                 "<h4>{summary_title}</h4>
@@ -295,11 +274,26 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 <p>\u2022 {sample_info}</p>
                 <hr>",
                 summary_title = .('Analysis Configuration'),
-                sample_info = paste(.('Sample size:'), nrow(self$data), .('observations'))
+                sample_info = paste(.('Sample size:'), nrow(self$data), .('input rows (before exclusions; frequencies may differ)'))
             )
         },
         
         .generateAssumptionsContent = function() {
+            opts <- private$.effectiveOptionsList()
+            if (isTRUE(opts$paired)) {
+                pd <- private$.pairedDiscordant(self$data, self$options$dep,
+                                                self$options$group, self$options$counts)
+                detail <- if (!is.null(pd))
+                    sprintf(.('Only %d of the %d pairs are discordant. McNemar\'s chi-square is an asymptotic test on the discordant pairs alone, so below about 25 of them it is anti-conservative. The exact binomial test on those pairs gives <b>%s</b>; quote that value.'),
+                            pd$n_disc, pd$n_total, private$.fmtP(pd$p_exact))
+                else
+                    .('The McNemar chi-square reported by the plotting package is computed without a continuity correction, so it will not match the base R default.')
+                return(paste0("<p>",
+                    .('McNemar analysis requires paired categorical observations with matching category coding. Pairs must be independent of one another. An independent-samples Fisher test is not a replacement.'),
+                    " ", detail, "</p>"))
+            }
+            if (identical(opts$typestatistics, "bayes"))
+                return("<p>Bayesian contingency analysis assumes independent observations and valid case frequencies. Interpret the Bayes factor with its prior; Pearson expected-count diagnostics do not determine Bayesian validity.</p>")
             warnings_list <- c()
 
             # Check for small sample sizes
@@ -334,7 +328,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         # checks. Keep this text in step with what is actually on
                         # the figure - a panel that contradicts the chart is the
                         # defect this whole fix is about.
-                        swapped <- !is.null(private$.exactSubtitle(
+                        swapped <- isTRUE(opts$resultssubtitle) && !is.null(private$.exactSubtitle(
                             self$data, self$options$dep, self$options$group,
                             self$options$counts, self$options$conflevel, self$options$digits))
 
@@ -352,6 +346,9 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                             " ",
                             if (swapped)
                                 .('The chart subtitle therefore reports Fisher\'s exact test instead of the chi-square.')
+                            else if (!isTRUE(opts$resultssubtitle))
+                                paste0("Statistical subtitles are disabled. Fisher's exact test on this table: ",
+                                    if (is.finite(fisher_p)) private$.fmtP(fisher_p) else "not computed", ".")
                             else if (is.finite(fisher_p))
                                 sprintf(.('The chart subtitle still reports an uncorrected Pearson chi-square - no statistic option changes that, as the plotting package offers no exact test. Fisher\'s exact test on this table gives <b>%s</b>; quote that value, not the subtitle.'),
                                         private$.fmtP(fisher_p))
@@ -381,7 +378,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                       paste0("<li>", warnings_list, "</li>", collapse = "\n"),
                       "\n</ul>\n")
             } else {
-                paste0("<p> ", .('All basic assumptions appear to be met.'), "</p>\n")
+                paste0("<p> ", .('No issue was detected by these limited checks; study design and independence still require verification.'), "</p>\n")
             }
             
             glue::glue(
@@ -398,7 +395,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         },
         
         .generateInterpretationContent = function() {
-            method_guidance <- switch(self$options$typestatistics,
+            method_guidance <- switch(private$.effectiveOptionsList()$typestatistics,
                 "parametric" = .('Chi-square test results show whether group differences are statistically significant. Look for p-values < 0.05 for significant associations. Example: \u03c7\u00b2(1) = 5.2, p = 0.023 indicates significant difference between groups.'),
                 # For a contingency table, ggstatsplot computes the SAME Pearson
                 # chi-square for parametric, nonparametric and robust - it offers no
@@ -413,7 +410,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             clinical_context <- switch(self$options$clinicalpreset %||% "custom",
                 "diagnostic" = .('For diagnostic tests: Focus on sensitivity (true positive rate) and specificity (true negative rate). Example: Sensitivity = 85% means test correctly identifies 85 out of 100 diseased patients. Specificity = 92% means test correctly identifies 92 out of 100 healthy individuals. PPV and NPV depend on disease prevalence in your population.'),
                 "treatment" = .('For treatment response: Look for significant differences between treatment arms. Example: 45% response in Treatment A vs 25% in Treatment B (p = 0.012, Cram\u00e9r\'s V = 0.31) indicates a moderate effect size. Whether a difference of this magnitude matters for patients is a judgement about the outcome, not a property of the statistic; on the count scale the same contrast is an absolute risk difference of 20 percentage points, i.e. a number needed to treat of 1/0.20 = 5.'),
-                "biomarker" = .('For biomarker analysis: Examine distribution patterns across patient groups. Example: High biomarker expression in 65% of responders vs 30% in non-responders (p < 0.001, OR = 4.3 [2.1-8.7]) describes an association between expression and response in this sample. A cross-sectional association does not establish predictive value; that requires evaluation in an independent cohort.'),
+                "biomarker" = .('For biomarker analysis: Examine distribution patterns across patient groups. Example: High biomarker expression in 65% of responders vs 30% in non-responders (p < 0.001, OR = 4.3, 95% CI 2.1 to 8.7) describes an association between expression and response in this sample. A cross-sectional association does not establish predictive value; that requires evaluation in an independent cohort.'),
                 .('Interpret results in the context of your specific research question and clinical setting. Focus on effect sizes (Cram\u00e9r\'s V, odds ratios) alongside p-values for clinical significance assessment.')
             )
 
@@ -461,10 +458,30 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # and on that table Fisher gives p = 0.0511 - the other side of 0.05
             # from the number shown. statsExpressions::contingency_table() routes
             # every frequentist type to chi-square; there is no exact-test option.
-            method_name <- switch(self$options$typestatistics,
-                "bayes" = .('a Bayesian contingency table analysis'),
-                .('Pearson\'s chi-squared test')
-            )
+            opts <- private$.effectiveOptionsList()
+            method_name <- if (isTRUE(opts$paired)) {
+                # statsExpressions runs mcnemar.test(correct = FALSE) while base R
+                # defaults to correct = TRUE, so an unqualified "McNemar's test" does
+                # not reproduce in base R. Name the correction, or the exact test
+                # when that is what the chart now shows.
+                if (isTRUE(opts$resultssubtitle) &&
+                    !is.null(private$.exactSubtitle(self$data, opts$dep, opts$group,
+                                                    opts$counts, opts$conflevel, opts$digits)))
+                    .("McNemar's exact test, a binomial test on the discordant pairs")
+                else
+                    .("McNemar's test without continuity correction")
+            }
+            else if (identical(opts$typestatistics, "bayes"))
+                .('a Bayesian contingency table analysis')
+            else if (isTRUE(opts$resultssubtitle) &&
+                     !is.null(private$.exactSubtitle(self$data, opts$dep, opts$group,
+                                                    opts$counts, opts$conflevel, opts$digits)))
+                .("Fisher's exact test for the sparse two-way chart")
+            else .("Pearson's chi-squared test")
+            if (!is.null(opts$grvar) && !isTRUE(opts$paired) &&
+                !identical(opts$typestatistics, "bayes"))
+                method_name <- paste0(method_name, .("; split panels use Pearson's chi-squared test"))
+
             
             # Interpolate the {outcome}/{groups}/{method} placeholders with glue.
             # (paste() only honors sep/collapse, so named args were previously
@@ -492,8 +509,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 report_title = .('Copy-Ready Report Template'),
                 methods_title = .('Methods'),
                 results_title = .('Results'),
-                additional_details = .('Statistical significance was set at p < 0.05. All analyses were performed using jamovi statistical software.'),
-                results_placeholder = .('[Results will be automatically filled when analysis is complete]'),
+                additional_details = .('All analyses were performed using jamovi statistical software. Specify your prespecified significance threshold when reporting frequentist tests.'),
+                results_placeholder = .('[Enter the test statistic, effect estimate, confidence interval and p-value or Bayes factor from the relevant chart.]'),
                 note = .('Copy the text above and modify as needed for your manuscript or report.')
             )
         },
@@ -542,13 +559,6 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             if (!is.null(counts_var) && counts_var != "") {
                 counts_validation <- private$.validateCounts(self$data, counts_var)
                 if (!counts_validation$valid) {
-                    # notice <- jmvcore::Notice$new(
-                    #     options = self$options,
-                    #     name = 'countsValidationError',
-                    #     type = jmvcore::NoticeType$ERROR
-                    # )
-                    # notice$setContent(counts_validation$message)
-                    # self$results$insert(999, notice)
                     jmvcore::reject(counts_validation$message)
                 }
             }
@@ -562,19 +572,6 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 group_sizes <- table(self$data[[group]], useNA = "no")
 
                 if (any(group_sizes < 5)) {
-                    small_groups <- names(group_sizes[group_sizes < 5])
-                    group_details <- paste(paste(small_groups, ':', group_sizes[small_groups]), collapse = ', ')
-
-                    # notice <- jmvcore::Notice$new(
-                    #     options = self$options,
-                    #     name = 'smallGroupSizes',
-                    #     type = jmvcore::NoticeType$WARNING
-                    # )
-                    # notice$setContent(sprintf(
-                    #     'Small group sizes detected: %s. Chi-square tests require minimum 5 observations per group for reliable results.',
-                    #     group_details
-                    # ))
-                    # self$results$insert(999, notice)
                 }
 
                 if (length(group_sizes) < 2) {
@@ -735,6 +732,43 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             })
         },
 
+        # McNemar's chi-square is an asymptotic test on the DISCORDANT pairs alone,
+        # so its validity is governed by b + c, not by the table total - and the
+        # plotting package additionally runs it WITHOUT the continuity correction.
+        # The old guard only rejected a total below 10, so a table with n = 206 and
+        # just 6 discordant pairs passed and reported p = 0.10, where the exact
+        # binomial test (the exact counterpart of McNemar) gives p = 0.22.
+        #
+        # Returns the exact result when the asymptotic test should not be trusted,
+        # and NULL otherwise (no grouping variable, not 2x2, no discordant pairs at
+        # all, or enough of them).
+        .pairedDiscordant = function(data, dep_var, group_var, counts_var = NULL,
+                                     min_discordant = 25L) {
+            if (is.null(group_var) || !nzchar(group_var))
+                return(NULL)
+            tryCatch({
+                if (!is.null(counts_var) && nzchar(counts_var) && counts_var %in% names(data)) {
+                    formula_str <- paste0(jmvcore::composeTerm(counts_var), " ~ ",
+                                          jmvcore::composeTerm(dep_var), " + ",
+                                          jmvcore::composeTerm(group_var))
+                    tb <- xtabs(jmvcore::asFormula(formula_str), data = data)
+                } else {
+                    tb <- table(data[[dep_var]], data[[group_var]])
+                }
+                if (!identical(dim(tb), c(2L, 2L)))
+                    return(NULL)
+
+                b <- tb[1L, 2L]
+                cc <- tb[2L, 1L]
+                n_disc <- b + cc
+                if (n_disc == 0 || n_disc >= min_discordant)
+                    return(NULL)
+
+                list(b = b, c = cc, n_disc = n_disc, n_total = sum(tb),
+                     p_exact = stats::binom.test(b, n_disc, 0.5)$p.value)
+            }, error = function(e) NULL)
+        },
+
         # "p = < 0.001" reads badly; the operator belongs to the number. Returns a
         # ready-to-embed string, e.g. "p = 0.051" or "p < 0.001". `html` picks the
         # entity form for the HTML panels (a bare "<" is fine in HTML5 text when
@@ -761,8 +795,25 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                                   conf_level = 0.95, digits = 2L) {
             if (is.null(group_var) || !nzchar(group_var))
                 return(NULL)
-            if (isTRUE(self$options$paired) || identical(self$options$typestatistics, "bayes"))
+            opts <- private$.effectiveOptionsList()
+            if (identical(opts$typestatistics, "bayes"))
                 return(NULL)
+
+            # Paired data: Fisher assumes independent samples and is NOT the
+            # alternative here. The exact counterpart of McNemar is a binomial
+            # test on the discordant pairs, so put THAT on the chart when the
+            # asymptotic McNemar cannot be trusted.
+            if (isTRUE(opts$paired)) {
+                pd <- private$.pairedDiscordant(data, dep_var, group_var, counts_var)
+                if (is.null(pd))
+                    return(NULL)
+                d <- max(0L, as.integer(digits))
+                p_txt <- if (pd$p_exact < 0.001) "< 0.001"
+                         else formatC(pd$p_exact, format = "f", digits = max(3L, d))
+                return(parse(text = sprintf(
+                    'list(italic("p")["exact"] == "%s", italic("n")["discordant"] == "%d", italic("n")["obs"] == "%d")',
+                    p_txt, pd$n_disc, pd$n_total))[[1]])
+            }
 
             tryCatch({
                 if (!is.null(counts_var) && nzchar(counts_var) && counts_var %in% names(data)) {
@@ -832,7 +883,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 return(list(
                     valid = FALSE,
                     message = sprintf(
-                        .('McNemar test requires a 2\u00d72 contingency table. Your data has %d\u00d7%d levels (%s: %d levels, %s: %d levels). For paired data with more than 2 categories, use Cochran Q test or marginal homogeneity test instead. Consider dichotomizing your outcome variable or use parametric/nonparametric options instead of paired analysis.'),
+                        .('McNemar test requires a 2\u00d72 contingency table. Your data has %d\u00d7%d levels (%s: %d levels, %s: %d levels). For paired outcomes with more than two categories, use an appropriate test of marginal homogeneity. Do not substitute an independent-samples test or dichotomize solely to obtain this test.'),
                         nrow(cross_table), ncol(cross_table),
                         dep_var, nrow(cross_table),
                         group_var, ncol(cross_table)
@@ -1017,55 +1068,21 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 # ERROR: Non-numeric values
                 if (any(is.na(ratios))) {
-                    # notice <- jmvcore::Notice$new(
-                    #     options = self$options,
-                    #     name = 'ratioNonNumeric',
-                    #     type = jmvcore::NoticeType$ERROR
-                    # )
-                    # notice$setContent(.('Ratio specification contains non-numeric values. Expected format: "0.5,0.5" for two equal groups or "0.25,0.5,0.25" for three groups. Using equal proportions as fallback.'))
-                    # self$results$insert(999, notice)
                     return(NULL)
                 }
 
                 # ERROR: Ratios don't sum to 1
                 if (abs(sum(ratios) - 1) > 0.001) {
-                    # notice <- jmvcore::Notice$new(
-                    #     options = self$options,
-                    #     name = 'ratioSumError',
-                    #     type = jmvcore::NoticeType$ERROR
-                    # )
-                    # notice$setContent(sprintf(
-                    #     .('Ratios must sum to 1.0 but your values sum to %s. Example valid input: "0.3,0.7" (sums to 1.0). Using equal proportions as fallback.'),
-                    #     round(sum(ratios), 3)
-                    # ))
-                    # self$results$insert(999, notice)
                     return(NULL)
                 }
 
                 # ERROR: Non-positive ratios
                 if (any(ratios <= 0)) {
-                    # notice <- jmvcore::Notice$new(
-                    #     options = self$options,
-                    #     name = 'ratioNegative',
-                    #     type = jmvcore::NoticeType$ERROR
-                    # )
-                    # notice$setContent(.('All ratio values must be positive (> 0). Negative or zero values are not allowed in proportion specifications. Using equal proportions as fallback.'))
-                    # self$results$insert(999, notice)
                     return(NULL)
                 }
 
                 return(ratios)
             }, error = function(e) {
-                # notice <- jmvcore::Notice$new(
-                #     options = self$options,
-                #     name = 'ratioParseError',
-                #     type = jmvcore::NoticeType$ERROR
-                # )
-                # notice$setContent(sprintf(
-                #     .('Error parsing ratio specification: %s. Please use comma-separated decimal values (e.g., "0.5,0.5"). Using equal proportions as fallback.'),
-                #     e$message
-                # ))
-                # self$results$insert(999, notice)
                 return(NULL)
             })
         },
@@ -1094,10 +1111,16 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         },
 
         # Optimized options preparation with caching
-        .prepareOptions = function(force_refresh = FALSE) {
-            if (!is.null(private$.processedOptions) && !force_refresh) {
-                return(private$.processedOptions)
-            }
+        .prepareOptions = function() {
+            # Deliberately NOT cached. The previous `.processedOptions` cache had no
+            # invalidation key (unlike .getCachedData(), which hashes data+options),
+            # so once populated it returned the FIRST run's options for the life of
+            # the R6 instance. jamovi reuses one instance across option changes - see
+            # the note in .getPlotTheme() - so every renderer reading through here
+            # silently ignored every later option change. Measured: after switching
+            # to 5 digits and a Bayesian test, this still reported 2 and "parametric".
+            # .effectiveOptionsList() is cheap and always current, so the cache bought
+            # nothing and cost correctness.
 
             # Prepare options with progress feedback
             self$results$todo$setContent(
@@ -1110,10 +1133,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
             
             # Build effective options (includes preset and parsed ratio)
-            opts <- private$.effectiveOptionsList()
-            
-            private$.processedOptions <- opts
-            return(opts)
+            private$.effectiveOptionsList()
         }
 
 
@@ -1180,7 +1200,12 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     sub_df <- prepared_data[!is.na(prepared_data[[grvar]]) &
                                             prepared_data[[grvar]] == lv, , drop = FALSE]
                     r <- tryCatch({
-                        tb <- table(sub_df[[dep]], sub_df[[group]])
+                        cv <- self$options$counts
+                        tb <- if (!is.null(cv) && nzchar(cv)) {
+                            f <- paste(jmvcore::composeTerm(cv), "~", jmvcore::composeTerm(dep),
+                                       "+", jmvcore::composeTerm(group))
+                            stats::xtabs(jmvcore::asFormula(f), data = sub_df)
+                        } else table(sub_df[[dep]], sub_df[[group]])
                         if (!identical(dim(tb), c(2L, 2L))) NULL
                         else if (!any(suppressWarnings(chisq.test(tb)$expected) < 5)) NULL
                         else {
@@ -1203,6 +1228,29 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 private$.addNotice("WARNING", .('Single-variable pie chart not shown'),
                     .('The paired/repeated-measures option requires a two-way (grouped) comparison, so the single-variable pie chart cannot be drawn. Disable the "Paired" option to display this chart, or read the paired result from the grouped charts.'))
 
+            # .validatePairedData ran only inside .plot2/.plot4, i.e. during
+            # .plot(), so a paired request on a table that is not 2x2 drew
+            # nothing and said nothing. Raise its verdict here as well.
+            if (isTRUE(self$options$paired)) {
+                v <- private$.validatePairedData(prepared_data, dep, group)
+                if (!v$valid)
+                    private$.addNotice("WARNING", .('Paired analysis not shown'), v$message)
+            }
+
+            # McNemar's validity rests on the discordant pairs, not the table total,
+            # so a large study with few disagreements still gets an unreliable test.
+            if (isTRUE(self$options$paired)) {
+                pd <- private$.pairedDiscordant(prepared_data, dep, group, self$options$counts)
+                if (!is.null(pd))
+                    private$.addNotice("STRONG_WARNING", .('Too few discordant pairs for McNemar'),
+                        sprintf(.('Only %d of the %d pairs disagree. McNemar\'s chi-square is an asymptotic test on the discordant pairs alone and is anti-conservative below about 25 of them, and the plotting package computes it without a continuity correction. The exact binomial test on the discordant pairs gives %s. %s'),
+                                pd$n_disc, pd$n_total, private$.fmtP(pd$p_exact, html = FALSE),
+                                if (isTRUE(self$options$resultssubtitle))
+                                    .('The chart subtitle reports that exact value.')
+                                else
+                                    .('Enable "Statistical results" to show that exact value on the chart.')))
+            }
+
             # A variable crossed with itself yields a perfectly diagonal table, so
             # the association test is a tautology: every off-diagonal cell is 0 and
             # the p-value is ~0 by construction, not by any finding in the data.
@@ -1211,6 +1259,12 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     sprintf(.('\'%s\' is used as both the outcome and the grouping variable. The contingency table is then diagonal by construction, so the association test reports a near-zero p-value that reflects the setup rather than the data. Choose a different grouping variable.'),
                             dep))
 
+            if (isTRUE(self$options$messages)) {
+                opts <- private$.effectiveOptionsList()
+                private$.addNotice("INFO", .("Analysis settings"),
+                    sprintf(.("Effective test type: %s. Paired: %s. Confidence level: %.1f%%."),
+                            opts$typestatistics, opts$paired, 100 * opts$conflevel))
+            }
             private$.renderNotices()
         },
 
@@ -1292,7 +1346,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     todo <- glue::glue(
                         "<br>{ready_msg} {dep_info}{group_info}{split_info}.<br>
                         <br>{data_msg}: {nrow(prepared_data)} {obs_msg}{cache_status}.<br>
-                        <br>{method_msg}: {tools::toTitleCase(self$options$typestatistics)} {analysis_msg}.<br>
+                        <br>{method_msg}: {if (private$.effectiveOptionsList()$paired) 'McNemar' else tools::toTitleCase(private$.effectiveOptionsList()$typestatistics)} {analysis_msg}.<br>
                         {perf_warning}
                         {if(prep_time > 0.1) paste0('<br>', prep_time_msg, ': ', prep_time, ' ', seconds_msg, '.<br>') else ''}
                         <hr>",
@@ -1407,8 +1461,11 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 return()
             }
 
-            # Guard: expected proportions must match the number of outcome levels
-            options_data$ratio <- private$.applyRatioLengthGuard(options_data$ratio, mydata, dep)
+            # Guard: expected proportions must match the number of outcome levels.
+            # Keep the result in a LOCAL (as .plot2/.plot4 do). Assigning NULL back
+            # into options_data would delete the element, and a later `$ratio` read
+            # would then partial-match a sibling key instead of returning NULL.
+            ratio_vec <- private$.applyRatioLengthGuard(options_data[["ratio"]], mydata, dep)
 
             # Checkpoint before expensive statistical computation
             private$.checkpoint()
@@ -1419,15 +1476,12 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     x = !!rlang::sym(dep),
                     y = NULL,
                     counts = counts_var,
-                    ratio = options_data$ratio,
+                    ratio = ratio_vec,
                     paired = FALSE,  # Always FALSE for single variable
                     type = options_data$typestatistics,
                     label = options_data$label,
                     label.args = list(alpha = 1, fill = "white"),
                     bf.message = options_data$bfmessage,
-                    sampling.plan = "indepMulti",
-                    fixed.margin = "rows",
-                    prior.concentration = 1,
                     title = NULL,
                     subtitle = NULL,
                     caption = NULL,
@@ -1435,10 +1489,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     legend.title = NULL,
                     digits = options_data$digits,
                     proportion.test = options_data$proportiontest,
-                    package = "RColorBrewer",
-                    palette = "Dark2",
+                    palette = "RColorBrewer::Dark2",
                     ggplot.component = NULL,
-                    output = "plot",
                     results.subtitle = options_data$resultssubtitle
                     )
 
@@ -1548,9 +1600,6 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     label = options_data$label,
                     label.args = list(alpha = 1, fill = "white"),
                     bf.message = options_data$bfmessage,
-                    sampling.plan = "indepMulti",
-                    fixed.margin = "rows",
-                    prior.concentration = 1,
                     title = NULL,
                     subtitle = NULL,
                     caption = NULL,
@@ -1558,10 +1607,8 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     legend.title = NULL,
                     digits = options_data$digits,
                     proportion.test = options_data$proportiontest,
-                    package = "RColorBrewer",
-                    palette = "Dark2",
+                    palette = "RColorBrewer::Dark2",
                     ggplot.component = NULL,
-                    output = "plot",
                     results.subtitle = options_data$resultssubtitle && is.null(exact_sub)
                 )
 
@@ -1689,7 +1736,7 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                     bf.message = options_data$bfmessage,
                     results.subtitle = options_data$resultssubtitle,
                     ggtheme = selected_theme,
-                    ggstatsplot.layer = isTRUE(self$options$originaltheme)
+                    palette = "RColorBrewer::Dark2"
                 )
             }
 
@@ -1729,10 +1776,12 @@ jjpiestatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
                 # Use xtabs to sum counts
                 agg_table <- xtabs(jmvcore::asFormula(formula_str), data = mydata)
-                plot_data <- as.data.frame(agg_table)
-                
-                # Rename count column to 'Freq' for consistency
-                names(plot_data)[names(plot_data) == "Freq"] <- "count"
+                plot_data <- as.data.frame(agg_table, responseName = "count")
+                # as.data.frame.table() runs make.names() on the dimension names,
+                # so "Tumor Grade" came back as "Tumor.Grade" and ggdonutchart(label =
+                # dep) could not find the column. Restore the raw names; xtabs keeps
+                # the formula order (dep, then group).
+                names(plot_data) <- c(dep, if (!is.null(group) && group != "") group, "count")
                 
             } else {
                 # Unweighted aggregation

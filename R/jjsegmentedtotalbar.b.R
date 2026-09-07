@@ -22,7 +22,7 @@
 #' @importFrom ggplot2 theme_minimal theme_classic theme_bw labs scale_fill_brewer
 #' @importFrom ggplot2 scale_fill_viridis_d geom_text element_text theme element_rect
 #' @importFrom ggplot2 element_line margin scale_y_continuous scale_fill_manual
-#' @importFrom ggplot2 position_fill facet_wrap
+#' @importFrom ggplot2 position_fill facet_wrap vars
 #' @importFrom dplyr group_by summarise mutate arrange count ungroup filter slice pull
 #' @importFrom stats chisq.test xtabs
 #' @importFrom tidyr pivot_wider
@@ -242,6 +242,9 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
             y_var <- self$options$y_var
             fill_var <- self$options$fill_var
             facet_var <- self$options$facet_var
+            if (is.null(facet_var) || identical(facet_var, "") || length(facet_var) == 0) {
+                facet_var <- NULL
+            }
 
             # Validate data
             if (nrow(data) == 0) {
@@ -409,6 +412,25 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
             # Verified 2026-08-13: is.numeric() on either column is FALSE for
             # every path a user can actually take. The many-levels consequence is
             # still caught downstream by the "Too Many Categories" notice.
+            invalid_values <- !is.finite(data[[y_var]])
+            if (any(invalid_values)) {
+                private$.addNotice("WARNING", "Missing or non-finite values excluded",
+                    sprintf("%d rows lack a finite Value Variable and were excluded; missing values are not zero counts.", sum(invalid_values)))
+                data <- data[!invalid_values, , drop = FALSE]
+            }
+            if (!nrow(data)) return()
+            if (any(data[[y_var]] < 0)) {
+                private$.addNotice("ERROR", "Negative values",
+                    "Composition charts require non-negative values on every row.")
+                return()
+            }
+            if (isTRUE(private$.optionOr("y_is_count", FALSE)) &&
+                any(abs(data[[y_var]] - round(data[[y_var]])) > 1e-9)) {
+                private$.addNotice("ERROR", "Fractional case counts",
+                    "Case frequencies must be whole numbers on every row; fractional values cannot be made valid by summing them.")
+                return()
+            }
+
             data[[x_var]] <- as.factor(data[[x_var]])
             data[[fill_var]] <- as.factor(data[[fill_var]])
 
@@ -532,6 +554,10 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
 
             names(composition_data) <- c("category", "segment", "count", "percentage", "overall_percentage", "total_in_category")
 
+            if (!is.null(facet_var)) {
+                composition_data$category <- paste0(composition_data$category,
+                    " [", as.character(processed_data[[facet_var]]), "]")
+            }
             private$.composition_data <- composition_data
         },
 
@@ -618,7 +644,7 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
 
             if (nrow(tiny_segments) > 0) {
                 private$.addNotice("WARNING", "Tiny Segments",
-                    .("Some segments represent <1% with very small counts. These may not be clinically meaningful."))
+                    .("Some segments represent <1% with very small counts. Rare events can still be clinically important; report their counts and interpret precision cautiously."))
             }
 
             # Check for reasonable number of categories for visualization
@@ -915,7 +941,7 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
             stats_rows <- list(
                 list(measure = "Total Categories", value = as.character(n_categories)),
                 list(measure = "Total Segments", value = as.character(n_segments)),
-                list(measure = "Total Observations", value = as.character(total_obs)),
+                list(measure = "Total Summed Value", value = as.character(total_obs)),
                 list(measure = "Min Percentage", value = paste0(min_pct, "%")),
                 list(measure = "Max Percentage", value = paste0(max_pct, "%")),
                 list(measure = "Mean Percentage", value = paste0(mean_pct, "%")),
@@ -990,14 +1016,8 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
                 p <- p + ggplot2::coord_flip()
 
             # Faceting (simple)
-            # TODO (forward-looking): `facet_wrap(rlang::sym(...))` passes a bare
-            # symbol - works via ggplot2 tidy-eval coercion but is undocumented API.
-            # For forward-compat, prefer either:
-            #   facet_wrap(ggplot2::vars(!!rlang::sym(self$options$facet_var)), scales = "free_x")
-            #   or
-            #   facet_wrap(jmvcore::asFormula(paste0("~", jmvcore::composeTerm(self$options$facet_var))), scales = "free_x")
             if (!is.null(self$options$facet_var) && self$options$facet_var != "") {
-                p <- p + ggplot2::facet_wrap(rlang::sym(self$options$facet_var), scales = "free_x")
+                p <- p + ggplot2::facet_wrap(ggplot2::vars(!!rlang::sym(self$options$facet_var)), scales = "free_x")
             }
 
             # Percentage labels (simple, inline)
@@ -1441,7 +1461,11 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
                 contingency_matrix <- xtabs(count ~ ., data = contingency_data)
 
                 # Perform chi-square test
-                chi_test <- suppressWarnings(chisq.test(contingency_matrix))
+                contingency_matrix <- contingency_matrix[rowSums(contingency_matrix) > 0,
+                    colSums(contingency_matrix) > 0, drop = FALSE]
+                if (any(dim(contingency_matrix) < 2))
+                    stop("At least two nonempty categories and segments are required.")
+                chi_test <- suppressWarnings(chisq.test(contingency_matrix, correct = FALSE))
 
                 # Reaching here means the user ticked y_is_count, so the per-run
                 # warning would be nagging. The assumption still travels with the
@@ -1449,7 +1473,7 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
                 # of jamovi and the p-value is meaningless without it.
                 self$results$statistical_tests$setNote(
                     "count_assumption",
-                    .("Cells are the summed Value Variable, treated as frequencies. Valid only if that variable counts cases; on a measurement the statistic scales with the unit of measurement and <b>overstates</b> significance."))
+                    .("Cells are the summed Value Variable, treated as frequencies and pooled across split panels. Valid only if that variable counts cases; on a measurement the statistic scales with the unit of measurement and <b>overstates</b> significance."))
 
                 # Expected-count check - chi-square is unreliable on sparse tables and
                 # chisq.test() raises only a console warning the GUI never shows.
@@ -1483,7 +1507,7 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
                 test_row <- list(
                     test_name = "Pearson's Chi-square",
                     statistic = chi_test$statistic[[1]],
-                    df = chi_test$parameter[[1]],
+                    df = as.integer(chi_test$parameter[[1]]),
                     p_value = chi_test$p.value,
                     interpretation = interpretation
                 )
@@ -1510,8 +1534,8 @@ jjsegmentedtotalbarClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R
                         
                         residual_row <- list(
                             test_name = "Standardized Residuals",
-                            statistic = abs(residual_value),
-                            df = NA,
+                            statistic = residual_value,  # signed: direction matches interpretation text
+                            df = NA_integer_,
                             p_value = NA,
                             interpretation = residual_interpretation
                         )
