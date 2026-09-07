@@ -377,13 +377,13 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             num_vals <- num_vals[!is.na(num_vals)]
             
             if (length(num_vals) < 3) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     glue::glue("<br> Warning: {dep_var} has less than 3 valid observations<br>",
                                dep_var = htmltools::htmlEscape(dep_var))
                 )
             }
             if (length(unique(num_vals)) < 2) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     glue::glue("<br> Warning: {dep_var} has no variation (all values are the same)<br>",
                                dep_var = htmltools::htmlEscape(dep_var))
                 )
@@ -402,7 +402,7 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                 IQR <- Q3 - Q1
                 outliers <- which(data[[var]] < (Q1 - 1.5 * IQR) | data[[var]] > (Q3 + 1.5 * IQR))
                 if (length(outliers) > 0) {
-                    private$.accumulateMessage(
+                    private$.accumulateDataMessage(
                         glue::glue("<br> {length(outliers)} potential outlier(s) detected in {var}<br>",
                                    var = htmltools::htmlEscape(var))
                     )
@@ -410,24 +410,20 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             }
         },
         
-        # Statistical summary helper
+        # Statistical summary helper.
+        #
+        # Counted straight off the already-filtered frame. The previous tapply()
+        # route returned NULL for any factor level left with no rows - exactly
+        # what happens after a whole group is lost to missingness - which made
+        # sum(sapply(...)) error out and the summary line vanish into the
+        # tryCatch that used to sit here.
         .addDataSummary = function(data, dep_var, group_var) {
-            if (!is.null(dep_var) && !is.null(group_var)) {
-                tryCatch({
-                    # Checkpoint before expensive tapply operation
-                    private$.checkpoint()
-                    summary_stats <- tapply(data[[dep_var]], data[[group_var]], 
-                                           function(x) c(mean = mean(x, na.rm = TRUE), 
-                                                        n = sum(!is.na(x))))
-                    n_groups <- length(summary_stats)
-                    total_n <- sum(sapply(summary_stats, function(x) x["n"]), na.rm = TRUE)
-                    private$.accumulateMessage(
-                        glue::glue("<br> Analysis summary: {n_groups} groups, {total_n} total observations<br>")
-                    )
-                }, error = function(e) {
-                    # Silently handle errors in summary calculation
-                })
-            }
+            if (is.null(dep_var) || is.null(group_var)) return()
+            n_groups <- nlevels(droplevels(as.factor(data[[group_var]])))
+            total_n <- sum(!is.na(data[[dep_var]]))
+            private$.accumulateDataMessage(
+                glue::glue("<br> Analysis summary: {n_groups} groups, {total_n} total observations<br>")
+            )
         },
 
         # Optimized data preparation with robust caching
@@ -472,6 +468,8 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             dep_var <- self$options$dep
             if (!is.null(dep_var)) {
                 mydata[[dep_var]] <- jmvcore::toNumeric(mydata[[dep_var]])
+                if (!is.numeric(mydata[[dep_var]]))
+                    jmvcore::reject("The dependent variable must be numeric.")
             }
 
             # SELECTIVE NA OMISSION - only remove rows with NAs in analysis variables
@@ -552,7 +550,7 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             # Add processing time feedback for large datasets
             elapsed <- difftime(Sys.time(), start_time, units = "secs")
             if (nrow(mydata) > 1000) {
-                private$.accumulateMessage(
+                private$.accumulateDataMessage(
                     glue::glue("<br> Large dataset processed in {round(elapsed, 2)} seconds<br>")
                 )
             }
@@ -633,7 +631,7 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                                     parametric = "mean", nonparametric = "median",
                                     robust = "trimmed mean", bayes = "Bayesian (MAP) estimate",
                                     centrality_type)
-                    private$.addNotice(sprintf('Your two central-tendency settings disagree: "Central Tendency Display" is set to %s while "Central Tendency Measure" is set to %s. The plot shows the %s, which is what "Central Tendency Measure" selects.',
+                    private$.addNotice(sprintf('Your two central-tendency settings disagree: "Central Tendency Display" still carries the legacy value "%s" while "Central Tendency Measure" selects %s. The plot shows the %s - "Central Tendency Display" only decides whether a line is drawn at all.',
                                                self$options$centralityparameter,
                                                switch(centrality_type, parametric = "Mean",
                                                       nonparametric = "Median", robust = "Trimmed Mean",
@@ -785,6 +783,17 @@ jjdotplotstatsClass <- if (requireNamespace('jmvcore')) R6::R6Class(
                         if (!is.null(private$.subtitleFallback) && isTRUE(self$options$resultssubtitle))
                             private$.addNotice(sprintf('The effect size measure you selected could not be applied (%s), so the plot shows the statistics package default instead.',
                                                        htmltools::htmlEscape(private$.subtitleFallback)), "WARNING")
+
+                        # The takeover covers the single figure only.
+                        # grouped_ggbetweenstats builds one subtitle per panel
+                        # inside itself and takes no list of expressions, so
+                        # effsize.type stays inert on the split figure. Measured
+                        # on 3 groups x 2 split levels: "Cohen's d" and
+                        # "Omega-squared" both rendered omega-squared, with no
+                        # message anywhere - the comment in .plot2() claimed
+                        # .run() disclosed this, and it did not.
+                        if (!is.null(self$options$grvar) && isTRUE(self$options$resultssubtitle))
+                            private$.addNotice('The "Effect Size Measure" setting does not reach the Split By panels: the statistics package computes one subtitle per panel internally and always uses its own default there. The single (unsplit) figure below honours your selection.', "INFO")
                     }
                 }, error = function(e) {
                     private$.addNotice(sprintf('Data processing failed: %s. Please check your variable selections and try again.', htmltools::htmlEscape(e$message)), "ERROR")

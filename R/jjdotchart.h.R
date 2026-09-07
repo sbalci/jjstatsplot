@@ -17,13 +17,13 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             showSummaryTable = TRUE,
             centralityplotting = FALSE,
             centralitytype = "parametric",
-            bfmessage = FALSE,
             originaltheme = FALSE,
             mytitle = "",
             xtitle = "",
             ytitle = "",
             plotwidth = 650,
-            plotheight = 450, ...) {
+            plotheight = 450,
+            seed = 20250101, ...) {
 
             super$initialize(
                 package="jjstatsplot",
@@ -74,8 +74,8 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "conflevel",
                 conflevel,
                 default=0.95,
-                min=0,
-                max=1)
+                min=0.5,
+                max=0.999)
             private$..k <- jmvcore::OptionInteger$new(
                 "k",
                 k,
@@ -103,10 +103,6 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "robust",
                     "bayes"),
                 default="parametric")
-            private$..bfmessage <- jmvcore::OptionBool$new(
-                "bfmessage",
-                bfmessage,
-                default=FALSE)
             private$..originaltheme <- jmvcore::OptionBool$new(
                 "originaltheme",
                 originaltheme,
@@ -135,6 +131,11 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 default=450,
                 min=300,
                 max=800)
+            private$..seed <- jmvcore::OptionInteger$new(
+                "seed",
+                seed,
+                default=20250101,
+                min=0)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..group)
@@ -147,13 +148,13 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..showSummaryTable)
             self$.addOption(private$..centralityplotting)
             self$.addOption(private$..centralitytype)
-            self$.addOption(private$..bfmessage)
             self$.addOption(private$..originaltheme)
             self$.addOption(private$..mytitle)
             self$.addOption(private$..xtitle)
             self$.addOption(private$..ytitle)
             self$.addOption(private$..plotwidth)
             self$.addOption(private$..plotheight)
+            self$.addOption(private$..seed)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -167,13 +168,13 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         showSummaryTable = function() private$..showSummaryTable$value,
         centralityplotting = function() private$..centralityplotting$value,
         centralitytype = function() private$..centralitytype$value,
-        bfmessage = function() private$..bfmessage$value,
         originaltheme = function() private$..originaltheme$value,
         mytitle = function() private$..mytitle$value,
         xtitle = function() private$..xtitle$value,
         ytitle = function() private$..ytitle$value,
         plotwidth = function() private$..plotwidth$value,
-        plotheight = function() private$..plotheight$value),
+        plotheight = function() private$..plotheight$value,
+        seed = function() private$..seed$value),
     private = list(
         ..dep = NA,
         ..group = NA,
@@ -186,13 +187,13 @@ jjdotchartOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..showSummaryTable = NA,
         ..centralityplotting = NA,
         ..centralitytype = NA,
-        ..bfmessage = NA,
         ..originaltheme = NA,
         ..mytitle = NA,
         ..xtitle = NA,
         ..ytitle = NA,
         ..plotwidth = NA,
-        ..plotheight = NA)
+        ..plotheight = NA,
+        ..seed = NA)
 )
 
 jjdotchartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -217,6 +218,7 @@ jjdotchartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "statsExpressions",
                     "ClinicoPathJamoviModule"),
                 clearWith=list(
+                    "seed",
                     "dep",
                     "group",
                     "grvar",
@@ -228,7 +230,6 @@ jjdotchartResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "showSummaryTable",
                     "centralityplotting",
                     "centralitytype",
-                    "bfmessage",
                     "originaltheme",
                     "mytitle",
                     "xtitle",
@@ -304,7 +305,7 @@ jjdotchartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjdotchart",
-                version = c(1,0,7),
+                version = c(1,0,8),
                 options = options,
                 results = jjdotchartResults$new(options=options),
                 data = data,
@@ -366,11 +367,14 @@ jjdotchartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   says so rather than showing an empty result.
 #' @param typestatistics The one-sample test comparing the k group summaries
 #'   to the Reference Value. This also decides WHICH summary is plotted for each
-#'   group - mean, median, 20 percent trimmed mean or MAP estimate respectively
-#'   - so changing it moves the points, not just the caption.
+#'   group (mean, median, 20 percent trimmed mean or MAP estimate respectively),
+#'   so changing it moves the points, not just the caption.
 #' @param conflevel Confidence level for the intervals, 0.95 giving 95 percent
 #'   intervals.
-#' @param k Number of decimal places for the reported statistics.
+#' @param k Number of decimal places for the statistics annotated on the plot
+#'   (the test result subtitle). It does NOT control the Group Summaries table:
+#'   jamovi formats table numbers from its own global 'Number format' preference
+#'   in the Results panel settings, which no analysis can override.
 #' @param resultssubtitle Show the test result as a subtitle. Defaults to TRUE
 #'   here, unlike the sibling plot analyses: the comparison against the
 #'   Reference Value is the whole point of this chart, so hiding it leaves a
@@ -394,8 +398,6 @@ jjdotchartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   when 'Also mark the centre of the plotted points' is ticked. It affects
 #'   that line ONLY - the plotted points always follow the Statistical Test.
 #'   Leave it matching your Statistical Test unless you have a specific reason.
-#' @param bfmessage Show the Bayes factor caption when the Bayesian test is
-#'   selected.
 #' @param originaltheme Use the original ggstatsplot theme rather than
 #'   jamovi's default.
 #' @param mytitle Main title for the plot. Leave blank for no title.
@@ -406,6 +408,8 @@ jjdotchartBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param plotwidth Width of the plot in pixels.
 #' @param plotheight Height of the plot in pixels. Increase it when there are
 #'   many groups, since each one needs a labelled row.
+#' @param seed Seed for reproducible bootstrap intervals and stochastic
+#'   statistical methods.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$todo} \tab \tab \tab \tab \tab a html \cr
@@ -435,13 +439,13 @@ jjdotchart <- function(
     showSummaryTable = TRUE,
     centralityplotting = FALSE,
     centralitytype = "parametric",
-    bfmessage = FALSE,
     originaltheme = FALSE,
     mytitle = "",
     xtitle = "",
     ytitle = "",
     plotwidth = 650,
-    plotheight = 450) {
+    plotheight = 450,
+    seed = 20250101) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("jjdotchart requires jmvcore to be installed (restart may be required)")
@@ -471,13 +475,13 @@ jjdotchart <- function(
         showSummaryTable = showSummaryTable,
         centralityplotting = centralityplotting,
         centralitytype = centralitytype,
-        bfmessage = bfmessage,
         originaltheme = originaltheme,
         mytitle = mytitle,
         xtitle = xtitle,
         ytitle = ytitle,
         plotwidth = plotwidth,
-        plotheight = plotheight)
+        plotheight = plotheight,
+        seed = seed)
 
     analysis <- jjdotchartClass$new(
         options = options,

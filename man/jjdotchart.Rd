@@ -17,13 +17,13 @@ jjdotchart(
   showSummaryTable = TRUE,
   centralityplotting = FALSE,
   centralitytype = "parametric",
-  bfmessage = FALSE,
   originaltheme = FALSE,
   mytitle = "",
   xtitle = "",
   ytitle = "",
   plotwidth = 650,
-  plotheight = 450
+  plotheight = 450,
+  seed = 20250101
 )
 }
 \arguments{
@@ -50,15 +50,16 @@ says so rather than showing an empty result.}
 
 \item{typestatistics}{The one-sample test comparing the k group summaries
 to the Reference Value. This also decides WHICH summary is plotted for each
-group - mean, median, 20 percent trimmed mean or MAP estimate respectively
-\itemize{
-\item so changing it moves the points, not just the caption.
-}}
+group (mean, median, 20 percent trimmed mean or MAP estimate respectively),
+so changing it moves the points, not just the caption.}
 
 \item{conflevel}{Confidence level for the intervals, 0.95 giving 95 percent
 intervals.}
 
-\item{k}{Number of decimal places for the reported statistics.}
+\item{k}{Number of decimal places for the statistics annotated on the plot
+(the test result subtitle). It does NOT control the Group Summaries table:
+jamovi formats table numbers from its own global 'Number format' preference
+in the Results panel settings, which no analysis can override.}
 
 \item{resultssubtitle}{Show the test result as a subtitle. Defaults to TRUE
 here, unlike the sibling plot analyses: the comparison against the
@@ -87,9 +88,6 @@ when 'Also mark the centre of the plotted points' is ticked. It affects
 that line ONLY - the plotted points always follow the Statistical Test.
 Leave it matching your Statistical Test unless you have a specific reason.}
 
-\item{bfmessage}{Show the Bayes factor caption when the Bayesian test is
-selected.}
-
 \item{originaltheme}{Use the original ggstatsplot theme rather than
 jamovi's default.}
 
@@ -105,6 +103,9 @@ Leave blank to use the variable name.}
 
 \item{plotheight}{Height of the plot in pixels. Increase it when there are
 many groups, since each one needs a labelled row.}
+
+\item{seed}{Seed for reproducible bootstrap intervals and stochastic
+statistical methods.}
 }
 \value{
 A results object containing:

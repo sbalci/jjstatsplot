@@ -121,8 +121,8 @@ jjdotplotstatsOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 "conflevel",
                 conflevel,
                 default=0.95,
-                min=0,
-                max=1)
+                min=0.5,
+                max=0.999)
             private$..k <- jmvcore::OptionInteger$new(
                 "k",
                 k,
@@ -283,7 +283,7 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot2",
-                title="`${dep} - {group} by {grvar}`",
+                title="`${dep} - ${group} by ${grvar}`",
                 width=800,
                 height=300,
                 renderFun=".plot2",
@@ -292,7 +292,7 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plot",
-                title="`${dep} - {group}`",
+                title="`${dep} - ${group}`",
                 width=400,
                 height=300,
                 renderFun=".plot",
@@ -306,7 +306,7 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
             super$initialize(
                 package = "jjstatsplot",
                 name = "jjdotplotstats",
-                version = c(1,0,7),
+                version = c(1,0,8),
                 options = options,
                 results = jjdotplotstatsResults$new(options=options),
                 data = data,
@@ -351,10 +351,16 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #'   (Mann-Whitney U) makes no distribution assumptions; Robust uses trimmed
 #'   means to handle outliers; Bayesian provides evidence strength via Bayes
 #'   factors.
-#' @param effsizetype Effect size quantifies practical significance: Cohen's d
-#'   shows standardized difference between groups (small=0.2, medium=0.5,
-#'   large=0.8); Hedge's g corrects for small samples; Eta/Omega-squared show
-#'   proportion of variance explained (small=0.01, medium=0.06, large=0.14).
+#' @param effsizetype Effect size quantifies practical significance. Which
+#'   statistic you get depends on how many groups are compared, because the
+#'   underlying statistics package uses one vocabulary for a two-group test and
+#'   another for a three-or-more-group one. 'biased' and 'eta' both give Cohen's
+#'   d with two groups and partial eta-squared with three or more; 'unbiased'
+#'   and 'omega' both give Hedge's g with two groups and partial omega-squared
+#'   with three or more. Rules of thumb: d and g small=0.2, medium=0.5,
+#'   large=0.8; eta-squared and omega-squared small=0.01, medium=0.06,
+#'   large=0.14. This setting reaches the single figure only - the Split By
+#'   panels always report the statistics package default.
 #' @param centralityplotting Display lines showing the central tendency (mean,
 #'   median, or trimmed mean) for each group. Helps visualize group differences
 #'   at a glance.
@@ -391,9 +397,13 @@ jjdotplotstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class
 #' @param testvalueline Draw a dashed vertical line at 'Reference Line Value'.
 #'   Useful for marking a clinical threshold or a normal reference limit. This
 #'   is a visual annotation only.
-#' @param centralityparameter Which central tendency measure to show as a
-#'   vertical line on the plot. Mean is sensitive to outliers; median is more
-#'   robust for skewed data.
+#' @param centralityparameter Whether a central tendency line is drawn. Only
+#'   'none' has an effect of its own: it suppresses the line. 'mean' and
+#'   'median' both simply allow the line, and which statistic it marks is
+#'   decided by 'Central Tendency Measure' (centralitytype), not here -
+#'   selecting 'mean' while centralitytype is 'nonparametric' still draws the
+#'   median, and the analysis says so. Retained with all three levels so
+#'   existing scripts keep running.
 #' @param centralityk Deprecated and ignored. The statistics package no longer
 #'   accepts a separate precision for the centrality labels; they follow
 #'   'Statistical Precision (Decimal Places)'. Retained so existing scripts keep

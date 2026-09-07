@@ -40,7 +40,7 @@ items:
       type: Html
 
     - name: plot2
-      title: '`${dep} - {group} by {grvar}`'
+      title: '`${dep} - ${group} by ${grvar}`'
       type: Image
       width:  800
       height: 300
@@ -49,7 +49,7 @@ items:
       visible: (grvar)
 
     - name: plot
-      title: '`${dep} - {group}`'
+      title: '`${dep} - ${group}`'
       type: Image
       width:  400
       height: 300

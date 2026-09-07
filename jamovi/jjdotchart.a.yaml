@@ -3,7 +3,7 @@ name:  jjdotchart
 title: Dot Chart (Summary vs Reference Value)
 menuGroup: JJStatsPlot
 menuSubgroup: Categorical vs Continuous
-version: '1.0.7'
+version: '1.0.8'
 jas: '1.2'
 
 description:
@@ -111,29 +111,34 @@ options:
       description:
           R: >
             The one-sample test comparing the k group summaries to the Reference
-            Value. This also decides WHICH summary is plotted for each group -
-            mean, median, 20 percent trimmed mean or MAP estimate respectively -
-            so changing it moves the points, not just the caption.
+            Value. This also decides WHICH summary is plotted for each group
+            (mean, median, 20 percent trimmed mean or MAP estimate
+            respectively), so changing it moves the points, not just the
+            caption.
 
     - name: conflevel
       title: Confidence Level
       type: Number
       default: 0.95
-      min: 0
-      max: 1
+      min: 0.50
+      max: 0.999
       description:
           R: >
             Confidence level for the intervals, 0.95 giving 95 percent intervals.
 
     - name: k
-      title: Decimal Places
+      title: Decimal Places (plot annotation)
       type: Integer
       default: 2
       min: 0
       max: 5
       description:
           R: >
-            Number of decimal places for the reported statistics.
+            Number of decimal places for the statistics annotated on the plot
+            (the test result subtitle). It does NOT control the Group Summaries
+            table: jamovi formats table numbers from its own global 'Number
+            format' preference in the Results panel settings, which no analysis
+            can override.
 
     - name: resultssubtitle
       title: Statistical results in plot
@@ -198,14 +203,6 @@ options:
             the plotted points always follow the Statistical Test. Leave it
             matching your Statistical Test unless you have a specific reason.
 
-    - name: bfmessage
-      title: Bayes factor interpretation
-      type: Bool
-      default: false
-      description:
-          R: >
-            Show the Bayes factor caption when the Bayesian test is selected.
-
     - name: originaltheme
       title: Original ggstatsplot theme
       type: Bool
@@ -260,5 +257,13 @@ options:
           R: >
             Height of the plot in pixels. Increase it when there are many groups,
             since each one needs a labelled row.
+
+    - name: seed
+      title: Random seed
+      type: Integer
+      default: 20250101
+      min: 0
+      description:
+          R: Seed for reproducible bootstrap intervals and stochastic statistical methods.
 
 ...

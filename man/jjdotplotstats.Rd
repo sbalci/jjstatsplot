@@ -47,10 +47,16 @@ each level of this variable (grouped analysis).}
 means to handle outliers; Bayesian provides evidence strength via Bayes
 factors.}
 
-\item{effsizetype}{Effect size quantifies practical significance: Cohen's d
-shows standardized difference between groups (small=0.2, medium=0.5,
-large=0.8); Hedge's g corrects for small samples; Eta/Omega-squared show
-proportion of variance explained (small=0.01, medium=0.06, large=0.14).}
+\item{effsizetype}{Effect size quantifies practical significance. Which
+statistic you get depends on how many groups are compared, because the
+underlying statistics package uses one vocabulary for a two-group test and
+another for a three-or-more-group one. 'biased' and 'eta' both give Cohen's
+d with two groups and partial eta-squared with three or more; 'unbiased'
+and 'omega' both give Hedge's g with two groups and partial omega-squared
+with three or more. Rules of thumb: d and g small=0.2, medium=0.5,
+large=0.8; eta-squared and omega-squared small=0.01, medium=0.06,
+large=0.14. This setting reaches the single figure only - the Split By
+panels always report the statistics package default.}
 
 \item{centralityplotting}{Display lines showing the central tendency (mean,
 median, or trimmed mean) for each group. Helps visualize group differences
@@ -100,9 +106,13 @@ clinically meaningful.}
 Useful for marking a clinical threshold or a normal reference limit. This
 is a visual annotation only.}
 
-\item{centralityparameter}{Which central tendency measure to show as a
-vertical line on the plot. Mean is sensitive to outliers; median is more
-robust for skewed data.}
+\item{centralityparameter}{Whether a central tendency line is drawn. Only
+'none' has an effect of its own: it suppresses the line. 'mean' and
+'median' both simply allow the line, and which statistic it marks is
+decided by 'Central Tendency Measure' (centralitytype), not here -
+selecting 'mean' while centralitytype is 'nonparametric' still draws the
+median, and the analysis says so. Retained with all three levels so
+existing scripts keep running.}
 
 \item{centralityk}{Deprecated and ignored. The statistics package no longer
 accepts a separate precision for the centrality labels; they follow
