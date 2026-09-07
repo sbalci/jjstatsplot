@@ -24,6 +24,10 @@ clearWith:
     - testvalueline
     - centralityparameter
     - centralityk
+    - pairwisedisplay
+    - padjustmethod
+    - seed
+    - showexplanation
     - plotwidth
     - plotheight
 
@@ -38,6 +42,11 @@ items:
     - name: notices
       title: Notices
       type: Html
+
+    - name: explanation
+      title: Assumptions and Interpretation
+      type: Html
+      visible: (showexplanation)
 
     - name: plot2
       title: '`${dep} - ${group} by ${grvar}`'
@@ -62,7 +71,6 @@ refs:
     - ggstatsplot
     - statsExpressions
     - ClinicoPathJamoviModule
-    - glue
     - digest
 
 ...

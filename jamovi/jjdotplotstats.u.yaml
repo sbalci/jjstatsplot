@@ -51,6 +51,11 @@ children:
             children:
               - type: ComboBox
                 name: effsizetype
+              - type: ComboBox
+                name: pairwisedisplay
+              - type: ComboBox
+                name: padjustmethod
+                enable: (!pairwisedisplay:none)
               - type: TextBox
                 name: conflevel
                 format: number
@@ -131,6 +136,8 @@ children:
               - type: CheckBox
                 name: resultssubtitle
               - type: CheckBox
+                name: showexplanation
+              - type: CheckBox
                 name: originaltheme
       - type: Label
         label: Plot Labels
@@ -167,4 +174,14 @@ children:
                 format: number
               - type: TextBox
                 name: plotheight
+                format: number
+      - type: Label
+        label: Reproducibility
+        fitToGrid: true
+        children:
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: TextBox
+                name: seed
                 format: number

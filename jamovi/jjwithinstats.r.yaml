@@ -1,6 +1,6 @@
 ---
 name:  jjwithinstats
-title: Violin Plots to Compare Within Groups
+title: Box-Violin Plots to Compare Within Groups
 jrs:   '1.1'
 
 clearWith:
@@ -66,6 +66,7 @@ items:
     - name: explanations
       title: Explanations
       type: Html
+      visible: (showExplanations)
       clearWith:
         - showExplanations
 
@@ -136,6 +137,8 @@ items:
         - ggpubrAddStats
         - ggpubrShowLines
         - ggpubrAddPoints
+        - k
+        - conflevel
 
 
 

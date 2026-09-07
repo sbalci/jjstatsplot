@@ -81,13 +81,6 @@
         `title`="patchwork: R package", 
         `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=patchwork", 
         `url`="https://CRAN.R-project.org/package=patchwork"), 
-    `glue`=list(
-        `type`="software", 
-        `author`="Jim Hester, Jennifer Bryan", 
-        `year`=2026, 
-        `title`="glue: R package", 
-        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=glue", 
-        `url`="https://CRAN.R-project.org/package=glue"), 
     `ggforce`=list(
         `type`="software", 
         `author`="Thomas Lin Pedersen", 
