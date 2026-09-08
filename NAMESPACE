@@ -118,7 +118,6 @@ importFrom(glue,glue)
 importFrom(grDevices,
   adjustcolor,
   col2rgb,
-  hsv,
   rgb
 )
 importFrom(graphics,
@@ -131,10 +130,7 @@ importFrom(haven,as_factor)
 importFrom(htmltools,HTML)
 importFrom(igraph,
   betweenness,
-  blocks,
-  closeness,
-  is_connected,
-  max_degree
+  is_connected
 )
 importFrom(jmvcore,.)
 importFrom(magrittr,"%>%")

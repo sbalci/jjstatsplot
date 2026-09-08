@@ -42,13 +42,13 @@ analyses:
       ggstatsplot::grouped_gghistostats to generate Histogram.'
     ribbon: analyses
     category: analyses
-  - title: Ridge Plot
+  - title: Advanced Ridge Plot
     name: jjridges
     ns: jjstatsplot
     category: analyses
     menuGroup: JJStatsPlot
     menuSubgroup: Distribution
-    menuTitle: Ridge Plot
+    menuTitle: Advanced Ridge Plot
     description: >
       'Create advanced ridgeline plots.
 
