@@ -103,6 +103,14 @@ refs:
         publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggforce'
         url: https://CRAN.R-project.org/package=ggforce
 
+    correlation:
+        type: 'software'
+        author: "Dominique Makowski, Brenton M. Wiernik, Indrajeet Patil, Daniel Lüdecke, Mattan S. Ben-Shachar, Rémi Thériault"
+        year: 2025
+        title: "correlation: R package"
+        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=correlation'
+        url: https://CRAN.R-project.org/package=correlation
+
     arcdiagram:
         type: 'software'
         author: "Gaston Sanchez"

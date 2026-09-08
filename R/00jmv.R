@@ -88,6 +88,13 @@
         `title`="ggforce: R package", 
         `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=ggforce", 
         `url`="https://CRAN.R-project.org/package=ggforce"), 
+    `correlation`=list(
+        `type`="software", 
+        `author`="Dominique Makowski, Brenton M. Wiernik, Indrajeet Patil, Daniel L\u00FCdecke, Mattan S. Ben-Shachar, R\u00E9mi Th\u00E9riault", 
+        `year`=2025, 
+        `title`="correlation: R package", 
+        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=correlation", 
+        `url`="https://CRAN.R-project.org/package=correlation"), 
     `arcdiagram`=list(
         `type`="software", 
         `author`="Gaston Sanchez", 
