@@ -116,6 +116,13 @@
         `title`="waffle: R package", 
         `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=waffle", 
         `url`="https://CRAN.R-project.org/package=waffle"), 
+    `ggdist`=list(
+        `type`="software", 
+        `author`="", 
+        `year`="", 
+        `title`="ggdist: R package", 
+        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=ggdist", 
+        `url`="https://CRAN.R-project.org/package=ggdist"), 
     `cowplot`=list(
         `type`="software", 
         `author`="Claus O. Wilke", 
