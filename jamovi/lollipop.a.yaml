@@ -18,7 +18,7 @@ description:
     # R:
     #     dontrun: true
     #     usage: |
-    #         data("clinical_lab_data", package = "ClinicoPath")
+    #         data("clinical_lab_data", package = "jjstatsplot")
 
     #         # Mean haemoglobin by treatment group, largest first
     #         lollipop(
