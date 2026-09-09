@@ -27,7 +27,10 @@ ClinicoPath.Rproj
 build
 .Rbuildignore
 .gitignore
-data
+# A bare `data` sat here. .Rbuildignore entries are unanchored regexes, so it
+# excluded the whole data/ directory from the build and every example using a
+# shipped dataset failed with "object not found". The intent is covered by
+# ^data/.*\.omv$ and ^data/.*\.csv$ below.
 jamovi
 ^.*\.jmo
 # History files

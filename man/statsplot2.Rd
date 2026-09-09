@@ -105,7 +105,7 @@ measures designs with various plot types including violin plots, scatter
 plots, bar charts, and alluvial diagrams.
 }
 \examples{
-\dontrun{
+\donttest{
 # Continuous outcome across groups: Grade is stored as the numbers
 # 1-3, so it is read as categorical (a notice says so) and a violin
 # plot with a nonparametric comparison is drawn.

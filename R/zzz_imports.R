@@ -17,5 +17,9 @@
 #' @importFrom viridisLite turbo
 #' @importFrom withr local_preserve_seed
 #' @importFrom WRS2 yuen
+#' @importFrom correlation correlation
+#' @importFrom ggridges geom_density_ridges stat_density_ridges theme_ridges
+#' @importFrom statsExpressions oneway_anova two_sample_test corr_test contingency_table
+#' @importFrom waffle geom_waffle
 NULL
 

@@ -27,6 +27,7 @@ importFrom(RColorBrewer,brewer.pal)
 importFrom(WRS2,yuen)
 importFrom(boot,boot)
 importFrom(car,leveneTest)
+importFrom(correlation,correlation)
 importFrom(cowplot,plot_grid)
 importFrom(digest,digest)
 importFrom(dplyr,
@@ -109,6 +110,11 @@ importFrom(ggpubr,
 )
 importFrom(ggrain,geom_rain)
 importFrom(ggrepel,geom_text_repel)
+importFrom(ggridges,
+  geom_density_ridges,
+  stat_density_ridges,
+  theme_ridges
+)
 importFrom(ggsegmentedtotalbar,ggsegmentedtotalbar)
 importFrom(ggstatsplot,
   ggwithinstats,
@@ -168,6 +174,12 @@ importFrom(stats,
   wilcox.test,
   xtabs
 )
+importFrom(statsExpressions,
+  contingency_table,
+  corr_test,
+  oneway_anova,
+  two_sample_test
+)
 importFrom(stringr,str_to_title)
 importFrom(tidyr,pivot_wider)
 importFrom(tools,toTitleCase)
@@ -177,4 +189,5 @@ importFrom(utils,
 )
 importFrom(viridis,viridis)
 importFrom(viridisLite,turbo)
+importFrom(waffle,geom_waffle)
 importFrom(withr,local_preserve_seed)

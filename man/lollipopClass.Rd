@@ -42,7 +42,7 @@ Common clinical applications:
 }
 \examples{
 \dontrun{
-data("clinical_lab_data", package = "jjstatsplot")
+data("clinical_lab_data", package = "ClinicoPath")
 
 # Mean haemoglobin by treatment group
 result <- lollipop(

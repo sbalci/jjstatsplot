@@ -130,12 +130,12 @@ analysis. Wraps ggstatsplot::ggbarstats and
 ggstatsplot::grouped_ggbarstats.
 }
 \examples{
-\dontrun{
-jjbarstats(
-    data = jjbarstats_test,
-    dep = "response",
-    group = "treatment",
-    resultssubtitle = TRUE
-)
+\donttest{
+# jjbarstats(
+#     data = jjbarstats_test,
+#     dep = "response",
+#     group = "treatment",
+#     resultssubtitle = TRUE
+# )
 }
 }
