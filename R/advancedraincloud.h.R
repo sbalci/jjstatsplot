@@ -597,7 +597,7 @@ advancedraincloudBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
             super$initialize(
                 package = "jjstatsplot",
                 name = "advancedraincloud",
-                version = c(1,0,8),
+                version = c(1,0,81),
                 options = options,
                 results = advancedraincloudResults$new(options=options),
                 data = data,

@@ -121,7 +121,7 @@ clusters.
 Based on the geom_mark_hull() function from ggforce package.
 }
 \examples{
-\donttest{
+\dontrun{
 # Basic hull plot: two continuous axes plus a grouping variable.
 # data(hullplot_clusters)
 # hullplot(
