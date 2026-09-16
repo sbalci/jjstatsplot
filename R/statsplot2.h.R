@@ -179,12 +179,14 @@ statsplot2Results <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="",
                 title="Automatic Plot Selection Based on Variable Types",
                 refs=list(
+                    "ClinicoPathJamoviModule",
                     "ggstatsplot",
                     "ggalluvial",
                     "easyalluvial",
-                    "ClinicoPathJamoviModule",
                     "patchwork",
-                    "cowplot"))
+                    "cowplot",
+                    "jmv",
+                    "performance"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="notices",

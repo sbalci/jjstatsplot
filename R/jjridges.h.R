@@ -505,7 +505,9 @@ jjridgesResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "WRS2",
                     "boot",
                     "BayesFactor",
-                    "RGraphGallery"))
+                    "RGraphGallery",
+                    "moments",
+                    "tools"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="notices",

@@ -296,7 +296,9 @@ jjarcdiagramResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Clas
                 title="Arc Diagram",
                 refs=list(
                     "ClinicoPathJamoviModule",
-                    "arcdiagram"))
+                    "arcdiagram",
+                    "igraph",
+                    "viridisLite"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="notices",

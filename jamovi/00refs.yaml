@@ -1,213 +1,305 @@
 ---
 refs:
-    car:
-        type: 'software'
-        author: Fox, J., & Weisberg, S.
-        year: 2018
-        title: 'car: Companion to Applied Regression'
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=car'
-        url: https://CRAN.R-project.org/package=car
-
-    ggplot2:
-        type: 'software'
-        author: Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., & RStudio
-        year: 2018
-        title: 'ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics'
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggplot2'
-        url: https://CRAN.R-project.org/package=ggplot2
-
-    ggridges:
-        type: 'software'
-        author: Wilke, C., & RStudio
-        year: 2018
-        title: 'ggridges: Ridgeline Plots in ggplot2'
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggridges'
-        url: https://CRAN.R-project.org/package=ggridges
-
-    ggalluvial:
-        type: 'software'
-        author: Jason Cory Brunson
-        year: 2019
-        title: "ggalluvial: Alluvial Plots in 'ggplot2'."
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggalluvial'
-        url: https://CRAN.R-project.org/package=ggalluvial
-
-    ggstatsplot:
-        type: 'software'
-        author: Patil, I.
-        year: 2018
-        title: "ggstatsplot: 'ggplot2' Based Plots with Statistical Details"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggstatsplot'
-        url: https://CRAN.R-project.org/package=ggstatsplot
-        doi: '10.5281/zenodo.2074621'
-
-
-    easyalluvial:
-        type: 'software'
-        author: Bjoern Koneswarakantha
-        year: 2019
-        title: "easyalluvial: Generate Alluvial Plots with a Single Line of Code."
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=easyalluvial'
-        url: https://CRAN.R-project.org/package=easyalluvial
-
-
-    RGraphGallery:
-        type: 'website'
-        author: Holtz Yan
-        year: 2020
-        title: "The R Graph Gallery"
-        publisher: 'A website that displays hundreds of R charts https://www.r-graph-gallery.com'
-        url: https://github.com/holtzy/R-graph-gallery
-
-    RCorTestDocumentation:
-        type: 'website'
-        author: R Core Team
-        year: 2026
-        title: "cor.test: Test for Association/Correlation Between Paired Samples"
-        publisher: "R Documentation, stats package"
-        url: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.test.html
-
-    ClinicoPathJamoviModule:
-        type: 'software'
-        author: Serdar Balci
-        year: 2022
-        title: "ClinicoPath jamovi Module doi:10.5281/zenodo.3997188"
-        publisher: '[R package]. Retrieved from https://github.com/sbalci/ClinicoPathJamoviModule'
-        doi: 10.17605/OSF.IO/9SZUD
-        url: https://www.serdarbalci.com/ClinicoPathJamoviModule/
-
-
-    ggrain:
-        type: 'software'
-        author: Nicholas Judd, Jordy van Langen, Micah Allen, Rogier Kievit
-        year: 2024
-        title: 'ggrain: A Rainclouds Geom for ggplot2'
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggrain'
-        url: https://CRAN.R-project.org/package=ggrain
-
-
-
-    digest:
-        type: 'software'
-        author: "Dirk Eddelbuettel"
-        year: 2025
-        title: "digest: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=digest'
-        url: https://CRAN.R-project.org/package=digest
-
-    patchwork:
-        type: 'software'
-        author: "Thomas Lin Pedersen"
-        year: 2025
-        title: "patchwork: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=patchwork'
-        url: https://CRAN.R-project.org/package=patchwork
-
-    boot:
-        type: 'software'
-        author: "Angelo Canty, Brian Ripley, Alessandra R. Brazzale"
-        year: 2025
-        title: "boot: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=boot'
-        url: https://CRAN.R-project.org/package=boot
-
     BayesFactor:
-        type: 'software'
+        type: software
         author: "Morey, R. D., & Rouder, J. N."
         year: 2024
         title: "BayesFactor: Computation of Bayes Factors for Common Designs"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=BayesFactor'
-        url: https://CRAN.R-project.org/package=BayesFactor
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=BayesFactor"
+        url: "https://CRAN.R-project.org/package=BayesFactor"
 
-    ggforce:
-        type: 'software'
-        author: "Thomas Lin Pedersen"
-        year: 2025
-        title: "ggforce: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggforce'
-        url: https://CRAN.R-project.org/package=ggforce
+    ClinicoPathJamoviModule:
+        type: software
+        author: Serdar Balci
+        year: 2022
+        title: "ClinicoPath jamovi Module doi:10.5281/zenodo.3997188"
+        publisher: "[R package]. Retrieved from https://github.com/sbalci/ClinicoPathJamoviModule"
+        doi: 10.17605/OSF.IO/9SZUD
+        url: "https://www.serdarbalci.com/ClinicoPathJamoviModule/"
 
-    correlation:
-        type: 'software'
-        author: "Dominique Makowski, Brenton M. Wiernik, Indrajeet Patil, Daniel Lüdecke, Mattan S. Ben-Shachar, Rémi Thériault"
-        year: 2025
-        title: "correlation: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=correlation'
-        url: https://CRAN.R-project.org/package=correlation
-
-    arcdiagram:
-        type: 'software'
-        author: "Gaston Sanchez"
-        year: 2018
-        title: "arcdiagram: R package"
-        publisher: '[R package]. Retrieved from https://github.com/gastonstat/arcdiagram'
-        url: https://github.com/gastonstat/arcdiagram
-
-    ggpubr:
-        type: 'software'
-        author: "Alboukadel Kassambara"
+    RCorTestDocumentation:
+        type: website
+        author: R Core Team
         year: 2026
-        title: "ggpubr: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggpubr'
-        url: https://CRAN.R-project.org/package=ggpubr
+        title: "cor.test: Test for Association/Correlation Between Paired Samples"
+        publisher: R Documentation, stats package
+        url: "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.test.html"
+
+    RGraphGallery:
+        type: website
+        author: Holtz Yan
+        year: 2020
+        title: The R Graph Gallery
+        publisher: "A website that displays hundreds of R charts https://www.r-graph-gallery.com"
+        url: "https://github.com/holtzy/R-graph-gallery"
 
     WRS2:
-        type: 'software'
-        author: "Patrick Mair, Rand Wilcox"
+        type: software
+        author: Patrick Mair, Rand Wilcox
         year: 2025
         title: "WRS2: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=WRS2'
-        url: https://CRAN.R-project.org/package=WRS2
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=WRS2"
+        url: "https://CRAN.R-project.org/package=WRS2"
 
-    ggsegmentedtotalbar:
-        type: 'software'
-        author: "Ozancan Ozdemir"
+    arcdiagram:
+        type: software
+        author: Gaston Sanchez
+        year: 2018
+        title: "arcdiagram: R package"
+        publisher: "[R package]. Retrieved from https://github.com/gastonstat/arcdiagram"
+        url: "https://github.com/gastonstat/arcdiagram"
+
+    boot:
+        type: software
+        author: Angelo Canty, Brian Ripley, Alessandra R. Brazzale
         year: 2025
-        title: "ggsegmentedtotalbar: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggsegmentedtotalbar'
-        url: https://CRAN.R-project.org/package=ggsegmentedtotalbar
+        title: "boot: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=boot"
+        url: "https://CRAN.R-project.org/package=boot"
 
-    waffle:
-        type: 'software'
-        author: "Bob Rudis, Dave Gandy"
-        year: 2023
-        title: "waffle: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=waffle'
-        url: https://CRAN.R-project.org/package=waffle
+    car:
+        type: software
+        author: "Fox, J., & Weisberg, S."
+        year: 2018
+        title: "car: Companion to Applied Regression"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=car"
+        url: "https://CRAN.R-project.org/package=car"
 
-    ggdist:
-        type: 'software'
-        author: ""
-        year: ""
-        title: "ggdist: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=ggdist'
-        url: https://CRAN.R-project.org/package=ggdist
+    correlation:
+        type: software
+        author: Dominique Makowski, Brenton M. Wiernik, Indrajeet Patil, Daniel Lüdecke, Mattan S. Ben-Shachar, Rémi Thériault
+        year: 2025
+        title: "correlation: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=correlation"
+        url: "https://CRAN.R-project.org/package=correlation"
 
     cowplot:
-        type: 'software'
-        author: "Claus O. Wilke"
+        type: software
+        author: Claus O. Wilke
         year: 2025
         title: "cowplot: R package"
-        publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=cowplot'
-        url: https://CRAN.R-project.org/package=cowplot
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=cowplot"
+        url: "https://CRAN.R-project.org/package=cowplot"
+
+    digest:
+        type: software
+        author: Dirk Eddelbuettel
+        year: 2025
+        title: "digest: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=digest"
+        url: "https://CRAN.R-project.org/package=digest"
+
+    easyalluvial:
+        type: software
+        author: Bjoern Koneswarakantha
+        year: 2019
+        title: "easyalluvial: Generate Alluvial Plots with a Single Line of Code."
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=easyalluvial"
+        url: "https://CRAN.R-project.org/package=easyalluvial"
 
     effectsize:
-        type: 'software'
-        author: "Mattan S. Ben-Shachar, Dominique Makowski, Daniel Lüdecke, Indrajeet Patil, Brenton M. Wiernik, Rémi Thériault, Philip Waggoner"
+        type: software
+        author: Mattan S. Ben-Shachar, Dominique Makowski, Daniel Lüdecke, Indrajeet Patil, Brenton M. Wiernik, Rémi Thériault, Philip Waggoner
         year: 2026
-        title: "Indices of Effect Size"
+        title: Indices of Effect Size
         publisher: "[R package version 1.0.3]. Retrieved from https://CRAN.R-project.org/package=effectsize"
-        url: https://CRAN.R-project.org/package=effectsize
+        url: "https://CRAN.R-project.org/package=effectsize"
+
+    ggExtra:
+        type: software
+        author: Dean Attali , Christopher Baker
+        year: 2025
+        title: "ggExtra: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggExtra"
+        url: "https://CRAN.R-project.org/package=ggExtra"
+
+    ggalluvial:
+        type: software
+        author: Jason Cory Brunson
+        year: 2019
+        title: "ggalluvial: Alluvial Plots in 'ggplot2'."
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggalluvial"
+        url: "https://CRAN.R-project.org/package=ggalluvial"
+
+    ggdist:
+        type: software
+        author: Matthew Kay , Brenton M. Wiernik
+        year: 2025
+        title: "ggdist: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggdist"
+        url: "https://CRAN.R-project.org/package=ggdist"
+
+    ggforce:
+        type: software
+        author: Thomas Lin Pedersen
+        year: 2025
+        title: "ggforce: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggforce"
+        url: "https://CRAN.R-project.org/package=ggforce"
+
+    ggplot2:
+        type: software
+        author: "Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., & RStudio"
+        year: 2018
+        title: "ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggplot2"
+        url: "https://CRAN.R-project.org/package=ggplot2"
+
+    ggprism:
+        type: software
+        author: Charlotte Dawson
+        year: 2025
+        title: "ggprism: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggprism"
+        url: "https://CRAN.R-project.org/package=ggprism"
+
+    ggpubr:
+        type: software
+        author: Alboukadel Kassambara
+        year: 2026
+        title: "ggpubr: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggpubr"
+        url: "https://CRAN.R-project.org/package=ggpubr"
+
+    ggrain:
+        type: software
+        author: Nicholas Judd, Jordy van Langen, Micah Allen, Rogier Kievit
+        year: 2024
+        title: "ggrain: A Rainclouds Geom for ggplot2"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggrain"
+        url: "https://CRAN.R-project.org/package=ggrain"
+
+    ggrepel:
+        type: software
+        author: Kamil Slowikowski
+        year: 2026
+        title: "ggrepel: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggrepel"
+        url: "https://CRAN.R-project.org/package=ggrepel"
+
+    ggridges:
+        type: software
+        author: "Wilke, C., & RStudio"
+        year: 2018
+        title: "ggridges: Ridgeline Plots in ggplot2"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggridges"
+        url: "https://CRAN.R-project.org/package=ggridges"
+
+    ggsegmentedtotalbar:
+        type: software
+        author: Ozancan Ozdemir
+        year: 2025
+        title: "ggsegmentedtotalbar: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggsegmentedtotalbar"
+        url: "https://CRAN.R-project.org/package=ggsegmentedtotalbar"
+
+    ggstatsplot:
+        type: software
+        author: Indrajeet Patil
+        year: 2021
+        title: "Visualizations with statistical details: The 'ggstatsplot' approach"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=ggstatsplot"
+        doi: 10.21105/joss.03167
+        url: "https://CRAN.R-project.org/package=ggstatsplot"
+
+    ggthemes:
+        type: software
+        author: Jeffrey B. Arnold (), Gergely Daroczi , Bo Werth , Brian Weitzner , Joshua Kunst , Baptiste Auguie , Bob Rudis , Hadley Wickham (Code from the ggplot2 package.), Justin Talbot (Code from the labeling package), Joshua London
+        year: 2026
+        title: "ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'"
+        publisher: "[R package version 6.0.0]. Retrieved from https://CRAN.R-project.org/package=ggthemes"
+        url: "https://CRAN.R-project.org/package=ggthemes"
+
+    haven:
+        type: software
+        author: Hadley Wickham, Evan Miller, Danny Smith
+        year: 2025
+        title: Import and Export 'SPSS', 'Stata' and 'SAS' Files
+        publisher: "[R package version 2.5.5]. Retrieved from https://CRAN.R-project.org/package=haven"
+        url: "https://CRAN.R-project.org/package=haven"
+
+    igraph:
+        type: software
+        author: Gábor Csárdi, Tamás Nepusz, Vincent Traag, Szabolcs Horvát, Fabio Zanini, Daniel Noom, Kirill Müller, David Schoch, Maëlle Salmon
+        year: 2026
+        title: "igraph: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=igraph"
+        url: "https://CRAN.R-project.org/package=igraph"
+
+    jmv:
+        type: software
+        author: Ravi Selker , Jonathon Love , Damian Dropmann , Victor Moreno , Maurizio Agosti , Sebastian Jentschke
+        year: 2026
+        title: "jmv: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=jmv"
+        url: "https://CRAN.R-project.org/package=jmv"
+
+    moments:
+        type: software
+        author: Lukasz Komsta, Frederick Novomestky
+        year: 2015
+        title: "moments: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=moments"
+        url: "https://CRAN.R-project.org/package=moments"
+
+    patchwork:
+        type: software
+        author: Thomas Lin Pedersen
+        year: 2025
+        title: "patchwork: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=patchwork"
+        url: "https://CRAN.R-project.org/package=patchwork"
+
+    performance:
+        type: software
+        author: Daniel Lüdecke, Dominique Makowski, Mattan S. Ben-Shachar, Indrajeet Patil, Philip Waggoner, Brenton M. Wiernik, Rémi Thériault
+        year: 2026
+        title: "performance: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=performance"
+        url: "https://CRAN.R-project.org/package=performance"
+
     statsExpressions:
-        type: 'article'
-        author: "Patil, I."
+        type: article
+        author: Patil, I.
         year: 2021
         title: "statsExpressions: R Package for Tidy Dataframes and Expressions with Statistical Details"
-        publisher: 'Journal of Open Source Software'
+        publisher: Journal of Open Source Software
         volume: 6
         issue: 61
-        pages: "3236"
+        pages: 3236
         doi: 10.21105/joss.03236
-        url: https://doi.org/10.21105/joss.03236
+        url: "https://doi.org/10.21105/joss.03236"
+
+    tools:
+        type: software
+        author: R Core Team
+        year: 2026
+        title: "tools: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=tools"
+        url: "https://CRAN.R-project.org/package=tools"
+
+    viridis:
+        type: software
+        author: Simon Garnier
+        year: 2024
+        title: "viridis: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=viridis"
+        url: "https://CRAN.R-project.org/package=viridis"
+
+    viridisLite:
+        type: software
+        author: Simon Garnier
+        year: 2026
+        title: "viridisLite: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=viridisLite"
+        url: "https://CRAN.R-project.org/package=viridisLite"
+
+    waffle:
+        type: software
+        author: Bob Rudis, Dave Gandy
+        year: 2023
+        title: "waffle: R package"
+        publisher: "[R package]. Retrieved from https://CRAN.R-project.org/package=waffle"
+        url: "https://CRAN.R-project.org/package=waffle"
 
 ...

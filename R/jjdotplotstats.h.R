@@ -288,10 +288,10 @@ jjdotplotstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 name="",
                 title="Horizontal Box-Violin Comparison",
                 refs=list(
+                    "ClinicoPathJamoviModule",
                     "ggplot2",
                     "ggstatsplot",
                     "statsExpressions",
-                    "ClinicoPathJamoviModule",
                     "digest"),
                 clearWith=list(
                     "dep",

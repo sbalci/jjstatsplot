@@ -407,11 +407,14 @@ jjscatterstatsResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Cl
                 name="",
                 title="Scatter Plot",
                 refs=list(
+                    "ClinicoPathJamoviModule",
                     "ggplot2",
                     "ggstatsplot",
                     "statsExpressions",
                     "ggpubr",
-                    "ClinicoPathJamoviModule"),
+                    "ggExtra",
+                    "ggrepel",
+                    "patchwork"),
                 clearWith=list(
                     "clinicalPreset",
                     "dep",
