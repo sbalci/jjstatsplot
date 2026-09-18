@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="0 0 74 44" width="74" height="44">
+  <metadata>
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title>jjstatsplot module icon</dc:title>
+        <dc:creator><cc:Agent><dc:title>Serdar Balci</dc:title></cc:Agent></dc:creator>
+        <cc:license rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <!-- Baseline Axis -->
+  <path d="M 6 40 L 68 40" stroke="#3e6da9" stroke-width="1.5" stroke-dasharray="1, 3" fill="none"/>
+  
+  <!-- Statistical Comparison Bracket (top) -->
+  <path d="M 18 8 L 18 5 L 56 5 L 56 8" stroke="#3e6da9" stroke-width="1.5" fill="none"/>
+  <!-- Significance mark (*) -->
+  <circle cx="37" cy="5" r="1.8" fill="#e6ac40"/>
+  
+  <!-- Group 1: Half-Violin Plot (Left) -->
+  <path d="M 22 12 C 14 16, 12 24, 18 29 C 21 32, 22 36, 22 38 Z" 
+        fill="#b0cbf3" stroke="#6b9de8" stroke-width="1.8"/>
+  <!-- Embedded mini-boxplot -->
+  <rect x="22" y="19" width="5" height="13" fill="#ffffff" stroke="#3e6da9" stroke-width="1.5"/>
+  <line x1="22" y1="25" x2="27" y2="25" stroke="#e6ac40" stroke-width="2"/>
+  <line x1="24.5" y1="14" x2="24.5" y2="19" stroke="#3e6da9" stroke-width="1.2"/>
+  <line x1="24.5" y1="32" x2="24.5" y2="37" stroke="#3e6da9" stroke-width="1.2"/>
+  
+  <!-- Group 2: Half-Violin Plot (Right) -->
+  <path d="M 52 14 C 60 18, 62 25, 56 31 C 53 34, 52 36, 52 38 Z" 
+        fill="#fdf0d5" stroke="#e6ac40" stroke-width="1.8"/>
+  <!-- Embedded mini-boxplot -->
+  <rect x="47" y="21" width="5" height="13" fill="#ffffff" stroke="#3e6da9" stroke-width="1.5"/>
+  <line x1="47" y1="27" x2="52" y2="27" stroke="#6b9de8" stroke-width="2"/>
+  <line x1="49.5" y1="16" x2="49.5" y2="21" stroke="#3e6da9" stroke-width="1.2"/>
+  <line x1="49.5" y1="34" x2="49.5" y2="37" stroke="#3e6da9" stroke-width="1.2"/>
+
+  <!-- Jittered scatter raw points in between -->
+  <circle cx="34" cy="22" r="2.2" fill="#ffffff" stroke="#6b9de8" stroke-width="1.5"/>
+  <circle cx="38" cy="28" r="2.2" fill="#ffffff" stroke="#e6ac40" stroke-width="1.5"/>
+  <circle cx="40" cy="18" r="2.2" fill="#ffffff" stroke="#9f9f9f" stroke-width="1.5"/>
+</svg>

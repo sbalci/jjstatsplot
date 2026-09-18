@@ -312,7 +312,7 @@ statsplot2Base <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' plots, bar charts, and alluvial diagrams.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Continuous outcome across groups: Grade is stored as the numbers
 #' # 1-3, so it is read as categorical (a notice says so) and a violin
 #' # plot with a nonparametric comparison is drawn.

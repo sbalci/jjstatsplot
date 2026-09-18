@@ -1,8 +1,8 @@
 Type: Package
 Package: jjstatsplot
 Title: Wrapper for 'ggstatsplot'
-Version: 1.0.82.02
-Date: 2026-09-16
+Version: 1.0.82.03
+Date: 2026-09-17
 Authors@R: person(given = "Serdar", family = "Balci", role = c("aut",
  "cre", "cph"), email = "serdarbalci@serdarbalci.com", comment =
  c(ORCID = "0000-0002-7852-3851"))

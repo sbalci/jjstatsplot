@@ -392,7 +392,7 @@ hullplotBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' 
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Basic hull plot: two continuous axes plus a grouping variable.
 #' # data(hullplot_clusters)
 #' # hullplot(
