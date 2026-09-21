@@ -145,3 +145,17 @@ README_badges.md
 ^inst/extdata/.*\.omv$
 ^data/.*\.csv$
 ^.*\.tar\.gz$
+^_build_site\.R$
+
+# LLM / agent tooling and developer notes -- never part of the package tarball
+^\.claude$
+^\.claude/
+^\.agents$
+^\.agents/
+^\.claude_prompts$
+^CLAUDE.*\.md$
+^AGENTS\.md$
+^GEMINI\.md$
+^TODO.*\.md$
+^sonograph_log\.md$
+^development-LLM
