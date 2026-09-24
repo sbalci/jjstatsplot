@@ -1,171 +1,137 @@
 # jjstatsplot
 
-## A wrapper for ggstatsplot: jjstatsplot help researchers to generate plots in jamovi based on ggstatsplot package. Also includes additional plots
+## A statistical visualization bridge for jamovi based on ggstatsplot and modern R plotting packages
 
 [![R-CMD-check](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sbalci/jjstatsplot/actions/workflows/R-CMD-check.yaml)
 [![jamovi](https://img.shields.io/badge/jamovi-module-blue)](https://www.jamovi.org)
 [![ggstatsplot-wrapper](https://img.shields.io/badge/ggstatsplot-wrapper-orange)](https://www.indrapatil.com/ggstatsplot/)
 [![License: GPL (>= 2)](https://img.shields.io/badge/license-GPL%20(%3E=%202)-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.serdarbalci.com/jjstatsplot/)
 
 ## Statistical Visualization Made Simple
 
-**jjstatsplot** brings the power of [ggstatsplot](https://www.indrapatil.com/ggstatsplot/) to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. This R package bridges the gap between sophisticated statistical plotting and user-friendly data analysis, enabling researchers to create informative plots enriched with statistical details without writing code. With 18 analysis types, jjstatsplot covers everything from basic distributions to advanced cluster visualizations.
+**jjstatsplot** brings the power of [ggstatsplot](https://www.indrapatil.com/ggstatsplot/) and modern statistical plotting tools to [jamovi](https://www.jamovi.org), making publication-ready statistical visualizations accessible through an intuitive point-and-click interface. It automatically integrates hypothesis tests, effect sizes, confidence intervals, sample sizes, and distribution diagnostics directly onto your figures—without writing a single line of code.
 
-### 🎯 Why jjstatsplot?
+With **19 distinct analysis types**, jjstatsplot covers everything from baseline univariate distributions to multi-group comparisons, network arcs, ridgeline density plots, and automated intelligent plot selection.
 
-Traditional statistical software often separates visualization from analysis, requiring users to manually annotate plots with statistical results. jjstatsplot integrates these steps, automatically adding appropriate statistical tests, effect sizes, and sample sizes to your visualizations. Whether you're exploring data distributions, comparing groups, examining correlations, or analyzing categorical relationships, jjstatsplot provides the right visualization with the right statistics—all through jamovi's familiar interface.
+---
 
-## ✨ Key Features
+## ✨ Key Features & Analysis Suite (19 Analyses)
 
-### 📊 Comprehensive Analysis Types
+| Category | Analysis | Function | Statistical Details & Clinical Applications |
+| :--- | :--- | :--- | :--- |
+| **Continuous Distributions** | **Histogram** | `jjhistostats` | Distribution visualization with Shapiro-Wilk normality testing, parametric/robust/Bayesian central tendency, and density overlays. |
+| **Continuous vs Continuous** | **Scatter Plot** | `jjscatterstats` | Pairwise association with Pearson/Spearman/robust correlation coefficients, regression fits, and marginal distribution plots. |
+| **Continuous vs Continuous** | **Correlation Matrix** | `jjcorrmat` | Multi-variable correlation matrices displaying pairwise correlation strength, significance markers, and clustering. |
+| **Continuous vs Continuous** | **Hull Plot** | `hullplot` | Bivariate scatter with convex polygonal hull boundaries highlighting distinct clinical clusters and group separation. |
+| **Group Comparisons** | **Between-Groups Box-Violin** | `jjbetweenstats` | Group comparison with violin plots, boxplots, raw data points, one-way ANOVA / Kruskal-Wallis, post-hoc tests, and effect sizes (eta-squared, Cohen's d). |
+| **Group Comparisons** | **Within-Subjects Box-Violin** | `jjwithinstats` | Repeated measures and matched-pair comparison using repeated measures ANOVA or Friedman tests with paired trajectory lines. |
+| **Group Comparisons** | **Horizontal Dot Plot** | `jjdotplotstats` | Horizontal box-violin mean comparison across categorical factors with detailed effect sizes and confidence intervals. |
+| **Group Comparisons** | **Dot Chart** | `jjdotchart` | Cleveland-style dot charts comparing observed group summaries against reference values or predefined clinical benchmarks. |
+| **Categorical Associations** | **Bar Charts** | `jjbarstats` | Frequency comparisons with Pearson Chi-square, Fisher's exact test, Cramer's V effect size, and natural language summary annotations. |
+| **Categorical Associations** | **Pie Charts** | `jjpiestats` | Proportion visualization with chi-square goodness-of-fit testing for composition analysis. |
+| **Categorical Associations** | **Segmented Total Bar** | `jjsegmentedtotalbar` | Stacked proportion bars reporting both segment-level and aggregate total category statistics. |
+| **Categorical Associations** | **Waffle Charts** | `jwaffle` | Square icon/matrix waffle charts for intuitive patient-level proportion and ratio visualization. |
+| **Advanced Distributions** | **Raincloud Plot** | `raincloud` | Integrated distribution display combining raw scatter points (jitter), boxplot summary, and smoothed half-density cloud. |
+| **Advanced Distributions** | **Advanced Raincloud** | `advancedraincloud` | Enhanced raincloud plot supporting longitudinal tracking, multi-group stratification, and custom orientation. |
+| **Advanced Distributions** | **Ridgeline Plot** | `jjridges` | Staggered multi-group density ridges (joyplots) for comparing biomarker distribution shifts across stages or cohorts. |
+| **Network & Flows** | **Arc Diagram** | `jjarcdiagram` | Network arc diagrams displaying connections and co-occurrence strength between discrete pathological entities. |
+| **Trends & Time Series** | **Line Chart** | `linechart` | Longitudinal trajectory and trend plots with error bars, confidence intervals, and slope change annotations. |
+| **Ranked Data** | **Lollipop Chart** | `lollipop` | Clean, high-data-to-ink ratio lollipop plots for comparing ranked numerical values across extensive categories. |
+| **Automated Selection** | **Automatic Plot Selection** | `statsplot2` | Intelligent plotting engine that automatically inspects selected variable types and renders the optimal statistical plot. |
 
-| Category                             | Analysis                             | Description                 | Statistical Details                        |
-| ------------------------------------ | ------------------------------------ | --------------------------- | ------------------------------------------ |
-| **Continuous**                 | Histogram (`jjhistostats`)         | Distribution visualization  | Shapiro-Wilk test, robust measures         |
-| **Continuous vs Continuous**   | Scatter Plot (`jjscatterstats`)    | Relationship analysis       | Correlation coefficients, regression lines |
-| **Continuous vs Continuous**   | Correlation Matrix (`jjcorrmat`)   | Multiple correlations       | Significance levels, correlation strength  |
-| **Continuous vs Continuous**   | Hull Plot (`hullplot`)             | Cluster visualization       | Polygonal boundaries, group membership     |
-| **Categorical vs Continuous**  | Box-Violin Plot (`jjbetweenstats`) | Between-groups comparison   | ANOVA, Kruskal-Wallis, post-hoc tests      |
-| **Categorical vs Continuous**  | Box-Violin Plot (`jjwithinstats`)  | Within-subjects comparison  | Repeated measures ANOVA, Friedman test     |
-| **Categorical vs Continuous**  | Dot Chart (`jjdotplotstats`)       | Mean comparisons            | Confidence intervals, effect sizes         |
-| **Categorical vs Categorical** | Bar Chart (`jjbarstats`)           | Frequency analysis          | Chi-square, Fisher's exact test            |
-| **Categorical vs Categorical** | Pie Chart (`jjpiestats`)           | Proportion visualization    | Goodness of fit tests                      |
-| **Distribution**               | Waffle Chart (`jjwaffle`)          | Part-to-whole visualization | Custom proportions display                 |
-| **Advanced Distributions**     | Raincloud (`raincloud`)            | Distribution + individual points | Kernel density, quartiles                |
-| **Advanced Distributions**     | Advanced Raincloud (`advancedraincloud`) | Enhanced raincloud plots   | Longitudinal support, multi-group comparison |
-| **Distribution Comparison**     | Ridge Plots (`jjridges`)           | Multiple distribution overlay | Density curves by groups                  |
-| **Network/Flow**               | Arc Diagrams (`jjarcdiagram`)      | Network visualization       | Connection strength, node properties       |
-| **Segmented Analysis**         | Segmented Bar (`jjsegmentedtotalbar`) | Stacked proportions        | Total and segment statistics               |
-| **Time Series**                | Line Chart (`linechart`)           | Trends over time            | Change rates, seasonal patterns            |
-| **Ranked Data**                | Lollipop Chart (`lollipop`)        | Ranked comparisons          | Ordered categorical analysis               |
-| **Extended Analysis**          | Stats Plot 2 (`statsplot2`)        | Extended statistical plots  | Multiple statistical approaches            |
+---
 
-### 🚀 Advanced Capabilities
+## 🚀 Advanced Capabilities
 
-- **Dual-Mode Operation**: Analyze single variables or multiple variables simultaneously
-- **Grouped Analysis**: Automatic faceting by grouping variables
-- **Statistical Flexibility**: Choose between parametric, non-parametric, robust, and Bayesian approaches
-- **Customization Options**: Control plot aesthetics, statistical details, and output formatting
-- **Theme Support**: Use jamovi's consistent styling or ggstatsplot's original themes
-- **Dynamic Sizing**: Plots automatically adjust to accommodate your data
+- **Statistical Paradigms**: Switch seamlessly between parametric, non-parametric, robust, and Bayesian statistical frameworks.
+- **Grouped & Faceted Analysis**: Automatic multi-panel faceting by secondary clinical factors.
+- **Theme & Aesthetic Control**: Choose between native jamovi styling or ggstatsplot's color palettes and typography.
+- **Reproducibility**: All GUI interactions generate clean, reproducible R code using underlying tidyverse and ggstatsplot idioms.
+
+---
 
 ## 📦 Installation
 
-### For jamovi Users
+### In jamovi (Recommended)
 
-1. Open jamovi
-2. Go to **Modules** → **jamovi library**
-3. Search for "jjstatsplot"
-4. Click **Install**
+1. Open **jamovi** (>= 2.6).
+2. Click **Modules** (top right) → **jamovi library**.
+3. Search for **jjstatsplot**.
+4. Click **Install**.
 
-### For R Users
+### As an R Package
 
 ```r
-# Install from GitHub (latest development version)
-if (!require(devtools)) install.packages("devtools")
-devtools::install_github("sbalci/jjstatsplot")
-
-# Load the package
-library(jjstatsplot)
+# Install development version from GitHub
+remotes::install_github("sbalci/jjstatsplot")
 ```
 
-## 🏃 Quick Start
+---
 
-### In jamovi
-
-1. Open your dataset in jamovi
-2. Navigate to the **Analyses** tab
-3. Find **jjstatsplot** in the analysis menu
-4. Select your desired analysis type
-5. Drag and drop variables to the appropriate fields
-6. Customize options as needed
-
-### In R
+## 🏃 Quick Start (R Interface)
 
 ```r
-# Example: Create a histogram with statistical annotations
-jjhistostats(
+library(jjstatsplot)
+
+# 1. Distribution analysis with statistical test
+jjstatsplot::jjhistostats(
   data = iris,
   dep = "Sepal.Length",
   xlab = "Sepal Length (cm)",
   results.subtitle = TRUE
 )
 
-# Example: Compare groups with box-violin plots
-jjbetweenstats(
+# 2. Between-group box-violin comparison with ANOVA/Kruskal-Wallis
+jjstatsplot::jjbetweenstats(
   data = mtcars,
   dep = "mpg",
   group = "cyl",
   type = "nonparametric"
 )
+
+# 3. Correlation matrix with significance levels
+jjstatsplot::jjcorrmat(
+  data = mtcars,
+  vars = vars(mpg, hp, wt, qsec)
+)
+
+# 4. Raincloud plot combining density, boxplot, and points
+jjstatsplot::raincloud(
+  data = iris,
+  dep = "Sepal.Width",
+  group = "Species"
+)
 ```
-
-## 🔧 Development
-
-### Requirements
-
-- R (>= 4.0.0)
-- jamovi (>= 1.2.19)
-- Core dependencies: `jmvcore`, `R6`, `ggstatsplot`
-
-### Building from Source
-
-```r
-# Clone the repository
-git clone https://github.com/sbalci/jjstatsplot.git
-
-# Install development dependencies
-devtools::install_deps()
-
-# Check package
-devtools::check()
-
-# Build jamovi module
-jmvtools::install()
-```
-
-## 📚 Documentation
-
-- **Package Documentation**: [www.serdarbalci.com/jjstatsplot](https://www.serdarbalci.com/jjstatsplot/)
-- **ggstatsplot Guide**: [www.indrapatil.com/ggstatsplot](https://www.indrapatil.com/ggstatsplot/)
-- **jamovi Resources**: [jamovi.org](https://www.jamovi.org)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Reporting Issues
-
-- **Bug Reports**: [GitHub Issues](https://github.com/sbalci/jjstatsplot/issues)
-- **Feature Requests**: [GitHub Discussions](https://github.com/sbalci/jjstatsplot/issues)
-- **General Questions**: <serdarbalci@serdarbalci.com>
-
-## 📄 Citation
-
-If you use jjstatsplot in your research, please cite the main ClinicoPath project:
-
-```
-Serdar Balci (2025). ClinicoPath jamovi Module. doi:10.5281/zenodo.3997188
-[R package]. Retrieved from https://github.com/sbalci/ClinicoPathJamoviModule
-```
-
-Please also cite the underlying packages:
-
-- **ggstatsplot**: Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach. *Journal of Open Source Software*, 6(61), 3167.
-- **jamovi**: The jamovi project (2024). jamovi (Version 2.5) [Computer Software]. Retrieved from <https://www.jamovi.org>
-
-## 📝 License
-
-This project is licensed under the GPL (>= 2) License - see the [LICENSE](https://github.com/sbalci/jjstatsplot/blob/master/LICENSE.md) file for details.
-
-## 🙏 Acknowledgments
-
-- [Indrajeet Patil](https://github.com/IndrajeetPatil) for creating ggstatsplot
-- The [jamovi team](https://www.jamovi.org/about.html) for their excellent statistical platform
-- All contributors and users who have helped improve this package
 
 ---
 
-<p align="center">
-Made with ❤️ for the jamovi community
-</p>
+## 📚 Documentation & Resources
+
+- **Module Documentation**: [https://www.serdarbalci.com/jjstatsplot/](https://www.serdarbalci.com/jjstatsplot/)
+- **ClinicoPath Umbrella Ecosystem**: [https://www.serdarbalci.com/ClinicoPathJamoviModule/](https://www.serdarbalci.com/ClinicoPathJamoviModule/)
+- **ggstatsplot Upstream Package**: [https://www.indrapatil.com/ggstatsplot/](https://www.indrapatil.com/ggstatsplot/)
+- **Issue Tracker & Feature Requests**: [GitHub Issues](https://github.com/sbalci/jjstatsplot/issues)
+
+---
+
+## 📄 Citation
+
+If you use jjstatsplot in your research, please cite:
+
+```bibtex
+@manual{balci2026clinicopath,
+  title  = {ClinicoPath: jamovi Module for Clinicopathological Research},
+  author = {Serdar Balci},
+  year   = {2026},
+  url    = {https://www.serdarbalci.com/ClinicoPathJamoviModule/},
+  doi    = {10.5281/zenodo.3997188}
+}
+```
+
+Please also cite the underlying package:
+- Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach. *Journal of Open Source Software*, 6(61), 3167.
+
+## 📝 License
+
+GPL (>= 2) — see the [LICENSE.md](LICENSE.md) file for details.
