@@ -11,7 +11,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # Superseded PR runs are cancelled; every push/dispatch run gets its own group.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -24,7 +25,7 @@ jobs:
       R_KEEP_PKG_SOURCE: "yes"
       _R_CHECK_FORCE_SUGGESTS_: "true"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
 
@@ -38,9 +39,6 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
-          needs: check
-          # Include this module's test dependencies, not optional dependency trees.
-          dependencies: 'c("Depends", "Imports", "LinkingTo", "Suggests")'
           # Keep the dependency cache even when the validation below finds errors.
           cache: always
 
@@ -56,6 +54,7 @@ jobs:
         # Dependency audits need the original R/ sources and NAMESPACE.
         # test_local also loads the package, so runtime tests are not silently skipped.
         # Attempt these even if the package check found errors; neither failure is hidden.
+        # The check reporter prints every failure (summary stops at 10) plus a totals line.
         if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
-        run: testthat::test_local(".", reporter = "summary", stop_on_failure = TRUE)
+        run: testthat::test_local(".", reporter = "check", stop_on_failure = TRUE)
         shell: Rscript {0}
