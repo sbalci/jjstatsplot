@@ -1,0 +1,61 @@
+# Fast, module-local validation. Publishing remains in the existing workflows.
+name: R validation
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  R-CMD-check:
+    name: Ubuntu / R release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: "yes"
+      _R_CHECK_FORCE_SUGGESTS_: "true"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+
+      - name: Install module and check dependencies
+        id: dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+          # Include this module's test dependencies, not optional dependency trees.
+          dependencies: 'c("Depends", "Imports", "LinkingTo", "Suggests")'
+          # Keep the dependency cache even when the validation below finds errors.
+          cache: always
+
+      - name: Check built package
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          args: 'c("--no-manual", "--ignore-vignettes")'
+          build_args: 'c("--no-manual", "--no-build-vignettes")'
+          upload-results: true
+          artifact-name: jjstatsplot-R-CMD-check
+
+      - name: Run source-tree tests
+        # Dependency audits need the original R/ sources and NAMESPACE.
+        # test_local also loads the package, so runtime tests are not silently skipped.
+        # Attempt these even if the package check found errors; neither failure is hidden.
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: testthat::test_local(".", reporter = "summary", stop_on_failure = TRUE)
+        shell: Rscript {0}
