@@ -38,3 +38,8 @@ temp*/
 backups/
 docs/audit/
 
+
+# local scratch: testthat writes these only when tests fail; personal editor config (library-audit 2026-10-23 OncoPath)
+tests/testthat/_problems/
+tests/testthat/testthat-problems.rds
+.claude/settings.local.json

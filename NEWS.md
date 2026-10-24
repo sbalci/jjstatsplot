@@ -1,4 +1,4 @@
-# jjstatsplot 1.0.82.03 (development version)
+# jjstatsplot (development version)
 
 A development build, not released on its own. This build makes resampled and Bayesian results reproducible and shows the seed behind them on the
 plot. Hull Plot no longer depends on two optional libraries, and several option controls that never
@@ -59,6 +59,11 @@ switched on or off now work.
   outside the outline.
 - The citation file now gives the licence as GPL-2.0-or-later. The module has a new icon, and V8
   and concaveman are no longer installed with it. Reference lists and the README were also updated.
+
+## Text and repository
+
+- **American spelling throughout** (analyzed, color, center, behavior, labeled, favor).
+- **Repository:** a personal settings file is no longer tracked.
 
 # jjstatsplot 1.0.81 (2026-09-09)
 

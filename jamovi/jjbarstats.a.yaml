@@ -111,7 +111,7 @@ options:
             Random seed for the statistics computed by posterior sampling (the Bayesian
             contingency test, and the Bayes factor caption of a frequentist test). The plot
             caption names the seed whenever it affected the numbers shown. The default
-            reproduces the previous fixed behaviour.
+            reproduces the previous fixed behavior.
 
     - name: originaltheme
       title: Add GGStatsPlot layer
@@ -125,9 +125,9 @@ options:
       title: Color palette
       type: List
       options:
-        - title: Dark2 (colour-blind safe)
+        - title: Dark2 (color-blind safe)
           name: Dark2
-        - title: Set2 (colour-blind safe)
+        - title: Set2 (color-blind safe)
           name: Set2
         - title: Paired
           name: Paired
@@ -308,7 +308,7 @@ options:
           name: jco
         - title: Lancet
           name: lancet
-        - title: Grey scale
+        - title: Gray scale
           name: grey
       default: jco
       description:

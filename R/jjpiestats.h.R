@@ -422,7 +422,7 @@ jjpiestatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param seed Random seed for the statistics computed by posterior sampling
 #'   (the Bayesian contingency test, and the Bayes factor caption of a
 #'   frequentist test). The plot caption names the seed whenever it affected the
-#'   numbers shown. The default reproduces the previous fixed behaviour.
+#'   numbers shown. The default reproduces the previous fixed behavior.
 #' @param originaltheme Whether to apply the original ggstatsplot theme layer
 #'   to the plot. If TRUE, uses ggstatsplot's default styling. If FALSE, uses
 #'   jamovi's default ggplot2 theme for consistency with other analyses.

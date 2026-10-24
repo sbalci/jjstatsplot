@@ -432,7 +432,7 @@ jjbarstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param seed Random seed for the statistics computed by posterior sampling
 #'   (the Bayesian contingency test, and the Bayes factor caption of a
 #'   frequentist test). The plot caption names the seed whenever it affected the
-#'   numbers shown. The default reproduces the previous fixed behaviour.
+#'   numbers shown. The default reproduces the previous fixed behavior.
 #' @param originaltheme Use the ggstatsplot theme instead of the jamovi theme.
 #' @param palette Palette for the bar segments: an RColorBrewer palette, or
 #'   gdoc, the ggstatsplot default.

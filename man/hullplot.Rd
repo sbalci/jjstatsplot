@@ -107,22 +107,22 @@ and usage guidelines.}
 \value{
 A results object containing:
 \tabular{llllll}{
-  \code{results$notices} \tab \tab \tab \tab \tab a html \cr
-  \code{results$todo} \tab \tab \tab \tab \tab a html \cr
-  \code{results$plot} \tab \tab \tab \tab \tab an image \cr
-  \code{results$statistics} \tab \tab \tab \tab \tab a html \cr
-  \code{results$outliers} \tab \tab \tab \tab \tab a html \cr
-  \code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
-  \code{results$summary} \tab \tab \tab \tab \tab a html \cr
-  \code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
+\code{results$notices} \tab \tab \tab \tab \tab a html \cr
+\code{results$todo} \tab \tab \tab \tab \tab a html \cr
+\code{results$plot} \tab \tab \tab \tab \tab an image \cr
+\code{results$statistics} \tab \tab \tab \tab \tab a html \cr
+\code{results$outliers} \tab \tab \tab \tab \tab a html \cr
+\code{results$interpretation} \tab \tab \tab \tab \tab a html \cr
+\code{results$summary} \tab \tab \tab \tab \tab a html \cr
+\code{results$assumptions} \tab \tab \tab \tab \tab a html \cr
 }
 }
 \description{
-Creates Hull plots to visualize clusters and groups in scatter plots using 
+Creates Hull plots to visualize clusters and groups in scatter plots using
 ggforce.
-Hull plots draw polygonal boundaries around data points grouped by 
+Hull plots draw polygonal boundaries around data points grouped by
 categorical variables,
-making it easy to identify customer segments, group membership, and data 
+making it easy to identify customer segments, group membership, and data
 clusters.
 Based on the geom_mark_hull() function from ggforce package.
 }

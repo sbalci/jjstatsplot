@@ -53,7 +53,7 @@ contingency analysis.}
 \item{seed}{Random seed for the statistics computed by posterior sampling
 (the Bayesian contingency test, and the Bayes factor caption of a
 frequentist test). The plot caption names the seed whenever it affected the
-numbers shown. The default reproduces the previous fixed behaviour.}
+numbers shown. The default reproduces the previous fixed behavior.}
 
 \item{originaltheme}{Use the ggstatsplot theme instead of the jamovi theme.}
 

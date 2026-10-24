@@ -119,7 +119,7 @@ options:
             Random seed for the statistics computed by posterior sampling (the Bayesian
             contingency test, and the Bayes factor caption of a frequentist test). The plot
             caption names the seed whenever it affected the numbers shown. The default
-            reproduces the previous fixed behaviour.
+            reproduces the previous fixed behavior.
 
     - name: originaltheme
       title: Add GGStatsPlot layer
