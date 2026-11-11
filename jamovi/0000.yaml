@@ -165,12 +165,9 @@ analyses:
     menuTitle: Segmented Total Bar Charts
     description: >
       Create segmented total bar charts (100 percent stacked bars) that show
-      proportional 
-
-      breakdowns within categories. Perfect for displaying composition data
-      where 
-
-      each bar represents 100 percent and segments show relative proportions.
+      proportional breakdowns within categories. Designed for displaying
+      composition data where each bar represents 100 percent and segments show
+      relative proportions.
   - title: Pie Charts
     name: jjpiestats
     ns: jjstatsplot
