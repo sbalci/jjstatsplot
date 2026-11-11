@@ -410,7 +410,7 @@ jjbarstatsBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' 
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # jjbarstats(
 #' #     data = jjbarstats_test,
 #' #     dep = "response",

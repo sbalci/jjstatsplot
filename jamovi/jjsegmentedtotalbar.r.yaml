@@ -9,6 +9,22 @@ items:
       type: Html
       visible: false
 
+    - name: warnings
+      title: 'Analysis Notices'
+      type: Html
+      visible: false
+      clearWith:
+        - x_var
+        - y_var
+        - fill_var
+        - facet_var
+        - analysis_preset
+        - exclude_missing
+        - y_is_count
+        - show_statistical_tests
+        - fisher_exact
+        - confidence_level
+
     - name: plot
       title: Segmented Total Bar Chart
       type: Image
@@ -21,6 +37,7 @@ items:
         # analysis_preset now fills in palette/style/percentage controls the user
         # has left at their defaults, so the plot must be redrawn when it changes.
         - analysis_preset
+        - show_plot
         - x_var
         - y_var
         - fill_var
@@ -33,6 +50,8 @@ items:
         - orientation
         - sort_categories
         - bar_width
+        - plot_width
+        - plot_height
         - plot_title
         - x_title
         - y_title
@@ -135,6 +154,7 @@ items:
     - name: interpretation
       title: 'Chart Interpretation'
       type: Html
+      visible: (showInterpretation)
       clearWith:
         - x_var
         - y_var
@@ -143,10 +163,12 @@ items:
         - sort_categories
         - y_is_count
         - exclude_missing
+        - showInterpretation
 
     - name: clinical_summary
       title: 'Clinical Summary'
       type: Html
+      visible: (showSummary)
       clearWith:
         - x_var
         - y_var
@@ -155,6 +177,7 @@ items:
         - sort_categories
         - y_is_count
         - exclude_missing
+        - showSummary
 
     - name: statistical_tests
       title: 'Statistical Tests'
@@ -167,6 +190,7 @@ items:
         - facet_var
         - analysis_preset
         - show_statistical_tests
+        - fisher_exact
         # the affirmation gates whether the test runs at all
         - y_is_count
         # the significance verdict is written against 1 - confidence_level, so the
@@ -187,6 +211,10 @@ items:
           title: 'p-value'
           type: number
           format: zto,pvalue
+        - name: cramers_v
+          title: "Cramer's V"
+          type: number
+          format: zto
         - name: interpretation
           title: 'Interpretation'
           type: text
@@ -197,20 +225,6 @@ items:
       visible: (analysis_preset:treatment_response || analysis_preset:demographics || analysis_preset:biomarker || analysis_preset:quality || analysis_preset:temporal)
       clearWith:
         - analysis_preset
-
-    - name: warnings
-      title: 'Warnings'
-      type: Html
-      visible: false
-      clearWith:
-        - x_var
-        - y_var
-        - fill_var
-        - facet_var
-        - analysis_preset
-        - exclude_missing
-        - y_is_count
-        - show_statistical_tests
 
     - name: explanations
       title: 'Explanations'

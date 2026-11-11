@@ -136,7 +136,7 @@ analysis. Wraps ggstatsplot::ggbarstats and
 ggstatsplot::grouped_ggbarstats.
 }
 \examples{
-\dontrun{
+\donttest{
 # jjbarstats(
 #     data = jjbarstats_test,
 #     dep = "response",
